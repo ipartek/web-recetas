@@ -1,7 +1,6 @@
 package com.ipartek.formacion.recetas.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,11 +22,30 @@ public class SaludoController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		PrintWriter out = response.getWriter();
+		/*
+		 * PrintWriter out = response.getWriter();
+		 * 
+		 * out.append("peticion GET: <br>"); out.append("parametros: <br>");
+		 * out.append("Nombre: " + request.getParameter("nombre") + "<br>");
+		 * out.append("Apellido1: " + request.getParameter("ape1") + "<br>");
+		 * out.append("Apellido2: " + request.getParameter("ape2") + "<br>");
+		 */
 
-		out.append("peticion GET: <br>");
-		out.append("parametros: <br>");
-		out.append("Nombre: " + request.getParameter("nombre") + "<br>");
+		// recoger parametros
+		String pNombre = request.getParameter("nombre");
+		String pApellido1 = request.getParameter("ape1");
+		String pApellido2 = request.getParameter("ape2");
+
+		// TODO validar parametros
+
+		// enviar atributos a JSP
+		request.setAttribute("nombre", pNombre.toUpperCase());
+		request.setAttribute("ape1", pApellido1);
+		request.setAttribute("ape2", pApellido2);
+
+		// request interna (forward) a la JSP, ir a la JSP
+		String vistaJSP = "ejercicios/primer-controlador.jsp";
+		request.getRequestDispatcher(vistaJSP).forward(request, response);
 
 	}
 
@@ -38,7 +56,22 @@ public class SaludoController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		// recoger parametros
+		String pNombre = request.getParameter("nombre");
+		String pApellido1 = request.getParameter("ape1");
+		String pApellido2 = request.getParameter("ape2");
+
+		// TODO validar parametros
+
+		// enviar atributos a JSP
+		request.setAttribute("nombre", pNombre.toLowerCase());
+		request.setAttribute("ape1", pApellido1);
+		request.setAttribute("ape2", pApellido2);
+
+		// request interna (forward) a la JSP, ir a la JSP
+		String vistaJSP = "ejercicios/primer-controlador.jsp";
+		request.getRequestDispatcher(vistaJSP).forward(request, response);
+
 	}
 
 }
