@@ -86,17 +86,7 @@
                <p>Vamos a enviar tres parametros para que el servlet nos retorne un saludo con nuestro nombre y apellidos</p>
                <p>Las peticiones Get se hacen mediante enlaces, links o anclas.</p>
                <p>Pulsa enlace para realizar petición GET <a href="saludo?nombre=Pepe&ape1=Gorriti&ape2=Barrenagoitiasola">/saludo?nombre=Pepe&ape1=Gorriti&ape2=Barrenagoitiasola</a>.</p></br>
-               <p>El servidor responde:</p>
-               <% 
-               		if( request.getAttribute("nombre")!= null){
-               			String nombre = (String)request.getAttribute("nombre");
-               			String apellido1 = (String)request.getAttribute("ape1");
-               			String apellido2 = (String)request.getAttribute("ape2");
-               			out.print("<p><b>" + nombre + " " + apellido1 + " " + apellido2 + "</b></p>");
-               		}
                
-               %>
-               </br></br>
                <h2>Petición Post</h2></br>
                <p>Vamos a enviar tres parametros para que el servlet nos retorne un saludo con nuestro nombre y apellidos.</p>
                <p>Las peticiones Get se hacen mediante formularios.</p>
@@ -110,13 +100,13 @@
 					<input type="submit" value="Enviar"/>
                </form>
                </br>
-               <p>El servidor responde:</p>
+               <p class="respuesta">El servidor responde:</p>
                <% 
                		if( request.getAttribute("nombre")!= null){
                			String nombrepost = (String)request.getAttribute("nombre");
                			String apellido1post = (String)request.getAttribute("ape1");
                			String apellido2post = (String)request.getAttribute("ape2");
-               			out.print("<p><b>" + nombrepost + " " + apellido1post + " " + apellido2post + "</b></p>");
+               			out.print("<p class='respuesta'><b>" + nombrepost + " " + apellido1post + " " + apellido2post + "</b></p>");
                		}
                
                %>
