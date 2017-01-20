@@ -4,3 +4,8 @@
 	width: 256px;
 	height: 256px;
 }
+
+#about ul a{
+	color #FFF;
+	font-size: 1.5em;
+}
