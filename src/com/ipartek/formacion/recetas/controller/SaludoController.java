@@ -1,7 +1,6 @@
 package com.ipartek.formacion.recetas.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,11 +22,23 @@ public class SaludoController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		PrintWriter out = response.getWriter();
+		/*
+		 * PrintWriter out = response.getWriter(); out.append(
+		 * "peticion GET: <br>"); out.append("parametros: <br>"); out.append(
+		 * "Nombre: " + request.getParameter("nombre") + "<br>");
+		 */
 
-		out.append("peticion GET: <br>");
-		out.append("parametros: <br>");
-		out.append("Nombre: " + request.getParameter("nombre") + "<br>");
+		// recoger paramteros
+		String pNombre = request.getParameter("nombre");
+
+		// TODO validar parametros
+
+		// enviar atributos a JSP
+		request.setAttribute("[GET]nombre", pNombre.toUpperCase());
+
+		// request interna (forward) la JSP, ir a la JSP
+		String vistaJSP = "ejercicios/primer-controlador.jsp";
+		request.getRequestDispatcher(vistaJSP).forward(request, response);
 
 	}
 
@@ -38,7 +49,14 @@ public class SaludoController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		// recoger paramteros
+		String pNombre = request.getParameter("nombre");
+
+		// enviar atributos a JSP
+		request.setAttribute("nombre", pNombre.toLowerCase());
+
+		String vistaJSP = "ejercicios/primer-controlador.jsp";
+		request.getRequestDispatcher(vistaJSP).forward(request, response);
 	}
 
 }
