@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-
+<base href="/web-recetas/"> <!-- Con esta URL lo que hacemos es obligar a empezar a ¿escribir? la url a partir de nuestra indicación. Se puede mirar en w3school etc. CUIDADO CON LAS / (barras) !!!!!!! -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,13 +11,13 @@
     <title>Primer Ejemplo Controlador</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Theme CSS -->
-    <link href="../css/freelancer.min.css" rel="stylesheet">
+    <link href="css/freelancer.min.css" rel="stylesheet">
     
     <!-- Custom -->
-    <link href="../css/custom.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -51,10 +51,48 @@
             		<p>Mapping del <b>Servlet: </b><u>Saludo</u></p>
             		<p>Las peticiones <b>GET</b> se hacen mediante enlaces, links o anclas.</p>
             		<p>Pulsa en el enlace para realizar la petición de tipo <b>GET</b>.</p>
-            		<a href="#">/saludo?nombre=Pepe&ape1=Gorriti&ape2=Barrenagotiasola</a>
-            		<p class="anotaciones"><b>ANOTACIONES:</b><br>La <b>?</b> es para añadir una key en la URL. Los parámetros que se le pasan van seguidos de ello. Por ejemplo, en el enlace anterior, un parámetro es nombre y a continuación, se muestra el valor del mismo. Para concatenar parámetros hay que usar los & y seguir exactamente la misma estructura.</p>
+            		<a href="saludo?nombre=Pepe&Ape1=Gorriti&Ape2=Barrenagotiasola">/saludo?nombre=Pepe&ape1=Gorriti&ape2=Barrenagotiasola</a>
+            		<p class="anotaciones"><b>ANOTACIONES:</b><br>
+            		La <b>?</b> es para añadir una key en la URL. Los parámetros que se le pasan van seguidos de ello. Por ejemplo, en el enlace anterior, un parámetro es nombre y a continuación, se muestra el valor del mismo. Para concatenar parámetros hay que usar los & y seguir exactamente la misma estructura.</b><br><br>
+            		Hay que tener cuidado con las rutas y vigilarla antes. Mirar como el <code> a href="../saludo"</code> se transforma en <code>url/saludo</code><br><br>
+            		Mirar los comentarios del controller <b>SaludoController.java</b>, ubicado en <b>web-recetas</b> dentro del <b>package </b><code>com.ipartek.formacion.recetas.controller</code><br><br>
+            		Si ponemos en la URL en el <code>a href="../saludo?nombre=Pepe"</code> y hemos puesto en el controlador parámetros (mirar en <b>SaludoController.java</b> el código <code>PrintWriter out = response.getWriter();</code> para comprender que está pasando). <br><br>
+            		El ejercicio se ha actualizado también para incluir los apellidos, pero sigue la misma estructura de lo explicado en las anteriores <b>Anotaciones</b> de este bloque.<br><br>
+            		Importante mirar siempre la URL de abajo a la izda (en el navegador) para ver si la URL es correcta o no etc.<br>
+            		Se quitan los <code>../</code> para que lo de abajo funcione.
+            		</p>
+            		
+            		<h2>Respuesta GET</h2>
+            		<%
+            		if (request.getAttribute("nombre")!=null){
+            			String nombre = (String) request.getAttribute("nombre");
+            			out.print("Nombre: "+nombre);
+            		}
+            		%>
+            		
+            		<p class="anotaciones"><b>ANOTACIONES</b><br>
+            		El código java oculto en la respuesta es este: 
+            		<code>if (request.getAttribute("nombre")!=null){
+            			String nombre = (String) request.getAttribute("nombre");
+            			out.print("Nombre: "+nombre);
+            		}</code><br><br> 
+            		Para entenderlo hay que mirar el código en <b>SaludoController.java</b>. <b><u>SIEMPRE HAY QUE CASTEAR LOS </u></b>request.GetAttribute("atributo");
+            		</p>
             		
             </div>
+            <h2>ENVIO POST</h2>
+            
+            <form action="saludo" method="post"> <!-- El action es la llamada al Mapping (controlador) que hemos creado antes. Especificamos que el método por el que lo enviaremos es post. -->
+            <input type="text" name="nombre2" placeholder="Escribe tu nombre"> <!-- Para mapear es importante el name -->
+            <input type="submit" value="Enviar">
+            </form>
+             <h2 id="respuesta">RESPUESTA POST</h2>
+            <%
+            		if (request.getAttribute("nombre2")!=null){
+            			String nombre = (String) request.getAttribute("nombre2");
+            			out.print("Nombre: "+nombre);
+            		}
+            		%>
             <br><br>
 <a href="../index.jsp#ejercicios">Volver</a>
     	</div>
