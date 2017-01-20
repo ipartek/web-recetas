@@ -1,6 +1,59 @@
 /* Nuestro CSS para no tener que cambiar los otros */
 
+body {
+	background-color: #e6ffcc;
+}
+
 .logo-home{
 	width: 256px;
 	height: 256px;
 }
+#about ul a{
+	color:#fff;
+	font-size:1.5em;
+}
+
+h1{
+	padding-left:50px;
+	line-height: 1.8;
+}
+
+h2, h3, h4, h5, h6 {
+	line-height: 1.8;
+}
+
+p {
+	color:#333;
+	font-size: 17px;
+	line-height:1.3 !important;
+}
+#controllers b {
+	color: #990099;
+	
+}
+
+#controllers p {
+	line-height:0.7;
+}
+
+p.anotaciones{
+	font-size: 16px;
+	background-color: #e6ccff;
+	border: dotted 3px #ffcccc;
+	padding: 6px;
+	margin: 20px;
+	
+	
+}
+#controllers a{
+	color:#cc00ff;
+	font-size: 17px;
+}
+
+/* 
+codigo sacado mediante google.
+a, a.active, a:active, a:focus, a:hover{
+	color:#000;
+	
+}
+*/
