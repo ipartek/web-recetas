@@ -4,3 +4,17 @@
 	width: 256px;
 	height: 256px;
 }
+
+#about ul li a{
+	color:white;
+	font-size:20px;
+	text-decoration:none;
+}
+
+#portfolio .row h2{
+	font-size:28px;
+}
+
+#portfolio .row h1{
+	text-align:center;
+}
