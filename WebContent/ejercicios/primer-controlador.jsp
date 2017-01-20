@@ -48,7 +48,7 @@
                	<h2>Petición GET</h2>
                	<p>Vamos a enviar tres parametros para que el Servlet nos retorne un saludo con nuestro nombre y apellidos.</p>
                	<p>Las peticiones GET se hacen mediante enlaces,links o anclas.</p>
-               	<p>pulsa enlace para realizar petición GET <a href="#">/saludo?nombre=Pepe&ape1=Gorriti&ape2=BarrenagotiaSola</a></p>                	
+               	<p>pulsa enlace para realizar petición GET <a href="../saludo?nombre=Pepe">/saludo?nombre=Pepe&ape1=Gorriti&ape2=BarrenagotiaSola</a></p>                	
             </div>
     	</div>
     </section>	       
