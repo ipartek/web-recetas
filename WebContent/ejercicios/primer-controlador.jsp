@@ -39,7 +39,16 @@
     	<h1>Mi Primer Controlador</h1>
         <div class="container">
             <div class="row">
-                	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque maximus tortor vel efficitur. Vivamus gravida lacus nulla, in volutpat dolor commodo non. Morbi vitae scelerisque nulla. Vestibulum a tristique dolor, vel rutrum sapien. Interdum et malesuada fames ac ante ipsum primis in faucibus. Mauris eu metus nec arcu rhoncus ullamcorper vel eget ligula. Cras at cursus elit. Cras iaculis pharetra felis.</p>
+               	<p>Los <b>Controladores</b> en Java son <b>Servlets</b>.</p>
+               	<p>Un controlador se encarga de recibir <b>Request</b> del cliente y darle una<b>Response</b>.</p>
+               	<p>Puede recibir y retornar parametros.</p>
+               	<p>Puede aceptar peticiones de tipo <b>GET</b> o <b>POST</b>.</p>
+               	
+               	<p>Mapping del Servlet:<b>/saludo</b></p>
+               	<h2>Petición GET</h2>
+               	<p>Vamos a enviar tres parametros para que el Servlet nos retorne un saludo con nuestro nombre y apellidos.</p>
+               	<p>Las peticiones GET se hacen mediante enlaces,links o anclas.</p>
+               	<p>pulsa enlace para realizar petición GET <a href="#">/saludo?nombre=Pepe&ape1=Gorriti&ape2=BarrenagotiaSola</a></p>                	
             </div>
     	</div>
     </section>	       
