@@ -84,6 +84,8 @@
             
             <form action="saludo" method="post"> <!-- El action es la llamada al Mapping (controlador) que hemos creado antes. Especificamos que el método por el que lo enviaremos es post. -->
             <input type="text" name="nombre2" placeholder="Escribe tu nombre"> <!-- Para mapear es importante el name -->
+             <input type="text" name="apel1" placeholder="Escribe tu primer apellido">
+              <input type="text" name="apel2" placeholder="Escribe tu segundo apellido">
             <input type="submit" value="Enviar">
             </form>
              <h2 id="respuesta">RESPUESTA POST</h2>
