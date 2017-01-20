@@ -2,25 +2,28 @@
 <html lang="es">
 <head>
 
+	<base href="/web-recetas/">
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    
 
     <title>Primer Ejemplo Controlador</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Theme CSS -->
-    <link href="../css/freelancer.min.css" rel="stylesheet">
+    <link href="css/freelancer.min.css" rel="stylesheet">
     
     <!-- Custom -->
-    <link href="../css/custom.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 
@@ -49,27 +52,65 @@
                 	<h2>Petición GET</h2>
                 	<p>Vamos a enviar tres parametro para que el Servlet nos retorne un saludo con nuestro nombre t apellidos. </p>
                 	<p>Las peticiones GET se hacen mediante enlaces,links o ancles.</p>
-                	<p>Pulsa enlace para realizar peticion GET <a href="#">/saludo?nombre=Pepe&ape1=Gorriti&ape2=BarrenagoitiaSola</a></p>
+                	<p>Pulsa enlace para realizar peticion GET <a href="saludo?nombre=Pepe&ape1=Gorriti&ape2=BarrenagoitiaSola">/saludo?nombre=Pepe&ape1=Gorriti&ape2=BarrenagoitiaSola</a></p>
                 	
+                	<h2>Petición POST</h2>
+                	<form action="saludo" method="post">
+                		
+                		<input type="text" name="nombre" placeholder="Escribe tu nombre"><br><br>
+                		<input type="text" name="ape1" placeholder="Escribe tu 1º apellido"><br><br>
+                		<input type="text" name="ape2" placeholder="Escribe tu 2º apellido"><br><br>
+                		
+                		<input type="submit" value= "Enviar">
+                	</form>
             </div>
     	</div>
     </section>	       
-                
+    
+    <h2>Respuesta:</h2>
+    <%
+    	if (request.getAttribute("nombre") != null){
+    		String nombre = (String)request.getAttribute("nombre");
+    		out.print(" Nombre: " + nombre);
+    	} 
+    %>
+    <br>
+    <%
+    	
+    if (request.getAttribute("ape1") != null){
+		String ape1 = (String)request.getAttribute("ape1");
+		out.print(" Primer apellido: " + ape1);
+	} 
+	%>
+	<br>
+	<% 
+    
+    if (request.getAttribute("ape2") != null){
+		String ape2 = (String)request.getAttribute("ape2");
+		out.print(" Segundo apellido: " + ape2);
+	}
+    
+    
+    
+    
+   %>
+    
+    
     <!-- jQuery -->
-    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/jquery/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- Plugin JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 
     <!-- Contact Form JavaScript -->
-    <script src="../js/jqBootstrapValidation.js"></script>
-    <script src="../js/contact_me.js"></script>
+    <script src="js/jqBootstrapValidation.js"></script>
+    <script src="js/contact_me.js"></script>
 
     <!-- Theme JavaScript -->
-    <script src="../js/freelancer.min.js"></script>
+    <script src="js/freelancer.min.js"></script>
 
 </body>
 
