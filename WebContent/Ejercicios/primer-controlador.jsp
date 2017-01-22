@@ -68,15 +68,15 @@
 						href="saludo?nombre=Pepe&ape1=Gorriti&ape2=BarrenagotiaSola">/saludo?nombre=Pepe&ape1=Gorriti&ape2=BarrenagotiaSola</a>
 				</p>
 
-				<h2>Petición GET</h2>
+				<h2>Petición Post</h2>
 				<form action="saludo" method="post">
 
 					<input type="text" name="nombre"
 						placeholder="Recordar que para mapear este campo es importante atributo name">
 
-					<input type="text" name="ape1" placeholder="Apellido 1"> <input
-						type="text" name="ape2" placeholder="Apellido 2"> <input
-						type="submit" value="Enviar">
+					<input type="text" name="ape1" placeholder="Apellido 1"> 
+					<input type="text" name="ape2" placeholder="Apellido 2"> 
+					<input type="submit" value="Enviar">
 
 				</form>
 			</div>
@@ -85,18 +85,18 @@
 	</section>
 	<h2>Respuesta</h2>
 	<%
-    if (request.getAttribute("ape1") != null){
-    	String nombre =(String)request.getAttribute("ape1");
-    	out.print("nombre: "+nombre);  
+    if (request.getAttribute("nombre") != null){
+    	String nombre =(String)request.getAttribute("nombre");
+    	out.print("nombre: "+nombre+" ");  
     }
-	if (request.getAttribute("ape1") != null){
+	 if (request.getAttribute("ape1") != null){
     	String ape1 =(String)request.getAttribute("ape1");
     	out.print("Apellidos: "+ape1+" ");
     	}
 	if (request.getAttribute("ape2") != null){
     	String ape2  =(String)request.getAttribute("ape2");
     	out.print(ape2);
-    	}
+    	} 
     %>
 
 	<!-- jQuery -->

@@ -32,12 +32,16 @@ public class SaludoController extends HttpServlet {
 
 		// recoger parametros
 		String pNombre = request.getParameter("nombre");
+		String pApe1 = request.getParameter("ape1");
+		String pApe2 = request.getParameter("ape2");
 
 		// TODO validar parametros
 
 		// Enviar atributos a JSP
 
-		request.setAttribute("[Get]nombre", pNombre.toUpperCase());
+		request.setAttribute("nombre", pNombre.toUpperCase());
+		request.setAttribute("ape1", pApe1.toUpperCase());
+		request.setAttribute("ape2", pApe2.toUpperCase());
 
 		// Request interna a la jsp(forward) ,ir a la jsp
 		String vistaJSP = "Ejercicios/primer-controlador.jsp";
@@ -55,12 +59,16 @@ public class SaludoController extends HttpServlet {
 
 		// recoger parametros
 		String pNombre = request.getParameter("nombre");
+		String pApe1 = request.getParameter("ape1");
+		String pApe2 = request.getParameter("ape2");
 
 		// TODO validar parametros
 
 		// Enviar atributos a JSP
 
-		request.setAttribute("nombre", pNombre.toLowerCase());
+		request.setAttribute("nombre", pNombre.toUpperCase());
+		request.setAttribute("ape1", pApe1.toUpperCase());
+		request.setAttribute("ape2", pApe2.toUpperCase());
 		String vistaJSP = "Ejercicios/primer-controlador.jsp";
 		request.getRequestDispatcher(vistaJSP).forward(request, response);
 	}
