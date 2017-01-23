@@ -2,6 +2,8 @@ package com.ipartek.formacion.recetas.ejercicios.herencia;
 
 import java.util.ArrayList;
 
+import com.ipartek.formacion.recetas.pojo.VehiculoException;
+
 /**
  * Listar todos los Vehiculos del concesionario
  * 
@@ -10,7 +12,7 @@ import java.util.ArrayList;
  */
 public class EjercicioConcesionario {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws VehiculoException {
 
 		Vehiculo v1 = new Vehiculo("Prius");
 		Vehiculo v2 = new Vehiculo("Ibiza");
