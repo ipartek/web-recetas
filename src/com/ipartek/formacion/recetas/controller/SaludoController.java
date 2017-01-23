@@ -25,25 +25,30 @@ public class SaludoController extends HttpServlet {
 		out.append("Hola, Bienvenido " + request.getParameter("nombre") + " " + request.getParameter("ape1") + " " + request.getParameter("ape2"));
 		*/
 		
-		//recoger parametros
+		try{
+			//recoger parametros
 		
-		String nombre = request.getParameter("nombre");
-		String apellido1 = request.getParameter("ape1");
-		String apellido2 = request.getParameter("ape2");
+			String nombre = request.getParameter("nombre");
+			String apellido1 = request.getParameter("ape1");
+			String apellido2 = request.getParameter("ape2");
 		
-		//TODO validar parametros
+			//TODO validar parametros
 		
-		//enviar atributos a JSP
-		request.setAttribute("nombre", nombre);
-		request.setAttribute("ape1", apellido1);
-		request.setAttribute("ape2", apellido2);
+			//enviar atributos a JSP
+			request.setAttribute("nombre", nombre);
+			request.setAttribute("ape1", apellido1);
+			request.setAttribute("ape2", apellido2);
 		
+		}catch(Exception e){
+			request.setAttribute("error","Se produjo un error lo sentimos");
+			e.printStackTrace();
+			
+		}finally{
+			//request interna (forward) a la JSP / ir a la JSP
 		
-		//request interna (forward) a la JSP / ir a la JSP
-		
-		String vistaJSP = "ejercicios/primer-controlador.jsp";
-		request.getRequestDispatcher(vistaJSP).forward(request, response);
-		
+			String vistaJSP = "ejercicios/primer-controlador.jsp";
+			request.getRequestDispatcher(vistaJSP).forward(request, response);
+		}
 	}
 
 	/**

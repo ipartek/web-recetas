@@ -8,6 +8,14 @@ public class Vehiculo implements Conducible, InterfazEstupida {
 	private int plazas;
 	private float dimensiones;
 	private float potencia;
+	
+
+	public Vehiculo(String modelo, int plazas, float potencia) {
+		super();
+		this.modelo = modelo;
+		this.plazas = plazas;
+		this.potencia = potencia;
+	}
 
 	public Vehiculo() {
 		super();
@@ -26,7 +34,10 @@ public class Vehiculo implements Conducible, InterfazEstupida {
 		return modelo;
 	}
 
-	public void setModelo(String modelo) {
+	public void setModelo(String modelo) throws VehiculoException {
+		if(("").equals(modelo)){
+			throw new VehiculoException( VehiculoException.MSG_ERROR_MODELO);
+		}
 		this.modelo = modelo;
 	}
 
@@ -34,8 +45,12 @@ public class Vehiculo implements Conducible, InterfazEstupida {
 		return plazas;
 	}
 
-	public void setPlazas(int plazas) {
-		this.plazas = plazas;
+	public void setPlazas(int plazas) throws VehiculoException {
+		if(plazas <0){
+			throw new VehiculoException( VehiculoException.MSG_ERROR_PLAZAS);
+		}else{	
+			this.plazas = plazas;
+		}
 	}
 
 	public float getDimensiones() {
@@ -56,8 +71,7 @@ public class Vehiculo implements Conducible, InterfazEstupida {
 
 	@Override
 	public String toString() {
-		return "Vehiculo [modelo=" + modelo + ", plazas=" + plazas + ", dimensiones=" + dimensiones + ", potencia="
-				+ potencia + "]";
+		return modelo + " , " + plazas + " plazas , " + potencia + " CV de potencia.";
 	}
 
 	@Override

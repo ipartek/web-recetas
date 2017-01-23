@@ -1,8 +1,6 @@
 <!DOCTYPE html>
-<%@page import="com.ipartek.formacion.recetas.pojo.Receta"%>
-<%@page import="java.util.ArrayList"%>
+<%@page import="com.ipartek.formacion.recetas.ejercicios.herencia.Vehiculo"%>
 <html lang="es">
-
 <head>
 	
 	<base href="/web-recetas/">
@@ -13,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     
-    <title>Primer Ejemplo Controlador</title>
+    <title>Segundo Ejemplo Controlador</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -37,7 +35,6 @@
     <![endif]-->
 
 </head>
-
 <body id="page-top" class="index">
 
     <!-- Navigation -->
@@ -74,53 +71,43 @@
     <section id="portfolio">
         <div class="container">
             <div class="row"></br></br>
-            <h1>Primer Ejemplo Controlador</h1></br>
+            <h1>Segundo Ejemplo Controlador</h1></br>
             
             <%
 				if(request.getAttribute("error")!=null){
             %>
-            <div class="alert alert-danger alert-dismissible" role="alert">
+			<div class="alert alert-danger alert-dismissible" role="alert">
   				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   				<strong><%=request.getAttribute("error")%> Error! </strong> 
 			</div>
             <%
-				}
+				}else{
             %>
-               <p>Los <b>Controladores</b> en Java son <b>Servlets.</b></p>
-               <p>Un controlador se encarga de recibir <b>Request</b> del cliente y <b>Reponse</b>.</p>
-               <p>Puede recibir y retornar parametros</p>
-               <p>Puede aceptar peticiones de tipo <b>GET o POST</b>.</p>
-               
-               <p>Mapping del servlet:<b>SaludoController</b></p></br></br>
-               
-               <h2>Petición Get</h2></br>
-               <p>Vamos a enviar tres parametros para que el servlet nos retorne un saludo con nuestro nombre y apellidos</p>
-               <p>Las peticiones Get se hacen mediante enlaces, links o anclas.</p>
-               <p>Pulsa enlace para realizar petición GET <a href="saludo?nombre=Pepe&ape1=Gorriti&ape2=Barrenagoitiasola">/saludo?nombre=Pepe&ape1=Gorriti&ape2=Barrenagoitiasola</a>.</p></br>
-               
-               <h2>Petición Post</h2></br>
-               <p>Vamos a enviar tres parametros para que el servlet nos retorne un saludo con nuestro nombre y apellidos.</p>
-               <p>Las peticiones Post se hacen mediante formularios.</p>
-               <form action="saludo" method="post">
-               		<label>Nombre: </label></br>
-					<input type="text" name="nombre" placeholder="Nombre" /></br></br>
-					<label>Primer Apellido:</label></br>
-					<input type="text" name="ape1" placeholder="Primer Apellido" /></br></br>
-					<label>Segundo Apellido</label></br>
-					<input type="text" name="ape2" placeholder="Segundo Apellido" /></br></br>
+            <div class="alert alert-success alert-dismissible" role="alert">
+  				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  				<strong>Coche añadido correctamente.</strong></br></br>
+  				<%
+            		if( request.getAttribute("vehiculo") != null){
+            			Vehiculo V = (Vehiculo)request.getAttribute("vehiculo");
+            			out.print(V);
+            		}
+            	%>
+			</div>
+			<% 
+				}
+            
+			%>
+            
+               <h2>Creador de Coches</h2></br>
+               <form action="crear-vehiculo" method="post">
+               		<label>Modelo: </label></br>
+					<input type="text" name="modelo" placeholder="Modelo" /></br></br>
+					<label>Potencia:</label></br>
+					<input type="text" name="potencia" placeholder="Potencia" /></br></br>
+					<label>Plazas: </label></br>
+					<input type="text" name="plazas" placeholder="Nº Plazas" /></br></br>
 					<input type="submit" value="Enviar"/>
-               </form>
-               </br>
-               <p class="respuesta">El servidor responde:</p>
-               <% 
-               		if( request.getAttribute("nombre")!= null){
-               			String nombrepost = (String)request.getAttribute("nombre");
-               			String apellido1post = (String)request.getAttribute("ape1");
-               			String apellido2post = (String)request.getAttribute("ape2");
-               			out.print("<p class='respuesta'><b>" + nombrepost + " " + apellido1post + " " + apellido2post + "</b></p>");
-               		}
-               
-               %>
+               </form> 
             </div>
         </div>
     </section>
