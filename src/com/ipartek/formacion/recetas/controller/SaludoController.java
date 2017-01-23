@@ -31,21 +31,26 @@ public class SaludoController extends HttpServlet {
 		 * out.append("Apellido2: " + request.getParameter("ape2") + "<br>");
 		 */
 
-		// recoger parametros
-		String pNombre = request.getParameter("nombre");
-		String pApellido1 = request.getParameter("ape1");
-		String pApellido2 = request.getParameter("ape2");
+		try {
+			// recoger parametros
+			String pNombre = request.getParameter("nombre");
+			String pApellido1 = request.getParameter("ape1");
+			String pApellido2 = request.getParameter("ape2");
 
-		// TODO validar parametros
+			// TODO validar parametros
 
-		// enviar atributos a JSP
-		request.setAttribute("nombre", pNombre.toUpperCase());
-		request.setAttribute("ape1", pApellido1);
-		request.setAttribute("ape2", pApellido2);
-
-		// request interna (forward) a la JSP, ir a la JSP
-		String vistaJSP = "ejercicios/primer-controlador.jsp";
-		request.getRequestDispatcher(vistaJSP).forward(request, response);
+			// enviar atributos a JSP
+			request.setAttribute("nombre", pNombre.toUpperCase());
+			request.setAttribute("ape1", pApellido1.toUpperCase());
+			request.setAttribute("ape2", pApellido2.toUpperCase());
+		} catch (Exception e) {
+			request.setAttribute("error", "Se produjo un error lo sentimos");
+			e.printStackTrace();
+		} finally {
+			// request interna (forward) a la JSP, ir a la JSP
+			String vistaJSP = "ejercicios/primer-controlador.jsp";
+			request.getRequestDispatcher(vistaJSP).forward(request, response);
+		}
 
 	}
 
@@ -56,22 +61,27 @@ public class SaludoController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// recoger parametros
-		String pNombre = request.getParameter("nombre");
-		String pApellido1 = request.getParameter("ape1");
-		String pApellido2 = request.getParameter("ape2");
+		try {
+			// recoger parametros
+			String pNombre = request.getParameter("nombre");
+			String pApellido1 = request.getParameter("ape1");
+			String pApellido2 = request.getParameter("ape2");
 
-		// TODO validar parametros
+			// TODO validar parametros
 
-		// enviar atributos a JSP
-		request.setAttribute("nombre", pNombre.toLowerCase());
-		request.setAttribute("ape1", pApellido1);
-		request.setAttribute("ape2", pApellido2);
+			// enviar atributos a JSP
+			request.setAttribute("nombre", pNombre.toLowerCase());
+			request.setAttribute("ape1", pApellido1.toLowerCase());
+			request.setAttribute("ape2", pApellido2.toLowerCase());
 
-		// request interna (forward) a la JSP, ir a la JSP
-		String vistaJSP = "ejercicios/primer-controlador.jsp";
-		request.getRequestDispatcher(vistaJSP).forward(request, response);
-
+		} catch (Exception e) {
+			request.setAttribute("error", "Se produjo un error lo sentimos");
+			e.printStackTrace();
+		} finally {
+			// request interna (forward) a la JSP, ir a la JSP
+			String vistaJSP = "ejercicios/primer-controlador.jsp";
+			request.getRequestDispatcher(vistaJSP).forward(request, response);
+		}
 	}
 
 }

@@ -1,4 +1,8 @@
-<%@page import="com.ipartek.formacion.recetas.pojo.Receta"%>
+ <%@include file="../includes/header.jsp" %>
+  
+ <%@page import="com.ipartek.formacion.recetas.pojo.Receta"%>
+
+<%@include file="../includes/nav.jsp" %>
 
 <a href="index.jsp">Volver Inicio</a>
 
