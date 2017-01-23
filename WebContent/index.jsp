@@ -57,7 +57,7 @@
                     </li>
                     <li class="page-scroll">
                         <a href="#portfolio">Recetas</a>
-                    </li>
+                    </li>                    
                     <li class="page-scroll">
                         <a href="menu-del-dia.jsp">Menu del Dia</a>
                     </li>
