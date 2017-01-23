@@ -1,6 +1,13 @@
+<%@include file="../includes/header.jsp" %>
+
 <%@page import="com.ipartek.formacion.recetas.pojo.Receta"%>
 
 <a href="index.jsp">Volver Inicio</a>
+
+
+<p>Ejercicio básico para aprender como funciona una JSP.</p>
+<p>Aprendermos a juntar HTML con Java, usando scriplets <code>&lt;% %&gt;</code></p>
+<p>Tambien realizaremos <code>import</code> de la clase <code>Receta</code></p>
 
 
 <%
@@ -32,7 +39,7 @@
 
 
 
-
+<%@include file="../includes/footer.jsp" %>
 
 
 

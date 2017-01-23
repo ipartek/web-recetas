@@ -12,7 +12,7 @@
     
     
 
-    <title>Primer Ejemplo Controlador</title>
+    <title>Web Recetas</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
