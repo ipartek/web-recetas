@@ -43,6 +43,18 @@
     	<h1>Mi Primer Controlador</h1>
         <div class="container">
             <div class="row">
+            
+            	<%
+            		if (request.getAttribute("error") != null){
+            	%>
+            		<div class="alert alert-warning alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+ 					<strong><%=request.getAttribute("error") %></strong> The end is near.
+					</div>
+            	<% 		
+            		}
+            	%>
+            	
                	<p>Los <b>Controladores</b> en Java son <b>Servlets</b>.</p>
                	<p>Un controlador se encarga de recibir <b>Request</b> del cliente y darle una<b>Response</b>.</p>
                	<p>Puede recibir y retornar parametros.</p>

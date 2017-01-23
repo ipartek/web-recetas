@@ -145,7 +145,8 @@
             <div class="row">
                 
                 <ul>
-                	<li><a href="ejercicios/primer-controlador.jsp">Controlador o Servlet [GET y POST]</a></li>                	
+                	<li><a href="ejercicios/primer-controlador.jsp">Controlador o Servlet [GET y POST]</a></li>
+                	<li><a href="ejercicios/crearvehiculo.jsp">Controlar excepciones[TRY y CATCH] </a></li>              	
                 </ul>
                 
             </div>

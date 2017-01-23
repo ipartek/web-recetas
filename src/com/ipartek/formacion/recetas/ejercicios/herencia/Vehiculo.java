@@ -1,6 +1,7 @@
 package com.ipartek.formacion.recetas.ejercicios.herencia;
 
 import com.ipartek.formacion.recetas.ejercicios.collection.InterfazEstupida;
+import com.ipartek.formacion.recetas.pojo.VehiculoException;
 
 public class Vehiculo implements Conducible, InterfazEstupida {
 
@@ -26,7 +27,9 @@ public class Vehiculo implements Conducible, InterfazEstupida {
 		return modelo;
 	}
 
-	public void setModelo(String modelo) {
+	public void setModelo(String modelo) throws VehiculoException {
+		if ("".equals(modelo))
+			throw new VehiculoException(VehiculoException.MSG_ERROR_MODELO);
 		this.modelo = modelo;
 	}
 
@@ -34,8 +37,12 @@ public class Vehiculo implements Conducible, InterfazEstupida {
 		return plazas;
 	}
 
-	public void setPlazas(int plazas) {
+	public void setPlazas(int plazas) throws VehiculoException {
+		if(plazas < 0){
+			throw new VehiculoException(VehiculoException.MSG_ERROR_PLAZAS);
+		} else {
 		this.plazas = plazas;
+		}
 	}
 
 	public float getDimensiones() {
