@@ -102,20 +102,18 @@ public class SaludoController extends HttpServlet {
 		try {
 			String pNombre2 = request.getParameter("nombre2");
 
-			// TODO validar parametros
+			// validar parametros
 
 			// enviar atributos a JSP
 
 			request.setAttribute("nombre2", pNombre2.toLowerCase());
-
-			// FIN DEL POST
-
 			// primer apellido
 			String ape1 = request.getParameter("apel1");
 			request.setAttribute("apel1", ape1.toLowerCase());
 			// Segundo apellido
 			String ape2 = request.getParameter("apel2");
 			request.setAttribute("apel2", ape2.toLowerCase());
+			// FIN DEL POST
 
 		} catch (Exception e) {
 			request.setAttribute("error", "Se produjo un error, lo sentimos");
