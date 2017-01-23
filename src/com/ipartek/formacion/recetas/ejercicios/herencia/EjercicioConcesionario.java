@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class EjercicioConcesionario {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws VehiculoException {
 
 		Vehiculo v1 = new Vehiculo("Prius");
 		Vehiculo v2 = new Vehiculo("Ibiza");

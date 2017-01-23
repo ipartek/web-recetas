@@ -52,12 +52,16 @@ public class SaludoController extends HttpServlet {
 		 * **************** GET
 		 ************************************************************************************/
 		String pNombre = request.getParameter("nombre");
+		String pApe1 = request.getParameter("Ape1");
+		String pApe2 = request.getParameter("Ape2");
 
 		// TODO validar parametros
 
 		// enviar atributos a JSP
 
 		request.setAttribute("nombre", pNombre.toUpperCase());
+		request.setAttribute("Ape1", pApe1.toUpperCase());
+		request.setAttribute("Ape2", pApe2.toUpperCase());
 
 		// request interna (forward) la JSP, ir a la JSP. Forward es como se le
 		// llama a esta acción.
@@ -95,21 +99,38 @@ public class SaludoController extends HttpServlet {
 
 		// PARA POST
 
-		String pNombre2 = request.getParameter("nombre2");
+		try {
+			String pNombre2 = request.getParameter("nombre2");
 
-		// TODO validar parametros
+			// TODO validar parametros
 
-		// enviar atributos a JSP
+			// enviar atributos a JSP
 
-		request.setAttribute("nombre2", pNombre2.toLowerCase());
+			request.setAttribute("nombre2", pNombre2.toLowerCase());
 
-		// request interna (forward) la JSP, ir a la JSP. Forward es como se le
-		// llama a esta acción.
-		String vistaJSP2 = "ejercicios/primer-Controlador.jsp"; // hay que
-		// especificar
-		// la carpeta
-		request.getRequestDispatcher(vistaJSP2).forward(request, response);
-		// FIN DEL POST
+			// FIN DEL POST
+
+			// primer apellido
+			String ape1 = request.getParameter("apel1");
+			request.setAttribute("apel1", ape1.toLowerCase());
+			// Segundo apellido
+			String ape2 = request.getParameter("apel2");
+			request.setAttribute("apel2", ape2.toLowerCase());
+
+		} catch (Exception e) {
+			request.setAttribute("error", "Se produjo un error, lo sentimos");
+			e.printStackTrace();
+		} finally {
+			// donde va todo
+			// request interna (forward) la JSP, ir a la JSP. Forward es como se
+			// le
+			// llama a esta acción.
+			String vistaJSP2 = "ejercicios/primer-Controlador.jsp"; // hay que
+			// especificar
+			// la carpeta
+			request.getRequestDispatcher(vistaJSP2).forward(request, response);
+		}
+
 	}
 
 }

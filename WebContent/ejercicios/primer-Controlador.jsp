@@ -20,7 +20,7 @@
     <link href="css/custom.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 
@@ -40,6 +40,16 @@
     	<h1>Mi Primer Controlador</h1>
         <div class="container">
             <div class="row">
+            <%
+            if(request.getAttribute("error")!=null){
+            
+            %>
+            <div class="alert alert-warning alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <strong>ERROR!</strong> <%=request.getAttribute("error") %>
+</div>
+<% } %>
+            
                 	<p>Los <b>Controladores</b> en Java se llaman <b>Servlets</b></p>
                 	<p>Un controlador se encarga de recibir <b>peticiones o Requests</b> del cliente y darle una <b>Response.</b></p>
             		<p>Puede recibir y retornar par&aacute;metros.</p>
@@ -67,7 +77,11 @@
             		if (request.getAttribute("nombre")!=null){
             			String nombre = (String) request.getAttribute("nombre");
             			out.print("Nombre: "+nombre);
-            		}
+            			%>
+            			
+            			<p>Apellido 1: ${Ape1}</p>
+                		<p>Apellido 2: ${Ape2}</p>
+            		<% } // end if
             		%>
             		
             		<p class="anotaciones"><b>ANOTACIONES</b><br>
@@ -90,11 +104,24 @@
             </form>
              <h2 id="respuesta">RESPUESTA POST</h2>
             <%
-            		if (request.getAttribute("nombre2")!=null){
-            			String nombre = (String) request.getAttribute("nombre2");
-            			out.print("Nombre: "+nombre);
-            		}
-            		%>
+            		
+            if (request.getAttribute("nombre2")!=null){
+            			String nombre2 = (String) request.getAttribute("nombre2");
+            			out.print("Nombre: "+nombre2);
+            		
+           /* if (request.getAttribute("apel1")!=null){
+    			String apel1 = (String) request.getAttribute("apel1");
+    			out.print("Primer apellido: "+apel1);
+    		}
+            if (request.getAttribute("apel2")!=null){
+    			String apel2 = (String) request.getAttribute("apel2");
+    			out.print("Segundo apellido: "+apel2);
+            } */
+            %>	
+            		<p>Apellido 1: ${apel1}</p>
+            		<p>Apellido 2: ${apel2}</p>
+            		<%
+            }	 //end if nombre2 (si no se hace así habría que cerrar este if antes de los otros dos if %>
             <br><br>
 <a href="../index.jsp#ejercicios">Volver</a>
     	</div>

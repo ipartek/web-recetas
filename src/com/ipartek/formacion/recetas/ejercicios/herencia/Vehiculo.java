@@ -4,6 +4,7 @@ import com.ipartek.formacion.recetas.ejercicios.collection.InterfazEstupida;
 
 public class Vehiculo implements Conducible, InterfazEstupida {
 
+	private static final long serialVersionUID = 1L;
 	private String modelo;
 	private int plazas;
 	private float dimensiones;
@@ -34,8 +35,13 @@ public class Vehiculo implements Conducible, InterfazEstupida {
 		return plazas;
 	}
 
-	public void setPlazas(int plazas) {
-		this.plazas = plazas;
+	public void setPlazas(int plazas) throws VehiculoException {
+		if (plazas < 0) {
+			throw new VehiculoException(VehiculoException.MSG_ERROR_PLAZAS);
+		} else {
+			this.plazas = plazas;
+		}
+
 	}
 
 	public float getDimensiones() {
