@@ -1,18 +1,38 @@
 /* Nuestro CSS para no tener que cambiar los otros */
-
-.logo-home{
+.logo-home {
 	width: 256px;
 	height: 256px;
 }
-#about ul a{
-	color:#fff;
-	font-size:1.5em;
+
+.anchuraDivIndex {
+	width: 50%;
 }
-#mi-primer-controlador div {
-	
-	padding: 10px;
+
+-->
+
+
+section {
+	margin-top: 0px;
+	padding-top: 0px;
 }
-#mi-primer-controlador p{
-	
-	padding: 10px;
+
+section article {
+	margin-top: 50px;
+}
+
+body {
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+div#imagenGetPost {
+	width: 40%;
+	height: 40%;
+	float: right;
+}
+
+#impresionDatos {
+	float: right;
+	width: 40%;
+	height: 40%;
 }

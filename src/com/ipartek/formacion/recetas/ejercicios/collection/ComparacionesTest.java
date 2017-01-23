@@ -10,9 +10,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.ipartek.formacion.recetas.ejercicios.herencia.Pajaro;
-import com.ipartek.formacion.recetas.ejercicios.herencia.Vehiculo;
 import com.ipartek.formacion.recetas.pojo.Receta;
 import com.ipartek.formacion.recetas.pojo.comparator.ComparatorRecetaNivelDificultad;
+import com.ipartek.formacion.vehiculo.pojo.Vehiculo;
 
 public class ComparacionesTest {
 

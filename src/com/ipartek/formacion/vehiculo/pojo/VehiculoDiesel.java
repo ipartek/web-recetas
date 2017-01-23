@@ -1,4 +1,4 @@
-package com.ipartek.formacion.recetas.ejercicios.herencia;
+package com.ipartek.formacion.vehiculo.pojo;
 
 public class VehiculoDiesel extends Vehiculo {
 
