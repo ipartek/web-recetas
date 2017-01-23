@@ -34,6 +34,45 @@
 </head>
 
 <body id="" class="index">
+<!--  Navigation -->
+    
+    
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="#page-top">Web Recetas</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#portfolio">Recetas</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="menu-del-dia.jsp">Menu del Dia</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#ejercicios">Ejercicios</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    <!--  end nav -->
+    
     
     <section id="controllers">
     <h1>Primer ejercicio</h1>
@@ -123,11 +162,11 @@
             		<%
             }	 //end if nombre2 (si no se hace así habría que cerrar este if antes de los otros dos if %>
             <br><br>
-<a href="../index.jsp#ejercicios">Volver</a>
+
     	</div>
     </section>	       
 
-
+<div id="controlling"><a href="../index.jsp#ejercicios">Volver</a></div>
 
 
 <!-- jQuery -->
@@ -147,5 +186,9 @@
     <script src="../js/freelancer.min.js"></script>
 
 </body>
+<footer>
+
+
+</footer>
 
 </html>

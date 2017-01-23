@@ -8,7 +8,7 @@ body {
 	width: 256px;
 	height: 256px;
 }
-#about ul a{
+#ejercicios ul a{
 	color:#fff;
 	font-size:1.5em;
 }
@@ -45,9 +45,10 @@ p.anotaciones{
 	
 	
 }
-#controllers a{
+#controlling a{
 	color:#cc00ff;
 	font-size: 17px;
+	padding-left:30px;
 }
 
 /* 

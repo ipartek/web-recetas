@@ -1,5 +1,5 @@
 <%@page import="com.ipartek.formacion.recetas.pojo.Receta"%>
-
+<%@include file="../includes/header.jsp" %>
 <a href="index.jsp">Volver Inicio</a>
 
 
@@ -30,7 +30,7 @@
 
 
 
-
+<%@include file="../includes/footer.jsp" %>
 
 
 
