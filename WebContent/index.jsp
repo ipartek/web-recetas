@@ -67,6 +67,7 @@
                 	<li><a href="ejercicios/primer-controlador.jsp">Controlador o Servlet [GET y POST]</a></li>                	
                 	<li><a href="ejercicios/ejercicio-calculadora.jsp">Calculadora</a></li>                	
                 	<li><a href="ejercicios/crear-vehiculo.jsp">Crear Vehiculo y Excepciones Personalizadas</a></li>                	
+                	<li><a href="vehiculo">CRUD de Vehiculos</a></li>                	
                 </ul>
                 
             </div>
