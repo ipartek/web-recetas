@@ -118,7 +118,7 @@
                 <li><a href="ejercicios/primer-Controlador.jsp">Controlador o Servlet [GET Y POST]</a></li>
                 <li><a href="ejercicios/calculadora.jsp">CALCULADORA (sin hacer)</a></li>
                 <li><a href="ejercicios/Crear-Vehiculo.jsp">Crear un vehículo nuevo</a></li>
-                
+                <li><a href="ejercicios/vehiculo">Ejercicio CRUD básico de vehículos (CRUD=Create,Rend,Update,Delete)</a></li>
                 </ul>
             </div>
         </div>
