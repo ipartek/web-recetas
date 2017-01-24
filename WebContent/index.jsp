@@ -145,6 +145,8 @@
             <div class="row">
                <ul>
                	<li><a href="ejercicios/primer-controlador.jsp">Controlador o Servlet [GET y POST]</a></li>
+               	<li><a href="ejercicios/crear-vehiculo.jsp">Crear Vehiculo</a></li>
+               	<li><a href="ejercicios/vehiculo">CRUD de Vehiculos</a></li>
                	
                </ul>
             </div>
