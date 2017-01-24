@@ -3,7 +3,7 @@ package com.ipartek.formacion.vehiculo.pojo;
 /**
  * Gestion de mensajes para el usuario<br>
  * basado en bootstrap 3.
- *
+ * 
  * @author Curso
  * @see :http://getbootstrap.com/components/#alerts
  */

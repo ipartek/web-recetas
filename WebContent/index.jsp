@@ -152,6 +152,8 @@
 				
 					<li class="list-group-item"><a href="ejercicios/crear-vehiculo.jsp"
 						class="custom-link">Crear Vehiculo</a></li>
+						<li class="list-group-item"><a href="vehiculo"
+						class="custom-link">CRUD(CreateReadUpdateDelete) de vehiculos</a></li>
 				
 			</div>
 		</div>

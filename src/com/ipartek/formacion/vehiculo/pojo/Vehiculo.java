@@ -9,6 +9,7 @@ public class Vehiculo implements Conducible, InterfazEstupida {
 	private int plazas;
 	private float dimensiones;
 	private float potencia;
+	private long id;
 
 	public Vehiculo() {
 		super();
@@ -16,11 +17,26 @@ public class Vehiculo implements Conducible, InterfazEstupida {
 		this.plazas = 1;
 		this.dimensiones = 0;
 		this.potencia = 100;
+		this.id = -1;
 	}
 
 	public Vehiculo(String modelo) {
 		this();
 		this.modelo = modelo;
+	}
+
+	public Vehiculo(String modelo, long id) {
+		super();
+		this.modelo = modelo;
+		this.id = id;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public String getModelo() {
@@ -54,7 +70,7 @@ public class Vehiculo implements Conducible, InterfazEstupida {
 	@Override
 	public String toString() {
 		return "Vehiculo [modelo=" + modelo + ", plazas=" + plazas + ", dimensiones=" + dimensiones + ", potencia="
-				+ potencia + "]";
+				+ potencia + ", id=" + id + "]";
 	}
 
 	@Override

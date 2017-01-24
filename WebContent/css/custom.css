@@ -25,7 +25,7 @@ body {
 	margin-right: 20px;
 }
 
-div#imagenGetPost {
+div #imagenGetPost {
 	width: 40%;
 	height: 40%;
 	float: right;
@@ -38,5 +38,18 @@ div#imagenGetPost {
 }
 
 .custom-link{
-	color:#fff;
+	color:#400040;
 }
+anchuraDivFormulario {
+ 	width: 50%;
+ }
+ 
+#imagenVehiculo {
+ 	width: 80%;
+ 	
+ margin: 0 auto;
+ 	margin-top: -10%;
+ }
+ #about{
+ background-color:#ce9a23}
+ 
