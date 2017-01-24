@@ -14,9 +14,6 @@
             //Tambien validamos en el front-end con HTML5 required, pattern.
             %>
             
-            
-           
-
                 	<h2>Formulario Crear Coche</h2>
                 	<form action="crear-vehiculo" method="post">
                 		
