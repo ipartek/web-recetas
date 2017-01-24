@@ -29,22 +29,29 @@ public class SaludoController extends HttpServlet {
 		 * request.getParameter("ape1") + " " + request.getParameter("ape2"));
 		 */
 
-		// Recoger parametros.
-		String pNombre = request.getParameter("nombre");
-		String aApellido = request.getParameter("ape1");
-		String a2Apellido = request.getParameter("ape2");
+		try {
 
-		// TODO validar parametros.
+			// Recoger parametros.
+			String pNombre = request.getParameter("nombre");
+			String aApellido = request.getParameter("ape1");
+			String a2Apellido = request.getParameter("ape2");
 
-		// Enviar atributos a JSP.
-		request.setAttribute("nombre", pNombre.toUpperCase());
-		request.setAttribute("ape1", aApellido.toUpperCase());
-		request.setAttribute("ape2", a2Apellido.toUpperCase());
+			// TODO validar parametros.
 
-		// Request interna (forward) a la JSP, ir a la JSP.
-		String vistaJSP = "ejercicios/primer-controlador.jsp";
-		request.getRequestDispatcher(vistaJSP).forward(request, response);
+			// Enviar atributos a JSP.
+			request.setAttribute("nombre", pNombre.toUpperCase());
+			request.setAttribute("ape1", aApellido.toUpperCase());
+			request.setAttribute("ape2", a2Apellido.toUpperCase());
 
+		} catch (Exception e) {
+			request.setAttribute("error", "Se produjo un error, lo sentimos.");
+
+			e.printStackTrace();
+		} finally {
+			// Request interna (forward) a la JSP, ir a la JSP.
+			String vistaJSP = "ejercicios/primer-controlador.jsp";
+			request.getRequestDispatcher(vistaJSP).forward(request, response);
+		}
 	}
 
 	/**
