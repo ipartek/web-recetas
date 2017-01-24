@@ -1,6 +1,7 @@
 package com.ipartek.formacion.recetas.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,54 +10,74 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.recetas.ejercicios.herencia.Vehiculo;
 import com.ipartek.formacion.recetas.ejercicios.herencia.VehiculoException;
+import com.ipartek.formacion.recetas.pojo.Mensaje;
 
 /**
  * Servlet implementation class VehiculoController
  */
 @WebServlet("/crear-vehiculo")
 public class VehiculoController extends HttpServlet {
+
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public VehiculoController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	public static final String VIEW_CREAR_VEHICULO = "ejercicios/crearvehiculo.jsp";
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doPost(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		Vehiculo V = new Vehiculo();
-		
-		try{
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		Mensaje mensaje = null;
+		String pModelo = "";
+		String pPlazas = "";
+		String pPotencia = "";
+		try {
+			mensaje = new Mensaje();
+
+			// recoger parametros del formulario
+			pModelo = request.getParameter("modelo");
+			pPlazas = request.getParameter("plazas");
+			pPotencia = request.getParameter("potencia");
+
+			// crear Vehiculo
+			Vehiculo v = new Vehiculo();
+			v.setModelo(pModelo);
+			v.setPlazas(Integer.parseInt(pPlazas));
+			v.setPotencia(Float.parseFloat(pPotencia));
+
+			// enviar como atributo a la JSP
+			request.setAttribute("vehiculo", v);
+
+			// mensaje success
+			mensaje.setClase(Mensaje.CLASE_SUCCESS);
+			mensaje.setDescripcion("Vehiculo creado con Exito!!!");
+
+		} catch (NumberFormatException e) {
+			mensaje.setClase(Mensaje.CLASE_DANGER);
+			mensaje.setDescripcion("Los parametros introducidos no son correctos.");
 			
-			V.setModelo(request.getParameter("modelo"));
-			V.setPlazas(Integer.valueOf(request.getParameter("plazas")));
-			V.setPotencia(Integer.valueOf(request.getParameter("potencia")));
-			request.setAttribute("vehiculo", V);
+		} catch (VehiculoException e) {
+			mensaje.setClase(Mensaje.CLASE_DANGER);
+			mensaje.setDescripcion(e.getMessage());
 			
-		}catch(VehiculoException e){
-			request.setAttribute("error", e.getMessage());
-			
-		}catch(Exception e){
-			request.setAttribute("error", "Se produjo un error al crear el vehiculo");
-			
-			
-		}finally{
-			String vistaJSP = "ejercicios/crearvehiculo.jsp";
-			request.getRequestDispatcher(vistaJSP).forward(request, response);
+		} catch (Exception e) {
+			mensaje.setClase(Mensaje.CLASE_DANGER);
+			mensaje.setDescripcion(e.getMessage());
+			e.printStackTrace();
+		} finally {
+			request.setAttribute("msj", mensaje);
+			request.getRequestDispatcher(VIEW_CREAR_VEHICULO).forward(request, response);
 		}
+
 	}
+
 }

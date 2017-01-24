@@ -71,43 +71,27 @@
     <section id="portfolio">
         <div class="container">
             <div class="row"></br></br>
-            <h1>Segundo Ejemplo Controlador</h1></br>
-            
-            <%
-				if(request.getAttribute("error")!=null){
-            %>
-			<div class="alert alert-danger alert-dismissible" role="alert">
-  				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-  				<strong><%=request.getAttribute("error")%> Error! </strong> 
-			</div>
-            <%
-				}else{
-            %>
-            <div class="alert alert-success alert-dismissible" role="alert">
-  				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-  				<strong>Coche añadido correctamente.</strong></br></br>
-  				<%
-            		if( request.getAttribute("vehiculo") != null){
-            			Vehiculo V = (Vehiculo)request.getAttribute("vehiculo");
-            			out.print(V);
-            		}
-            	%>
-			</div>
-			<% 
-				}
-            
-			%>
-            
-               <h2>Creador de Coches</h2></br>
-               <form action="crear-vehiculo" method="post">
-               		<label>Modelo: </label></br>
-					<input type="text" name="modelo" placeholder="Modelo" /></br></br>
+	            <h1>Segundo Ejemplo Controlador</h1></br>
+	            
+	            <%@include file="../includes/mensaje.jsp" %>
+	            
+			    <p>Realizamos un formulario para poder crear un nuevo <code>Vehiculo</code>.</p>
+			    <p>Al crear un <code>Vehiculo</code> con numero de plazas inferior a 0, lanzara una excepcion personalizada, que es controlada en el Servlet.</p>
+			    <p>Tambien tenemos que tener en cuenta los parametros que deben ser casteado a <code>int</code> o <code>float</code>, puede fallar.</p>
+			    <p>Si creamos coche con exito, mostrar Vehiculo usando Expresion Lenguage.</p>
+			    <p>Tambien validamos en el front-end con HTML5 <code>required</code> y <code>pattern</code>.<p>
+			    <p><code>${vehiculo}</code></p> 
+			     
+	            <h2>Creador de Coches</h2></br>
+	            <form action="crear-vehiculo" method="post">
+	               	<label>Modelo: </label></br>
+					<input type="text" name="modelo" placeholder="Modelo" required pattern=".{2,255}"/></br></br>
 					<label>Potencia:</label></br>
-					<input type="text" name="potencia" placeholder="Potencia" /></br></br>
+					<input type="number" name="potencia" placeholder="Potencia" required min="1"; /></br></br>
 					<label>Plazas: </label></br>
-					<input type="text" name="plazas" placeholder="Nº Plazas" /></br></br>
-					<input type="submit" value="Enviar"/>
-               </form> 
+					<input type="number" name="plazas" placeholder="Nº Plazas" required /></br></br>
+					<input type="submit" value="Crear Coche"/>
+	            </form>   
             </div>
         </div>
     </section>
