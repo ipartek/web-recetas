@@ -65,7 +65,7 @@ public class SaludoController extends HttpServlet {
 		request.setAttribute("nombre", pNombre.toUpperCase());
 		request.setAttribute("ape1", pApe1.toUpperCase());
 		request.setAttribute("ape2", pApe2.toUpperCase());
-		String vistaJSP = "Ejercicios/primer-controlador.jsp";
+		String vistaJSP = "ejercicios/primer-controlador.jsp";
 		request.getRequestDispatcher(vistaJSP).forward(request, response);
 	}
 

@@ -9,20 +9,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ipartek.formacion.vehiculo.pojo.Mensaje;
 import com.ipartek.formacion.vehiculo.pojo.Vehiculo;
-import com.ipartek.formacion.vehiculo.pojo.VehiculoException;
 
 /**
  * Servlet implementation class VehiculoController
  */
-@WebServlet(urlPatterns = { "/vehiculo" })
+@WebServlet("/crear-vehiculo")
 public class VehiculoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	public static final String VIEW_CREAR_VEHICULO = "ejercicios/crear-vehiculo.jsp";
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -30,39 +27,43 @@ public class VehiculoController extends HttpServlet {
 		doPost(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		Mensaje mensaje = null;
+		String pModelo = "";
+		String pPlazas = "";
+		String pPotencia = "";
 		try {
-			request.setAttribute("modelo", request.getParameter("modelo"));
-			if (Integer.parseInt(request.getParameter("plazas")) < 0) {
-				throw new VehiculoException("El numero de plazas tiene que ser mayor que 0");
-			}
-			if (Integer.parseInt(request.getParameter("dimensiones")) < 0) {
-				throw new VehiculoException("La dimension que ser mayor que 0");
-			}
-			if (Integer.parseInt(request.getParameter("potencia")) < 0) {
-				throw new VehiculoException("La potencia tiene que ser mayor que 0");
-			}
-			Vehiculo vehiculo = new Vehiculo();
-			vehiculo.setModelo(request.getParameter("modelo"));
-			vehiculo.setPlazas(Integer.parseInt(request.getParameter("plazas")));
-			vehiculo.setDimensiones(Float.parseFloat(request.getParameter("dimensiones")));
-			vehiculo.setPotencia(Float.parseFloat(request.getParameter("potencia")));
-			request.setAttribute("vehiculo", vehiculo);
-		} catch (Exception e) {
+			mensaje = new Mensaje();
 
-			request.setAttribute("error", e.getMessage());
+			// recoger parametros del formulario
+			pModelo = request.getParameter("modelo");
+			pPlazas = request.getParameter("plazas");
+			pPotencia = request.getParameter("potencia");
+
+			// crear Vehiculo
+			Vehiculo v = new Vehiculo();
+			v.setModelo(pModelo);
+			v.setPlazas(Integer.parseInt(pPlazas));
+			v.setPotencia(Float.parseFloat(pPotencia));
+
+			// enviar como atributo a la JSP
+			request.setAttribute("vehiculo", v);
+
+			// mensaje success
+			mensaje.setClase(Mensaje.CLASE_SUCCESS);
+			mensaje.setDescripcion("Vehiculo creado con Exito!!!");
+
+		} catch (NumberFormatException e) {
+			mensaje.setDescripcion("Los parametros introducidos no son correctos.");
+		} catch (Exception e) {
+			mensaje.setDescripcion(e.getMessage());
+			e.printStackTrace();
 		} finally {
-			String vistaJSP = "Ejercicios/indexVehiculo.jsp";
-			request.getRequestDispatcher(vistaJSP).forward(request, response);
+			request.setAttribute("msj", mensaje);
+			request.getRequestDispatcher(VIEW_CREAR_VEHICULO).forward(request, response);
 		}
 
 	}
-
 }

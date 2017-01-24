@@ -146,10 +146,13 @@
 				</div>
 			</div>
 			<div class="row">
-				<ul>
-					<li><a href="Ejercicios/primer-controlador.jsp"
+				<ul class="list-group">
+					<li class="list-group-item"><a href="ejercicios/primer-controlador.jsp"
 						class="custom-link">Controlador o Servlet</a></li>
-				</ul>
+				
+					<li class="list-group-item"><a href="ejercicios/crear-vehiculo.jsp"
+						class="custom-link">Crear Vehiculo</a></li>
+				
 			</div>
 		</div>
 	</section>
