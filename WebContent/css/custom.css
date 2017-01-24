@@ -15,4 +15,23 @@
     padding-bottom: 0px !important;
     margin-bottom: 20px !important;
 }
+
+.anchuraDivFormulario {
+	width: 50%;
+}
+
+div#imagenVehiculo {
+	width: 25%;
+	height: 25%;
+	float: right;
+	margin-right: 15%;
+	margin-top: -10%;
+}
+
+div#impresionDatos {
+	float: right;
+	width: 40%;
+	height: 40%;
+	margin-top:6%;
+}
 }
