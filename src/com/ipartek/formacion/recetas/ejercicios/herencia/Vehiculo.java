@@ -4,6 +4,10 @@ import com.ipartek.formacion.recetas.ejercicios.collection.InterfazEstupida;
 
 public class Vehiculo implements Conducible, InterfazEstupida {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String modelo;
 	private int plazas;
 	private float dimensiones;

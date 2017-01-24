@@ -1,56 +1,9 @@
 <%@include file="../includes/header.jsp" %>
+<%@include file="../includes/nav.jsp" %>
+
 <%@page import="com.ipartek.formacion.recetas.pojo.Receta"%>
 <%@page import="java.util.ArrayList"%>
 
-
-    <!-- Navigation -->
-    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header page-scroll">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
-                </button>
-                <a class="navbar-brand" href="#page-top">Web Recetas</a>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="hidden">
-                        <a href="#page-top"></a>
-                    </li>
-                    <li class="page-scroll">
-                        <a href="#portfolio">Recetas</a>
-                    </li>
-                    <li class="page-scroll">
-                        <a href="ejercicios/menu-del-dia.jsp">Menu del Dia</a>
-                    </li>
-                    <li class="page-scroll">
-                        <a href="#contact">Contact</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container-fluid -->
-    </nav>
-
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <img class="img-responsive logo-home" src="img/profile.png" alt="logotipo de Web Recetas">
-                    <div class="intro-text">
-                        <span class="name">Komilones App</span>
-                        <hr class="star-light">
-                        <span class="skills">Sencillo, fácil y para toda la familia</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
 
     <!-- Recetas Destacadas Grid Section -->
     <section id="portfolio">
@@ -110,9 +63,10 @@
             <div class="row">
                 
                 <ul>
+                	<li><a href="ejercicios/menu-del-dia.jsp">Menu del dia</a></li>                	
                 	<li><a href="ejercicios/primer-controlador.jsp">Controlador o Servlet [GET y POST]</a></li>                	
                 	<li><a href="ejercicios/ejercicio-calculadora.jsp">Calculadora</a></li>                	
-                	<li><a href="ejercicios/crear-vehiculo.jsp">Crear Vehiculo</a></li>                	
+                	<li><a href="ejercicios/crear-vehiculo.jsp">Crear Vehiculo y Excepciones Personalizadas</a></li>                	
                 </ul>
                 
             </div>

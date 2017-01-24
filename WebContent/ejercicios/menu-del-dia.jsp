@@ -4,7 +4,16 @@
 
 <%@include file="../includes/nav.jsp" %>
 
-<a href="index.jsp">Volver Inicio</a>
+	<header>
+       	<div class="container header-content">
+           	<div class="row">
+              		<div class="col-lg-12">
+               		<h1>Menu del día</h1>
+               	</div>
+             	</div>  
+ 			</div> 
+ 	</header>
+<!-- <a href="index.jsp">Volver Inicio</a> -->
 
 
 <%
