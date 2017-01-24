@@ -45,13 +45,14 @@
     	
         <div class="container">
             <div class="row">  
+			    <p>******************************************************************************************************************************************</p>  
             	<p>Realizamos un formulario para poder crear un nuevo <code>Vehiculo</code>.</p>
 			    <p>Al crear un <code>Vehiculo</code> con numero de plazas inferior a 0, lanzara una excepcion personalizada, que es controlada en el Servlet.</p>
 			    <p>Tambien tenemos que tener en cuenta los parametros que deben ser casteado a <code>int</code> o <code>float</code>, puede fallar.</p>
 			    <p>Si creamos coche con exito, mostrar Vehiculo usando Expresion Lenguage.</p>
 			    <p>Tambien validamos en el front-end con HTML5 <code>required</code> y <code>pattern</code>.<p>
 			    <p><code>${vehiculo}</code></p> 
-			      
+			    <p>******************************************************************************************************************************************</p>  
                	<div id="imagenVehiculo">
  					<img src="img/vehiculo.jpg" class="img-responsive img-rounded" alt="">
  				</div>
@@ -62,21 +63,21 @@
     	           		<input class="form-control" id="modelo" size="15" type="text" name="modelo" placeholder="Escribre el modelo del vehiculo" required pattern=".{2,255}">
                		</div>
                		
-               		<br><br>
+               		<br>
                		
                		<div class="form-group">
 	               		<label for="plazas">Plazas: </label>
     	           		<input class="form-control" id="plazas" min="2" step="1" type="number" name="plazas" placeholder="Escribre las plazas del vehiculo" required>
         	       	</div>
 
-       	       		<br><br>
+       	       		<br>
         	       	
         	       	<div class="form-group">
 	               		<label for="potencia">Potencia: </label>
     	           		<input class="form-control" id="potencia" type="number" name="potencia" placeholder="Escribre la potencia del vehiculo" required>
         	       	</div>
 
-       	       		<br><br>
+       	       		<br>
               		
              		<input class="btn btn-default" type="submit" value="CREAR VEHICULO" >
 
