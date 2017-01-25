@@ -12,7 +12,7 @@
     
     
 
-    <title>Web Recetas</title>
+    <title>Güeb Recetas</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">

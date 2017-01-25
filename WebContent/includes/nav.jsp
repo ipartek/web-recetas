@@ -1,4 +1,4 @@
- <%@page import="com.ipartek.formacion.recetas.pojo.Usuario"%>
+<%@page import="com.ipartek.formacion.recetas.pojo.Usuario"%>
 
 <!-- Navigation -->   
 <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
@@ -8,7 +8,7 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand" href="#page-top">Web Recetas</a>
+                <a class="navbar-brand" href="#page-top">Güeb Recetas</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -26,6 +26,7 @@
                     <li class="page-scroll">
                         <a href="#contact">Contact</a>
                     </li>
+                     
                     
                     <%
                     	Usuario user = (Usuario)session.getAttribute("usuario");
@@ -39,15 +40,19 @@
                     <% }else{ %>
                     
                     	<li class="page-scroll">
-                   		   <a href="logout">Logout[X]</a>
+                   		   <a href="logout">(${sessionScope.usuario.nombre})Cerrar[X]</a>
                    		<li class="page-scroll"> 
                    		
                     <% } %>
                     
-                    
+                   
                 </ul>
+                
+                 
+                
             </div>
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container-fluid -->
     </nav>
+    
