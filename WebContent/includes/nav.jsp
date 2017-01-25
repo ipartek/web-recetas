@@ -1,4 +1,6 @@
 <!-- Navigation -->
+<%@page errorPage="../error.jsp"%>
+<%@page import="com.ipartek.formacion.pojo.Usuario"%>
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -11,20 +13,31 @@
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="hidden">
-                        <a href="#page-top"></a>
-                    </li>
-                    <li class="page-scroll">
-                        <a href="#portfolio">Recetas</a>
-                    </li>                    
-                    <li class="page-scroll">
-                        <a href="#ejercicios">Ejercicios</a>
-                    </li>
-                    <li class="page-scroll">
-                        <a href="#contact">Contact</a>
-                    </li>
-                </ul>
+               <ul class="nav navbar-nav navbar-right">
+					<li class="hidden"><a href="#page-top"></a></li>
+					<li class="page-scroll"><a href="#portfolio">Recetas</a></li>
+					<li class="page-scroll"><a href="menu-del-dia.jsp">Menu
+							del Dia</a></li>
+					<li class="page-scroll"><a href="#contact">Contact</a></li>
+
+					<li class="page-scroll">
+						<%
+					Usuario user= (Usuario)session.getAttribute("user");
+					if (user==null){
+						
+					%> <a href="login.jsp">Login</a> <%
+					}else{
+						
+					%> <a href="logout"><img class="img-circle"
+							style="width: 10%; float: right"
+							src="<%=user.getImagen()%>" > (${sessionScope.user.nombre})Cerrar[X] </a>
+   
+					<%
+					}
+					%>
+					</li>
+					
+				</ul>
             </div>
             <!-- /.navbar-collapse -->
         </div>

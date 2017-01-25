@@ -16,7 +16,6 @@
 
 <div class="container">
 	<div class="row">
-		`
 		<div id="imagenVehiculo">
 			<img src="img/vehiculo.jpg" class="img-responsive img-rounded" alt="">
 		</div>
@@ -24,13 +23,13 @@
 		<div class="row">
 			<ul class="list-group">
 				<%
-				
-					for (Vehiculo v : (ArrayList)request.getAttribute("vehiculos")) {
+				ArrayList<Vehiculo> f = (ArrayList<Vehiculo>)request.getAttribute("vehiculos");
+					for (Vehiculo v : f) {
 				%>
 				<li class="list-group-item">
-					<%
-						v.getModelo();
-					%>
+					
+						${v.getModelo()}
+					
 				</li>
 
 				<%

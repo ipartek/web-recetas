@@ -18,7 +18,7 @@ import com.ipartek.formacion.vehiculo.pojo.Vehiculo;
 @WebServlet("/crear-vehiculo")
 public class VehiculoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	public static final String VIEW_CREAR_VEHICULO = "ejercicios/crear-vehiculo.jsp";
+	public static final String VIEW_CREAR_VEHICULO = "ejercicios/vehiculo/crear-vehiculo.jsp";
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
