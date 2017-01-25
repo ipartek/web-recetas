@@ -1,3 +1,10 @@
+<%@page import="com.ipartek.formacion.recetas.pojo.Usuario"%>
+<%@page errorPage="../error.jsp" %>
+
+<% 
+//Object o = null;
+//o.toString();
+%>
 <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -24,8 +31,28 @@
                         <a href="#ejercicios">Ejercicios</a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#contact">Contact</a>
+                        <a href="#contact">Contact</a></li>
+                        <% /*
+                        IMPORTANTE no confundirse en los atributos.
+                        */
+                        Usuario user = (Usuario) session.getAttribute("user");
+                         if (user == null){ 
+                         
+                        %>
+                        <li class="page-scroll">
+                        <a href="login.jsp">Login</a>
                     </li>
+                    <% } else {
+                    	%><li class="page-scroll">
+                    	<img class="menuImg" src="<%=user.getImagen()%>" alt="imagen usuario">
+                    	</li>
+                    	<li class="page-scroll">
+                    	<a href="logout">(${sessionScope.user.nombre}) Logout [X]</a>
+                        <!-- (${sessionScope.user.nombre}) es lo mismo que: user.getNombre()
+                        no es necesario entrar en java con ello. -->
+                    </li>
+                 <%    }
+                         %>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
