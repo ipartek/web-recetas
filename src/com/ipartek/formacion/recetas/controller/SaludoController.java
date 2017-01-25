@@ -8,9 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class SaludoController
- */
 @WebServlet(description = "Servelt para aprender a usar la peticiones GET y POST", urlPatterns = { "/saludo" })
 public class SaludoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -21,28 +18,26 @@ public class SaludoController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		/*
-		 * PrintWriter out = response.getWriter(); out.append(
-		 * "peticion GET: <br>"); out.append("parametros: <br>"); out.append(
-		 * "Nombre: " + request.getParameter("nombre") + "<br>");
-		 */
 		try {
-		// recoger paramteros
-		String pNombre = request.getParameter("nombre");
+			// recoger paramteros
+			String pNombre = request.getParameter("nombre");
+			String pApe1 = request.getParameter("ape1");
+			String pApe2 = request.getParameter("ape2");
 
-		// TODO validar parametros
+			// enviar atributos a JSP
+			request.setAttribute("nombre", pNombre.toUpperCase());
+			request.setAttribute("apellido1", pApe1.toUpperCase());
+			request.setAttribute("apellido2", pApe2.toUpperCase());
 
-		// enviar atributos a JSP
-		request.setAttribute("[GET]nombre", pNombre.toUpperCase());
-		} catch(Exception e) {
-			request.setAttribute("error", "Se produjo un error! lo sentimos");
+		} catch (Exception e) {
+			request.setAttribute("error", "Se produjo un error!!! lo sentimos.");
 			e.printStackTrace();
 		} finally {
-		// request interna (forward) la JSP, ir a la JSP
-		String vistaJSP = "ejercicios/primer-controlador.jsp";
-		request.getRequestDispatcher(vistaJSP).forward(request, response);
+			// request interna (forward) la JSP, ir a la JSP
+			String vistaJSP = "ejercicios/primer-controlador.jsp";
+			request.getRequestDispatcher(vistaJSP).forward(request, response);
 		}
+
 	}
 
 	/**
@@ -51,20 +46,19 @@ public class SaludoController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		// recoger paramteros
 		String pNombre = request.getParameter("nombre");
-		try {
+		String pApe1 = request.getParameter("apellido1");
+		String pApe2 = request.getParameter("apellido2");
+
 		// enviar atributos a JSP
 		request.setAttribute("nombre", pNombre.toLowerCase());
-		} catch(Exception e) {
-			request.setAttribute("error", "Se produjo un error! lo sentimos");
-			e.printStackTrace();
-		} finally {
+		request.setAttribute("apellido1", pApe1.toLowerCase());
+		request.setAttribute("apellido2", pApe2.toLowerCase());
+
 		String vistaJSP = "ejercicios/primer-controlador.jsp";
 		request.getRequestDispatcher(vistaJSP).forward(request, response);
-		}
 	}
-		
 
 }
