@@ -1,5 +1,15 @@
 <!-- Navigation -->
-    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
+    <%@page import="com.ipartek.formacion.recetas.pojo.Usuario"%>
+    <%@page errorPage="../error.jsp" %>
+    
+    
+    <%
+    	//Object o = null;
+    	//o.toString();
+    
+    %>
+    
+	<nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header page-scroll">
@@ -24,6 +34,26 @@
                     <li class="page-scroll">
                         <a href="#contact">Contact</a>
                     </li>
+                    
+                    <%
+                    	Usuario user = (Usuario) session.getAttribute("usuario");
+            			if ( user == null ){
+                    %>
+                    
+	                    <li class="page-scroll">
+	                        <a href="login.jsp">Login</a>
+	                    </li>
+                    
+                    <%	}else{ %>
+                    
+	                    <li class="page-scroll">
+	                    	<div> 
+			                    <a href="logout">(${sessionScope.usuario.nombre})	<%//=user.getNombre()%> Cerrar[X]</a>
+			                    <img class="imgLogin" src="<%=user.getImagen()%>" alt="imagen usuario">
+							</div>
+	                    </li>
+                    
+                    <%	} %>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

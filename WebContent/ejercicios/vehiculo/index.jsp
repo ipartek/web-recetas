@@ -20,12 +20,41 @@
             <div class="row">  
 				<%@include file="../../includes/mensaje.jsp" %>
 				
-				<%
-					ArrayList<Vehiculos> v = request.getAttribute("vehiculos");
-				%>
+				<div class="table-responsive">
+					<table class="table table-striped" id="listarTabla">
+						<tr>
+							<th>ID</th>
+							<th>Modelo</th>
+							<th>Plazas</th>
+							<th>Dimensiones</th>
+							<th>Potencia</th>
+							<th></th>
+						</tr>
+					<%
+						ArrayList<Vehiculo> vehic = (ArrayList<Vehiculo>) request.getAttribute("vehiculos");
+						for (Vehiculo v : vehic){
+					%>	
+							
+						<tr>
+							<td><%=v.getId() %></td>
+							<td><%=v.getModelo() %></td>
+							<td><%=v.getPlazas() %></td>
+							<td><%=v.getDimensiones() %></td>
+							<td><%=v.getPotencia() %></td>
+							<td>
+								<img alt="" src="img/lapiz_mini.png">
+								<img alt="" src="img/cubo_basura_mini.png">
+							</td>
+						</tr>
+					
+					<%
+						}
+					%>
+					
+					</table>
+				</div>
 				
-				
-				${vehiculos}           
+				<!--  end: <div class="table-responsive"> -->				           
 				           	
             </div>
             <!-- <div class="row"> -->

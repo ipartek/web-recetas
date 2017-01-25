@@ -4,7 +4,22 @@
 <%@page import="com.ipartek.formacion.recetas.pojo.Receta"%>
 <%@page import="java.util.ArrayList"%>
 
-
+	<!-- Header -->
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <img class="img-responsive logo-home" src="img/profile.png" alt="logotipo de Web Recetas">
+                    <div class="intro-text">
+                        <span class="name">Komilones App</span>
+                        <hr class="star-light">
+                        <span class="skills">Sencillo, fácil y para toda la familia</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
     <!-- Recetas Destacadas Grid Section -->
     <section id="portfolio">
         <div class="container">
