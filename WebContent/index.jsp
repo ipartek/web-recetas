@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@page import="com.ipartek.formacion.recetas.pojo.Usuario"%>
 <%@page import="com.ipartek.formacion.recetas.pojo.Receta"%>
 <%@page import="java.util.ArrayList"%>
 <html lang="es">
@@ -62,13 +63,26 @@
                         <a href="menu-del-dia.jsp">Menu del Dia</a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#contact">Contact</a>
+                        <a href="#contact">Contacto</a>
                     </li>
+                    <% 
+                    	Usuario user = (Usuario)session.getAttribute("usuario");
+                    	if(user == null){
+                    %>
+                    <li class="page-scroll">
+                   		<a href="login.jsp">Login</a>
+                    </li>
+                    <%
+                    	}else{
+                    		
+                    	}
+                    %>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container-fluid -->
+        <%@include file="../includes/sesion.jsp" %>
     </nav>
 
     <!-- Header -->
@@ -146,6 +160,7 @@
                 <ul>
                 	<li><a href="ejercicios/primer-controlador.jsp">Controlador o Servlet [GET y POST]</a></li>
                 	<li><a href="ejercicios/crearvehiculo.jsp">Controlador o Servlet [POST, TRY y CATCH] Coches</a></li>
+                	<li><a href="vehiculo">CRUD de Vehiculos</a></li>
                 </ul>
             </div>
         </div>

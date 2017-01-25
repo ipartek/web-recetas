@@ -37,36 +37,7 @@
 </head>
 <body id="page-top" class="index">
 
-    <!-- Navigation -->
-    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header page-scroll">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
-                </button>
-                <a class="navbar-brand" href="#page-top">Web Recetas</a>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="hidden">
-                        <a href="#page-top"></a>
-                    </li>
-                    <li class="page-scroll">
-                        <a href="menu-del-dia.jsp">Menu del Dia</a>
-                    </li>
-                    <li class="page-scroll">
-                        <a href="index.jsp">Inicio</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container-fluid -->
-    </nav>
-
+	<%@include file="../includes/nav.jsp" %>
    
     <section id="portfolio">
         <div class="container">
@@ -82,16 +53,20 @@
 			    <p>Tambien validamos en el front-end con HTML5 <code>required</code> y <code>pattern</code>.<p>
 			    <p><code>${vehiculo}</code></p> 
 			     
-	            <h2>Creador de Coches</h2></br>
-	            <form action="crear-vehiculo" method="post">
-	               	<label>Modelo: </label></br>
-					<input type="text" name="modelo" placeholder="Modelo" required pattern=".{2,255}"/></br></br>
-					<label>Potencia:</label></br>
-					<input type="number" name="potencia" placeholder="Potencia" required min="1"; /></br></br>
-					<label>Plazas: </label></br>
-					<input type="number" name="plazas" placeholder="Nº Plazas" required /></br></br>
-					<input type="submit" value="Crear Coche"/>
-	            </form>   
+			    <div class="formulariocoches">
+		            <h2>Coches</h2></br>
+			        <form action="crear-vehiculo" method="post">
+			            <label>Modelo: </label></br>
+						<input type="text" name="modelo" placeholder="Modelo" required pattern=".{2,255}"/></br></br>
+						<label>Potencia:</label></br>
+						<input type="number" name="potencia" placeholder="Potencia" required min="1"; /></br></br>
+						<label>Plazas: </label></br>
+						<input type="number" name="plazas" placeholder="Nº Plazas" required /></br></br>
+						<input type="submit" value="Crear Coche"/>
+			        </form>
+		        </div>
+		        <div class="derechaformulario">
+		        </div>
             </div>
         </div>
     </section>
