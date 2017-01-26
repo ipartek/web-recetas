@@ -1,12 +1,15 @@
 package com.ipartek.formacion.recetas.controller;
 
 import java.io.IOException;
+
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ipartek.formacion.recetas.ejercicios.herencia.Vehiculo;
 import com.ipartek.formacion.recetas.services.ServiceVehiculo;
 import com.ipartek.formacion.recetas.services.ServiceVehiculoArraylist;
 
@@ -18,19 +21,61 @@ public class VehiculoCRUDController extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	private static final String VIEW_LIST = "ejercicios/vehiculo/index.jsp";
-       
+	private static final String VIEW_FORM = "ejercicios/vehiculo/form.jsp";
+    
+	//Operaciones que puede realizar
+	public static final String OP_LISTAR = "1";
+	public static final String OP_VER_DETALLE = "2";
+	public static final String OP_VER_NUEVO = "3";
+	
 
+	private static ServiceVehiculo service;
+	
+	
+	@Override
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
+		service = ServiceVehiculoArraylist.getInstance();
+	}
+	
+	@Override
+	public void destroy() {
+		super.destroy();
+		service = null;
+	}
+	
+	@Override
+	protected void service(HttpServletRequest arg0, HttpServletResponse arg1) throws ServletException, IOException {
+		//esto se hace antes de realizar doget o dopost
+		super.service(arg0, arg1);
+		//esto se hace tras realizar doget o dopost
+	}
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ServiceVehiculo service = ServiceVehiculoArraylist.getInstance();
+		//buscar operacion a realizar
+		String op = (request.getParameter("op") == null)?OP_LISTAR : request.getParameter("op");
 		
-		request.setAttribute("vehiculos", service.getAll());
+		switch (op){
 		
-		request.getRequestDispatcher(VIEW_LIST).forward(request, response);
-		
+		case OP_VER_NUEVO:
+			request.setAttribute("vehiculo", new Vehiculo());
+			request.getRequestDispatcher(VIEW_FORM).forward(request, response);
+			break;
+			
+		case OP_VER_DETALLE:
+			long id = Long.valueOf(request.getParameter("id"));
+			request.setAttribute("vehiculo", service.getById(id));
+			request.getRequestDispatcher(VIEW_FORM).forward(request, response);
+			break;
+			
+		default:
+			request.setAttribute("vehiculos", service.getAll());
+			request.getRequestDispatcher(VIEW_LIST).forward(request, response);
+		}
 		
 	}
 

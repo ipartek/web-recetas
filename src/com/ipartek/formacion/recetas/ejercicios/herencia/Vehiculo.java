@@ -114,5 +114,9 @@ public class Vehiculo implements Conducible, InterfazEstupida {
 	public int getPeso() {
 		return (int) this.potencia;
 	}
+	
+	boolean isNew(){
+		return (this.id == -1) ? true : false;
+	}
 
 }

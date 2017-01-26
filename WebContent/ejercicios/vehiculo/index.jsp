@@ -1,6 +1,10 @@
 <!DOCTYPE html>
+<%@page import="com.ipartek.formacion.recetas.controller.VehiculoCRUDController"%>
 <%@page import="com.ipartek.formacion.recetas.pojo.Receta"%>
 <%@page import="java.util.ArrayList"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html lang="es">
 
 <head>
@@ -23,6 +27,10 @@
     
     <!-- Custom -->
     <link href="css/custom.css" rel="stylesheet">
+    
+    <!-- Datatables -->
+    <link href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" rel="stylesheet">
+    
 
     <!-- Custom Fonts -->
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -48,12 +56,46 @@
             	<h1>CRUD Vehiculo</h1>
             	<p>(Create, Read, Update, Delete)</p>
             	<%@include file="../../includes/mensaje.jsp" %>
-            	<a href="">Listar</a></br>
+          		</br></br>
+          		<h2><a href="vehiculo?op=3">Crear Nuevo</a></h2>
+            	</br></br>
+            	<table class="display data-table-mio" cellspacing="0" width="100%">
+			        <thead>
+			            <tr>
+			                <th>Modelo</th>
+			                <th>Potencia</th>
+			                <th>Plazas</th>
+			                <th>Dimensiones</th>
+			            </tr>
+			        </thead>
+			        <tbody>
+            			<c:forEach var="v" items="${vehiculos}">
+			           	<tr>
+			                <td><a href="vehiculo?op=<%=VehiculoCRUDController.OP_VER_DETALLE%>&id=${v.id}">${v.modelo}</a></td>
+			                <td>${v.potencia}</td>
+			                <td>${v.plazas}</td>
+			                <td>${v.dimensiones}</td>
+			            </tr>
+			            </c:forEach>
+			            
+					</tbody>
+				</table>	
+				
             	
-            	<a href="vehiculo?op=1">Crear</a></br>
+            	<!-- <ul class="listacoches">
             		
-            	<div class="listacoches"></div>
-            	${vehiculos}
+            	</ul>-->
+            	
+            	<c:set var="comparacion" value="${sessionScope.usuario}"></c:set>
+            	<c:if test="${comparacion != null}">
+            		<p>Usuario: ${sessionScope.usuario.nombre}</p>
+            	</c:if>
+            	
+            	<p>Total Vehiculos: ${fn:length(vehiculos)}</p>
+            	<c:set var="now" value="<%=new java.util.Date()%>"/>
+            	<p>Fecha: <fmt:formatDate pattern="dd-MM-yyyy HH:mm" value="${now}"/></p>
+            	
+            	
             </div>
         </div>
     </section>
@@ -64,6 +106,9 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 
+	<!-- Datatable -->
+	<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+	
     <!-- Plugin JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 
@@ -73,6 +118,11 @@
 
     <!-- Theme JavaScript -->
     <script src="js/freelancer.min.js"></script>
+    
+    
+    <!-- Custom Javascript -->
+    <script src="js/custom.js"></script>
+    
 
 </body>
 </html>
