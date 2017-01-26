@@ -84,6 +84,8 @@ public class VehiculoCRUDController extends HttpServlet {
 			request.getRequestDispatcher(VIEW_LIST).forward(request, response);
 			break;
 		}
+		
+		//realizar operacion
 
 	}
 

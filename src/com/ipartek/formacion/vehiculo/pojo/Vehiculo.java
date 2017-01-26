@@ -31,7 +31,7 @@ public class Vehiculo implements Conducible, InterfazEstupida {
 		this.id = id;
 	}
 
-	boolean isNew() {
+	public boolean isNew() {
 		return (this.id == -1) ? true : false;
 	}
 
