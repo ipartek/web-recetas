@@ -6,9 +6,10 @@
   </video>
   <div class="inner-container">
     
+     <%@include file="includes/mensaje.jsp" %>
     <div class="box">
       <h1>Login</h1>
-      <%@include file="includes/mensaje.jsp" %>
+     
       <form action="login" method="post">
 				
 			<input type="text" name="userName" required placeholder="Nombre Usuario">

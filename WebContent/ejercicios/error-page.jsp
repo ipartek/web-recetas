@@ -15,7 +15,7 @@
   	
    <div class="container">
       <div class="row">
-      <p>Cuando se lanza un exceocion en una JSP se puede redirigir a una pagina de error.</p>
+      <p>Cuando se lanza un excepcion en una JSP se puede redirigir a una pagina de error.</p>
       <p>Debemos usar las directivas <code>&lt;%@page errorPage%&gt;</code> y <code>&lt;%@page isErrorPage%&gt;</code> </p>
       <p>Mirar en el libro pagina 286.</p>
 

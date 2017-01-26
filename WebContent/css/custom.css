@@ -89,6 +89,11 @@ div#impresionDatos {
   color:#fff;
   border:0;
 }
+
+.box input[type="submit"]{
+	background:rgba(25,190,155,0.7);
+}
+
 .box input:focus,.box input:active,.box button:focus,.box button:active{
   outline:none;
 }
