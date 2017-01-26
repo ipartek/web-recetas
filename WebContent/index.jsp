@@ -118,7 +118,11 @@
                 <li><a href="ejercicios/primer-Controlador.jsp">Controlador o Servlet [GET Y POST]</a></li>
                 <li><a href="ejercicios/calculadora.jsp">CALCULADORA (sin hacer)</a></li>
                 <li><a href="ejercicios/Crear-Vehiculo.jsp">Crear un vehículo nuevo</a></li>
-                <li><a href="ejercicios/vehiculo">Ejercicio CRUD básico de vehículos (CRUD=Create,Rend,Update,Delete)</a></li>
+                <li><a href="vehiculo">Ejercicio CRUD básico de vehículos (CRUD=Create,Rend,Update,Delete)</a></li>
+              <li><a href="ejercicios/error-page.jsp">Página de errores en JSP</a></li>
+              <li> <a href="ejerciciosXXXX/error-que-no-existe.jsp">error 404 (no existe)</a></li>
+             <li>  <a href="controladorExcepcion?p=1">error 500</a></li>
+             <li>  <a href="controladorExcepcion?p=2">Gestion error VehiculoException</a></li>
                 </ul>
             </div>
         </div>

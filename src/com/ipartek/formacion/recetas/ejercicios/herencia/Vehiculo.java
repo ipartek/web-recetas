@@ -5,6 +5,7 @@ import com.ipartek.formacion.recetas.ejercicios.collection.InterfazEstupida;
 public class Vehiculo implements Conducible, InterfazEstupida {
 
 	private static final long serialVersionUID = 1L;
+	private long id;
 	private String modelo;
 	private int plazas;
 	private float dimensiones;
@@ -12,6 +13,7 @@ public class Vehiculo implements Conducible, InterfazEstupida {
 
 	public Vehiculo() {
 		super();
+		this.id = -1;
 		this.modelo = "";
 		this.plazas = 1;
 		this.dimensiones = 0;
@@ -20,6 +22,12 @@ public class Vehiculo implements Conducible, InterfazEstupida {
 
 	public Vehiculo(String modelo) {
 		this();
+		this.modelo = modelo;
+	}
+
+	public Vehiculo(String modelo, long id) {
+		this();
+		this.id = id;
 		this.modelo = modelo;
 	}
 
@@ -33,6 +41,14 @@ public class Vehiculo implements Conducible, InterfazEstupida {
 
 	public int getPlazas() {
 		return plazas;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public void setPlazas(int plazas) throws VehiculoException {
@@ -62,8 +78,8 @@ public class Vehiculo implements Conducible, InterfazEstupida {
 
 	@Override
 	public String toString() {
-		return "Vehiculo [modelo=" + modelo + ", plazas=" + plazas + ", dimensiones=" + dimensiones + ", potencia="
-				+ potencia + "]";
+		return "Vehiculo [id=" + id + ", modelo=" + modelo + ", plazas=" + plazas + ", dimensiones=" + dimensiones
+				+ ", potencia=" + potencia + "]";
 	}
 
 	@Override

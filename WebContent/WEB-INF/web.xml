@@ -4,4 +4,26 @@
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
+  
+  
+  <!-- Gestion de errores -->
+  
+  <error-page>
+  <error-code>404</error-code>
+  <location>/404.jsp</location>
+  </error-page>
+  
+    <error-page>
+  <error-code>500</error-code>
+  <location>/error.jsp</location>
+  </error-page>
+    <error-page>
+ <exception-type>
+ com.ipartek.formacion.recetas.pojo.VehiculoException
+ </exception-type>
+ <location>/errorVehiculoException.jsp</location>
+  </error-page>
+  
+  <!--  END gestión de errores -->
+  
 </web-app>
