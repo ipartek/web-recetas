@@ -17,8 +17,17 @@
       <div class="row">
       	<%@include file="../../includes/mensaje.jsp" %>
         
-        
-        ${vehiculos}
+       <ol> 
+       <c:forEach var="v" items="${vehiculos}">
+       		<li>${v.modelo}</li>
+       </c:forEach>
+       </ol> 
+       
+       <p>Usuario: ${sessionScope.usuario.nombre}</p>
+       <p>Total Vehiculos: ${fn:length(vehiculos)}</p>
+       
+       <c:set var="now" value="<%=new java.util.Date()%>" />       
+       <p>Fecha: <fmt:formatDate pattern="dd-MM-yyyy HH:mm" value="${now}" /></p> 
         
     </div> 
     <!--  <div class="row"> -->
