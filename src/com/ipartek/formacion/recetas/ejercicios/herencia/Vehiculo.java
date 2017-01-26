@@ -1,10 +1,10 @@
 package com.ipartek.formacion.recetas.ejercicios.herencia;
 
 import com.ipartek.formacion.recetas.ejercicios.collection.InterfazEstupida;
+import com.ipartek.formacion.recetas.pojo.VehiculoException;
 
 public class Vehiculo implements Conducible, InterfazEstupida {
 
-	private static final long serialVersionUID = 1L;
 	private long id;
 	private String modelo;
 	private int plazas;
@@ -31,6 +31,18 @@ public class Vehiculo implements Conducible, InterfazEstupida {
 		this.modelo = modelo;
 	}
 
+	boolean isNew() {
+		return (this.id == -1) ? true : false;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	public String getModelo() {
 		return modelo;
 	}
@@ -43,21 +55,12 @@ public class Vehiculo implements Conducible, InterfazEstupida {
 		return plazas;
 	}
 
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
 	public void setPlazas(int plazas) throws VehiculoException {
 		if (plazas < 0) {
 			throw new VehiculoException(VehiculoException.MSG_ERROR_PLAZAS);
 		} else {
 			this.plazas = plazas;
 		}
-
 	}
 
 	public float getDimensiones() {

@@ -1,7 +1,10 @@
+<%@page import="com.ipartek.formacion.recetas.controller.VehiculoCRUDController"%>
 <%@page import="com.ipartek.formacion.recetas.ejercicios.herencia.Vehiculo"%>
 <%@include file="../../includes/header.jsp" %>
 
- <header>
+    
+   
+  <header>
        <div class="container header-content">
            <div class="row">
                <div class="col-lg-12">
@@ -15,16 +18,54 @@
       <div class="row">
       	<%@include file="../../includes/Mensaje.jsp" %>
         
-       <ol> 
-       <c:forEach var="v" items="${vehiculos}">
-       		<li>${v.modelo}</li>
-       </c:forEach>
-       </ol> 
-       <p>Usuario: ${sessionScope.user.nombre}</p>
+       
+       <a href="vehiculo?op=3">Crear Nuevo</a>
+       
+       <table class="display data-table-mio" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Modelo</th>
+                <th>Plazas</th>
+                <th>Dimensiones</th>
+                <th>Potencia</th>                
+            </tr>
+        </thead>        
+        <tbody>
+        
+        	<c:forEach var="v" items="${vehiculos}">        
+	            <tr>
+	                <td><a href="vehiculo?op=2&id=${v.id}">${v.modelo}</a></td>
+	                <td>${v.plazas}</td>
+	                <td>${v.dimensiones}</td>
+	                <td>${v.potencia}</td>        
+	            </tr>
+           </c:forEach> 
+                       
+       </tbody>
+       </table>
+       
+       
+  
+       
+       
+       
+       <c:set var="user" scope="session" value="${sessionScope.usuario}"></c:set>       
+       <c:choose>
+       		<c:when test="${user==null}">
+       			<p>Usuario No Conectado</p>			
+       		</c:when>
+       		<c:when test="${user!=null}">
+       			<p>Usuario: ${user.nombre}</p>
+       		</c:when>
+       </c:choose>
+       
+       
+       
        <p>Total Vehiculos: ${fn:length(vehiculos)}</p>
        
        <c:set var="now" value="<%=new java.util.Date()%>" />       
        <p>Fecha: <fmt:formatDate pattern="dd-MM-yyyy HH:mm" value="${now}" /></p> 
+        
     </div> 
     <!--  <div class="row"> -->
 </div>    
