@@ -35,7 +35,8 @@ div#impresionDatos {
 	margin-top:6%;
 }
 
-#listarTabla {
+/***** tabla listar vehiculos ******/
+/*#listarTabla {
   text-align: center;
 }
 
@@ -46,7 +47,7 @@ div#impresionDatos {
   text-align: center;
   text-transform: uppercase;
 }
-
+*/
 img.imgLogin{
   width: 20%; height: 20%;
 }

@@ -1,3 +1,5 @@
+<%@page import="com.ipartek.formacion.recetas.controller.VehiculoCRUDController"%>
+<%@page import="com.ipartek.formacion.recetas.controller.VehiculoController"%>
 <%@page import="com.ipartek.formacion.recetas.ejercicios.herencia.Vehiculo"%>
 
 <%@include file="../../includes/header.jsp" %>
@@ -19,34 +21,50 @@
             <div class="row">  
 				<%@include file="../../includes/mensaje.jsp" %>
 				
-				<div class="table-responsive">	
-					<table class="table table-striped" id="listarTabla">
-						<tr>
-							<th>ID</th>
-							<th>Modelo</th>
-							<th>Plazas</th>
-							<th>Dimensiones</th>
-							<th>Potencia</th>
-							<th></th>
-						</tr>
-					
-						<c:forEach var="v" items="${vehiculos}">
-							
+				<a href="vehiculo?op=3">Crear nuevo</a>
+					<table class="display data-table-mio" cellspacing="0" width="100%">
+						<thead>
 							<tr>
-								<td>${v.id}</td>
-								<td>${v.modelo}</td>
-								<td>${v.plazas}</td>
-								<td>${v.dimensiones}</td>
-								<td>${v.potencia}</td>
-								<td>
-									<img alt="" src="img/lapiz_mini.png">
-									<img alt="" src="img/cubo_basura_mini.png">
-								</td>
+<!-- 								<th>ID</th> -->
+								<th>Modelo</th>
+								<th>Plazas</th>
+								<th>Dimensiones</th>
+								<th>Potencia</th>
+<!--								<th></th>-->
 							</tr>
-						</c:forEach>
+						</thead>
+						
+<!-- 						<tfoot>
+							<tr>
+								<th>ID</th>
+								<th>Modelo</th>
+								<th>Plazas</th>
+								<th>Dimensiones</th>
+								<th>Potencia</th>
+								<th></th> 
+							</tr>
+						</tfoot>
+ -->						
+						<tbody>
+					
+							<c:forEach var="v" items="${vehiculos}">
+								
+								<tr>
+<!-- 									<td>${v.id}</td>  -->
+									<td><a href="vehiculo?op=2&id=${v.id}">${v.modelo}</a></td>
+									<td>${v.plazas}</td>
+									<td>${v.dimensiones}</td>
+									<td>${v.potencia}</td>
+<!--									<td>
+										<img alt="" src="img/lapiz_mini.png">
+										<img alt="" src="img/cubo_basura_mini.png">
+									</td>-->
+								</tr>
+							</c:forEach>
+						
+						</tbody>
 					</table>
-				</div>
-				
+	
 
 				<c:choose>
 					<c:when test="${empty sessionScope.usuario.nombre}">
@@ -62,7 +80,6 @@
 				<c:set var="now" value="<%=new java.util.Date()%>"/>
 				<p>Fecha: <fmt:formatDate pattern = "dd-MM-yyyy HH:mm" value="${now}"/></p>
 				
-				<!--  end: <div class="table-responsive"> -->
             </div>
             <!-- <div class="row"> -->
     	</div>
