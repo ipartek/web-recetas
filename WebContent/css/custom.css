@@ -130,3 +130,7 @@ img.imgLogin{
   cursor:pointer;
   color:#666;
 }
+
+.box input[type="submit"]{
+ 	background:rgba(25,190,155,0.7);
+ }

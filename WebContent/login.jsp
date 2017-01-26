@@ -8,12 +8,12 @@
 			      	<source src="https://player.vimeo.com/external/147827948.sd.mp4?s=c8739aa76e715267d626c264ddce6e4406a0ef53" type="video/webm">
 			  	</video> 
 			  	<div class="inner-container">
+			   		
+			   		<%@include file="includes/mensaje.jsp"%>
 			   
 			    	<div class="box">
     	
 						<h1>Login</h1>
-						
-						<%@include file="includes/mensaje.jsp"%>
 						
 						<form action="login" method="post">
 							<input type="text" name="userName" placeholder="Nombre Usuario" required>
