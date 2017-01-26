@@ -58,9 +58,14 @@ body{
 }
 .box h1{
   text-align:center;
-  margin:30px 0;
   font-size:30px;
 }
+
+header .container{
+	padding-top:200px !important;
+	padding-bottom:30px !important;
+}
+
 .box input{
   display:block;
   width:300px;
@@ -73,18 +78,18 @@ body{
 .box input:focus,.box input:active,.box button:focus,.box button:active{
   outline:none;
 }
-.box button{
-  background:#2ecc71;
-  border:0;
-  color:#fff;
-  padding:10px;
-  font-size:20px;
-  width:330px;
-  margin:20px auto;
-  display:block;
-  cursor:pointer;
+.button{
+  background:#2ecc71 !important;
+  border:0 !important;
+  color:#fff !important;
+  padding:10px !important;
+  font-size:20px !important;
+  width:330px !important;
+  margin:20px auto !important;
+  display:block !important;
+  cursor:pointer !important;
 }
-.box button:active{
+.button:active{
   background:#27ae60;
 }
 .box p{

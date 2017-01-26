@@ -80,8 +80,12 @@
                 <ul>
                 	<li><a href="ejercicios/menu-del-dia.jsp">Menu del Día</a></li>
                 	<li><a href="ejercicios/primer-controlador.jsp">Controlador o Servlet [GET y POST]</a></li>
+                	<li><a href="ejercicios/pagna-no-existente.jsp">Gestion Error 404</a></li>
+                	<li><a href="controladorException?p=1">Gestion Error 500</a></li>
+                	<li><a href="controladorException?p=2">Gestion Error VehiculoException</a></li>
                 	<li><a href="ejercicios/crear-vehiculo.jsp">Crear vehiculo y Excepcion Personalizada</a></li>
-                	<li><a href="vehiculo">CRUD de Vehiculos</a></li>              	
+                	<li><a href="vehiculo">CRUD de Vehiculos</a></li>
+                	<li><a href="dado">Dadito magico</a></li>              	
                 </ul>
                 
             </div>
