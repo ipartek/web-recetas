@@ -1,3 +1,4 @@
+<%@page import="com.ipartek.formacion.recetas.controller.VehiculoCRUDController"%>
 <%@page import="com.ipartek.formacion.recetas.ejercicios.herencia.Vehiculo"%>
 <%@include file="../../includes/header.jsp" %>
 <%@include file="../../includes/nav.jsp" %>
@@ -17,59 +18,29 @@
       <div class="row">
       	<%@include file="../../includes/mensaje.jsp" %>
         
-       <ol> 
-       <c:forEach var="v" items="${vehiculos}">
-       		<li>${v.modelo}</li>
-       </c:forEach>
-       </ol> 
        
+       <a href="vehiculo?op=3">Crear Nuevo</a>
        
        <table class="display data-table-mio" cellspacing="0" width="100%">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Position</th>
-                <th>Office</th>
-                <th>Age</th>
-                <th>Start date</th>
-                <th>Salary</th>
+                <th>Modelo</th>
+                <th>Plazas</th>
+                <th>Dimensiones</th>
+                <th>Potencia</th>                
             </tr>
-        </thead>
-        <tfoot>
-            <tr>
-                <th>Name</th>
-                <th>Position</th>
-                <th>Office</th>
-                <th>Age</th>
-                <th>Start date</th>
-                <th>Salary</th>
-            </tr>
-        </tfoot>
+        </thead>        
         <tbody>
-            <tr>
-                <td>Tiger Nixon</td>
-                <td>System Architect</td>
-                <td>Edinburgh</td>
-                <td>61</td>
-                <td>2011/04/25</td>
-                <td>$320,800</td>
-            </tr>
-            <tr>
-                <td>Garrett Winters</td>
-                <td>Accountant</td>
-                <td>Tokyo</td>
-                <td>63</td>
-                <td>2011/07/25</td>
-                <td>$170,750</td>
-            </tr>
-            <tr>
-                <td>Ashton Cox</td>
-                <td>Junior Technical Author</td>
-                <td>San Francisco</td>
-                <td>66</td>
-                <td>2009/01/12</td>
-                <td>$86,000</td>
-            </tr>
+        
+        	<c:forEach var="v" items="${vehiculos}">        
+	            <tr>
+	                <td><a href="vehiculo?op=2&id=${v.id}">${v.modelo}</a></td>
+	                <td>${v.plazas}</td>
+	                <td>${v.dimensiones}</td>
+	                <td>${v.potencia}</td>        
+	            </tr>
+           </c:forEach> 
+                       
        </tbody>
        </table>
        
