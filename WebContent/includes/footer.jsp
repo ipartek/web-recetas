@@ -1,4 +1,4 @@
-<div id="controlling"><a href="../index.jsp#ejercicios">Volver</a></div>
+<div id="controlling"><a href="index.jsp#atras">Volver</a></div>
  </body>
  
  <footer>

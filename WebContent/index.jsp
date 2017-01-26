@@ -102,7 +102,7 @@
         </div>
         <!-- <div class="container"> -->
     </section>
-<a name="ejercicios"></a>
+<a name="atras"></a>
     <!-- Ejercicios Section -->
     <section class="success" id="ejercicios">
         <div class="container">

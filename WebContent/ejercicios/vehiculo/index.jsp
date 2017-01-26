@@ -20,7 +20,7 @@
        		<li>${v.modelo}</li>
        </c:forEach>
        </ol> 
-       <p>Usuario: ${sessionScope.usuario.nombre}</p>
+       <p>Usuario: ${sessionScope.user.nombre}</p>
        <p>Total Vehiculos: ${fn:length(vehiculos)}</p>
        
        <c:set var="now" value="<%=new java.util.Date()%>" />       
