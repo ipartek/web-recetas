@@ -1,6 +1,5 @@
-
-<%@page import="java.util.ArrayList"%>
 <%@page import="com.ipartek.formacion.recetas.ejercicios.herencia.Vehiculo"%>
+
 <%@include file="../../includes/header.jsp" %>
 <%@include file="../../includes/nav.jsp" %>
     
@@ -20,7 +19,7 @@
             <div class="row">  
 				<%@include file="../../includes/mensaje.jsp" %>
 				
-				<div class="table-responsive">
+				<div class="table-responsive">	
 					<table class="table table-striped" id="listarTabla">
 						<tr>
 							<th>ID</th>
@@ -30,32 +29,40 @@
 							<th>Potencia</th>
 							<th></th>
 						</tr>
-					<%
-						ArrayList<Vehiculo> vehic = (ArrayList<Vehiculo>) request.getAttribute("vehiculos");
-						for (Vehiculo v : vehic){
-					%>	
+					
+						<c:forEach var="v" items="${vehiculos}">
 							
-						<tr>
-							<td><%=v.getId() %></td>
-							<td><%=v.getModelo() %></td>
-							<td><%=v.getPlazas() %></td>
-							<td><%=v.getDimensiones() %></td>
-							<td><%=v.getPotencia() %></td>
-							<td>
-								<img alt="" src="img/lapiz_mini.png">
-								<img alt="" src="img/cubo_basura_mini.png">
-							</td>
-						</tr>
-					
-					<%
-						}
-					%>
-					
+							<tr>
+								<td>${v.id}</td>
+								<td>${v.modelo}</td>
+								<td>${v.plazas}</td>
+								<td>${v.dimensiones}</td>
+								<td>${v.potencia}</td>
+								<td>
+									<img alt="" src="img/lapiz_mini.png">
+									<img alt="" src="img/cubo_basura_mini.png">
+								</td>
+							</tr>
+						</c:forEach>
 					</table>
 				</div>
 				
-				<!--  end: <div class="table-responsive"> -->				           
-				           	
+
+				<c:choose>
+					<c:when test="${empty sessionScope.usuario.nombre}">
+						<c:set var="usuarioConectado" scope="session" value="No conectado"></c:set>
+					</c:when>
+					<c:otherwise>
+						<c:set var="usuarioConectado" scope="session" value="${sessionScope.usuario.nombre}"></c:set>
+					</c:otherwise>
+				</c:choose>
+				
+				<p>Usuario: ${usuarioConectado}</p>
+				<p>Total Vehiculos: ${fn: length(vehiculos)}</p>
+				<c:set var="now" value="<%=new java.util.Date()%>"/>
+				<p>Fecha: <fmt:formatDate pattern = "dd-MM-yyyy HH:mm" value="${now}"/></p>
+				
+				<!--  end: <div class="table-responsive"> -->
             </div>
             <!-- <div class="row"> -->
     	</div>
