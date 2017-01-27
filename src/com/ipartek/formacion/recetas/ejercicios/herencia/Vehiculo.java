@@ -34,7 +34,7 @@ public class Vehiculo implements Conducible, InterfazEstupida {
 		return modelo;
 	}
 
-	public void setModelo(String modelo) /* throws VehiculoException */ {
+	public void setModelo(String modelo) {
 		this.modelo = modelo;
 	}
 
@@ -42,29 +42,40 @@ public class Vehiculo implements Conducible, InterfazEstupida {
 		return plazas;
 	}
 
-	public void setPlazas(int plazas) /* throws VehiculoException */ {
-		/*
-		 * if (plazas < 0) { throw new
-		 * VehiculoException(VehiculoException.MSG_ERROR_PLAZAS); } else {
-		 */
-		this.plazas = plazas;
-		// }
+	public void setPlazas(int plazas) throws VehiculoException {
+
+		if (plazas < 0) {
+			throw new VehiculoException(VehiculoException.MSG_ERROR_PLAZAS);
+		} else {
+
+			this.plazas = plazas;
+		}
 	}
 
 	public float getDimensiones() {
 		return dimensiones;
 	}
 
-	public void setDimensiones(float dimensiones) {
-		this.dimensiones = dimensiones;
+	public void setDimensiones(float dimensiones) throws VehiculoException {
+		if (dimensiones < 0) {
+			throw new VehiculoException(VehiculoException.MSG_ERROR_DIMENSIONES);
+		} else {
+
+			this.dimensiones = dimensiones;
+		}
 	}
 
 	public float getPotencia() {
 		return potencia;
 	}
 
-	public void setPotencia(float potencia) {
-		this.potencia = potencia;
+	public void setPotencia(float potencia) throws VehiculoException {
+		if (potencia < 0) {
+			throw new VehiculoException(VehiculoException.MSG_ERROR_POTENCIA);
+		} else {
+
+			this.potencia = potencia;
+		}
 	}
 
 	@Override

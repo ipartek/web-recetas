@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.recetas.ejercicios.herencia.Vehiculo;
+import com.ipartek.formacion.recetas.ejercicios.herencia.VehiculoException;
 import com.ipartek.formacion.recetas.pojo.Mensaje;
 import com.ipartek.formacion.recetas.services.ServiceVehiculo;
 import com.ipartek.formacion.recetas.services.ServiceVehiculoArrayList;
@@ -87,29 +88,43 @@ public class VehiculoCRUDController extends HttpServlet {
 			break;
 
 		case OP_GUARDAR:
-			Vehiculo v = new Vehiculo();
-			v.setId(Integer.parseInt(request.getParameter("id")));
-			v.setModelo(request.getParameter("modelo"));
-			v.setPlazas(Integer.parseInt(request.getParameter("plazas")));
-			v.setDimensiones(Float.parseFloat(request.getParameter("dimensiones")));
-			v.setPotencia(Float.parseFloat(request.getParameter("potencia")));
+			Vehiculo v = null;
+			try {
+				v = new Vehiculo();
+				v.setId(Integer.parseInt(request.getParameter("id")));
+				v.setModelo(request.getParameter("modelo"));
+				v.setPlazas(Integer.parseInt(request.getParameter("plazas")));
+				v.setDimensiones(Float.parseFloat(request.getParameter("dimensiones")));
+				v.setPotencia(Float.parseFloat(request.getParameter("potencia")));
 
-			// Los vehiculos nuevos tienen id -1 al INSTANCIAR Vehiculo.
-			if (Integer.parseInt(request.getParameter("id")) == -1) {
-				if (service.create(v)) {
-					msg.setClase(Mensaje.CLASE_SUCCESS);
-					msg.setDescripcion("Creado correctamente");
-					request.setAttribute("msj", msg);
+				// Los vehiculos nuevos tienen id -1 al INSTANCIAR Vehiculo.
+				if (Integer.parseInt(request.getParameter("id")) == -1) {
+					if (service.create(v)) {
+						msg.setClase(Mensaje.CLASE_SUCCESS);
+						msg.setDescripcion("Creado correctamente");
+						request.setAttribute("msj", msg);
+					}
+				} else {
+					if (service.update(v)) {
+						msg.setClase(Mensaje.CLASE_SUCCESS);
+						msg.setDescripcion("Modificado correctamente");
+						request.setAttribute("msj", msg);
+					}
 				}
-			} else {
-				if (service.update(v)) {
-					msg.setClase(Mensaje.CLASE_SUCCESS);
-					msg.setDescripcion("Modificado correctamente");
-					request.setAttribute("msj", msg);
-				}
+
+				request.setAttribute("vehiculos", service.getAll());
+				request.getRequestDispatcher(VIEW_LIST).forward(request, response);
+
+			} catch (NumberFormatException | VehiculoException e) {
+				msg.setClase(Mensaje.CLASE_DANGER);
+				msg.setDescripcion(e.getMessage());
+				e.printStackTrace();
+				request.setAttribute("msj", msg);
+				request.setAttribute("op", OP_VER_DETALLE);
+				request.setAttribute("vehiculos", v);
+				request.getRequestDispatcher(VIEW_FORM).forward(request, response);
 			}
-			request.setAttribute("vehiculos", service.getAll());
-			request.getRequestDispatcher(VIEW_LIST).forward(request, response);
+
 			break;
 
 		case OP_VER_NUEVO:
