@@ -106,7 +106,7 @@
 
     <!-- About Section -->
     <section class="success" id="about">
-        <div class="container">
+        <div class="container" id="ejercicios">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2>Ejercicios</h2>
@@ -120,7 +120,8 @@
                     <li><a href= "vehiculo"> CRUD de Vehiculos.</a></li>
                     <li><a href= "controladorException?p=1"> Gestion Error 500</a></li>
                     <li><a href= "controladorException?p=2"> Gestion Error VehiculoException.</a></li>
-                   <li><a href= "ejerciciosXXXX/pagina-no-existente-404.jsp"> Error 404.</a></li>
+                    <li><a href= "ejerciciosXXXX/pagina-no-existente-404.jsp"> Error 404.</a></li>
+                    <li><a href= "dado">Dado.(Buena suerte)</a></li>
                </ul>
                
                 </div>

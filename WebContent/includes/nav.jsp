@@ -1,9 +1,6 @@
-<!-- Navigation -->
-    <%@page import="com.ipartek.formacion.recetas.pojo.Usuario"%>
-    
-    <%@page errorPage="../error.jsp"%>
- 
-    
+<%@page import="com.ipartek.formacion.recetas.pojo.Usuario"%>
+
+<!-- Navigation -->   
 <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -30,28 +27,30 @@
                         <a href="#contact">Contact</a>
                     </li>
                      
-                     
-                      <%
-                    	Usuario user =(Usuario)session.getAttribute("usuario");
-            			if (user == null){
-                    %>
-                    	<li class="page-scroll">
-                        <a href="login.jsp">LogIn</a>
-                        </li>
-                    <%} else{ %>
                     
-                    <li class="page-scroll">
-                    <a href="logout">Logout[X]</a>
-                    <p id="bienv">Bienvenid@<br> <%=user.getNombre() %></p>
-                    <li class="page-scroll">
-                    <li><br><br><img id="imguser" src="<%=user.getImagen()%>"></li>	
-                    <li class="page-scroll">
                     <%
-                    }
-                   	%>
-                    </li>
+                    	Usuario user = (Usuario)session.getAttribute("usuario");
+            			if ( user == null ){
+                    %>
+                                        
+	                    <li class="page-scroll">
+	                        <a href="login.jsp">Login</a>
+	                    </li>
+	                    
+                    <% }else{ %>
+                    
+                    	<li class="page-scroll">
+                   		   <a href="logout">(${sessionScope.usuario.nombre})Cerrar[X]</a>
+                   		<li class="page-scroll"> 
+                   		
+                    <% } %>
+                    
+                   
                 </ul>
-            </div>	
+                
+                 
+                
+            </div>
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container-fluid -->

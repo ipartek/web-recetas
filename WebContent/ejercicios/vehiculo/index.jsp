@@ -17,6 +17,8 @@
       <div class="row">
 	<%@include file="../../includes/mensaje.jsp" %>
 	
+	<a href ="vehiculo?op=3">Crear nuevo Vehiculo.</a>
+
 <table class="display data-table-mio" cellspacing="0" width="100%">
         <thead>
             <tr>
@@ -24,7 +26,7 @@
                 <th>Plazas</th>
                 <th>Dimensiones</th>
                 <th>Potencia</th>
-                <th><a href ="vehiculo?op=3">Crear nuevo Vehiculo.</a></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>

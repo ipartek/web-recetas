@@ -1,9 +1,9 @@
-<!-- jQuery -->
+                
+    <!-- jQuery -->
     <script src="vendor/jquery/jquery.min.js"></script>
     
     <!-- dataTables -->
-    
-    <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js">
+    <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
@@ -18,9 +18,14 @@
     <!-- Theme JavaScript -->
     <script src="js/freelancer.min.js"></script>
     
-    <!-- Custom JavaScript -->
+    
+    <!--  Custom JavaScript -->
     <script src="js/custom.js"></script>
-	
+    
+       
+	      
+      
+
 </body>
 
-</html> 
+</html>

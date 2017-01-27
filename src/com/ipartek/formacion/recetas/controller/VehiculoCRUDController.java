@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.recetas.ejercicios.herencia.Vehiculo;
+import com.ipartek.formacion.recetas.ejercicios.herencia.VehiculoException;
 import com.ipartek.formacion.recetas.pojo.Mensaje;
 import com.ipartek.formacion.recetas.services.ServiceVehiculo;
 import com.ipartek.formacion.recetas.services.ServiceVehiculoArrayList;
@@ -94,27 +95,41 @@ public class VehiculoCRUDController extends HttpServlet {
 
 		// Operacion que crea y modifica el Vehiculo.
 		case OP_GUARDAR:
-			Vehiculo v = new Vehiculo();
-			v.setId(Integer.parseInt(request.getParameter("id")));
-			v.setModelo(request.getParameter("modelo"));
-			v.setPlazas(Integer.parseInt(request.getParameter("plazas")));
-			v.setDimensiones(Float.parseFloat(request.getParameter("dimensiones")));
-			v.setPotencia(Float.parseFloat(request.getParameter("potencia")));
-			if (Integer.parseInt(request.getParameter("id")) == -1) {
-				service.create(v);
-				msj.setClase(Mensaje.CLASE_SUCCESS);
-				msj.setDescripcion("Creado correctamente");
-				request.setAttribute("msj", msj);
+			Vehiculo v = null;
+			try {
+				v = new Vehiculo();
+				v.setId(Integer.parseInt(request.getParameter("id")));
+				v.setModelo(request.getParameter("modelo"));
 
-			} else {
-				msj.setClase(Mensaje.CLASE_SUCCESS);
-				msj.setDescripcion("Modificado correctamente");
+				v.setPlazas(Integer.parseInt(request.getParameter("plazas")));
+
+				v.setDimensiones(Float.parseFloat(request.getParameter("dimensiones")));
+				v.setPotencia(Float.parseFloat(request.getParameter("potencia")));
+				if (Integer.parseInt(request.getParameter("id")) == -1) {
+					service.create(v);
+					msj.setClase(Mensaje.CLASE_SUCCESS);
+					msj.setDescripcion("Creado correctamente");
+					request.setAttribute("msj", msj);
+
+				} else {
+					msj.setClase(Mensaje.CLASE_SUCCESS);
+					msj.setDescripcion("Modificado correctamente");
+					request.setAttribute("msj", msj);
+					service.update(v);
+				}
+				request.setAttribute("vehiculos", service.getAll());
+
+				request.getRequestDispatcher(VIEW_LIST).forward(request, response);
+
+			} catch (NumberFormatException | VehiculoException e) {
+				msj.setClase(Mensaje.CLASE_DANGER);
+				msj.setDescripcion(e.getMessage());
 				request.setAttribute("msj", msj);
-				service.update(v);
+				request.setAttribute("op", OP_VER_DETALLE);
+				request.setAttribute("vehiculos", v);
+				e.printStackTrace();
+				request.getRequestDispatcher(VIEW_FORM).forward(request, response);
 			}
-			request.setAttribute("vehiculos", service.getAll());
-
-			request.getRequestDispatcher(VIEW_LIST).forward(request, response);
 			break;
 		// Operacion que crea un nuevo vehiculo.
 		case OP_VER_NUEVO:
