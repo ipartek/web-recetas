@@ -16,7 +16,12 @@ public class Usuario {
 		this.nombre = "anonimo";
 		this.imagen = "https://d304k3mn1nwj0a.cloudfront.net/the_simpsons/ralph.png";
 	}
-
+	
+	public Usuario(String nombre) {
+		super();
+		this.nombre = nombre;
+		this.imagen = "https://d304k3mn1nwj0a.cloudfront.net/the_simpsons/ralph.png";
+	}
 
 	public long getId() {
 		return id;

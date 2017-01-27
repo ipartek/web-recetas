@@ -145,6 +145,29 @@ body{
   color:#666;
 }
 
+.dadoboton{
+    padding: 20px;
+    border: 1px solid black;
+    color: #fff;
+    border-radius: 35px;
+    background-color: #23b8e2;
+    text-decoration:none !important;
+}
+.dadoboton:hover{
+	background-color:#dff0d8;
+	color:black;
+}
+
+
+.usuarioelegido p{
+	float:left;	
+}
+
+.usuarioelegido img{
+	width:15%;
+}
+
+
 /*Pagina 500*/
 
 .video500{

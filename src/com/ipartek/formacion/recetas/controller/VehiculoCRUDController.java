@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.recetas.ejercicios.herencia.Vehiculo;
+import com.ipartek.formacion.recetas.ejercicios.herencia.VehiculoException;
+import com.ipartek.formacion.recetas.pojo.Mensaje;
 import com.ipartek.formacion.recetas.services.ServiceVehiculo;
 import com.ipartek.formacion.recetas.services.ServiceVehiculoArraylist;
 
@@ -27,7 +29,11 @@ public class VehiculoCRUDController extends HttpServlet {
 	public static final String OP_LISTAR = "1";
 	public static final String OP_VER_DETALLE = "2";
 	public static final String OP_VER_NUEVO = "3";
+	public static final String OP_GUARDAR = "4";
+	public static final String OP_ELIMINAR = "5";
 	
+	Vehiculo v;
+	Mensaje mensaje = new Mensaje();
 
 	private static ServiceVehiculo service;
 	
@@ -72,9 +78,78 @@ public class VehiculoCRUDController extends HttpServlet {
 			request.getRequestDispatcher(VIEW_FORM).forward(request, response);
 			break;
 			
+		case OP_GUARDAR:
+			
+			try {
+				
+				v = new Vehiculo();
+				v.setId(Long.valueOf(request.getParameter("id")));
+				v.setModelo(request.getParameter("modelocrear"));
+				v.setPlazas(Integer.valueOf(request.getParameter("plazascrear")));
+				v.setPotencia(Float.valueOf(request.getParameter("potenciacrear")));
+				mensaje.setClase(mensaje.CLASE_SUCCESS);
+				if(v.getId() > 0){
+					
+					if(service.update(v)){
+						mensaje.setDescripcion("Modificado correctamente");
+					}else{
+						mensaje.setClase(mensaje.CLASE_DANGER);
+						mensaje.setDescripcion("Error al modificar");
+					}
+					
+				}else{
+					
+					if(service.create(v)){
+						mensaje.setDescripcion("Coche creado correctamente");
+					}else{
+						mensaje.setClase(mensaje.CLASE_DANGER);
+						mensaje.setDescripcion("Error al crear");
+					}
+					
+				}
+				
+				
+			} catch (VehiculoException e) {
+				
+				mensaje.setClase(mensaje.CLASE_DANGER);
+				mensaje.setDescripcion(e.getMessage());
+				
+			} catch (Exception e) {
+				
+				mensaje.setClase(mensaje.CLASE_DANGER);
+				mensaje.setDescripcion("Upps ha habido algun error, lo sentimos...");
+				
+				
+			}finally{
+				request.setAttribute("msj", mensaje);
+				request.setAttribute("vehiculos", service.getAll());
+				request.getRequestDispatcher(VIEW_LIST).forward(request, response);
+			}
+			
+			break;
+			
+		case OP_ELIMINAR:
+			
+			long idcoche = Long.valueOf(request.getParameter("id"));
+			
+			if(service.delete(idcoche)){
+				mensaje.setDescripcion("Eliminado correctamente");
+			}else{
+				mensaje.setClase(mensaje.CLASE_DANGER);
+				mensaje.setDescripcion("Error al eliminar");
+			}
+			
+			request.setAttribute("msj", mensaje);
+			request.setAttribute("vehiculos", service.getAll());
+			request.getRequestDispatcher(VIEW_LIST).forward(request, response);
+			
+			break;
+			
+			
 		default:
 			request.setAttribute("vehiculos", service.getAll());
 			request.getRequestDispatcher(VIEW_LIST).forward(request, response);
+			break;
 		}
 		
 	}

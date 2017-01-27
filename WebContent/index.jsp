@@ -164,6 +164,7 @@
                 	<li><a href="controladorExcepcion?p=1">Gestion error 500 </a></li>
                 	<li><a href="controladorExcepcion?p=2">Gestion error VehiculoException </a></li>
                 	<li><a href="vehiculo">CRUD de Vehiculos</a></li>
+                	<li><a href="ejercicios/dado.jsp">Dado</a></li>
                 </ul>
             </div>
         </div>
