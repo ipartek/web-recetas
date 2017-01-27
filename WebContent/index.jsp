@@ -88,6 +88,7 @@
 					class="custom-link">CRUD(CreateReadUpdateDelete) de vehiculos</a></li>
 				<li class="list-group-item"><a href="ejercicios/ErrorPage.jsp" class="custom-link">Error
 						Page</a></li>
+						<li lass="list-group-item"><a href="dado?op=1" class="custom-link">Dado</a></li>
 				<li class="list-group-item"><a href="ejercicios/404.jsp" class="custom-link">Pagina
 						no exixtente.404</a></li>
 				<li class="list-group-item"><a href="ExceptionController?p=1"

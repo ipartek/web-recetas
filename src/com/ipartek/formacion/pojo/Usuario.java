@@ -17,6 +17,14 @@ public class Usuario {
 		this.imagen = "https://www.inspectionsupport.net/wp-content/uploads/2014/07/LoginRed.jpg";
 		this.gitUserName = "";
 	}
+	public Usuario(String name) {
+		super();
+		this.id = -1;
+		this.nombre = name;
+		this.email = "";
+		this.imagen = "https://www.inspectionsupport.net/wp-content/uploads/2014/07/LoginRed.jpg";
+		this.gitUserName = "";
+	}
 
 	public long getId() {
 		return id;
