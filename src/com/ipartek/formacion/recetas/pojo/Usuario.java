@@ -15,6 +15,13 @@ public class Usuario {
 		this.nombre = "anonimo";
 		this.imagen= "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/avatars/98/9806f1ff88dc34fafe922687deeaa2fa6d2d3203_medium.jpg";
 	}
+	
+	public Usuario(String nombre) {
+		super();
+		this.id = -1;
+		this.nombre = nombre;
+		this.imagen= "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/avatars/98/9806f1ff88dc34fafe922687deeaa2fa6d2d3203_medium.jpg";
+	}
 
 	public long getId() {
 		return id;

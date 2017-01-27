@@ -85,7 +85,7 @@
                 	<li><a href="controladorException?p=2">Gestion Error VehiculoException</a></li>
                 	<li><a href="ejercicios/crear-vehiculo.jsp">Crear vehiculo y Excepcion Personalizada</a></li>
                 	<li><a href="vehiculo">CRUD de Vehiculos</a></li>
-                	<li><a href="dado">Dadito magico</a></li>              	
+                	<li><a href="ejercicios/dado.jsp">Dadito magico</a></li>              	
                 </ul>
                 
             </div>

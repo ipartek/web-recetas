@@ -11,9 +11,11 @@
 	  		</div> 
 </header> 
 				<%@include file="../includes/mensaje.jsp" %>
+				<div class="usuarioelegido">
+				<p> El afortunado a leer es: ${usuario.getNombre()}
+				<img src="${usuario.getImagen() } ">
+				</div>
+				
 				<a href="dado">Tirar dado</a>
-				<form action="dado" method="get">
-					<input type="submit" value="Lanzar dado">
-               	</form>
 </body>
 <%@include file="../includes/footer.jsp" %>

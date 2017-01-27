@@ -11,29 +11,53 @@
              </div>             
  		</div> 
  	</header> 
- 	
- <%
- int i = Integer.parseInt(request.getParameter("op"));
  
- %>
-<c:set var="oper" value="${i}"/>
-        <c:if test="${ oper == 3}">
-<form action="vehiculo" method="post">
+<%@include file="../../includes/mensaje.jsp" %>
+
+<c:set var="identificador" scope="request" value="${vehiculo.id}"/>
+<c:if test="${ identificador > 0}">
+	 <form action="vehiculo" method="post">
       <label for ="modelo">Modelo:</label>
-      <input type="text" name="modelo" id="modelo" placeholder="oper" required pattern=".{2,255}">
+      <input type="text" name="modeloCrear" id="modeloCrear" value="${vehiculo.modelo}" pattern=".{2,255}">
       <br>
                		
       <label for ="plazas">Plazas:</label>
-      <input type="number" min="1" step="1" name="plazas" id="plazas" value="1" required>
+      <input type="number" min="1" step="1" name="plazasCrear" id="plazas" value="${vehiculo.plazas}">
       <br>
               		
       <label for ="potencia">Potencia:</label>
-      <input type="number" min= "0" name="potencia" id="potencia" placeholder="0 cvv" required>
+      <input type="number" min= "0" name="potenciaCrear" id="potencia" value="${vehiculo.potencia}">
+      <br>
+      <input type="hidden" name= "op" value="4">  
+      <input type="hidden" name= "id" value="${vehiculo.id}">        		
+      <input type="submit" value="Modificar">
+
+	</form>
+<form action="vehiculo" method="post">
+<input type="hidden" name= "op" value="5">
+<input type="hidden" name= "id" value="${vehiculo.id}">
+      <input type="submit" value="Eliminar">
+</form>
+</c:if>
+
+<c:if test="${ identificador < 0}">
+	  <form action="vehiculo" method="post">
+      <label for ="modelo">Modelo:</label>
+      <input type="text" name="modeloCrear" id="modelo" placeholder="Modelo" pattern=".{2,255}">
       <br>
                		
+      <label for ="plazas">Plazas:</label>
+      <input type="number" min="1" step="1" name="plazasCrear" id="plazas" value="1" required>
+      <br>
+              		
+      <label for ="potencia">Potencia:</label>
+      <input type="number" min= "0" name="potenciaCrear" id="potencia" placeholder="0.0" required>
+      <br>
+      <input type="hidden" name= "op" value="4">    
+      <input type="hidden" name= "id" value="${vehiculo.id}">     		
       <input type="submit" value="Crear">
 </form>
 </c:if>
-${vehiculo}
-</body>
+
+<a href="vehiculo">VOLVER</a>
 <%@include file="../../includes/footer.jsp" %>
