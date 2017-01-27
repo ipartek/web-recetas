@@ -19,7 +19,9 @@
       	<%@include file="../../includes/mensaje.jsp" %>
         
        
-       <a href="vehiculo?op=3">Crear Nuevo</a>
+       <a href="vehiculo?op=3">Crear Nuevo</a><br>
+       <!-- <a href="vehiculo?op=2">Modificar un vehiculo</a><br>
+       <a href="vehiculo?op=1">Borrar un vehiculo</a> -->
        
        <table class="display data-table-mio" cellspacing="0" width="100%">
         <thead>
