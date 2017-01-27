@@ -15,6 +15,20 @@ public class Usuario {
 		this.nombre = "anonimo";
 		this.imagen = "https://pbs.twimg.com/profile_images/617295207202209792/P8kGVpP-_reasonably_small.png";
 	}
+	
+	public Usuario(String nombre) {
+		super();
+		this.nombre = nombre;
+		this.imagen = "https://pbs.twimg.com/profile_images/617295207202209792/P8kGVpP-_reasonably_small.png";
+	}
+	
+	public Usuario(String nombre, String imagen) {
+		super();
+		this.nombre = nombre;
+		this.imagen = imagen;
+	}
+
+
 
 	public long getId() {
 		return id;

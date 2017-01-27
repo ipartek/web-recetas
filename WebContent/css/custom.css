@@ -35,6 +35,34 @@ div#impresionDatos {
 	margin-top:6%;
 }
 
+/*Estilos dado */
+
+.tamImgDado{
+	width:35%;
+	height: 35%;
+	margin-top:10%;
+}
+#posImagen
+{
+	margin-top:2%;
+	margin-left:40%;
+}
+
+#posTitulo
+{
+	margin-left:0px;
+}
+
+#posBoton
+{
+	margin-top: 5%;
+	margin-left:11%;
+}
+
+#tamLetra
+{
+	font-size: 5em;
+}
 
 /*  LOGIN - video */
 
