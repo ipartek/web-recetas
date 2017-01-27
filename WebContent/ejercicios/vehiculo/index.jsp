@@ -16,10 +16,12 @@
   	
    <div class="container">
       <div class="row">
+      <a name="#coches"></a>
       	<%@include file="../../includes/Mensaje.jsp" %>
-        
+      
+      
        
-       <a href="vehiculo?op=3">Crear Nuevo</a>
+       <a href="vehiculo?op=3">CREAR VEHICULO NUEVO</a>
        
        <table class="display data-table-mio" cellspacing="0" width="100%">
         <thead>
@@ -27,12 +29,21 @@
                 <th>Modelo</th>
                 <th>Plazas</th>
                 <th>Dimensiones</th>
-                <th>Potencia</th>                
+                <th>Potencia</th>               
             </tr>
         </thead>        
         <tbody>
+        <!-- ForEach recorre un array. Para poder hacerlo, inicializamos una variable (llamada v) que
+        solo podremos utilizar en esta página. Para usar estas variables en el formulario, debemos
+        de enviarlas al controlador y que este las recoja como atributos. Esto se define en items="${vehiculo}"
+        ya que el nombre que le indicamos (vehiculo) es un Array.
         
-        	<c:forEach var="v" items="${vehiculos}">        
+        Para sacar los valores concretos del Array, utilizamos la nueva variable definida en el foreach (v)
+        y llamamos a los atributos del array list. Estos atributos estarán definidiso en Vehiculo.java
+        
+        
+         -->
+        	<c:forEach var="v" items="${vehiculo}">        
 	            <tr>
 	                <td><a href="vehiculo?op=2&id=${v.id}">${v.modelo}</a></td>
 	                <td>${v.plazas}</td>
@@ -61,7 +72,7 @@
        
        
        
-       <p>Total Vehiculos: ${fn:length(vehiculos)}</p>
+       <p>Total Vehiculos: ${fn:length(vehiculo)}</p>
        
        <c:set var="now" value="<%=new java.util.Date()%>" />       
        <p>Fecha: <fmt:formatDate pattern="dd-MM-yyyy HH:mm" value="${now}" /></p> 
