@@ -4,6 +4,10 @@ import com.ipartek.formacion.recetas.ejercicios.collection.InterfazEstupida;
 
 public class Vehiculo implements Conducible, InterfazEstupida {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private long id;
 	private String modelo;
 	private int plazas;
@@ -19,14 +23,6 @@ public class Vehiculo implements Conducible, InterfazEstupida {
 		this.potencia = 100;
 	}
 
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
 	public Vehiculo(String modelo) {
 		this();
 		this.modelo = modelo;
@@ -38,13 +34,23 @@ public class Vehiculo implements Conducible, InterfazEstupida {
 		this.modelo = modelo;
 	}
 
+	boolean isNew() {
+		return (this.id == -1) ? true : false;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	public String getModelo() {
 		return modelo;
 	}
 
-	public void setModelo(String modelo) throws VehiculoException {
-		if (modelo == "")
-			throw new VehiculoException(VehiculoException.MSG_ERROR_MODELO);
+	public void setModelo(String modelo) {
 		this.modelo = modelo;
 	}
 
@@ -52,13 +58,12 @@ public class Vehiculo implements Conducible, InterfazEstupida {
 		return plazas;
 	}
 
-	public void setPlazas(int plazas) throws VehiculoException {
-		if (plazas < 0) {
-			throw new VehiculoException(VehiculoException.MSG_ERROR_PLAZAS);
-		} else {
-
-			this.plazas = plazas;
-		}
+	public void setPlazas(int plazas) /* throws VehiculoException */ {
+		// if (plazas < 0) {
+		// throw new VehiculoException(VehiculoException.MSG_ERROR_PLAZAS);
+		// } else {
+		this.plazas = plazas;
+		// }
 	}
 
 	public float getDimensiones() {
@@ -73,10 +78,7 @@ public class Vehiculo implements Conducible, InterfazEstupida {
 		return potencia;
 	}
 
-	public void setPotencia(float potencia) throws VehiculoException {
-		if (potencia < 0) {
-			throw new VehiculoException(VehiculoException.MSG_ERROR_POTENCIA);
-		}
+	public void setPotencia(float potencia) {
 		this.potencia = potencia;
 	}
 
