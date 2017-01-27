@@ -82,6 +82,9 @@
                 	<li><a href="ejercicios/primer-controlador.jsp">Controlador o Servlet [GET y POST]</a></li>                	
                 	<li><a href="ejercicios/crear-vehiculo.jsp">Crear Vehiculo y Excepciones Personalizadas</a></li>
                 	<li><a href="vehiculo">CRUD de Vehiculos</a></li>
+                	<li><a href="ejerciciosxxx/pagina-no-existente-404.jsp">Gestion Error 404</a></li>
+                	<li><a href="controladorExcepcion?p=1">Gestion Error 500</a></li>
+                	<li><a href="controladorExcepcion?p=2">Gestion Error VehiculoException</a></li>
                 </ul>
                 
             </div>

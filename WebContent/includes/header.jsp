@@ -1,3 +1,7 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -19,7 +23,8 @@
 
     <!-- Theme CSS -->
     <link href="css/freelancer.min.css" rel="stylesheet">
-    
+    <!-- DataTable -->
+    <link href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" rel="stylesheet">
     <!-- Custom -->
     <link href="css/custom.css" rel="stylesheet">
 

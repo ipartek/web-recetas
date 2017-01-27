@@ -1,1 +1,1 @@
-<%@page isErrorPage="true" %>
+error 500.jsp
