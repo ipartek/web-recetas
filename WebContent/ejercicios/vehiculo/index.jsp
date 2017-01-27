@@ -21,8 +21,10 @@
             <div class="row">  
 				<%@include file="../../includes/mensaje.jsp" %>
 				
-				<a href="vehiculo?op=3">Crear nuevo</a>
-					<table class="display data-table-mio" cellspacing="0" width="100%">
+				<div id="crearNuevo">
+					<a href="vehiculo?op=3">Crear nuevo</a>
+				</div>
+					<table class="display data-table-mio miTabla">
 						<thead>
 							<tr>
 <!-- 								<th>ID</th> -->
@@ -75,10 +77,12 @@
 					</c:otherwise>
 				</c:choose>
 				
-				<p>Usuario: ${usuarioConectado}</p>
-				<p>Total Vehiculos: ${fn: length(vehiculos)}</p>
-				<c:set var="now" value="<%=new java.util.Date()%>"/>
-				<p>Fecha: <fmt:formatDate pattern = "dd-MM-yyyy HH:mm" value="${now}"/></p>
+				<div id="info">
+					<p>Usuario: ${usuarioConectado}</p>
+					<p>Total Vehiculos: ${fn: length(vehiculos)}</p>
+					<c:set var="now" value="<%=new java.util.Date()%>"/>
+					<p>Fecha: <fmt:formatDate pattern = "dd-MM-yyyy HH:mm" value="${now}"/></p>
+				</div>
 				
             </div>
             <!-- <div class="row"> -->

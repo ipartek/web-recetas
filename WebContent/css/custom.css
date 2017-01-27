@@ -48,6 +48,13 @@ div#impresionDatos {
   text-transform: uppercase;
 }
 */
+
+/********************************************/
+.miTabla{
+	cellspacing="0";
+	width="100%;
+}
+
 img.imgLogin{
   width: 20%; height: 20%;
 }
@@ -134,4 +141,23 @@ img.imgLogin{
 
 .box input[type="submit"]{
  	background:rgba(25,190,155,0.7);
+ }
+ 
+ /***********************************************/
+ 
+ #btnEliminar{
+ 	background: #ff0000;
+ 	color: #fff;
+ }
+ 
+ #crearNuevo{
+ 	padding-bottom: 20px;
+ }
+ 
+ #crearNuevo a{
+ 	font-size: 1.5em;
+ }
+ 
+ #info{
+ 	padding-top: 30px;
  }
