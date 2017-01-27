@@ -15,6 +15,7 @@
   	
    <div class="container">
       <div class="row">
+      <%@include file="../../includes/mensaje.jsp" %>
       <!-- 
 		<ol>
 		<c:forEach items="${vehiculos}" var="v" >
@@ -22,7 +23,7 @@
     	</c:forEach>
 		</ol>
 		 -->
-		 <a href="vehiculo?op=3">Crear</a>
+		 <a href="vehiculo?op=3">Crear Vehiculo</a>
 		<table class="display data-table-mio" >
         <thead>
             <tr>
@@ -30,6 +31,7 @@
                 <th>Plazas</th>
                 <th>Dimensiones</th>
                 <th>Potencia</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -39,6 +41,7 @@
                 <td>${v.plazas}</td>
                 <td>${v.dimensiones}</td>
                 <td>${v.potencia}</td>
+                <td><a href="vehiculo?op=5&id=${v.id}">Eliminar</a></td>
             </tr>
         </c:forEach>
         </tbody>

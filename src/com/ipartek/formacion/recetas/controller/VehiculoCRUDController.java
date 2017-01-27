@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.recetas.ejercicios.herencia.Vehiculo;
+import com.ipartek.formacion.recetas.pojo.Mensaje;
 import com.ipartek.formacion.recetas.services.ServiceVehiculo;
 import com.ipartek.formacion.recetas.services.ServiceVehiculoArrayList;
 
@@ -29,6 +30,7 @@ public class VehiculoCRUDController extends HttpServlet {
 	public static final String OP_VER_DETALLE = "2";
 	public static final String OP_VER_NUEVO = "3";
 	public static final String OP_GUARDAR = "4";
+	public static final String OP_ELIMINAR = "5";
 
 	private static ServiceVehiculo service;
 
@@ -66,28 +68,56 @@ public class VehiculoCRUDController extends HttpServlet {
 
 		// buscar operacion a realizar
 		String op = request.getParameter("op");
+		Mensaje msg = new Mensaje();
 		if (op == null) {
 			op = OP_LISTAR;
 		}
 		switch (op) {
-		case OP_GUARDAR:
-			if (Integer.parseInt(request.getParameter("id")) == -1) {
-				Vehiculo v = new Vehiculo();
-				v.setModelo(request.getParameter("modelo"));
-				v.setPlazas(Integer.parseInt(request.getParameter("plazas")));
-				v.setDimensiones(Float.parseFloat(request.getParameter("dimensiones")));
-				v.setPotencia(Float.parseFloat(request.getParameter("potencia")));
-				service.create(v);
-				request.setAttribute("vehiculos", service.getAll());
+
+		case OP_ELIMINAR:
+
+			if (service.delete(Long.parseLong(request.getParameter("id")))) {
+				msg.setClase(Mensaje.CLASE_SUCCESS);
+				msg.setDescripcion("Eliminado correctamente");
+				request.setAttribute("msj", msg);
 			}
 
+			request.setAttribute("vehiculos", service.getAll());
 			request.getRequestDispatcher(VIEW_LIST).forward(request, response);
 			break;
+
+		case OP_GUARDAR:
+			Vehiculo v = new Vehiculo();
+			v.setId(Integer.parseInt(request.getParameter("id")));
+			v.setModelo(request.getParameter("modelo"));
+			v.setPlazas(Integer.parseInt(request.getParameter("plazas")));
+			v.setDimensiones(Float.parseFloat(request.getParameter("dimensiones")));
+			v.setPotencia(Float.parseFloat(request.getParameter("potencia")));
+
+			// Los vehiculos nuevos tienen id -1 al INSTANCIAR Vehiculo.
+			if (Integer.parseInt(request.getParameter("id")) == -1) {
+				if (service.create(v)) {
+					msg.setClase(Mensaje.CLASE_SUCCESS);
+					msg.setDescripcion("Creado correctamente");
+					request.setAttribute("msj", msg);
+				}
+			} else {
+				if (service.update(v)) {
+					msg.setClase(Mensaje.CLASE_SUCCESS);
+					msg.setDescripcion("Modificado correctamente");
+					request.setAttribute("msj", msg);
+				}
+			}
+			request.setAttribute("vehiculos", service.getAll());
+			request.getRequestDispatcher(VIEW_LIST).forward(request, response);
+			break;
+
 		case OP_VER_NUEVO:
 			request.setAttribute("vehiculos", new Vehiculo());
 			request.setAttribute("op", OP_VER_NUEVO);
 			request.getRequestDispatcher(VIEW_FORM).forward(request, response);
 			break;
+
 		case OP_VER_DETALLE:
 			long id = Long.parseLong(request.getParameter("id"));
 			request.setAttribute("vehiculos", service.getById(id));
@@ -95,8 +125,9 @@ public class VehiculoCRUDController extends HttpServlet {
 			request.getRequestDispatcher(VIEW_FORM).forward(request, response);
 			break;
 
+		// Cuando OP no es definida, por ejemplo al clickar listar
+		// <a href="vehiculo">CRUD de Vehiculos</a>
 		default:
-			// listar
 			request.setAttribute("vehiculos", service.getAll());
 			request.getRequestDispatcher(VIEW_LIST).forward(request, response);
 			break;
