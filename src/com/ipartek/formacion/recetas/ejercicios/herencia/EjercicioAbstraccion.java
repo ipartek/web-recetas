@@ -1,32 +1,32 @@
 package com.ipartek.formacion.recetas.ejercicios.herencia;
 
-/**
- * Comprobar que solo podemos instanciar objetos de las Clases que No sean
- * Abstractas
- * 
- * @author ur00
- *
- */
+import com.ipartek.formacion.recetas.ejercicios.herencia.pojo.ACirculo;
+import com.ipartek.formacion.recetas.ejercicios.herencia.pojo.Linea;
+
 public class EjercicioAbstraccion {
 
 	public static void main(String[] args) {
 
-		// ObjetoGrafico og = new ObjetoGrafico(0, 0);
-		Linea linea = new Linea(0, 0);
+		//No podemos instanciar una Clase Abstracta
+		//AObjetoGrafico og = new AObjetoGrafico(0, 0);
+		
+		//Si podemos instanciar un Objeto de una Clase hija
+		//AObjetoGrafico(abstracta) es padre de Line(no abstracta)
+		Linea l = new Linea(1, 2);
+		l.dibujar();
+		
 
-		// En principio no se puede instanciar un objeto de Clase asbtracta,
-		// a menos que se implemente en el momento de la instanciacion
-		// clase anonima
-		Circulo c = new Circulo(5, 5) {
+		//Una Clase Abstracta se puede instanciar siempre y cuando 
+		//se implemente el codigo durante la instanciacion
+		ACirculo c = new ACirculo(10,20,5) {
 
 			@Override
 			public void dibujar() {
-				System.out.println("Dibujando Circulo");
-
+				System.out.println(this.getRadio() + this.x + this.y);
 			}
-		};
-
-		CirculoNoAbstracto c2 = new CirculoNoAbstracto(0, 0);
+		};//Clase Anonima
+		
+		c.dibujar();
+		c.mover(0,0);
 	}
-
 }

@@ -1,55 +1,43 @@
-package com.ipartek.formacion.recetas.ejercicios;
+package com.ipartek.formacion.recetas.ejercicios.datatype;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.util.ArrayList;
 
 import org.junit.Test;
 
-/**
- * Aprendiendo a usar ArrayList
- * @author Ipartek
- *
- */
 public class ArrayListTest {
 
+	//Declaracion
 	ArrayList<String> paises;	
 	
 	@Test
 	public void test() {
-					
 		assertNull("Deberia ser null",paises);
 		
+		//Instancia Vacia NO null
 		paises = new ArrayList<String>();
-		assertNotNull("No deberia ser null",paises);
-		
 		assertEquals("0 paises",0, paises.size());
-			
+		assertNotNull("No es null",paises);
+
+		//Add
 		paises.add("EH");
-		assertEquals("1 pais", 1 , paises.size());
-		
 		paises.add("kudbejistan");
 		paises.add("portugal");
 		paises.add("Barakaldo");
 		paises.add("Alemania");
-		
 		assertEquals( 5 , paises.size());
 		
-		
+		//Remove
 		assertEquals("Barakaldo", paises.remove(3));
 		assertEquals( 4 , paises.size());
 		
-		paises.add(1, "Portugalete");
-		assertEquals( 5 , paises.size());		
+		//Get
 		assertEquals("EH", paises.get(0));
+		//TODO
 		assertEquals("Portugalete",paises.get(1));
-		assertEquals("kudbejistan",paises.get(2));
-		
-		
-		
-		
-		
-		
+		assertEquals("kudbejistan",paises.get(2));	
 	}
-
 }

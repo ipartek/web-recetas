@@ -1,4 +1,4 @@
-package com.ipartek.formacion.recetas.pojo;
+package com.ipartek.formacion.recetas.ejercicios.datatype;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -13,68 +13,73 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.ipartek.formacion.recetas.pojo.Ingrediente;
+import com.ipartek.formacion.recetas.pojo.Receta;
+
 public class RecetaTest {
 
-	// variables globales, se inicializan en "setUp"
-	public Receta tortillaPatatas = null;
-	public Ingrediente huevos = new Ingrediente("huevos", 12, true);
-	public Ingrediente cebolla = new Ingrediente("cebolla", 1, true);
-	public Ingrediente patatas = new Ingrediente("patatas", 4, true);
+	//Declaracion
+	public ArrayList<Ingrediente> ingredientes;
+	public Receta tortillaPatatas;
+	public Ingrediente huevos;
+	public Ingrediente cebolla;
+	public Ingrediente patatas;
 
+	//Se ejecuta una vez ANTES de RecetaTest
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 	}
 
+	//Se ejecuta una vez DESPUES de RecetaTest
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 	}
 
+	//Se ejecuta una vez ANTES de CADA test
 	@Before
 	public void setUp() throws Exception {
+		ingredientes = new ArrayList<Ingrediente>();
+		huevos = new Ingrediente("huevos", 12, false);
+		cebolla = new Ingrediente("cebolla", 1, false);
+		patatas = new Ingrediente("patatas", 4, false);
 		tortillaPatatas = new Receta("tortilla de patatas", null);
 		tortillaPatatas.addIngrendiente(huevos);
 		tortillaPatatas.addIngrendiente(cebolla);
 		tortillaPatatas.addIngrendiente(patatas);
 	}
 
+	//Se ejecuta una vez DESPUES de CADA test
 	@After
 	public void tearDown() throws Exception {
 		tortillaPatatas = null;
+		huevos = null;
+		cebolla = null;
+		patatas = null;
 	}
 
+	//Add
 	@Test
 	public void testAddIngrendiente() {
-		Receta r = new Receta("Tortilla patatas", null);
-		int numero = r.getIngredientes().size();
-		assertEquals("No deben existir ingredientes", 0, numero);
+		
+		assertEquals("Solo los Inicializados", 3, tortillaPatatas.getIngredientes().size());
 
-		r.addIngrendiente(null);
-		numero = r.getIngredientes().size();
-		assertEquals("No deben existir ingredientes", 0, numero);
+		tortillaPatatas.addIngrendiente(null);
+		assertEquals("Solo los Inicializados", 3,tortillaPatatas.getIngredientes().size());
 
-		r.addIngrendiente(new Ingrediente("", 0, true));
-		numero = r.getIngredientes().size();
-		assertEquals(1, numero);
+		tortillaPatatas.addIngrendiente(new Ingrediente("", 0, true));
+		assertEquals(4, tortillaPatatas.getIngredientes().size());
 	}
 
+	//Remove
 	@Test
 	public void testRemoveIngrendiente() {
 
-		Receta r = new Receta("Tortilla patatas", null);
-		assertFalse(r.removeIngrendiente(null));
-
-		tortillaPatatas.addIngrendiente(huevos);
-
-		huevos.setNombre("HueVos");
-		tortillaPatatas.removeIngrendiente(huevos);
-
-		ArrayList<Ingrediente> ingredientes = tortillaPatatas.getIngredientes();
-		assertEquals(3, ingredientes.size());
-
-		// TODO comprobar que sean huevo, cebolla y patatas
+		ingredientes = tortillaPatatas.getIngredientes();		
+		tortillaPatatas.removeIngrendiente(huevos);		
+		assertEquals(2, ingredientes.size());
 		assertFalse(tortillaPatatas.contiene(null));
 		assertFalse(tortillaPatatas.contiene(new Ingrediente("Salmonela", 2, true)));
-		assertTrue(tortillaPatatas.contiene(huevos));
+		assertFalse(tortillaPatatas.contiene(huevos));
 		assertTrue(tortillaPatatas.contiene(cebolla));
 		assertTrue(tortillaPatatas.contiene(patatas));
 
@@ -83,41 +88,31 @@ public class RecetaTest {
 	@Test
 	public void testConstructor() {
 
-		Receta r = new Receta("Tortilla patatas", null);
-		assertNotNull("Deberia estar inicializado a new", r.getIngredientes());
+		tortillaPatatas = new Receta("Tortilla patatas", null);
+		assertNotNull("Inicializado", tortillaPatatas.getIngredientes());
 
 	}
 
+	//Gluten
 	@Test
 	public void testIsGlutenFree() {
 
-		ArrayList<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
-		ingredientes.add(new Ingrediente("pimiento verde", 0.5f, true));
+		//Con Gluten
+		ingredientes.add(new Ingrediente("pimiento verde", 0.5f, false));
 		ingredientes.add(new Ingrediente("Bonito", 500, true));
-
-		// caso1 todos los ingredientes con gluten
 		Receta r = new Receta("", ingredientes);
-		assertFalse("caso1 todos los ingredientes con gluten", r.isGlutenFree());
+		assertFalse("gluten", r.isGlutenFree());
 
-		// caso2 todos los ingredientes SIN gluten
+		//Sin Gluten
 		ingredientes.clear();
 		ingredientes.add(new Ingrediente("", 0, false));
 		ingredientes.add(new Ingrediente("", 0, false));
+		r = new Receta("", ingredientes);	
+		assertTrue("sin gluten", r.isGlutenFree());
 
-		r = new Receta("", ingredientes);
-		assertTrue("caso2 todos los ingredientes SIN gluten", r.isGlutenFree());
-
-		// caso3 todos los ingredientes con y sin gluten
-		ingredientes.clear();
-		ingredientes.add(new Ingrediente("", 0, true));
-		ingredientes.add(new Ingrediente("", 0, false));
-
-		r = new Receta("", ingredientes);
-		assertFalse("caso3 todos los ingredientes con y sin gluten", r.isGlutenFree());
-
-		// caso4 sin ingredientes (null)
+		//Null
 		r = new Receta("", null);
-		assertTrue("caso4 sin ingredientes", r.isGlutenFree());
+		assertTrue("sin gluten", r.isGlutenFree());
 
 	}
 

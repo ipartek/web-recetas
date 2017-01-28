@@ -1,7 +1,5 @@
 /**
  * Ejercicios sobre Herencia - Capitulo 8
- * 
- * @author ur00
  *
  *         <h2>Interfaces</h2> <br>
  *         Las interfaces nunca pueden tener codigo implementado<br>
@@ -17,7 +15,6 @@
  *         <br>
  *         Si una clase hija no implenta el metodo "abstract", debe ser una
  *         Clase "abstract"<br>
- *
- *
+
  */
 package com.ipartek.formacion.recetas.ejercicios.herencia;

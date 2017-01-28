@@ -1,18 +1,23 @@
-package com.ipartek.formacion.recetas.ejercicios.herencia;
+package com.ipartek.formacion.recetas.ejercicios.herencia.pojo;
 
-import com.ipartek.formacion.recetas.ejercicios.collection.InterfazEstupida;
+import com.ipartek.formacion.recetas.ejercicios.comparator.IComparator;
+import com.ipartek.formacion.recetas.ejercicios.herencia.IVendible;
+import com.ipartek.formacion.recetas.ejercicios.herencia.IVolador;
 
-public class Pajaro extends Animal implements Vendible, Volador, InterfazEstupida {
+public class Pajaro extends Animal implements IVendible, IVolador, IComparator {
 
+	//Declaracion
 	private boolean volador;
 	private int numHuevosSemana;
 
+	//Constructor
 	public Pajaro(String raza, float precio) {
 		super(raza, precio);
 		this.volador = false;
 		this.numHuevosSemana = 0;
 	}
 
+	//Getter & Setter
 	public int getNumHuevosSemana() {
 		return numHuevosSemana;
 	}
@@ -29,6 +34,7 @@ public class Pajaro extends Animal implements Vendible, Volador, InterfazEstupid
 		this.volador = volador;
 	}
 
+	//IVolador
 	@Override
 	public void despegar() {
 		System.out.println("Legando a las alturas");
@@ -40,15 +46,16 @@ public class Pajaro extends Animal implements Vendible, Volador, InterfazEstupid
 
 	}
 
+	//IVendible
 	@Override
 	public void generarFactura() {
 		System.out.println("Factura generada");
 
 	}
-
+	
+	//IComparator
 	@Override
 	public int getPeso() {
 		return this.getNumHuevosSemana();
 	}
-
 }

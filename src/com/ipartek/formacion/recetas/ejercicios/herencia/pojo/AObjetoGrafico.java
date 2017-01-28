@@ -1,32 +1,20 @@
-package com.ipartek.formacion.recetas.ejercicios.herencia;
+package com.ipartek.formacion.recetas.ejercicios.herencia.pojo;
 
-/**
- * 
- * 
- * @author ur00
- *
- */
-public abstract class ObjetoGrafico {
+public abstract class AObjetoGrafico {
 
-	private int x;
-	private int y;
-	/**
-	 * Se compone de una latitud y longitud, mediante una clase interna
-	 */
-	private GeoPunto gp;
+	//Declaracion
+	//La pueden usar sus hijas
+	protected int x;
+	protected int y;
 
-	// clase interna
-	class GeoPunto {
-		public float latitud;
-		public float longitud;
-	}
-
-	public ObjetoGrafico(int x, int y) {
+	//Constructor
+	public AObjetoGrafico(int x, int y) {
 		super();
 		this.x = x;
 		this.y = y;
 	}
 
+	//Getter & Setter
 	public int getX() {
 		return x;
 	}
@@ -43,9 +31,17 @@ public abstract class ObjetoGrafico {
 		this.y = y;
 	}
 
-	void mover(int x, int y) {
+	//Metodos
+	public void mover(int x, int y) {
 		System.out.println("Objeto movido a nueva posicion " + x + " " + y);
 	}
 
+	//Clase abstracta
 	public abstract void dibujar();
+	
+	//Clase Interna
+		class GeoPunto {
+			public float latitud;
+			public float longitud;
+		}
 }

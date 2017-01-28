@@ -1,13 +1,12 @@
-package com.ipartek.formacion.recetas.ejercicios.collection;
+package com.ipartek.formacion.recetas.ejercicios.comparator;
+/**
+ *Interfaz para Comparar dos Objetos de Clases diferentes.<br>
+ *Implementando el metodo getPeso() de forma diferente.
+ * @return numero entero
+ */
+public interface IComparator {
 
-public interface InterfazEstupida {
-
-	/**
-	 * Usamos este metodo para poder Comparar cualquier objeto que implemente
-	 * esta interfaz
-	 * 
-	 * @return numero entero, minimo 0
-	 */
+	
 	int getPeso();
 
 }

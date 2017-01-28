@@ -1,6 +1,6 @@
 package com.ipartek.formacion.recetas.ejercicios.herencia;
-
-public interface Volador {
+/** Interfaz para demostrar herencia*/
+public interface IVolador {
 
 	void despegar();
 

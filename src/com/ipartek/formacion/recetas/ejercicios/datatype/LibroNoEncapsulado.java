@@ -1,48 +1,20 @@
-package com.ipartek.formacion.recetas.pojo;
+package com.ipartek.formacion.recetas.ejercicios.datatype;
 
-/**
- * Clase {@code Libro} representa un libro.
- *
- */
 public class LibroNoEncapsulado {
 
-	// Atributos
-	/**
-	 * int numeroPaginas numero paginas que contiene el {@code Libro}
-	 */
+	//Declarar
 	public int numeroPaginas;
-
-	/**
-	 * String nombre nombre del {@code Libro}
-	 */
 	public String nombre;
-
-	/**
-	 * String autor autor del {@code Libro}
-	 */
 	public String autor;
 
-	// metodos o funciones
-
-	/**
-	 * Muestra por pantalla los atributos del Libro
-	 */
-	public String describete() {
-
-		return "nombre: " + this.nombre + " paginas: " + this.numeroPaginas + " autor: " + this.autor;
-	}
-
-	/**
-	 * Aumentamos el numero de paginas
-	 * 
-	 * @param numPaginas
-	 *            <code>int</code> numero paginas nuevas escritas
-	 */
+	/**Aumentamos el numero de paginas +1*/
 	public void escribir(int numPaginas) {
-
-		// this.numeroPaginas = this.numeroPaginas + numPaginas ;
 		this.numeroPaginas += numPaginas;
-
 	}
 
+	//toString()
+	@Override
+	public String toString() {
+		return "LibroNoEncapsulado [numeroPaginas=" + numeroPaginas + ", nombre=" + nombre + ", autor=" + autor + "]";
+	}
 }

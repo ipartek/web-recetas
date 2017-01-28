@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ipartek.formacion.recetas.ejercicios.herencia.Vehiculo;
+import com.ipartek.formacion.recetas.ejercicios.herencia.pojo.Vehiculo;
 import com.ipartek.formacion.recetas.pojo.Mensaje;
 
 /**
@@ -21,24 +21,26 @@ public class VehiculoController extends HttpServlet {
 	public static final String VIEW_CREAR_VEHICULO = "ejercicios/crear-vehiculo.jsp";
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doPost(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		//Declaracion
 		Mensaje mensaje = null;
 		String pModelo = "";
 		String pPlazas = "";
 		String pPotencia = "";
+		
 		try {
 			mensaje = new Mensaje();
 
@@ -49,14 +51,16 @@ public class VehiculoController extends HttpServlet {
 
 			// crear Vehiculo
 			Vehiculo v = new Vehiculo();
-			v.setModelo(pModelo);
+			
+			//valueOf o parse de String
 			v.setPlazas(Integer.parseInt(pPlazas));
 			v.setPotencia(Float.parseFloat(pPotencia));
-
-			// enviar como atributo a la JSP
+			v.setModelo(pModelo);
+			
+			//setAttribute el Vehiculo a request
 			request.setAttribute("vehiculo", v);
 
-			// mensaje success
+			//setMsj
 			mensaje.setClase(Mensaje.CLASE_SUCCESS);
 			mensaje.setDescripcion("Vehiculo creado con Exito!!!");
 
@@ -66,10 +70,11 @@ public class VehiculoController extends HttpServlet {
 			mensaje.setDescripcion(e.getMessage());
 			e.printStackTrace();
 		} finally {
+			
+			//request.dispatcher.forward
 			request.setAttribute("msj", mensaje);
 			request.getRequestDispatcher(VIEW_CREAR_VEHICULO).forward(request, response);
 		}
 
 	}
-
 }

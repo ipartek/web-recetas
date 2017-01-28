@@ -1,24 +1,23 @@
 package com.ipartek.formacion.recetas.pojo;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 
 public class Receta implements Comparable<Receta>{
 
+	//Declaracion
 	public static final String FACIL = "facil";
 	public static final String MODERADO = "moderado";
 	public static final String DIFICIL = "dificil";
-
-	public String IMG_DEFAULT = "http://apps.enyojs.com/assets/apps/17daydietmealplan_icon.png";
-
-	private String titulo;
-	private String imagen;
 	private ArrayList<Ingrediente> ingredientes;
+	private String titulo;
 	private int tiempo;
 	private String dificultad;
 	private int comensales;
 	private String descripcion;
+	private String imagen;
+	public String IMG_DEFAULT = "https://media.licdn.com/mpr/mpr/shrink_200_200/AAEAAQAAAAAAAASOAAAAJDc3ZTk5YWNhLWU4MGQtNDUyNi04MTU0LWYyN2Q0NjZjZjY3ZA.png";
 
+	//Constructor titulo
 	public Receta(String titulo) {
 		super();
 		this.titulo = titulo;
@@ -30,6 +29,7 @@ public class Receta implements Comparable<Receta>{
 		this.descripcion = "Lorem ipsum....";
 	}
 
+	//Constructor +ingredientes
 	public Receta(String titulo, ArrayList<Ingrediente> ingredientes) {
 		super();
 		this.titulo = titulo;
@@ -41,13 +41,8 @@ public class Receta implements Comparable<Receta>{
 		this.descripcion = "Lorem ipsum....";
 	}
 
-	/**
-	 * Nos indica si la receta esta libre de ingredientes con gluten
-	 * 
-	 * @return true si todos los ingredientes no contienen gluten <br>
-	 *         false si alguno de los ingredientes contienen gluten <br>
-	 *         true si no existen ingredientes
-	 */
+	/**Nos indica si la receta esta libre de ingredientes con gluten
+	 * @return true si algun ingrediente en la receta contiene gluten*/
 	public boolean isGlutenFree() {
 		boolean resul = true;
 		if (this.ingredientes != null) {
@@ -61,14 +56,8 @@ public class Receta implements Comparable<Receta>{
 		return resul;
 	}
 
-	/**
-	 * Comprueba si contiene el {@code Ingrediente} pasado como parametro
-	 * 
-	 * @param ingrendiente
-	 *            {@code Ingrediente} a buscar
-	 * @return true si contiene ingrediente<br>
-	 *         false en caso contrario
-	 */
+	/** Comprueba si contiene elIngrediente pasado como parametro
+	 * @return true si contiene ingrediente*/
 	public boolean contiene(Ingrediente ingrendiente) {
 		boolean resul = false;
 		if (ingrendiente != null) {
@@ -83,28 +72,16 @@ public class Receta implements Comparable<Receta>{
 		return resul;
 	}
 
-	/**
-	 * TODO cuando sea null lanzar Exception personalizada<br>
-	 * Añadimos un nuevo {@code Ingrediente} a la receta
-	 * 
-	 * @param ingrendiente
-	 *            si es null no hace nada
-	 */
+	/**Añade Ingrediente
+	 * @param ingrendiente si es null no hace nada*/
 	public void addIngrendiente(Ingrediente ingrendiente) {
 		if (ingrendiente != null) {
 			this.ingredientes.add(ingrendiente);
 		}
 	}
 
-	/**
-	 * Eliminar el primer ingrendiente que encuentre con el mismo
-	 * <ode>nombre</code> CaseInsesitive
-	 * 
-	 * @param ingrendiente
-	 *            ingrediente a eliminar
-	 * @return true si eliminar ingrediente<br>
-	 *         false en caso contrario
-	 */
+	/**Eliminar el primer ingrendiente que encuentre con el mismo <code>nombre</code> CaseInsesitive
+	 * @return true si elimina ingrediente*/
 	public boolean removeIngrendiente(Ingrediente ingrendiente) {
 		boolean resul = false;
 		if (ingrendiente != null) {
@@ -117,19 +94,12 @@ public class Receta implements Comparable<Receta>{
 					resul = true;
 					break;
 				}
-			} // end for
-		} // end if
+			} 
+		} 
 		return resul;
 	}
 
-	public String getTitulo() {
-		return titulo;
-	}
-
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
-	}
-
+	//Getter & Setter
 	public ArrayList<Ingrediente> getIngredientes() {
 		return ingredientes;
 	}
@@ -137,6 +107,14 @@ public class Receta implements Comparable<Receta>{
 	public void setIngredientes(ArrayList<Ingrediente> ingredientes) {
 
 		this.ingredientes = (ingredientes == null) ? new ArrayList<Ingrediente>() : ingredientes;
+	}
+	
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
 	}
 
 	public int getTiempo() {
@@ -178,34 +156,18 @@ public class Receta implements Comparable<Receta>{
 	public void setImagen(String imagen) {
 		this.imagen = imagen;
 	}
+	
+	//Ordenar Array A-Z
+	@Override
+	public int compareTo(Receta o) {		
+		return this.getTitulo().toLowerCase().compareTo(o.getTitulo().toLowerCase());
+	}
 
+	//toString()
 	@Override
 	public String toString() {
 		return "Receta [titulo=" + titulo + ", imagen=" + imagen + ", ingredientes=" + ingredientes + ", tiempo="
 				+ tiempo + ", dificultad=" + dificultad + ", comensales=" + comensales + ", descripcion=" + descripcion
 				+ "]";
 	}
-
-	
-
-	@Override
-	public int compareTo(Receta o) {		
-		//pasamos a toLowerCase, para ignorar mayusculas y minusculas
-		return this.getTitulo().toLowerCase().compareTo(o.getTitulo().toLowerCase());
-	}
-
-	
-	
 }
-
-
-
-
-
-
-
-
-
-
-
-

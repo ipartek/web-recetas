@@ -1,35 +1,31 @@
 package com.ipartek.formacion.recetas.pojo;
-
-/**
- * Gestion de mensajes para el usuario.<br>
- * Basado en el componente Alerts de Bootstrap3.<br>
- * 
- * @see: http://getbootstrap.com/components/#alerts
- * @author ur00
- *
- */
+/**Gestion de mensajes para el usuario
+ * @see: http://getbootstrap.com/components/#alerts*/
 public class Mensaje {
 
+	//Declaracion
 	public static final String CLASE_SUCCESS = "alert-success";
 	public static final String CLASE_INFO = "alert-info";
 	public static final String CLASE_WARNING = "alert-warning";
 	public static final String CLASE_DANGER = "alert-danger";
-
 	private String descripcion;
 	private String clase;
 
+	//Constructor
 	public Mensaje() {
 		super();
 		this.clase = CLASE_DANGER;
 		this.descripcion = "Error!!! Upsss algo esta fallando";
 	}
 
+	//Constructor parametros
 	public Mensaje(String descripcion, String clase) {
 		super();
 		this.descripcion = descripcion;
 		this.clase = clase;
 	}
 
+	//Getter & Setter
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -46,9 +42,9 @@ public class Mensaje {
 		this.clase = clase;
 	}
 
+	//toString()
 	@Override
 	public String toString() {
 		return "Mensaje [descripcion=" + descripcion + ", clase=" + clase + "]";
 	}
-
 }

@@ -1,4 +1,4 @@
-package com.ipartek.formacion.recetas.ejercicios.collection;
+package com.ipartek.formacion.recetas.ejercicios.comparator;
 
 import static org.junit.Assert.assertEquals;
 
@@ -9,53 +9,64 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.ipartek.formacion.recetas.ejercicios.herencia.Pajaro;
-import com.ipartek.formacion.recetas.ejercicios.herencia.Vehiculo;
+import com.ipartek.formacion.recetas.ejercicios.herencia.pojo.Pajaro;
+import com.ipartek.formacion.recetas.ejercicios.herencia.pojo.Vehiculo;
 import com.ipartek.formacion.recetas.pojo.Receta;
-import com.ipartek.formacion.recetas.pojo.comparator.ComparatorRecetaNivelDificultad;
 
-public class ComparacionesTest {
+public class ComparatorComparableTest {
+	
+	//Declaracion
+	ArrayList<Receta> recetas ;
+	private Receta solomillo ;
+	private Receta marmitako ;
+	private Receta tortilla ;
 
-	ArrayList<Receta> recetas = new ArrayList<Receta>();
-	Receta solomillo = new Receta("solomillo");
-	Receta marmitako = new Receta("marmitako");
-	Receta tortilla = new Receta("Torilla Patatas");
+	private ArrayList<IComparator> pajarosVehiculos;
+	private Vehiculo vSeat;
+	private Vehiculo vFord;
+	private Pajaro pKiwi;
+	private Pajaro pGallina;
 
-	private ArrayList<InterfazEstupida> listadoEStupido = null;
-	private Vehiculo vSeat = null;
-	private Vehiculo vFord = null;
-	private Pajaro pKiwi = null;
-	private Pajaro pGallina = null;
-
+	//Se ejecuta antes de CADA Test
 	@Before
 	public void setUp() throws Exception {
+		
+		//Instanciar ArrayList
+		recetas = new ArrayList<Receta>();
+		
+		//Instanciar Ingrediente-s 
+		//Asignar setDificultad()
+		solomillo = new Receta("solomillo");
 		solomillo.setDificultad(Receta.MODERADO);
+		marmitako = new Receta("marmitako");
 		marmitako.setDificultad(Receta.DIFICIL);
+		tortilla = new Receta("Torilla Patatas");
 		tortilla.setDificultad(Receta.FACIL);
 
+		//Añadir a ArrayList()
 		recetas.add(solomillo);
 		recetas.add(marmitako);
 		recetas.add(tortilla);
 
-		listadoEStupido = new ArrayList<InterfazEstupida>();
+		//Otra vez
+		pajarosVehiculos = new ArrayList<IComparator>();
+		
 		vSeat = new Vehiculo("Seat");
 		vSeat.setPotencia(500);
-
 		vFord = new Vehiculo("Ford K");
 		vFord.setPotencia(100);
-
 		pKiwi = new Pajaro("Kiwi", 0);
 		pKiwi.setNumHuevosSemana(2);
-
 		pGallina = new Pajaro("Gallina", 0);
 		pGallina.setNumHuevosSemana(700);
 
-		listadoEStupido.add(vSeat);
-		listadoEStupido.add(vFord);
-		listadoEStupido.add(pKiwi);
-		listadoEStupido.add(pGallina);
+		pajarosVehiculos.add(vSeat);
+		pajarosVehiculos.add(vFord);
+		pajarosVehiculos.add(pKiwi);
+		pajarosVehiculos.add(pGallina);
 	}
-
+	
+	//Se ejecuta despues de CADA Test
 	@After
 	public void tearDown() throws Exception {
 		recetas = null;
@@ -63,37 +74,47 @@ public class ComparacionesTest {
 		tortilla = null;
 		marmitako = null;
 
-		listadoEStupido = null;
+		pajarosVehiculos = null;
 		vSeat = null;
 		pKiwi = null;
 		vFord = null;
 		pGallina = null;
 	}
 
+	//COMPARABLE
 	@Test
 	public void testComparable() {
 
-		// ordenar de A-Z
+		//Ordena A-Z
 		Collections.sort(recetas);
+		
+		//Como Metodo propio
+		//@Override
+		//public int compareTo(Objeto o) {		
+		//	return this.getTitulo().toLowerCase().compareTo(o.getTitulo().toLowerCase());
+		//}
 
-		// comprobar
 		assertEquals(marmitako, recetas.get(0));
 		assertEquals(solomillo, recetas.get(1));
 		assertEquals(tortilla, recetas.get(2));
 
-		// ordenar de la Z-A
+		//Ordena Z-A
 		Collections.sort(recetas, Collections.reverseOrder());
+		
 		assertEquals(marmitako, recetas.get(2));
 		assertEquals(solomillo, recetas.get(1));
 		assertEquals(tortilla, recetas.get(0));
 
 	}
 
+	//COMPARATOR
 	@Test
 	public void testComparator() {
-
-		final String MSG_ERROR_DIFICULTAD = "NO ordena por nivel de dificultad";
-
+		
+		//assertEquals muestra un mensaje en caso de error
+		final String MSG_ERROR_DIFICULTAD = "No ordena por nivel de dificultad";
+		
+		//Instaciar y pasar el Comparator a Collections.sort()
 		Collections.sort(recetas, new ComparatorRecetaNivelDificultad());
 
 		assertEquals(MSG_ERROR_DIFICULTAD, tortilla, recetas.get(0));
@@ -103,15 +124,31 @@ public class ComparacionesTest {
 	}
 
 	@Test
-	public void testOrdenacionEstupida() {
+	public void testComparatorInterfaz() {
 
-		// TODO Ordenar de menor a mayor
-		Collections.sort(listadoEStupido, new ComparadorEstupido());
+		//Instaciar y pasar el Comparator a Collections.sort()
+		Collections.sort(pajarosVehiculos, new ComparatorPeso());
 
-		assertEquals(pKiwi, listadoEStupido.get(0));
-		assertEquals(vFord, listadoEStupido.get(1));
-		assertEquals(vSeat, listadoEStupido.get(2));
-		assertEquals(pGallina, listadoEStupido.get(3));
+		//Si los objetos son de dos clases diferentes necesitan implementar una Interfaz
+		//public interface IComparator {
+			//int getPeso();
+		//}
+		
+		//Asi pueden implementar el mismo metodo de dos formas diferentes
+		//@Override
+		//public int getPeso() {
+		//	return (int) this.potencia;
+		//}
+		
+		//@Override
+		//public int getPeso() {
+		//	return this.getNumHuevosSemana();
+		//}
+		
+		assertEquals(pKiwi, pajarosVehiculos.get(0));
+		assertEquals(vFord, pajarosVehiculos.get(1));
+		assertEquals(vSeat, pajarosVehiculos.get(2));
+		assertEquals(pGallina, pajarosVehiculos.get(3));
 
 	}
 

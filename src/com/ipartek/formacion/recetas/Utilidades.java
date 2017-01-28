@@ -25,7 +25,7 @@ public class Utilidades {
 	 * 
 	 * @see https://www.youtube.com/watch?v=lyZQPjUT5B4
 	 * @param aDesordenado
-	 * @return
+	 * @return aOrdenado
 	 */
 	static public int[] bubbleSort(int[] aDesordenado) {
 		int[] aOrdenado = aDesordenado;
@@ -48,7 +48,7 @@ public class Utilidades {
 	}
 
 	/**
-	 * Suma muy rara que se inventa el jefe, no me digas para que
+	 * Suma
 	 * 
 	 * @param num1
 	 *            entero a sumar
@@ -58,7 +58,7 @@ public class Utilidades {
 	 *         si cualquiera de los dos negativo return 0. <br>
 	 *         Si la suma es superior a 100 return 0.
 	 */
-	static public int sumaTonta(int num1, int num2) {
+	static public int suma(int num1, int num2) {
 		int resultado = -1;
 
 		if (num1 < 0 || num2 < 0 || (num1 + num2 > 100)) {

@@ -8,39 +8,31 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class ExceptionController
- */
-@WebServlet(description = "Controlador para probar como se capturan las excepciones y se configuran desde web.xml", urlPatterns = {
-		"/controladorExcepcion" })
+/** Servlet implementation class ExceptionController */
+@WebServlet(description = "Controlador para probar como se capturan las excepciones y se configuran desde web.xml", 
+urlPatterns = { "/exception" })
+
 public class ExceptionController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+	/** @see HttpServlet#doGet(HttpServletRequest request, HttpServletRespons response)*/
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// recoger parametros
-		request.getParameter("p");
+			throws ServletException, IOException{
+
 		if ("1".equals(request.getParameter("p"))) {
-			Object o = null;
-			o.toString();
+			//EXCEPTION Object o = null;
+			//EXCEPTION o.toString();
 		} else {
 
-			// throw new VehiculoException("Carlos trata de arrancarlo");
+			//EXCEPTION throw new VehiculoException("Carlos trata de arrancarlo");
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+	/** @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)*/
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
 }

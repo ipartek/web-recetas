@@ -29,11 +29,11 @@ public class UtilidadesTest {
 	@Test
 	public void testSumaTonta() {
 
-		assertEquals("no suma bien", 5, Utilidades.sumaTonta(2, 3));
-		assertEquals("parametro negatico, retorno 0", 0, Utilidades.sumaTonta(-2, 3));
-		assertEquals("parametro negatico, retorno 0", 0, Utilidades.sumaTonta(-2, -3));
-		assertEquals("parametro negatico, retorno 0", 0, Utilidades.sumaTonta(2, -3));
-		assertEquals(">100 retorna 0", 0, Utilidades.sumaTonta(1, 100));
+		assertEquals("no suma bien", 5, Utilidades.suma(2, 3));
+		assertEquals("parametro negatico, retorno 0", 0, Utilidades.suma(-2, 3));
+		assertEquals("parametro negatico, retorno 0", 0, Utilidades.suma(-2, -3));
+		assertEquals("parametro negatico, retorno 0", 0, Utilidades.suma(2, -3));
+		assertEquals(">100 retorna 0", 0, Utilidades.suma(1, 100));
 
 	}
 

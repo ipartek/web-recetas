@@ -2,69 +2,73 @@ package com.ipartek.formacion.recetas.ejercicios.herencia;
 
 import java.util.ArrayList;
 
-/**
- * Listar todos los Vehiculos del concesionario
- * 
- * @author ur00
- *
- */
-public class EjercicioConcesionario {
+import com.ipartek.formacion.recetas.ejercicios.exception.VehiculoException;
+import com.ipartek.formacion.recetas.ejercicios.herencia.pojo.Vehiculo;
+import com.ipartek.formacion.recetas.ejercicios.herencia.pojo.VehiculoDiesel;
+import com.ipartek.formacion.recetas.ejercicios.herencia.pojo.VehiculoElectrico;
+
+public class EjercicioVehiculos {
 
 	public static void main(String[] args) throws VehiculoException {
 
-		Vehiculo v1 = new Vehiculo("Prius");
-		Vehiculo v2 = new Vehiculo("Ibiza");
-		Vehiculo v3 = new Vehiculo("Ford Fiesta");
+		//Declaracion
+		Vehiculo v1;
+		Vehiculo v2;
+		Vehiculo v3;
+		VehiculoElectrico ve1;
+		VehiculoDiesel vd1;
+		VehiculoDiesel vd2;
+		ArrayList<Vehiculo> vehiculos;
+		
+		//Instanciar y asignar
+		v1 = new Vehiculo("Prius");
+		v2 = new Vehiculo("Ibiza");
+		v3 = new Vehiculo("Ford Fiesta");
 		v1.setPlazas(5);
-		v1.setPotencia(300);
-
 		v2.setPlazas(5);
-		v2.setPotencia(500);
-
 		v3.setPlazas(4);
+		v1.setPotencia(300);
+		v2.setPotencia(500);
 		v3.setPotencia(100);
-
-		VehiculoElectrico ve1 = new VehiculoElectrico("Tesla");
+		vd1 = new VehiculoDiesel("Citroen Sara");
+		vd2 = new VehiculoDiesel("Opel Astra");
+		vd1.setPlazas(5);
+		vd2.setPlazas(5);
+		vd1.setPotencia(100);
+		vd2.setPotencia(120);
+		vd1.setCapacidadCombustible(95);
+		vd2.setCapacidadCombustible(98);
+		ve1 = new VehiculoElectrico("Tesla");
 		ve1.setPlazas(5);
 		ve1.setPotencia(150);
 		ve1.setCapacidadBaterias(500);
 
-		VehiculoDiesel vd1 = new VehiculoDiesel("Citroen Sara");
-		VehiculoDiesel vd2 = new VehiculoDiesel("Opel Astra");
-		vd1.setPlazas(5);
-		vd1.setPotencia(100);
-		vd1.setCapacidadCombustible(95);
+		//Añadir a ArrayList()
+		vehiculos = new ArrayList<Vehiculo>();
+		vehiculos.add(v1);
+		vehiculos.add(v2);
+		vehiculos.add(v3);
+		vehiculos.add(ve1);
+		vehiculos.add(vd1);
+		vehiculos.add(vd2);
 
-		vd2.setPlazas(5);
-		vd2.setPotencia(120);
-		vd2.setCapacidadCombustible(98);
-
-		ArrayList<Vehiculo> stock = new ArrayList<Vehiculo>();
-		stock.add(v1);
-		stock.add(v2);
-		stock.add(v3);
-		stock.add(ve1);
-		stock.add(vd1);
-		stock.add(vd2);
-
-		// mostrar por pantalla
-		for (Vehiculo vehiculo : stock) {
+		//Syso
+		for (Vehiculo v : vehiculos) {
 			System.out.println();
 			System.out.println("---------------------------------");
-			System.out.println(vehiculo.getModelo());
+			System.out.println(v.getModelo());
 			System.out.println("---------------------------------");
-			System.out.println("Plazas: " + vehiculo.getPlazas());
-			System.out.println("Potencia: " + vehiculo.getPotencia());
+			System.out.println("Plazas: " + v.getPlazas());
+			System.out.println("Potencia: " + v.getPotencia());
 
-			if (vehiculo instanceof VehiculoElectrico) {
-				System.out.println("Capacidad bateria: " + ((VehiculoElectrico) vehiculo).getCapacidadBaterias());
+			//VehiculoElectrico
+			if (v instanceof VehiculoElectrico) {
+				System.out.println("Capacidad bateria: " + ((VehiculoElectrico) v).getCapacidadBaterias());
 
-			} else if (vehiculo instanceof VehiculoDiesel) {
-				System.out.println("Combustible: " + ((VehiculoDiesel) vehiculo).getCapacidadCombustible());
+			//Vehiculo diesel
+			} else if (v instanceof VehiculoDiesel) {
+				System.out.println("Combustible: " + ((VehiculoDiesel) v).getCapacidadCombustible());
 			}
-
 		}
-
 	}
-
 }

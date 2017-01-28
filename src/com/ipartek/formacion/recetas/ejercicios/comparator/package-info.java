@@ -1,12 +1,14 @@
+
 /**
- * Package donde implementamos todas las Clases que implementen la interfaz
- * {@code Comparator} para poder comparar los POJOS.<br>
+ * Package de Clases Comparadoras</br><br>
+ * COMPARATOR<br>
+ * Clase <code>Implements Comparator</code><br>
+ * Ordena mediante una nueva Clase Comparator<br>
+ * <code>Collections.sort(array, new ComparatorClass());<code><br><br>
  * 
- * Si queremos que una Clase de ordene de forma automatica con
- * Collection.sort,esa Clase debe implementar {@Comparable}.
- * 
- * 
- * @author ur00
- *
+ * COMPARABLE<br>
+ * Clase <code>Implements Comparable</code><br>
+ * Ordenar de forma automatica<br>
+ * <code>Collection.sort()</code>
  */
-package com.ipartek.formacion.recetas.pojo.comparator;
+package com.ipartek.formacion.recetas.ejercicios.comparator;

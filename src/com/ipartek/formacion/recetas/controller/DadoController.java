@@ -10,20 +10,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.recetas.Utilidades;
 
-/**
- * Servlet implementation class DadoController
- */
+/** Servlet implementation class DadoController */
 @WebServlet("/dado")
 public class DadoController extends HttpServlet {
+	
+	//Declaracion
 	private static final long serialVersionUID = 1L;
-	private static int numeroAleatorio;
 	private static final String[] aAlumnos = { "Aaron", "Eneko", "Itsaso", "Ivan", "Guillermo", "Lozoya", "Josu",
 			"Ignacio", "Gomez", "Nerea", "Nagore", "Garbieñe", "Egoitz", "Pavel", "Pérez" };
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+	/** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)*/
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		int numeroAleatorio = Utilidades.getNumeroAleatorio((aAlumnos.length - 1));
@@ -31,14 +28,11 @@ public class DadoController extends HttpServlet {
 		request.getRequestDispatcher("ejercicios/dado.jsp").forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+	/** @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)*/
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		doGet(request, response);
 	}
-
 }

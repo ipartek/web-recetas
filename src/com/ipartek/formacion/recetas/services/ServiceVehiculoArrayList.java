@@ -3,15 +3,14 @@ package com.ipartek.formacion.recetas.services;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ipartek.formacion.recetas.ejercicios.herencia.Vehiculo;
+import com.ipartek.formacion.recetas.ejercicios.herencia.pojo.Vehiculo;
 
 public class ServiceVehiculoArrayList implements ServiceVehiculo {
 
+	//Declaracion
 	private static ServiceVehiculoArrayList INSTANCE;
-	private ArrayList<Vehiculo> vehiculos = null;
-	// simular el indice en la BBDD
 	private static long indice = 500;
-
+	private ArrayList<Vehiculo> vehiculos = null;
 	private ServiceVehiculoArrayList() {
 		vehiculos = new ArrayList<>();
 		vehiculos.add(new Vehiculo("Seat Panda", 4));
@@ -21,7 +20,8 @@ public class ServiceVehiculoArrayList implements ServiceVehiculo {
 		vehiculos.add(new Vehiculo("Ferrari", 500));
 		vehiculos.add(new Vehiculo("Tesla", 23));
 	}
-
+	
+	//Singleton
 	private synchronized static void createInstance() {
 		if (INSTANCE == null) {
 			INSTANCE = new ServiceVehiculoArrayList();
@@ -34,6 +34,7 @@ public class ServiceVehiculoArrayList implements ServiceVehiculo {
 		return INSTANCE;
 	}
 
+	//ServiceVehiculo
 	@Override
 	public List<Vehiculo> getAll() {
 
@@ -85,5 +86,4 @@ public class ServiceVehiculoArrayList implements ServiceVehiculo {
 		v.setId(++indice);
 		return vehiculos.add(v);
 	}
-
 }

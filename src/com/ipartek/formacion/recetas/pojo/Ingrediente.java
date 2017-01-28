@@ -2,10 +2,12 @@ package com.ipartek.formacion.recetas.pojo;
 
 public class Ingrediente {
 
+	//Declaracion
 	private String nombre;
 	private float cantidad;
 	private boolean gluten;
 	
+	//Constructor
 	public Ingrediente(String nombre, float cantidad, boolean gluten) {
 		super();
 		this.nombre = nombre;
@@ -13,6 +15,7 @@ public class Ingrediente {
 		this.gluten = gluten;
 	}
 
+	//Getter & Setter
 	public String getNombre() {
 		return nombre;
 	}
@@ -37,12 +40,9 @@ public class Ingrediente {
 		this.gluten = gluten;
 	}
 
+	//toString()
 	@Override
 	public String toString() {
 		return "Ingrediente [nombre=" + nombre + ", cantidad=" + cantidad + ", gluten=" + gluten + "]";
-	}
-	
-	
-	
-	
+	}	
 }

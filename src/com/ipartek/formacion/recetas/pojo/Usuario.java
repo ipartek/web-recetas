@@ -1,6 +1,8 @@
 package com.ipartek.formacion.recetas.pojo;
 
 public class Usuario {
+	
+	//Declaracion
 	private long id;
 	private String nombre;
 	private String password;
@@ -8,6 +10,7 @@ public class Usuario {
 	private String imagen;
 	private String gitUserName;
 
+	//Constructor
 	public Usuario() {
 		super();
 		this.id = -1;
@@ -15,6 +18,7 @@ public class Usuario {
 		this.imagen = "http://kiwilandingpad.com/wp-content/uploads/2014/05/avatar-placeholder.png";
 	}
 
+	//Getter & Setter
 	public long getId() {
 		return id;
 	}
@@ -63,6 +67,7 @@ public class Usuario {
 		this.gitUserName = gitUserName;
 	}
 
+	//toString()
 	@Override
 	public String toString() {
 		return "Usuario [id=" + id + ", nombre=" + nombre + ", password=" + password + ", email=" + email + ", imagen="

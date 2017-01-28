@@ -13,60 +13,62 @@ import javax.servlet.http.HttpSession;
 import com.ipartek.formacion.recetas.pojo.Mensaje;
 import com.ipartek.formacion.recetas.pojo.Usuario;
 
-/**
- * Servlet implementation class loginController
- */
-@WebServlet(urlPatterns = { "/login" }, initParams = { @WebInitParam(name = "userNameCredential", value = "admin"),
-		@WebInitParam(name = "userPassCredential", value = "123") })
-public class LoginController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+/**Servlet implementation class loginController */
+@WebServlet(urlPatterns = { "/login" }, initParams = { 
+@WebInitParam(name = "userNameCredential", value = "admin"),
+@WebInitParam(name = "userPassCredential", value = "123") })
 
+public class LoginController extends HttpServlet {
+	
+	//Declaracion
+	private static final long serialVersionUID = 1L;
 	private Mensaje msj;
 	private HttpSession session;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+	/** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)*/
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		try {
+			
+			//Declaracion
 			msj = new Mensaje();
-
+			Usuario user = new Usuario();
+			
+			//getParameter
 			String pNombre = request.getParameter("userName");
 			String pPassword = request.getParameter("userPass");
-
-			Usuario user = new Usuario();
 			user.setNombre(pNombre);
 			user.setPassword(pPassword);
 
 			if (validarUsuario(user)) {
+				
+				//getSession, si no existe la crea
 				session = request.getSession(true);
 				session.setAttribute("usuario", user);
-
+				
+				//TODO
 				response.sendRedirect("index.jsp");
 
 			} else {
+				//setMsj Warning
 				msj.setClase(Mensaje.CLASE_WARNING);
 				msj.setDescripcion("tus datos no son correctos");
-
 				request.setAttribute("msj", msj);
+				
+				//TODO
 				request.getRequestDispatcher("login.jsp").forward(request, response);
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.sendRedirect("error.jsp");
-		} finally {
-
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+	/** @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response) */
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -85,5 +87,4 @@ public class LoginController extends HttpServlet {
 		}
 		return resul;
 	}
-
 }
