@@ -161,3 +161,42 @@ img.imgLogin{
  #info{
  	padding-top: 30px;
  }
+
+ /************************************************/
+ 
+ /*********** DADO ***********/
+ .tamImgDado{
+	width:35%;
+	height: 35%;
+	margin-top:5%;
+}
+#posImagen
+{
+	margin-top:2%;
+	margin-left:40%;
+}
+
+#posImagen img{
+	margin-bottom: 4%;
+}
+
+#posTitulo
+{
+	margin-left:0px;
+}
+
+#posBoton
+{
+	margin-top: 5%;
+	margin-left:11%;
+}
+
+#poBoton form input[type="submit"]{
+	background: #0000ff;
+}
+#tamLetra
+{
+	font-size: 3.5em;
+}
+ 
+ 

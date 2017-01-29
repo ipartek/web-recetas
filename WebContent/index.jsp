@@ -79,7 +79,7 @@
                 
                 <ul>
                 	<li><a href="ejercicios/menu-del-dia.jsp">Menu del dia</a></li> 
-                	<li><a href="ejercicios/dado/index.jsp">Dado</a></li>                 	
+                	<li><a href="dado">Dado</a></li>                 	
                 	<li><a href="ejercicios/primer-controlador.jsp">Controlador o Servlet [GET y POST]</a></li>
                 	<li><a href="ejercicios/error-page.jsp">Gestion Errores en JSP</a></li>
                 	<li><a href="ejerciciosXXXX/pagina-no-existente-404.jsp">Gestion Error 404</a></li>
