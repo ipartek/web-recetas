@@ -72,74 +72,107 @@ public class VehiculoCRUDController extends HttpServlet {
 
 		// buscar operacion a realizar
 		String op = (request.getParameter("op") == null) ? OP_LISTAR : request.getParameter("op");
+
+		// Inicializar mensaje
 		Mensaje mensaje = new Mensaje();
+		try {
 
-		switch (op) {
-		case OP_GUARDAR: // 5
+			switch (op) {
+			case OP_GUARDAR: // 5
 
-			try {
+				try {
 
-				mensaje.setClase(Mensaje.CLASE_SUCCESS);
+					// mensaje.setClase(Mensaje.CLASE_SUCCESS);
 
-				Vehiculo v = new Vehiculo();
-				v.setModelo(request.getParameter("modelo"));
-				v.setPlazas(Integer.parseInt(request.getParameter("plazas")));
-				v.setDimensiones(Float.parseFloat(request.getParameter("dimensiones")));
-				v.setPotencia(Float.parseFloat(request.getParameter("potencia")));
+					// Recoger variables y crear Vehiculo
+					Vehiculo v = new Vehiculo();
+					v.setModelo(request.getParameter("modelo"));
+					v.setPlazas(Integer.parseInt(request.getParameter("plazas")));
+					// convertir de formato castellano a anglosajos
+					v.setDimensiones(Float.parseFloat(request.getParameter("dimensiones").replace(",", ".")));
+					v.setPotencia(Float.parseFloat(request.getParameter("potencia").replace(",", ".")));
 
-				long pIid = (Long.parseLong(request.getParameter("id")));
+					long pIid = (Long.parseLong(request.getParameter("id")));
 
-				if (pIid == -1) {
-					mensaje.setDescripcion("Se ha creado correctamente");
-					service.create(v);
+					// guardarlo o persistirlo en BBDD
+					boolean guardado = false;
+					if (pIid == -1) {
+						// mensaje.setDescripcion("Se ha creado correctamente");
+						guardado = service.create(v);
+					} else {
+						// mensaje.setDescripcion("Se ha modificado
+						// correctamente");
+						v.setId(Long.parseLong(request.getParameter("id")));
+						guardado = service.update(v);
+					}
+
+					// comprobar guardado y gestión de mensajes
+					if (guardado) {
+						mensaje.setDescripcion("Vehiculo guardado correctamente");
+						mensaje.setClase(Mensaje.CLASE_SUCCESS);
+					} else {
+						mensaje.setDescripcion("Vehiculo no guardado. Intentelo mas tarde");
+						mensaje.setClase(Mensaje.CLASE_WARNING);
+					}
+
+					request.setAttribute("msj", mensaje);
+					request.setAttribute("vehiculos", service.getAll());
+					request.getRequestDispatcher(VIEW_LIST).forward(request, response);
+				} catch (Exception e) {
+					// di es Vehiculo creado, volver a recuperarlo para mostrar
+					// en
+					// formulario
+					if ((Long.parseLong(request.getParameter("id"))) != -1) {
+						request.setAttribute("vehiculo", service.getById((Long.parseLong(request.getParameter("id")))));
+					} else {
+						request.setAttribute("vehiculo", new Vehiculo());
+					}
+					mensaje.setDescripcion("Error: " + e.getMessage());
+					mensaje.setClase(Mensaje.CLASE_DANGER);
+					request.setAttribute("msj", mensaje);
+
+					request.getRequestDispatcher(VIEW_FORM).forward(request, response);
+					e.printStackTrace();
+				}
+
+				break;
+			case OP_ELIMINAR: // 4
+
+				// TODO confirmar si realmente quiere eliminar
+
+				if (service.delete(Long.parseLong(request.getParameter("id")))) {
+					mensaje.setDescripcion("Vehiculo eliminado correctamente");
+					mensaje.setClase(Mensaje.CLASE_SUCCESS);
 				} else {
-					mensaje.setDescripcion("Se ha modificado correctamente");
-					v.setId(Long.parseLong(request.getParameter("id")));
-					service.update(v);
+					mensaje.setDescripcion("Vehiculo no eliminado. Intentelo mas tarde.");
+					mensaje.setClase(Mensaje.CLASE_WARNING);
 				}
 
 				request.setAttribute("msj", mensaje);
 				request.setAttribute("vehiculos", service.getAll());
 				request.getRequestDispatcher(VIEW_LIST).forward(request, response);
-			} catch (Exception e) {
-				mensaje.setDescripcion(e.getMessage());
-				mensaje.setClase(Mensaje.CLASE_DANGER);
-				request.setAttribute("msj", mensaje);
-
+				break;
+			case OP_VER_NUEVO: // 3
+				request.setAttribute("vehiculo", new Vehiculo());
 				request.getRequestDispatcher(VIEW_FORM).forward(request, response);
-				e.printStackTrace();
-			}
+				break;
 
-			break;
-		case OP_ELIMINAR: // 4
+			case OP_VER_DETALLE: // 2
+				long id = Long.parseLong(request.getParameter("id"));
+				request.setAttribute("vehiculo", service.getById(id));
+				request.getRequestDispatcher(VIEW_FORM).forward(request, response);
+				break;
+			default: // 1
+				// listar
+				request.setAttribute("vehiculos", service.getAll());
+				request.getRequestDispatcher(VIEW_LIST).forward(request, response);
+				break;
+			}// end switch
 
-			// confirmar si realmente quiere eliminar
-
-			mensaje.setDescripcion("Se ha eliminado correctamente");
-			mensaje.setClase(Mensaje.CLASE_SUCCESS);
-			request.setAttribute("msj", mensaje);
-
-			service.delete(Long.parseLong(request.getParameter("id")));
-			request.setAttribute("vehiculos", service.getAll());
-			request.getRequestDispatcher(VIEW_LIST).forward(request, response);
-			break;
-		case OP_VER_NUEVO: // 3
-			request.setAttribute("vehiculo", new Vehiculo());
-			request.getRequestDispatcher(VIEW_FORM).forward(request, response);
-			break;
-
-		case OP_VER_DETALLE: // 2
-			long id = Long.parseLong(request.getParameter("id"));
-			request.setAttribute("vehiculo", service.getById(id));
-			request.getRequestDispatcher(VIEW_FORM).forward(request, response);
-			break;
-		default: // 1
-			// listar
-			request.setAttribute("vehiculos", service.getAll());
-			request.getRequestDispatcher(VIEW_LIST).forward(request, response);
-			break;
-		}// end switch
-
+		} catch (Exception e) {
+			mensaje.setDescripcion(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 
 	/**

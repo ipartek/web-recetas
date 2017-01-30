@@ -33,7 +33,11 @@
 <!-- 	        	<h2>¿ES nuevo?: ${isNew}</h2>  -->
  				
 				<%@include file="../../includes/mensaje.jsp"%>
- 				    		
+ 				    
+ 				<div class="vinculos">
+					<a href="vehiculo">Volver</a>
+				</div>
+						
                	<form class="anchuraDivFormulario" action="vehiculo" method="post">
                	
                		<input type="hidden" name="op" value="<%=VehiculoCRUDController.OP_GUARDAR%>">
@@ -56,14 +60,14 @@
        	       		
         	       	<div class="form-group">
 	               		<label for="plazas">Dimensiones: </label>
-    	           		<input class="form-control" id="dimensiones" type="number" name="dimensiones" placeholder="Escribre las dimensiones del vehiculo" value="${vehiculo.dimensiones}" required>
+    	           		<input class="form-control" id="dimensiones" type="text" name="dimensiones" placeholder="Escribre las dimensiones del vehiculo" value="${vehiculo.dimensiones}" required>
         	       	</div>
 
        	       		<br>
        	       		
         	       	<div class="form-group">
 	               		<label for="potencia">Potencia: </label>
-    	           		<input class="form-control" id="potencia" type="number" name="potencia" placeholder="Escribre la potencia del vehiculo" value="${vehiculo.potencia}" required>
+    	           		<input class="form-control" id="potencia" type="text" name="potencia" placeholder="Escribre la potencia del vehiculo" value="${vehiculo.potencia}" required>
         	       	</div>
 
        	       		<br>

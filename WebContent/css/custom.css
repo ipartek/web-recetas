@@ -150,11 +150,11 @@ img.imgLogin{
  	color: #fff;
  }
  
- #crearNuevo{
+  .vinculos{
  	padding-bottom: 20px;
  }
  
- #crearNuevo a{
+ .vinculos a{
  	font-size: 1.5em;
  }
  

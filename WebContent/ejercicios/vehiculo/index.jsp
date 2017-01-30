@@ -21,7 +21,7 @@
             <div class="row">  
 				<%@include file="../../includes/mensaje.jsp" %>
 				
-				<div id="crearNuevo">
+				<div class="vinculos">
 					<a href="vehiculo?op=3">Crear nuevo</a>
 				</div>
 					<table class="display data-table-mio miTabla">
@@ -55,8 +55,11 @@
 <!-- 									<td>${v.id}</td>  -->
 									<td><a href="vehiculo?op=2&id=${v.id}">${v.modelo}</a></td>
 									<td>${v.plazas}</td>
-									<td>${v.dimensiones}</td>
-									<td>${v.potencia}</td>
+									<td>
+										<fmt:formatNumber pattern="#,##0.00" value="${v.dimensiones}"></fmt:formatNumber></td>
+									<td>
+										<fmt:formatNumber pattern="#,##0.00" value="${v.potencia}"></fmt:formatNumber></td>
+									</td>
 <!--									<td>
 										<img alt="" src="img/lapiz_mini.png">
 										<img alt="" src="img/cubo_basura_mini.png">
