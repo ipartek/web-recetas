@@ -16,8 +16,7 @@
                <ul class="nav navbar-nav navbar-right">
 					<li class="hidden"><a href="#page-top"></a></li>
 					<li class="page-scroll"><a href="#portfolio">Recetas</a></li>
-					<li class="page-scroll"><a href="menu-del-dia.jsp">Menu
-							del Dia</a></li>
+					<li class="page-scroll"><a href="#about">Ejercicios</a></li>
 					<li class="page-scroll"><a href="#contact">Contact</a></li>
 
 					<li class="page-scroll">

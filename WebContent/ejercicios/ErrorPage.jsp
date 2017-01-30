@@ -1,7 +1,7 @@
 <%@page isErrorPage="true"%>
 
-<%@include file="includes/header.jsp" %>
-<%@include file="includes/nav.jsp" %>
+<%@include file="../includes/header.jsp" %>
+<%@include file="../includes/nav.jsp" %>
 
     
    
@@ -29,4 +29,4 @@
 </div>    
 <!-- <div class="container"> -->
 
-<%@include file="includes/footer.jsp" %>
+<%@include file="../includes/footer.jsp" %>
