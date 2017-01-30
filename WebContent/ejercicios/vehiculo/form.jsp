@@ -14,7 +14,7 @@
 						<label>Modelo: </label></br>
 						<input type="text" name="modelocrear" placeholder="Modelo" required pattern=".{2,255}"/></br></br>
 						<label>Potencia:</label></br>
-						<input type="number" name="potenciacrear" placeholder="Potencia" required min="1"; /></br></br>
+						<input type="text" name="potenciacrear" placeholder="Potencia" required/></br></br>
 						<label>Plazas: </label></br>
 						<input type="number" name="plazascrear" placeholder="Nº Plazas" required /></br></br>
 						<input type="hidden" name="op" value="4"/>
@@ -28,7 +28,7 @@
 						<label>Modelo: </label></br>
 						<input type="text" name="modelocrear" value="${vehiculo.modelo}" required pattern=".{2,255}"/></br></br>
 						<label>Potencia:</label></br>
-						<input type="number" name="potenciacrear" value="${vehiculo.potencia}"  required min="1"; /></br></br>
+						<input type="text" name="potenciacrear" value="${vehiculo.potencia}"/></br></br>
 						<label>Plazas: </label></br>
 						<input type="number" name="plazascrear" value="${vehiculo.plazas}"  required /></br></br>
 						<input type="hidden" name="op" value="4"/>

@@ -165,6 +165,7 @@
                 	<li><a href="controladorExcepcion?p=2">Gestion error VehiculoException </a></li>
                 	<li><a href="vehiculo">CRUD de Vehiculos</a></li>
                 	<li><a href="ejercicios/dado.jsp">Dado</a></li>
+                	<li><a href="ejercicios/crear-fichero.jsp">Stream (Crear fichero)</a></li>
                 </ul>
             </div>
         </div>

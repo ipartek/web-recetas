@@ -1,6 +1,7 @@
 package com.ipartek.formacion.recetas.controller;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -66,7 +67,6 @@ public class VehiculoCRUDController extends HttpServlet {
 		String op = (request.getParameter("op") == null)?OP_LISTAR : request.getParameter("op");
 		
 		switch (op){
-		
 		case OP_VER_NUEVO:
 			request.setAttribute("vehiculo", new Vehiculo());
 			request.getRequestDispatcher(VIEW_FORM).forward(request, response);
@@ -82,12 +82,21 @@ public class VehiculoCRUDController extends HttpServlet {
 			
 			try {
 				
+				String pPotencia = request.getParameter("potenciacrear");
+				String pDimensiones = request.getParameter("dimensiones");
+				
+				Float potencia = Float.valueOf(pPotencia.replace(",","."));
+				
 				v = new Vehiculo();
 				v.setId(Long.valueOf(request.getParameter("id")));
 				v.setModelo(request.getParameter("modelocrear"));
 				v.setPlazas(Integer.valueOf(request.getParameter("plazascrear")));
-				v.setPotencia(Float.valueOf(request.getParameter("potenciacrear")));
+				
+				v.setPotencia(potencia);
+				
 				mensaje.setClase(mensaje.CLASE_SUCCESS);
+				
+				
 				if(v.getId() > 0){
 					
 					if(service.update(v)){

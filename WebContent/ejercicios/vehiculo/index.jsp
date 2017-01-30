@@ -25,9 +25,9 @@
             			<c:forEach var="v" items="${vehiculos}">
 			           	<tr>
 			                <td><a href="vehiculo?op=<%=VehiculoCRUDController.OP_VER_DETALLE%>&id=${v.id}">${v.modelo}</a></td>
-			                <td>${v.potencia}</td>
+			                <td><fmt:formatNumber type="number" pattern="#,##0.00" value="${v.potencia}" /></td>
 			                <td>${v.plazas}</td>
-			                <td>${v.dimensiones}</td>
+			                <td><fmt:formatNumber type="number" pattern="#,##0.00" value="${v.dimensiones}" /></td>
 			            </tr>
 			            </c:forEach>
 			            
