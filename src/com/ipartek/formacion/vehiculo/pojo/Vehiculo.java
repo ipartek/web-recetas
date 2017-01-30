@@ -1,10 +1,17 @@
 package com.ipartek.formacion.vehiculo.pojo;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+
 import com.ipartek.formacion.recetas.ejercicios.collection.InterfazEstupida;
 import com.ipartek.formacion.recetas.ejercicios.herencia.Conducible;
 
 public class Vehiculo implements Conducible, InterfazEstupida {
 
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1183679815080757789L;
 	private String modelo;
 	private int plazas;
 	private float dimensiones;
@@ -56,7 +63,23 @@ public class Vehiculo implements Conducible, InterfazEstupida {
 	}
 
 	public float getDimensiones() {
+
 		return dimensiones;
+	}
+
+	public void setDimensiones2(String str) {
+		float f = -1;
+		DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+		symbols.setDecimalSeparator(',');
+		DecimalFormat format = new DecimalFormat("0.#");
+		format.setDecimalFormatSymbols(symbols);
+		try {
+			f = format.parse(str).floatValue();
+		} catch (Exception e) {
+
+		}
+		this.dimensiones = f;
+
 	}
 
 	public void setDimensiones(float dimensiones) {
@@ -67,8 +90,32 @@ public class Vehiculo implements Conducible, InterfazEstupida {
 		return potencia;
 	}
 
+	// devuelve un float como String
+	public String getPotencia2() {
+
+		Float pot = potencia;
+		int entera = (int) potencia;
+		float dec = potencia - entera;
+		int decimal = (int) dec;
+		return (entera + "," + decimal);
+	}
+
 	public void setPotencia(float potencia) {
 		this.potencia = potencia;
+	}
+
+	public void setPotencia2(String str) {
+		float f = -1;
+		DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+		symbols.setDecimalSeparator(',');
+		DecimalFormat format = new DecimalFormat("0.#");
+		format.setDecimalFormatSymbols(symbols);
+		try {
+			f = format.parse(str).floatValue();
+		} catch (Exception e) {
+
+		}
+		this.potencia = f;
 	}
 
 	@Override

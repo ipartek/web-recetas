@@ -43,7 +43,7 @@
 <div class="vid-container">
 	<video class="bgvid" autoplay="autoplay" muted="muted" preload="auto"
 		loop>
-		<source src="video/Cooking.mp4" type="video/webm">
+		<source src="video/cooking.mp4" type="video/webm">
 	</video>
 	<div class="inner-container">
 

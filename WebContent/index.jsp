@@ -9,8 +9,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
-				<img class="img-responsive logo-home" src="img/profile.png"
-					alt="logotipo de Web Recetas">
+				<img class="img-responsive logo-home" src="img/profile.png" alt="logotipo de Web Recetas">
 				<div class="intro-text">
 					<span class="name">Komilones App</span>
 					<hr class="star-light">
@@ -20,7 +19,6 @@
 		</div>
 	</div>
 </header>
-
 <!-- Recetas Destacadas Grid Section -->
 <section id="portfolio">
 	<div class="container">
@@ -31,43 +29,39 @@
 			</div>
 		</div>
 		<div class="row">
-
 			<%
-            	ArrayList<Receta> recetas = new ArrayList<Receta>();
-            	recetas.add( new Receta("Marmitako") );
-           		recetas.add( new Receta("Tortilla Patatas") );
-           		recetas.add( new Receta("Solomillo") );
-           		recetas.add( new Receta("Txipirones en su pinta") );
-           		recetas.add( new Receta("Bacalo al pil pil") );
-           		recetas.add( new Receta("Mejillones al vapor") );
-            		
-           		Receta receta = null;
-           		for (int i=0; i< recetas.size(); i++ ) {
-           			receta = recetas.get(i);
-            %>
+				ArrayList<Receta> recetas = new ArrayList<Receta>();
+				recetas.add(new Receta("Marmitako"));
+				recetas.add(new Receta("Tortilla Patatas"));
+				recetas.add(new Receta("Solomillo"));
+				recetas.add(new Receta("Txipirones en su pinta"));
+				recetas.add(new Receta("Bacalo al pil pil"));
+				recetas.add(new Receta("Mejillones al vapor"));
+
+				Receta receta = null;
+				for (int i = 0; i < recetas.size(); i++) {
+					receta = recetas.get(i);
+			%>
 			<!-- receta -->
 			<div class="col-sm-4 portfolio-item">
-				<a href="#portfolioModal<%=i%>" class="portfolio-link"
-					data-toggle="modal">
+				<a href="#portfolioModal<%=i%>" class="portfolio-link" data-toggle="modal">
 					<div class="caption">
 						<div class="caption-content">
 							<i class="fa fa-search-plus fa-3x"></i>
 						</div>
-					</div> <img src="<%=receta.getImagen()%>" class="img-responsive"
-					alt="<%=receta.getTitulo()%>">
+					</div>
+					<img src="<%=receta.getImagen()%>" class="img-responsive" alt="<%=receta.getTitulo()%>">
 				</a>
 			</div>
 			<!-- end:receta -->
 			<%
-           		} // end for recetas            
-            %>
-
+				} // end for recetas
+			%>
 		</div>
 		<!-- <div class="row"> -->
 	</div>
 	<!-- <div class="container"> -->
 </section>
-
 <!-- About Section -->
 <section class="success" id="about">
 	<div class="container">
@@ -79,27 +73,37 @@
 		</div>
 		<div class="row">
 			<ul class="list-group">
-				<li class="list-group-item"><a href="saludo"
-					class="custom-link">Controlador o Servlet</a></li>
-
-				<li class="list-group-item"><a href="crear-vehiculo"
-					class="custom-link">Crear Vehiculo</a></li>
-				<li class="list-group-item"><a href="vehiculo"
-					class="custom-link">CRUD(CreateReadUpdateDelete) de vehiculos</a></li>
-				<li class="list-group-item"><a href="ejercicios/ErrorPage.jsp" class="custom-link">Error
-						Page</a></li>
-						<li lass="list-group-item"><a href="dado?op=1" class="custom-link">Dado</a></li>
-				<li class="list-group-item"><a href="ejercicios/404.jsp" class="custom-link">Pagina
-						no exixtente.404</a></li>
-				<li class="list-group-item"><a href="ExceptionController?p=1"
-					class="custom-link">Gestion error 500</a></li>
-				<li class="list-group-item"><a href="ExceptionController?p=2"
-					class="custom-link">Vehiculo Exception</a></li>
+				<li class="list-group-item">
+					<a href="saludo" class="custom-link">Controlador o Servlet</a>
+				</li>
+				<li class="list-group-item">
+					<a href="crear-vehiculo" class="custom-link">Crear Vehiculo</a>
+				</li>
+				<li class="list-group-item">
+					<a href="vehiculo" class="custom-link">CRUD(CreateReadUpdateDelete) de vehiculos</a>
+				</li>
+				<li class="list-group-item">
+					<a href="ejercicios/ErrorPage.jsp" class="custom-link">Error Page</a>
+				</li>
+				<li class="list-group-item">
+					<a href="dado?op=1" class="custom-link">Dado</a>
+				</li>
+				<li class="list-group-item">
+					<a href="ejercicios/404.jsp" class="custom-link">Pagina no exixtente.404</a>
+				</li>
+				<li class="list-group-item">
+					<a href="ExceptionController?p=1" class="custom-link">Gestion error 500</a>
+				</li>
+				<li class="list-group-item">
+					<a href="ExceptionController?p=2" class="custom-link">Vehiculo Exception</a>
+				</li>
+				<li class="list-group-item">
+					<a href="ejercicios/CrearFicheroTexto.jsp" class="custom-link">crearFicheroTexto</a>
+				</li>
 			</ul>
 		</div>
 	</div>
 </section>
-
 <!-- Contact Section -->
 <section id="contact">
 	<div class="container">
@@ -115,41 +119,30 @@
 				<!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
 				<form name="sentMessage" id="contactForm" novalidate>
 					<div class="row control-group">
-						<div
-							class="form-group col-xs-12 floating-label-form-group controls">
-							<label>Name</label> <input type="text" class="form-control"
-								placeholder="Name" id="name" required
-								data-validation-required-message="Please enter your name.">
+						<div class="form-group col-xs-12 floating-label-form-group controls">
+							<label>Name</label>
+							<input type="text" class="form-control" placeholder="Name" id="name" required data-validation-required-message="Please enter your name.">
 							<p class="help-block text-danger"></p>
 						</div>
 					</div>
 					<div class="row control-group">
-						<div
-							class="form-group col-xs-12 floating-label-form-group controls">
-							<label>Email Address</label> <input type="email"
-								class="form-control" placeholder="Email Address" id="email"
-								required
-								data-validation-required-message="Please enter your email address.">
+						<div class="form-group col-xs-12 floating-label-form-group controls">
+							<label>Email Address</label>
+							<input type="email" class="form-control" placeholder="Email Address" id="email" required data-validation-required-message="Please enter your email address.">
 							<p class="help-block text-danger"></p>
 						</div>
 					</div>
 					<div class="row control-group">
-						<div
-							class="form-group col-xs-12 floating-label-form-group controls">
-							<label>Phone Number</label> <input type="tel"
-								class="form-control" placeholder="Phone Number" id="phone"
-								required
-								data-validation-required-message="Please enter your phone number.">
+						<div class="form-group col-xs-12 floating-label-form-group controls">
+							<label>Phone Number</label>
+							<input type="tel" class="form-control" placeholder="Phone Number" id="phone" required data-validation-required-message="Please enter your phone number.">
 							<p class="help-block text-danger"></p>
 						</div>
 					</div>
 					<div class="row control-group">
-						<div
-							class="form-group col-xs-12 floating-label-form-group controls">
+						<div class="form-group col-xs-12 floating-label-form-group controls">
 							<label>Message</label>
-							<textarea rows="5" class="form-control" placeholder="Message"
-								id="message" required
-								data-validation-required-message="Please enter a message."></textarea>
+							<textarea rows="5" class="form-control" placeholder="Message" id="message" required data-validation-required-message="Please enter a message."></textarea>
 							<p class="help-block text-danger"></p>
 						</div>
 					</div>
@@ -165,7 +158,6 @@
 		</div>
 	</div>
 </section>
-
 <!-- Footer -->
 <footer class="text-center">
 	<div class="footer-above">
@@ -174,29 +166,47 @@
 				<div class="footer-col col-md-4">
 					<h3>Location</h3>
 					<p>
-						3481 Melrose Place <br>Beverly Hills, CA 90210
+						3481 Melrose Place
+						<br>
+						Beverly Hills, CA 90210
 					</p>
 				</div>
 				<div class="footer-col col-md-4">
 					<h3>Around the Web</h3>
 					<ul class="list-inline">
-						<li><a href="#" class="btn-social btn-outline"><i
-								class="fa fa-fw fa-facebook"></i></a></li>
-						<li><a href="#" class="btn-social btn-outline"><i
-								class="fa fa-fw fa-google-plus"></i></a></li>
-						<li><a href="#" class="btn-social btn-outline"><i
-								class="fa fa-fw fa-twitter"></i></a></li>
-						<li><a href="#" class="btn-social btn-outline"><i
-								class="fa fa-fw fa-linkedin"></i></a></li>
-						<li><a href="#" class="btn-social btn-outline"><i
-								class="fa fa-fw fa-dribbble"></i></a></li>
+						<li>
+							<a href="#" class="btn-social btn-outline">
+								<i class="fa fa-fw fa-facebook"></i>
+							</a>
+						</li>
+						<li>
+							<a href="#" class="btn-social btn-outline">
+								<i class="fa fa-fw fa-google-plus"></i>
+							</a>
+						</li>
+						<li>
+							<a href="#" class="btn-social btn-outline">
+								<i class="fa fa-fw fa-twitter"></i>
+							</a>
+						</li>
+						<li>
+							<a href="#" class="btn-social btn-outline">
+								<i class="fa fa-fw fa-linkedin"></i>
+							</a>
+						</li>
+						<li>
+							<a href="#" class="btn-social btn-outline">
+								<i class="fa fa-fw fa-dribbble"></i>
+							</a>
+						</li>
 					</ul>
 				</div>
 				<div class="footer-col col-md-4">
 					<h3>About Freelancer</h3>
 					<p>
 						Freelance is a free to use, open source Bootstrap theme created by
-						<a href="http://startbootstrap.com">Start Bootstrap</a>.
+						<a href="http://startbootstrap.com">Start Bootstrap</a>
+						.
 					</p>
 				</div>
 			</div>
@@ -210,24 +220,19 @@
 		</div>
 	</div>
 </footer>
-
 <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
-<div
-	class="scroll-top page-scroll hidden-sm hidden-xs hidden-lg hidden-md">
-	<a class="btn btn-primary" href="#page-top"> <i
-		class="fa fa-chevron-up"></i>
+<div class="scroll-top page-scroll hidden-sm hidden-xs hidden-lg hidden-md">
+	<a class="btn btn-primary" href="#page-top">
+		<i class="fa fa-chevron-up"></i>
 	</a>
 </div>
-
 <%
-		receta = null;
-        for (int i=0; i< recetas.size(); i++ ) {
-        	receta = recetas.get(i);
-    %>
-
+	receta = null;
+	for (int i = 0; i < recetas.size(); i++) {
+		receta = recetas.get(i);
+%>
 <!-- ventana Modal -->
-<div class="portfolio-modal modal fade" id="portfolioModal<%=i%>"
-	tabindex="-1" role="dialog" aria-hidden="true">
+<div class="portfolio-modal modal fade" id="portfolioModal<%=i%>" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-content">
 		<div class="close-modal" data-dismiss="modal">
 			<div class="lr">
@@ -240,28 +245,35 @@
 					<div class="modal-body">
 						<h2><%=receta.getTitulo()%></h2>
 						<hr class="star-primary">
-						<img src="img/portfolio/cabin.png"
-							class="img-responsive img-centered" alt="">
+						<img src="img/portfolio/cabin.png" class="img-responsive img-centered" alt="">
 						<p>
-							Use this area of the page to describe your project. The icon
-							above is part of a free icon set by <a
-								href="https://sellfy.com/p/8Q9P/jV3VZ/">Flat Icons</a>. On their
-							website, you can download their free set with 16 icons, or you
-							can purchase the entire set with 146 icons for only $12!
+							Use this area of the page to describe your project. The icon above is part of a free icon set by
+							<a href="https://sellfy.com/p/8Q9P/jV3VZ/">Flat Icons</a>
+							. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!
 						</p>
 						<ul class="list-inline item-details">
-							<li>Client: <strong><a
-									href="http://startbootstrap.com">Start Bootstrap</a> </strong>
+							<li>
+								Client:
+								<strong>
+									<a href="http://startbootstrap.com">Start Bootstrap</a>
+								</strong>
 							</li>
-							<li>Date: <strong><a
-									href="http://startbootstrap.com">April 2014</a> </strong>
+							<li>
+								Date:
+								<strong>
+									<a href="http://startbootstrap.com">April 2014</a>
+								</strong>
 							</li>
-							<li>Service: <strong><a
-									href="http://startbootstrap.com">Web Development</a> </strong>
+							<li>
+								Service:
+								<strong>
+									<a href="http://startbootstrap.com">Web Development</a>
+								</strong>
 							</li>
 						</ul>
 						<button type="button" class="btn btn-default" data-dismiss="modal">
-							<i class="fa fa-times"></i> Close
+							<i class="fa fa-times"></i>
+							Close
 						</button>
 					</div>
 				</div>
@@ -273,6 +285,4 @@
 <%
         } //end for recetas
     %>
-
-
 <%@include file="includes/footer.jsp"%>
