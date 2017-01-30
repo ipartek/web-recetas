@@ -2,6 +2,7 @@ package com.ipartek.formacion.recetas.controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -38,6 +39,8 @@ public class VehiculosCRUDController extends HttpServlet {
 	private Long id;
 	private Vehiculo v;
 	private Mensaje mensaje = new Mensaje();
+	RequestDispatcher dispatcher = null;
+
 	
 	private static ServiceVehiculo service;
 	
@@ -96,7 +99,7 @@ public class VehiculosCRUDController extends HttpServlet {
 			if (v.getId() > 0) {
 				accion = service.update(v);
 				if (accion) {
-					mensaje.setDescripcion("Coche actualizado correctamente");
+					mensaje.setDescripcion("Vehiculo actualizado correctamente");
 				} else {
 					mensaje.setClase(Mensaje.CLASE_WARNING);
 					mensaje.setDescripcion("No se ha podido actualizar el coche");
@@ -105,23 +108,31 @@ public class VehiculosCRUDController extends HttpServlet {
 				
 				accion = service.create(v);
 				if (accion) {
-					mensaje.setDescripcion("Coche creado correctamente");
+					mensaje.setDescripcion("Vehiculo creado correctamente");
 				} else {
 					mensaje.setClase(Mensaje.CLASE_WARNING);
 					mensaje.setDescripcion("No se ha podido crear el coche correctamente");
 				}
 			}
+				request.setAttribute("vehiculos", service.getAll());
+				dispatcher = request.getRequestDispatcher(VIEW_LIST);
 			
 			} catch(VehiculoException e) {
 				mensaje.setClase(Mensaje.CLASE_DANGER);
 				mensaje.setDescripcion(e.getMessage());
 			} catch(Exception e) {
 				mensaje.setClase(Mensaje.CLASE_DANGER);
-				mensaje.setDescripcion("Ha fallado algo inesperado");
+				mensaje.setDescripcion(e.getMessage());
+				if(v.getId()!=-1) {
+					request.setAttribute("vehiculo", service.getById(v.getId()));
+				} else {
+					request.setAttribute("vehiculo", v);
+				}
+				dispatcher = request.getRequestDispatcher(VIEW_FORM);
 			} finally {
 				request.setAttribute("msj", mensaje);
-				request.setAttribute("vehiculos", service.getAll());
-				request.getRequestDispatcher(VIEW_LIST).forward(request, response);
+				
+				dispatcher.forward(request, response);
 			}
 			break;
 			
@@ -131,7 +142,7 @@ public class VehiculosCRUDController extends HttpServlet {
 			accion = service.delete(id);
 			if (accion) {
 				mensaje.setClase(Mensaje.CLASE_SUCCESS);
-				mensaje.setDescripcion("Coche eliminado");
+				mensaje.setDescripcion("Vehiculo eliminado");
 			} else  {
 				mensaje.setClase(Mensaje.CLASE_DANGER);
 				mensaje.setDescripcion("No se ha podido borrar el coche");

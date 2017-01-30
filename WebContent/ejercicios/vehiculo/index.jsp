@@ -38,8 +38,8 @@
             <tr>
                 <td><a href="vehiculo?op=<%=VehiculosCRUDController.OP_VER_DETALLE %>&id=${v.id}">${v.modelo}</td>
                 <td>${v.plazas}</td>
-                <td>${v.dimensiones}</td>
-                <td>${v.potencia}</td>
+                <td><fmt:formatNumber pattern="#,##0.00" value="${v.dimensiones}"></fmt:formatNumber></td>
+                <td><fmt:formatNumber pattern="#,###0.000" value="${v.potencia}"></fmt:formatNumber></td>
                 
             </tr>
         </c:forEach>
@@ -48,7 +48,7 @@
         
     <c:set var="user" value="${sessionScope.usuario}"/>
         <c:if test="${ user != null}">
-        <p>Usuario: ${sessionScope.usuario.nombre}</p>`
+        <p>Usuario: ${sessionScope.usuario.nombre}</p>
         
         </c:if>
         <p>Total Vehiculos: ${fn:length(vehiculos)}</p>

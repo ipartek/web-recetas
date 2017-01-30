@@ -1,12 +1,28 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+<%@page import="com.ipartek.formacion.recetas.controller.VehiculosCRUDController"%>
+<%@page import="java.util.ArrayList"%>
+<%@include file="../../includes/header.jsp" %>
+<%@include file="../../includes/nav.jsp" %>
+<%@page import="com.ipartek.formacion.recetas.ejercicios.herencia.Vehiculo"%>
+<body id="" class="index">
+    
+    <header>
+       <div class="container header-content">
+           <div class="row">
+               <div class="col-lg-12">
+               	<h1>CRUD Vehiculo</h1>
+               </div>
+             </div>             
+ 		</div> 
+ 	</header> 
+  	
+   <div class="container">
+      <div class="row">
+      	<%@include file="../../includes/mensaje.jsp" %>
 
-</body>
-</html>
+        
+	</div>
+    <!--  <div class="row"> -->
+</div>    
+<!-- <div class="container"> -->
+                
+ <%@include file="../../includes/footer.jsp" %>
