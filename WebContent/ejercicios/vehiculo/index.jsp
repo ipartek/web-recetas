@@ -2,9 +2,7 @@
 <%@page import="com.ipartek.formacion.recetas.ejercicios.herencia.Vehiculo"%>
 <%@include file="../../includes/header.jsp" %>
 
-    
-   
-  <header>
+ <header>
        <div class="container header-content">
            <div class="row">
                <div class="col-lg-12">
@@ -46,7 +44,7 @@
         	<c:forEach var="v" items="${vehiculo}">        
 	            <tr>
 	                <td><a href="vehiculo?op=2&id=${v.id}">${v.modelo}</a></td>
-	                <td>${v.plazas}</td>
+	                <td>${v.plazas}</td> 
 	                <td>${v.dimensiones}</td>
 	                <td>${v.potencia}</td>        
 	            </tr>

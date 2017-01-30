@@ -124,6 +124,7 @@
              <li><a href="controladorExcepcion?p=1">error 500</a></li>
              <li><a href="controladorExcepcion?p=2">Gestion error VehiculoException</a></li>
              <li><a href="ejercicios/crear-vehiculo.jsp">Crear Vehiculo y Excepciones Personalizadas</a></li>
+             <li><a href="ejercicios/crear-fichero.jsp">Crear fichero de texto</a></li>
                 </ul>
             </div>
         </div>

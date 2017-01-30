@@ -103,7 +103,7 @@ public class VehiculoCRUDController extends HttpServlet {
 			Vehiculo coche = new Vehiculo();
 			coche.setId(id);
 			coche.setModelo(modelo);
-			coche.setPlazas(plazas);
+			// coche.setPlazas(plazas);
 			coche.setDimensiones(dimensiones);
 			coche.setPotencia(potencia);
 
