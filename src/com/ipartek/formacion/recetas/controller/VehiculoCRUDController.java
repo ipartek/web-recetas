@@ -97,16 +97,21 @@ public class VehiculoCRUDController extends HttpServlet {
 					id = Long.valueOf(request.getParameter("id"));
 					String pModelo = request.getParameter("modelo");
 					int pPlazas = Integer.valueOf(request.getParameter("plazas"));
-					Float pPotencia = Float.valueOf(request.getParameter("potencia"));
-					Float pDimensiones = Float.valueOf(request.getParameter("dimensiones"));
+
+					// covertir de formato castellano a anglosajon
+					String pPotencia = request.getParameter("potencia");
+					String pDimensiones = request.getParameter("dimensiones");
+
+					Float potencia = Float.valueOf(pPotencia.replace(",", "."));
+					Float dimensiones = Float.valueOf(pDimensiones.replace(",", "."));
 
 					// crear Vehiculo
 					Vehiculo v = new Vehiculo();
 					v.setId(id);
 					v.setModelo(pModelo);
 					v.setPlazas(pPlazas);
-					v.setPotencia(pPotencia);
-					v.setDimensiones(pDimensiones);
+					v.setPotencia(potencia);
+					v.setDimensiones(dimensiones);
 
 					// guardarlo o persistirlo en la bbdd
 					boolean guardado = false;

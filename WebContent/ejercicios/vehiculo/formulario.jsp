@@ -36,11 +36,14 @@
         	<br>
         	
         	<label for="potencia">Potencia:</label>
-        	<input type="text" name="potencia" required value="${vehiculo.potencia}">
+        	<input type="text" name="potencia" required 
+        	       value="<fmt:formatNumber pattern="#,##0.00" value="${vehiculo.potencia}"/>">
         	<br>
         	
         	<label for="dimensiones">Dimensiones:</label>
-        	<input type="text" name="dimensiones" required value="${vehiculo.dimensiones}">
+        	<input type="text" name="dimensiones" required 
+        		   value="<fmt:formatNumber pattern="#,##0.00" value="${vehiculo.dimensiones}"/>"
+        		   >
         	<br>
             
             <input type="hidden" name="op" value="<%=VehiculoCRUDController.OP_GUARDAR%>">

@@ -36,8 +36,12 @@
 	            <tr>
 	                <td><a href="vehiculo?op=2&id=${v.id}">${v.modelo}</a></td>
 	                <td>${v.plazas}</td>
-	                <td>${v.dimensiones}</td>
-	                <td>${v.potencia}</td>        
+	                <td>	                	
+	                	<fmt:formatNumber pattern="#,##0.00" value="${v.dimensiones}"/>
+	                </td>
+	                <td>
+	                	<fmt:formatNumber pattern="#,###0.000" value="${v.potencia}"/>
+	                </td>        
 	            </tr>
            </c:forEach> 
                        
