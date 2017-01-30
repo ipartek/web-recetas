@@ -28,6 +28,11 @@
       <label for ="potencia">Potencia:</label>
       <input type="number" min= "0" name="potenciaCrear" id="potencia" value="${vehiculo.potencia}">
       <br>
+      
+      <label for ="dimensiones">Dimensiones:</label>
+      <input type="number" min= "0" name="dimensionesCrear" id="dimensiones" value="${vehiculo.dimensiones}">
+      <br>
+      
       <input type="hidden" name= "op" value="4">  
       <input type="hidden" name= "id" value="${vehiculo.id}">        		
       <input type="submit" value="Modificar">
@@ -53,6 +58,11 @@
       <label for ="potencia">Potencia:</label>
       <input type="number" min= "0" name="potenciaCrear" id="potencia" placeholder="0.0" required>
       <br>
+      
+      <label for ="dimensiones">Dimensiones:</label>
+      <input type="number" min= "0" name="dimensionesCrear" id="dimensiones" placeholder="0.0" required>
+      <br>
+      
       <input type="hidden" name= "op" value="4">    
       <input type="hidden" name= "id" value="${vehiculo.id}">     		
       <input type="submit" value="Crear">

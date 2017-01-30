@@ -91,6 +91,7 @@ public class VehiculosCRUDController extends HttpServlet {
 			v.setModelo(request.getParameter("modeloCrear"));
 			v.setPlazas(Integer.parseInt(request.getParameter("plazasCrear")));
 			v.setPotencia(Float.parseFloat(request.getParameter("potenciaCrear")));
+			v.setDimensiones(Float.parseFloat(request.getParameter("dimensionesCrear")));
 			mensaje.setClase(Mensaje.CLASE_SUCCESS);
 			if (v.getId() > 0) {
 				accion = service.update(v);
