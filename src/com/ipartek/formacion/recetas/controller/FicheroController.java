@@ -1,5 +1,6 @@
 package com.ipartek.formacion.recetas.controller;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -27,7 +28,23 @@ public class FicheroController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		throw new ServletException("Sin implementar metodo GET");
+		Mensaje msj = null;
+		try {
+
+			File ficheros = new File(PATH);
+			request.setAttribute("files", ficheros.listFiles());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			msj = new Mensaje();
+			msj.setDescripcion(e.getMessage());
+
+		} finally {
+
+			request.setAttribute("msj", msj);
+			request.getRequestDispatcher("ejercicios/leer-fichero.jsp").forward(request, response);
+		}
+
 	}
 
 	/**
