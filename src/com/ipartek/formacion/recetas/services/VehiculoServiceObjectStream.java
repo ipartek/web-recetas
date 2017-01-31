@@ -59,14 +59,6 @@ public class VehiculoServiceObjectStream implements ServiceVehiculo {
 		}
 
 	}
-	/*
-	 * private boolean existe() { boolean resul = false;
-	 * 
-	 * try { File f = new File(PATH); resul = f.exists(); } catch (Exception e)
-	 * { e.printStackTrace(); }
-	 * 
-	 * return resul; }
-	 */
 
 	// Patron Singleton
 	private synchronized static void createInstance() {
@@ -81,10 +73,6 @@ public class VehiculoServiceObjectStream implements ServiceVehiculo {
 			createInstance();
 		return INSTANCE;
 	}
-
-	// Cuidado hay que comprobar q el fichero existe
-	// si no existe crearlo
-	// PATH relativo al proyecto
 
 	// ServiceVehiculo
 	@Override
@@ -138,24 +126,26 @@ public class VehiculoServiceObjectStream implements ServiceVehiculo {
 		boolean resul = false;
 		v.setId(++indice);
 
+		if (vehiculos.add(v)) {
+			resul = true;
+		} else {
+			resul = false;
+		}
+		guardarArchivo(vehiculos);
+		return resul;
+	}
+
+	// Metodos
+	public void guardarArchivo(List<Vehiculo> vehiculos) {
 		try {
 			FileOutputStream fon = new FileOutputStream(PATH);
 			ObjectOutputStream oos = new ObjectOutputStream(fon);
-
-			if (vehiculos.add(v)) {
-				resul = true;
-			} else {
-				resul = false;
-			}
 			oos.writeObject(vehiculos);
-
 			oos.close();
 			fon.close();
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
-
-		return resul;
 	}
 
 }
