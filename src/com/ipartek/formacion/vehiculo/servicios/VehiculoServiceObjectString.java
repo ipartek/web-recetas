@@ -24,21 +24,25 @@ public class VehiculoServiceObjectString implements ServiceVehiculo {
 
 	// Private constructor suppresses
 	private VehiculoServiceObjectString() {
-		vehiculos = new ArrayList<>();
-		vehiculos.add(new Vehiculo("Seat Panda", 1));
-		vehiculos.add(new Vehiculo("Ford K2", 2));
-		vehiculos.add(new Vehiculo("Lamborgini", 3));
-		vehiculos.add(new Vehiculo("Citroen Shara", 4));
-		vehiculos.add(new Vehiculo("Ferrari", 5));
-		vehiculos.add(new Vehiculo("Tesla", 6));
+		if (!existeFile()) {
+
+			vehiculos = new ArrayList<>();
+			vehiculos.add(new Vehiculo("Seat Panda", 0));
+			vehiculos.add(new Vehiculo("Lamborgini", 1));
+			vehiculos.add(new Vehiculo("Ford K2", 2));
+			vehiculos.add(new Vehiculo("Citoren Shara", 3));
+			vehiculos.add(new Vehiculo("Ferrari", 4));
+			vehiculos.add(new Vehiculo("Tesla", 5));
+
+			guardarFichero(vehiculos);
+
+		}
 
 	}
 
 	private synchronized static void createInstance() {
 		if (INSTANCE == null) {
 			INSTANCE = new VehiculoServiceObjectString();
-			fileExist();
-
 		}
 	}
 
@@ -51,12 +55,14 @@ public class VehiculoServiceObjectString implements ServiceVehiculo {
 
 	@Override
 	public List<Vehiculo> getAll() {
-
+		vehiculos = leerFichero();
 		return vehiculos;
 	}
 
 	@Override
 	public Vehiculo getById(long id) {
+		vehiculos = leerFichero();
+
 		Vehiculo resul = null;
 		for (Vehiculo v : vehiculos) {
 			if (id == v.getId()) {
@@ -69,7 +75,8 @@ public class VehiculoServiceObjectString implements ServiceVehiculo {
 
 	@Override
 	public boolean delete(long id) {
-
+		
+		vehiculos = leerFichero();
 		for (Vehiculo v : vehiculos) {
 			if (id == v.getId()) {
 
@@ -77,121 +84,78 @@ public class VehiculoServiceObjectString implements ServiceVehiculo {
 				break;
 			}
 		}
-		return escribir();
+		return guardarFichero(vehiculos);
 	}
 
 	@Override
 	public boolean update(Vehiculo vMod) {
-
+		vehiculos = leerFichero();
 		for (Vehiculo v : vehiculos) {
 			if (vMod.getId() == v.getId()) {
 
 				int pos = vehiculos.indexOf(v);
 				vehiculos.remove(v);
 				vehiculos.add(pos, vMod);
-				create(v);
 				break;
 			}
 		}
 
-		return escribir();
+		return guardarFichero(vehiculos);
 	}
 
 	@Override
 	public boolean create(Vehiculo v) {
-		indice = vehiculos.get(vehiculos.size() - 1).getId();
-		v.setId(++indice);
-
-		boolean resul = vehiculos.add(v);
-		escribir();
-
-		return resul;
-	}
-
-	private static boolean fileExist() {
-
-		File fichero = null;
-		BufferedWriter bw = null;
 		boolean resul = false;
-
 		try {
-			fichero = new File(PATH);
-			if (!fichero.exists()) {
-				// crear Fichero
-				bw = new BufferedWriter(new FileWriter(PATH));
-
-				resul = true;
-
-			} else {
-				leer();
-				resul = true;
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				bw.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return resul;
-	}
-
-	private boolean escribir() {
-		boolean resul = false;
-		// escribe el fichero
-		ObjectOutputStream oos = null;
-		FileOutputStream fout = null;
-		try {
-			fout = new FileOutputStream(PATH, true);
-			oos = new ObjectOutputStream(fout);
-			oos.writeObject(vehiculos);
-			oos.writeObject(null);
-
+			vehiculos = leerFichero();
+			// identificador
+			v.setId((vehiculos.get(vehiculos.size() - 1).getId() + 1));
+			// añadir
+			vehiculos.add(v);
+			// guardar
+			guardarFichero(vehiculos);
 			resul = true;
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			if (oos != null) {
-				try {
-					oos.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
+		}
+		return resul;
+
+	}
+
+	private boolean existeFile() {
+		boolean resul = false;
+		try {
+			resul = new File(PATH).exists();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return resul;
 	}
 
-	private static ArrayList<Vehiculo> leer() {
-		ObjectInputStream objectinputstream = null;
-		ArrayList<Vehiculo> readCase = null;
+	private ArrayList<Vehiculo> leerFichero() {
+		ObjectInputStream ois = null;
 		try {
-			FileInputStream streamIn = new FileInputStream(PATH);
-			objectinputstream = new ObjectInputStream(streamIn);
-
-			do {
-				readCase = (ArrayList<Vehiculo>) objectinputstream.readObject();
-
-			} while (readCase != null);
-
+			ois = new ObjectInputStream(new FileInputStream(PATH));
+			vehiculos = (ArrayList<Vehiculo>) ois.readObject();
+			ois.close();
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			if (objectinputstream != null) {
-				try {
-					objectinputstream.close();
-				} catch (IOException e) {
-
-					e.printStackTrace();
-				}
-			} // end if
-
-		} // end finally
-		vehiculos = readCase;
+		}
 		return vehiculos;
-	}// end leer()
+	}
+
+	private boolean guardarFichero(ArrayList<Vehiculo> vehiculos) {
+
+		ObjectOutputStream oos = null;
+		boolean result = false;
+		try {
+			oos = new ObjectOutputStream(new FileOutputStream(PATH));
+			oos.writeObject(vehiculos);
+			oos.close();
+			result = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 }
