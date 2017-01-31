@@ -1,8 +1,10 @@
 package com.ipartek.formacion.recetas.ejercicios.herencia;
 
+import java.io.Serializable;
+
 import com.ipartek.formacion.recetas.ejercicios.collection.InterfazEstupida;
 
-public class Vehiculo implements Conducible, InterfazEstupida {
+public class Vehiculo implements Conducible, InterfazEstupida, Serializable {
 
 	/**
 	 * 

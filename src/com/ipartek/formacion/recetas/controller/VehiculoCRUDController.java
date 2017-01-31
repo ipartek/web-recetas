@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.ipartek.formacion.recetas.ejercicios.herencia.Vehiculo;
 import com.ipartek.formacion.recetas.pojo.Mensaje;
 import com.ipartek.formacion.recetas.services.ServiceVehiculo;
-import com.ipartek.formacion.recetas.services.ServiceVehiculoArrayList;
+import com.ipartek.formacion.recetas.services.VehiculoServiceObjectStream;
 
 /**
  * Servlet implementation class VehiculoCRUDController
@@ -33,12 +33,14 @@ public class VehiculoCRUDController extends HttpServlet {
 	public static final String OP_GUARDAR = "5"; // sirve para crear o modificar
 													// un vehiculo
 
+	// private static ServiceVehiculo service;
 	private static ServiceVehiculo service;
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-		service = ServiceVehiculoArrayList.getInstance();
+		// service = ServiceVehiculoArrayList.getInstance();
+		service = VehiculoServiceObjectStream.getInstance();
 	}
 
 	@Override
