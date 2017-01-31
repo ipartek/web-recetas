@@ -1,8 +1,17 @@
 <%@include file="../../includes/header.jsp" %>
  <%@include file="../../includes/nav.jsp" %>
   
- 
- <br><br><br><br><br><br><br>
+<header>
+       <div class="container header-content">
+           <div class="row">
+               <div class="col-lg-12">
+               	<h1>Operaciones</h1>
+               </div>
+             </div>             
+ 		</div> 
+ 	</header>
+ 	
+ 	
 <div class="container">
                 <div class="row">
                 <%@include file="../../includes/mensaje.jsp" %>
@@ -22,13 +31,13 @@
 						<div class="form-group">
 							<label for="inputDimensiones" class="col-sm-2 control-label">Dimensiones</label>
 						 		<div class="col-sm-10">
-									<input type="number" name="dimensiones" required="required" value="${vehiculos.dimensiones}">
+									<input type="number" step="any" name="dimensiones" required="required" value="${vehiculos.dimensiones}">
 								</div>
 						</div>
 						<div class="form-group">
 							<label for="inputPotencia" class="col-sm-2 control-label">Potencia</label>
 						 		<div class="col-sm-10">
-									<input type="number" name="potencia" required="required" value="${vehiculos.potencia}">
+									<input type="number" step="any" name="potencia" required="required" value="${vehiculos.potencia}">
 								</div>
 						</div>
 						<div class="form-group">

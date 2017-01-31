@@ -1,0 +1,32 @@
+package com.ipartek.formacion.recetas.model;
+
+import java.util.List;
+
+/**
+ * 
+ * Operaciones basicas de CRUD:
+ * <ol>
+ * <li>Create</li>
+ * <li>Read</li>
+ * <li>Update</li>
+ * <li>Delete</li>
+ * </ol>
+ * 
+ * @author curso
+ * @param <T>
+ *            Tabla que vamos a persistir.
+ * 
+ * 
+ * 
+ * 
+ */
+
+public interface Persistable<T> {
+	List<T> getAll();
+
+	T getById(long i);
+
+	boolean create(T objeto);
+
+	boolean update(T objeto);
+}

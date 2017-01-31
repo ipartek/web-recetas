@@ -122,6 +122,7 @@
                     <li><a href= "controladorException?p=2"> Gestion Error VehiculoException.</a></li>
                     <li><a href= "ejerciciosXXXX/pagina-no-existente-404.jsp"> Error 404.</a></li>
                     <li><a href= "dado">Dado.(Buena suerte)</a></li>
+                    <li><a href="ejercicios/crear-fichero.jsp">Crear Fichero de Texto</a></li>
                </ul>
                
                 </div>
