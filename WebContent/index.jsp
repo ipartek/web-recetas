@@ -123,6 +123,7 @@
                     <li><a href= "ejerciciosXXXX/pagina-no-existente-404.jsp"> Error 404.</a></li>
                     <li><a href= "dado">Dado.(Buena suerte)</a></li>
                     <li><a href="ejercicios/crear-fichero.jsp">Crear Fichero de Texto</a></li>
+                    <li><a href="vehiculoOutput">Listar Vehiculos</a></li>
                </ul>
                
                 </div>
