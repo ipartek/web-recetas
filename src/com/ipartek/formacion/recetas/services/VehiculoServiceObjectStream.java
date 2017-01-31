@@ -1,11 +1,16 @@
 package com.ipartek.formacion.recetas.services;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.ipartek.formacion.recetas.ejercicios.herencia.Vehiculo;
 
 public class VehiculoServiceObjectStream implements ServiceVehiculo {
-
+	File fichero = new File(PATH);
+	private static VehiculoServiceObjectStream INSTANCE;
+	private static ArrayList<Vehiculo> vehiculos = null;
 	// TODO patron Singleton
 	// TODO Cuidado hay que comprobar que el fichero existe, si no existe
 	// crearlo
@@ -14,7 +19,11 @@ public class VehiculoServiceObjectStream implements ServiceVehiculo {
 
 	@Override
 	public List<Vehiculo> getAll() {
-		// TODO Auto-generated method stub
+
+		if (fichero.exists()) {
+
+		}
+
 		return null;
 	}
 
@@ -26,7 +35,8 @@ public class VehiculoServiceObjectStream implements ServiceVehiculo {
 
 	@Override
 	public boolean delete(long id) {
-		// TODO Auto-generated method stub
+		fichero.delete();
+		System.out.println("el fichero ha sido eliminado");
 		return false;
 	}
 
@@ -38,8 +48,36 @@ public class VehiculoServiceObjectStream implements ServiceVehiculo {
 
 	@Override
 	public boolean create(Vehiculo v) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			if (fichero.createNewFile() == true) {
+				System.out.println("El fichero se ha creado correctamente");
+				vehiculos = new ArrayList<>();
+				vehiculos.add(new Vehiculo("VehiculoServiceObjectStream", 2));
+				vehiculos.add(new Vehiculo("Lamborgini", 4));
+				vehiculos.add(new Vehiculo("Ford K2", 1));
+				vehiculos.add(new Vehiculo("Citoren Shara", 12));
+				vehiculos.add(new Vehiculo("Ferrari", 500));
+				vehiculos.add(new Vehiculo("Tesla", 23));
+				System.out.println(vehiculos);
+			}
+		} catch (IOException e) {
+			System.out.println("el fichero ya existía");
+			e.printStackTrace();
+		}
+
+		return true;
 	}
 
+	private synchronized static void createInstance() {
+		if (INSTANCE == null) {
+			INSTANCE = new VehiculoServiceObjectStream();
+		}
+	}
+
+	public static VehiculoServiceObjectStream getInstance() {
+		if (INSTANCE == null) {
+			createInstance();
+		}
+		return INSTANCE;
+	}
 }
