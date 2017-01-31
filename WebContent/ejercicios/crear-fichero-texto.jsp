@@ -33,28 +33,18 @@
 			para mejorar la escritura.
 		</p>
 		<p>Capitulo 10, pag. 158.</p>
+		<p>Puedes leer los ficheros creados en <a href="ejercicios/listar-ficheros.jsp" class="custom-link">Listar Ficheros</a></p>
 		<hr>
 		<%@include file="../includes/mensaje.jsp"%>
-		<hr>
-		
+		<hr>	
 		<form action="files" method="post">
 			<input type="text" class="form-control" name="nombre" required placeholder="Nombre" autofocus>
 			<br>
-			<%-- <c:if test="<%=request.getAttribute("contenido")%> != null" >
-				<textarea class="form-control" rows="20" cols="10" name="contenido"  placeholder="<%=request.getAttribute("contenido")%>"></textarea>
-			</c:if>  --%>
+	
 			<textarea class="form-control" rows="20" cols="10" name="contenido" required placeholder="<%=request.getAttribute("contenido")%>"></textarea>
 			<br>
 			<input type="submit" class="btn btn-default" value="crear">
-		</form>
-		<br><br><br>
-		<!--Formulario de busqueda -->
-		<form action="files" method="get">
-			<input type="text" class="form-control" name="nombre" required placeholder="Nombre a buscar" >
-			<br>
-			
-			<input type="submit" class="btn btn-default" value="buscar">
-		</form>
+		</form>	
 	</div>
 	<!--  <div class="row"> -->
 </div>

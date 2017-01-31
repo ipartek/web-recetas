@@ -83,7 +83,7 @@
 					<a href="vehiculo" class="custom-link">CRUD(CreateReadUpdateDelete) de vehiculos</a>
 				</li>
 				<li class="list-group-item">
-					<a href="ErrorPage.jsp" class="custom-link">Error Page</a>
+					<a href="error-page.jsp" class="custom-link">Error Page</a>
 				</li>
 				<li class="list-group-item">
 					<a href="dado?op=1" class="custom-link">Dado</a>
@@ -98,7 +98,7 @@
 					<a href="ExceptionController?p=2" class="custom-link">Vehiculo Exception</a>
 				</li>
 				<li class="list-group-item">
-					<a href="ejercicios/CrearFicheroTexto.jsp" class="custom-link">crearFicheroTexto</a>
+					<a href="ejercicios/crear-fichero-texto.jsp" class="custom-link">Crear Fichero de Texto</a>
 				</li>
 			</ul>
 		</div>

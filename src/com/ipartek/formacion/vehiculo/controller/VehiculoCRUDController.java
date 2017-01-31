@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.ipartek.formacion.vehiculo.pojo.Mensaje;
 import com.ipartek.formacion.vehiculo.pojo.Vehiculo;
 import com.ipartek.formacion.vehiculo.servicios.ServiceVehiculo;
-import com.ipartek.formacion.vehiculo.servicios.ServiceVehiculoArrayList;
+import com.ipartek.formacion.vehiculo.servicios.VehiculoServiceObjectString;
 
 /**
  * Servlet implementation class VehiculoCRUDController
@@ -42,7 +42,7 @@ public class VehiculoCRUDController extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 
 		super.init(config);
-		service = ServiceVehiculoArrayList.getInstance();
+		service = VehiculoServiceObjectString.getInstance();
 	}
 
 	@Override

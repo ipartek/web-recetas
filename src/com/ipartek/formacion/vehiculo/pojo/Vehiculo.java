@@ -1,12 +1,13 @@
 package com.ipartek.formacion.vehiculo.pojo;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 
 import com.ipartek.formacion.recetas.ejercicios.collection.InterfazEstupida;
 import com.ipartek.formacion.recetas.ejercicios.herencia.Conducible;
 
-public class Vehiculo implements Conducible, InterfazEstupida {
+public class Vehiculo implements Conducible, InterfazEstupida, Serializable {
 
 	/**
 	 *

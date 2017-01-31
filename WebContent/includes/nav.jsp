@@ -1,5 +1,5 @@
 <!-- Navigation -->
-<%@page errorPage="../error.jsp"%>
+
 <%@page import="com.ipartek.formacion.pojo.Usuario"%>
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
         <div class="container">
