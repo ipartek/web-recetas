@@ -14,9 +14,10 @@
  	
 	<div class="container">
     	<div class="row">
-			<p>Ejercicio para crear un fichero de texto, usaremos un <code>Stream</code> del tipo <code>FileWriter</code>.</p>
-			<p>Acordaros de usar un <code>Buffer</code> del tipo <code>BufferedWriter</code> para mejorar la escritura.
-			<p>Capitulo 10, pag.158</p>
+			<p>Ejericio para crear un fichero de texto, usaremos un <code>Stream</code> del tipo <code>FileWriter</code>.</p>
+      		<p>Acordaros de usar un <code>Buffer</code> del tipo<code>BufferedWriter</code> para mejorar la escritura.</p>
+      		<p>Puedes leer los ficheros en: <a href="files">ejercicios\leer-fichero.jsp</a></p>
+      		<p>Capitulo 10, pag. 158.</p>
 			
 			<hr> <!-- hace una linea divisor -->
 			

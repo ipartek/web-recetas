@@ -76,7 +76,7 @@
                 </div>
             </div>
             
-            <%@include file="../includes/ListaEjercicios.jsp" %>
+            <%@include file="../includes/listaEjercicios.jsp" %>
 
         </div>
     </section>
