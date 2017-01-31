@@ -1,3 +1,4 @@
+<%@page import="com.ipartek.formacion.recetas.controller.FicheroController"%>
 <%@include file="../includes/header.jsp" %>
 <%@include file="../includes/nav.jsp" %>
 
@@ -22,13 +23,17 @@
       		
       		<ul>
       		 <%
-      			File [] files = (File [])request.getAttribute("files");  
-      		 	if ( files != null ){
-			        for (int i = 0; i < files.length; i++) {		           
-			           if(!files[i].isDirectory()){
+      		 	//Buscar ficheros en PATH
+ 				File ficheros = new File(FicheroController.PATH); 				
+      			File [] files = ficheros.listFiles();  
+      		 	if ( files.length > 0 ){
+      		 		File f = null;
+			        for (int i = 0; i < files.length; i++) {
+			           f = files[i];	
+			           if(!f.isDirectory()){
 			        %>
 			        <li>
-			          <a href="#"><%=files[i].getName()%></a> <%=files[i].length()%> bytes 
+			          <a href="#"><%=f.getName()%></a> (<%=f.length()%> bytes) 
 			        </li>  
 			        <%
 			                }//end if

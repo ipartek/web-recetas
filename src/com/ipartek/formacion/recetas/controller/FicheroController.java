@@ -1,6 +1,5 @@
 package com.ipartek.formacion.recetas.controller;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -20,7 +19,7 @@ public class FicheroController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	private static final String EXTENSION = ".txt";
-	private static final String PATH = "c:\\desarrollo\\workspace\\web-recetas\\ficheros\\";
+	public static final String PATH = "c:\\desarrollo\\workspace\\web-recetas\\ficheros\\";
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -30,9 +29,6 @@ public class FicheroController extends HttpServlet {
 			throws ServletException, IOException {
 		Mensaje msj = null;
 		try {
-
-			File ficheros = new File(PATH);
-			request.setAttribute("files", ficheros.listFiles());
 
 		} catch (Exception e) {
 			e.printStackTrace();
