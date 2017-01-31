@@ -85,7 +85,9 @@
                 	<li><a href="ejerciciosxxx/pagina-no-existente-404.jsp">Gestion Error 404</a></li>
                 	<li><a href="controladorExcepcion?p=1">Gestion Error 500</a></li>
                 	<li><a href="controladorExcepcion?p=2">Gestion Error VehiculoException</a></li>
-                	<li><a href="dado">Dado</a></li>
+                	<li><a href="files">Lectura y Escritura de Archivos</a></li>
+                	<li><a href="vehiculoOutput">Object Stream</a></li>
+                	
                 </ul>
                 
             </div>

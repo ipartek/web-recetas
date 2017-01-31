@@ -1,4 +1,5 @@
-<%@page import="com.ipartek.formacion.recetas.ejercicios.herencia.Vehiculo"%>
+
+<%@page import="com.ipartek.formacion.recetas.ejercicios.herencia.pojo.Vehiculo"%>
 <%@include file="../includes/header.jsp" %>
 <%@include file="../includes/nav.jsp" %>
     

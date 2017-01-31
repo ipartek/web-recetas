@@ -7,10 +7,11 @@ import com.ipartek.formacion.recetas.ejercicios.herencia.pojo.Vehiculo;
 
 public class ServiceVehiculoArrayList implements ServiceVehiculo {
 
-	//Declaracion
+	// Declaracion
 	private static ServiceVehiculoArrayList INSTANCE;
 	private static long indice = 500;
 	private ArrayList<Vehiculo> vehiculos = null;
+
 	private ServiceVehiculoArrayList() {
 		vehiculos = new ArrayList<>();
 		vehiculos.add(new Vehiculo("Seat Panda", 4));
@@ -20,11 +21,12 @@ public class ServiceVehiculoArrayList implements ServiceVehiculo {
 		vehiculos.add(new Vehiculo("Ferrari", 500));
 		vehiculos.add(new Vehiculo("Tesla", 23));
 	}
-	
-	//Singleton
+
+	// Singleton
 	private synchronized static void createInstance() {
 		if (INSTANCE == null) {
 			INSTANCE = new ServiceVehiculoArrayList();
+
 		}
 	}
 
@@ -34,7 +36,7 @@ public class ServiceVehiculoArrayList implements ServiceVehiculo {
 		return INSTANCE;
 	}
 
-	//ServiceVehiculo
+	// ServiceVehiculo
 	@Override
 	public List<Vehiculo> getAll() {
 

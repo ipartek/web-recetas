@@ -22,13 +22,13 @@ import com.ipartek.formacion.recetas.services.ServiceVehiculoArrayList;
  */
 @WebServlet("/vehiculo")
 public class VehiculoCRUDController extends HttpServlet {
-	
-	//Declaracion
+
+	// Declaracion
 	private static final long serialVersionUID = 1L;
 	private static final String VIEW_LIST = "ejercicios/vehiculo/index.jsp";
 	private static final String VIEW_FORM = "ejercicios/vehiculo/formulario.jsp";
 	private static ServiceVehiculo service;
-	
+
 	// Operaciones que puede realizar
 	public static final String OP_LISTAR = "1";
 	public static final String OP_VER_DETALLE = "2";
@@ -57,13 +57,15 @@ public class VehiculoCRUDController extends HttpServlet {
 		// Despues de realizar doGet o doPost
 	}
 
-	/** @see HttpServlet#HttpServlet()  */
-	/** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse */
+	/** @see HttpServlet#HttpServlet() */
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		//Operacion a realizar
+		// Operacion a realizar
 		String op = request.getParameter("op");
 		Mensaje msg = new Mensaje();
 		if (op == null) {
@@ -146,7 +148,10 @@ public class VehiculoCRUDController extends HttpServlet {
 
 	}
 
-	/** @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response) */
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
