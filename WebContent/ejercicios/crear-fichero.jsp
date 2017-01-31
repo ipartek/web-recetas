@@ -1,3 +1,4 @@
+<%@page import="com.ipartek.formacion.recetas.controller.FicheroController"%>
 <%@include file="../includes/header.jsp" %>
 
 <header>
@@ -31,21 +32,6 @@
       	
       	</form>
       
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      </div>
-     </div>
-
-
-
 
 
 

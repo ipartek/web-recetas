@@ -19,7 +19,7 @@ import com.ipartek.formacion.recetas.pojo.Mensaje;
 public class FicheroController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String EXTENSION = ".txt";
-	private static final String PATH = "C:\\Desarrollo\\workspace\\web-recetas\\fichero\\";
+	public static final String PATH = "C:\\Desarrollo\\workspace\\web-recetas\\fichero\\";
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
