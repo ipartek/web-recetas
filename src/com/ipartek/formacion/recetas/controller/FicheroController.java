@@ -1,5 +1,7 @@
 package com.ipartek.formacion.recetas.controller;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -29,10 +31,36 @@ public class FicheroController extends HttpServlet {
 			throws ServletException, IOException {
 		Mensaje msj = null;
 		try {
+			msj = new Mensaje();
+
+			// recoger parametro
+			String pFile = request.getParameter("file");
+
+			// Abrir fichero y asociar buffer
+			FileReader file = new FileReader(PATH + pFile);
+			BufferedReader bf = new BufferedReader(file);
+
+			// leer linea a linea el fichero
+			String linea = "";
+			String contenido = "";
+			while ((linea = bf.readLine()) != null) {
+				contenido += linea;
+			}
+
+			// cerra buffer y file
+			bf.close();
+			file.close();
+
+			// mensaje
+			msj.setClase(Mensaje.CLASE_SUCCESS);
+			msj.setDescripcion("Fichero Leido con Exito");
+
+			// pasar atributo JSP
+			request.setAttribute("filename", pFile);
+			request.setAttribute("filecontent", contenido);
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			msj = new Mensaje();
 			msj.setDescripcion(e.getMessage());
 
 		} finally {

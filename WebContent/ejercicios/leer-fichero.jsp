@@ -33,7 +33,7 @@
 			           if(!f.isDirectory()){
 			        %>
 			        <li>
-			          <a href="#"><%=f.getName()%></a> (<%=f.length()%> bytes) 
+			          <a href="files?file=<%=f.getName()%>"><%=f.getName()%></a> (<%=f.length()%> bytes) 
 			        </li>  
 			        <%
 			                }//end if
@@ -43,6 +43,12 @@
       		 	}   
 			     %>
 		     </ul>
+  
+  			<hr>
+  			<c:if test="${filename != null}">
+  				<h3>${filename}</h3>  		
+  				<textarea rows="20" cols="100">${filecontent}</textarea>
+  			</c:if>
   
 	    </div> 
 	    <!--  <div class="row"> -->
