@@ -22,24 +22,9 @@ public class VehiculoServiceObjectStream implements ServiceVehiculo {
 	private VehiculoServiceObjectStream() {
 
 		if (fichero.exists()) {
-			try {
-				FileInputStream fin = new FileInputStream(PATH);
-				ObjectInputStream ois = new ObjectInputStream(fin);
-
-				vehiculos = (ArrayList<Vehiculo>) ois.readObject();
-
-				ois.close();
-				fin.close();
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+				leerArchivo();
+				
 		} else {
-			try {
-
-				FileOutputStream fon = new FileOutputStream(PATH);
-				ObjectOutputStream oos = new ObjectOutputStream(fon);
-
 				vehiculos = new ArrayList<>();
 				vehiculos.add(new Vehiculo("Seat Panda", 4));
 				vehiculos.add(new Vehiculo("Lamborghini", 2));
@@ -47,15 +32,8 @@ public class VehiculoServiceObjectStream implements ServiceVehiculo {
 				vehiculos.add(new Vehiculo("Citroen Xsara", 12));
 				vehiculos.add(new Vehiculo("Ferrari", 500));
 				vehiculos.add(new Vehiculo("Tesla", 23));
+				guardarArchivo(vehiculos);
 
-				oos.writeObject(vehiculos);
-
-				oos.close();
-				fon.close();
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 		}
 
 	}
@@ -64,7 +42,6 @@ public class VehiculoServiceObjectStream implements ServiceVehiculo {
 	private synchronized static void createInstance() {
 		if (INSTANCE == null) {
 			INSTANCE = new VehiculoServiceObjectStream();
-
 		}
 	}
 
@@ -103,6 +80,7 @@ public class VehiculoServiceObjectStream implements ServiceVehiculo {
 				break;
 			}
 		}
+		guardarArchivo(vehiculos);
 		return resul;
 	}
 
@@ -118,6 +96,7 @@ public class VehiculoServiceObjectStream implements ServiceVehiculo {
 				break;
 			}
 		}
+		guardarArchivo(vehiculos);
 		return resul;
 	}
 
@@ -136,16 +115,34 @@ public class VehiculoServiceObjectStream implements ServiceVehiculo {
 	}
 
 	// Metodos
-	public void guardarArchivo(List<Vehiculo> vehiculos) {
+	private void guardarArchivo(List<Vehiculo> vehiculos) {
 		try {
 			FileOutputStream fon = new FileOutputStream(PATH);
 			ObjectOutputStream oos = new ObjectOutputStream(fon);
+			
 			oos.writeObject(vehiculos);
+			
 			oos.close();
 			fon.close();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	private List<Vehiculo> leerArchivo() {
+		try {
+			FileInputStream fin = new FileInputStream(PATH);
+			ObjectInputStream ois = new ObjectInputStream(fin);
+
+			vehiculos = (ArrayList<Vehiculo>) ois.readObject();
+
+			ois.close();
+			fin.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	return vehiculos;
 	}
 
 }
