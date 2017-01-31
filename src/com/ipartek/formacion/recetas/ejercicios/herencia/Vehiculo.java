@@ -1,9 +1,11 @@
 package com.ipartek.formacion.recetas.ejercicios.herencia;
 
+import java.io.Serializable;
+
 import com.ipartek.formacion.recetas.ejercicios.collection.InterfazEstupida;
 import com.ipartek.formacion.recetas.pojo.VehiculoException;
 
-public class Vehiculo implements Conducible, InterfazEstupida {
+public class Vehiculo implements Conducible, InterfazEstupida, Serializable {
 
 	private long id;
 	private String modelo;
