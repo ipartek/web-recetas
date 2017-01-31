@@ -1,3 +1,5 @@
+<%@page import="com.ipartek.formacion.recetas.controller.FicheroController"%>
+<%@page import="java.io.File"%>
 <%@include file="../../includes/head.jsp" %>
 
 <body id="page-top" class="index">
@@ -6,35 +8,40 @@
  	<section id="portfolio">
         <div class="container">
             <div class="row">
-            <h1>Ejercicio para crear ficheros de texto</h1>
-            <p>Ejercicio para crear ficheros de texto, usaremos un <code>Stream</code> del tipo <code>FileWritter</code></p>
-            <p>Acordaros de usar un <code>Buffer</code> para mejorar la escritura</p>
-            <p>Cap 10, pag.158.</p>
-            <a href="ejercicios/leer-fichero.jsp">Leer los ficheros</a>
             <%@include file="../../includes/mensaje.jsp" %>
-            <hr>
-            	<form action="files" method="post">
-            		<label for="nombre">Nombre del fichero</label>
-            		<input type="text" name="nombre" required autofocus placeholder="Nombre fichero sin extension"></br></br>
-            		<textarea name="contenido" rows="10" cols="100"></textarea></br></br>
-            		<input type="submit" value="Crear">
-            	</form>
+            <ul>
+      		 <%
+      		 	//Buscar ficheros en PATH
+ 				File ficheros = new File(FicheroController.PATH); 				
+      			File [] files = ficheros.listFiles();  
+      		 	if ( files.length > 0 ){
+      		 		File f = null;
+			        for (int i = 0; i < files.length; i++) {
+			           f = files[i];	
+			           if(!f.isDirectory()){
+			        %>
+			        <li>
+			          <a href="files?nombre=<%=f.getName()%>"><%=f.getName()%></a> (<%=f.length()%> bytes) 
+			        </li>  
+			        <%
+			                }//end if
+			            }//end for
+      		 	}else{
+      		 		out.print("<li>No existen ficheros creados todavia!!!</li>");
+      		 	}   
+			     %>
+		     </ul>
             
-            </div>
+             <hr>
+           
+            <textarea name="contenido" rows="10" cols="100">${texto}</textarea>
+            
+            
+           	</div>
         </div>
     </section>
- 	
- 	
- 	
- 	
- 	
- 	
- 	
- 	
- 	
- 	
- 	
- 	<%@include file="../../includes/footer.jsp" %>
+            
+            <%@include file="../../includes/footer.jsp" %>
 				
 	 <!-- jQuery -->
     <script src="vendor/jquery/jquery.min.js"></script>

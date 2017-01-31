@@ -20,7 +20,7 @@ import com.ipartek.formacion.recetas.pojo.Mensaje;
 public class FicheroController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String EXTENSION = ".txt";
-	private static final String PATH = "C:\\Desarrollo\\workspace\\web-recetas\\WebContent\\ficheros\\";
+	public static final String PATH = "C:\\Desarrollo\\workspace\\web-recetas\\WebContent\\ficheros\\";
        
    
 
@@ -41,17 +41,12 @@ public class FicheroController extends HttpServlet {
 			//recoger parametros
 			
 			String pNombre = request.getParameter("nombre");
+			
 			String pContenido = request.getParameter("contenido");
-			
-			//crear fichero
-			
-			FileWriter fw=new FileWriter(PATH + pNombre + EXTENSION);
-			
-			fw.write(pContenido);
-			fw.close();
+		
 			
 			//leer fichero
-		    archivo = new File (PATH + pNombre + EXTENSION);
+		    archivo = new File (PATH + pNombre);
 			fr = new FileReader (archivo);
 	        br = new BufferedReader(fr);
 
@@ -64,7 +59,7 @@ public class FicheroController extends HttpServlet {
 			//mensaje de usuario
 			
 			msj.setClase(Mensaje.CLASE_SUCCESS);
-			msj.setDescripcion("Fichero creado: " + pNombre + EXTENSION);
+			msj.setDescripcion("Fichero leido!");
 			
 		}catch(Exception e){
 			
@@ -74,7 +69,7 @@ public class FicheroController extends HttpServlet {
 			
 			request.setAttribute("msj",msj);
 			request.setAttribute("texto", texto);
-			request.getRequestDispatcher("ejercicios/").forward(request, response);
+			request.getRequestDispatcher("ejercicios/leer-fichero.jsp").forward(request, response);
 		}
 		  
 	}
