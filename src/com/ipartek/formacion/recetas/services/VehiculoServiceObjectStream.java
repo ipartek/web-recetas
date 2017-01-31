@@ -105,14 +105,44 @@ public class VehiculoServiceObjectStream implements ServiceVehiculo {
 
 	@Override
 	public boolean delete(long id) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean resul = false;
+		vehiculos = leerFichero();
+		for (Vehiculo vehiculo : vehiculos) {
+			if (id == vehiculo.getId()) {
+				vehiculos.remove(vehiculo);
+				resul = true;
+				break;
+			}
+		}
+
+		// guarda cambios si encuentra
+		if (resul) {
+			guardarFichero(vehiculos);
+		}
+
+		return resul;
 	}
 
 	@Override
-	public boolean update(Vehiculo v) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean update(Vehiculo vAcambiar) {
+		boolean resul = false;
+		vehiculos = leerFichero();
+		for (Vehiculo vehiculo : vehiculos) {
+			if (vAcambiar.getId() == vehiculo.getId()) {
+				int pos = vehiculos.indexOf(vehiculo);
+				vehiculos.remove(vehiculo);
+				vehiculos.add(pos, vAcambiar);
+				resul = true;
+				break;
+			}
+		}
+
+		// guarda cambios si encuentra
+		if (resul) {
+			guardarFichero(vehiculos);
+		}
+
+		return resul;
 	}
 
 	@Override
