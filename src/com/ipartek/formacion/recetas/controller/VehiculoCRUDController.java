@@ -15,7 +15,7 @@ import com.ipartek.formacion.recetas.ejercicios.exception.VehiculoException;
 import com.ipartek.formacion.recetas.ejercicios.herencia.pojo.Vehiculo;
 import com.ipartek.formacion.recetas.pojo.Mensaje;
 import com.ipartek.formacion.recetas.services.ServiceVehiculo;
-import com.ipartek.formacion.recetas.services.ServiceVehiculoArrayList;
+import com.ipartek.formacion.recetas.services.VehiculoServiceObjectStream;
 
 /**
  * Servlet implementation class VehiculoCRUDController
@@ -40,7 +40,8 @@ public class VehiculoCRUDController extends HttpServlet {
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-		service = ServiceVehiculoArrayList.getInstance();
+		// service = ServiceVehiculoArrayList.getInstance();
+		service = VehiculoServiceObjectStream.getInstance();
 	}
 
 	@Override

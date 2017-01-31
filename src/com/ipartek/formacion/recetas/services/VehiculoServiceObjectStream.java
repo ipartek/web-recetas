@@ -14,17 +14,31 @@ public class VehiculoServiceObjectStream implements ServiceVehiculo {
 	public static final String PATH = "C:\\desarrollo\\workspace\\web-recetas\\data\\vehiculo.txt";
 	private ArrayList<Vehiculo> vehiculos = null;
 	private static VehiculoServiceObjectStream INSTANCE;
-	private FileOutputStream fichero = null;
+	private static long indice = 500;
+
+	private File fichero = new File(PATH);
 
 	// Constructor
 	private VehiculoServiceObjectStream() {
 
-		ObjectOutputStream out;
-		try {
+		if (fichero.exists()) {
+			try {
+				FileInputStream fin = new FileInputStream(PATH);
+				ObjectInputStream ois = new ObjectInputStream(fin);
 
-			if (!existe()) {
-				fichero = new FileOutputStream(PATH);
-				out = new ObjectOutputStream(fichero);
+				vehiculos = (ArrayList<Vehiculo>) ois.readObject();
+
+				ois.close();
+				fin.close();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else {
+			try {
+
+				FileOutputStream fon = new FileOutputStream(PATH);
+				ObjectOutputStream oos = new ObjectOutputStream(fon);
 
 				vehiculos = new ArrayList<>();
 				vehiculos.add(new Vehiculo("Seat Panda", 4));
@@ -34,29 +48,25 @@ public class VehiculoServiceObjectStream implements ServiceVehiculo {
 				vehiculos.add(new Vehiculo("Ferrari", 500));
 				vehiculos.add(new Vehiculo("Tesla", 23));
 
-				out.writeObject(vehiculos);
+				oos.writeObject(vehiculos);
 
-				out.close();
+				oos.close();
+				fon.close();
+
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 
 	}
-
-	private boolean existe() {
-		boolean resul = false;
-
-		try {
-			File f = new File(PATH);
-			resul = f.exists();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return resul;
-	}
+	/*
+	 * private boolean existe() { boolean resul = false;
+	 * 
+	 * try { File f = new File(PATH); resul = f.exists(); } catch (Exception e)
+	 * { e.printStackTrace(); }
+	 * 
+	 * return resul; }
+	 */
 
 	// Patron Singleton
 	private synchronized static void createInstance() {
@@ -79,46 +89,73 @@ public class VehiculoServiceObjectStream implements ServiceVehiculo {
 	// ServiceVehiculo
 	@Override
 	public List<Vehiculo> getAll() {
-		ArrayList<Vehiculo> resul = new ArrayList<Vehiculo>();
-		try {
-			FileInputStream fin = new FileInputStream(PATH);
-			ObjectInputStream ois = new ObjectInputStream(fin);
-
-			resul.addAll((ArrayList<Vehiculo>) ois.readObject());
-
-			ois.close();
-			fin.close();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return resul;
+		return this.vehiculos;
 
 	}
 
 	@Override
 	public Vehiculo getById(long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Vehiculo resul = null;
+		for (Vehiculo v : vehiculos) {
+			if (id == v.getId()) {
+				resul = v;
+				break;
+			}
+		}
+		return resul;
 	}
 
 	@Override
 	public boolean delete(long id) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean resul = false;
+		for (Vehiculo v : vehiculos) {
+			if (id == v.getId()) {
+				resul = true;
+				vehiculos.remove(v);
+				break;
+			}
+		}
+		return resul;
 	}
 
 	@Override
-	public boolean update(Vehiculo v) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean update(Vehiculo vModificar) {
+		boolean resul = false;
+		for (Vehiculo v : vehiculos) {
+			if (vModificar.getId() == v.getId()) {
+				resul = true;
+				int pos = vehiculos.indexOf(v);
+				vehiculos.remove(v);
+				vehiculos.add(pos, vModificar);
+				break;
+			}
+		}
+		return resul;
 	}
 
 	@Override
 	public boolean create(Vehiculo v) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean resul = false;
+		v.setId(++indice);
+
+		try {
+			FileOutputStream fon = new FileOutputStream(PATH);
+			ObjectOutputStream oos = new ObjectOutputStream(fon);
+
+			if (vehiculos.add(v)) {
+				resul = true;
+			} else {
+				resul = false;
+			}
+			oos.writeObject(vehiculos);
+
+			oos.close();
+			fon.close();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+		return resul;
 	}
 
 }
