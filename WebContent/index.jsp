@@ -107,7 +107,8 @@
                 <div class="col-lg-8 col-lg-offset-2">
                     
                     <ol>
-                    	<li><a href="#">Usuario-x</a></li>
+                    	<li><a href="cv/cv-eneko.jsp">cv-Eneko</a></li>
+                    	
                     </ol>
                     
                 </div>
