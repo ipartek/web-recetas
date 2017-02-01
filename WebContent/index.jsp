@@ -86,7 +86,8 @@
                 	<li><a href="ejercicios/crear-vehiculo.jsp">Crear vehiculo y Excepcion Personalizada</a></li>
                 	<li><a href="vehiculo">CRUD de Vehiculos</a></li>
                 	<li><a href="ejercicios/dado.jsp">Dadito magico</a></li>  
-                	<li><a href="ejercicios/crear-fichero.jsp">Crear fichero de texto</a></li>            	
+                	<li><a href="ejercicios/crear-fichero.jsp">Crear fichero de texto</a></li>
+                	<li><a href="ejercicios/leer-fichero.jsp">Leer fichero de texto</a></li>
                 </ul>
                 
             </div>

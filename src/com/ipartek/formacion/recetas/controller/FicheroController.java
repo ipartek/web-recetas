@@ -21,7 +21,7 @@ import com.ipartek.formacion.recetas.pojo.Mensaje;
 public class FicheroController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String EXTENSION= ".txt";   
-	private static final String PATH = "c:\\desarrollo\\workspace\\web-recetas\\ficheros\\";
+	public static final String PATH = "c:\\desarrollo\\workspace\\web-recetas\\ficheros\\";
     
 	
 	
@@ -31,6 +31,7 @@ public class FicheroController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Mensaje msj = null;
 		String texto = "";
+		String pNombre = null;
 		try {
 				
 			msj = new Mensaje();
@@ -38,27 +39,36 @@ public class FicheroController extends HttpServlet {
 		    FileReader fr = null;
 		    BufferedReader br = null;
 			
-			//crear fichero
-			archivo = new File ("C:\\archivo.txt");
-			fr = new FileReader (archivo);
-		    br = new BufferedReader(fr);
-
 		    // Lectura del fichero
+		    pNombre = request.getParameter("nombre");
+		    archivo = new File (PATH + pNombre);
+	        fr = new FileReader (archivo);
+	        br = new BufferedReader(fr);
+		    
+		    
 		    String linea;
 		    while((linea=br.readLine())!=null) {
 		           texto = texto.concat(linea);
+//		           texto  +=linea;
 		    }
+		    
+		    //cerrar buffer y file
+		    br.close();
+		    fr.close();
+		    
 			//mensaje usuario
 			msj.setClase(Mensaje.CLASE_INFO);
-			msj.setDescripcion("");
+			msj.setDescripcion("Fichero leido correctamente");
 			
 		} catch(Exception e) {
 			e.printStackTrace();
+			msj.setClase(Mensaje.CLASE_DANGER);
 			msj.setDescripcion(e.getMessage());
 		} finally {
 			request.setAttribute("msj", msj);
+			request.setAttribute("nombre", pNombre);
 			request.setAttribute("texto", texto);
-			request.getRequestDispatcher("ejercicios/crear-fichero.jsp").forward(request, response);
+			request.getRequestDispatcher("ejercicios/leer-fichero.jsp").forward(request, response);
 		}
 	}
 
