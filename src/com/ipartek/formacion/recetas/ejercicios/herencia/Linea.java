@@ -7,6 +7,7 @@ public class Linea extends ObjetoGrafico {
 	public Linea(int x, int y) {
 		super(x, y);
 		this.longitud = 0;
+
 	}
 
 	@Override

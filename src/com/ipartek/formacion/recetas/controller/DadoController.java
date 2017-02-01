@@ -20,10 +20,10 @@ import com.ipartek.formacion.recetas.services.ServiceDadoArrayList;
 public class DadoController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	private static ServiceDadoArrayList service;
-	
-	private static final String VIEW= "ejercicios/dado.jsp";
 
+	private static ServiceDadoArrayList service;
+
+	private static final String VIEW = "ejercicios/dado.jsp";
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
@@ -43,7 +43,6 @@ public class DadoController extends HttpServlet {
 		super.service(req, resp);
 		System.out.println("Tras realizar doGet o doPost");
 
-
 	}
 
 	/**
@@ -53,12 +52,12 @@ public class DadoController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String op=request.getParameter("op");
+		String op = request.getParameter("op");
 		int num_personas = service.getNumeroUsuarios();
 		request.setAttribute("num_personas", num_personas);
 		if (op.equals("2")) {
-			int numeroAleatorio = Utilidades.getNumeroAleatorio((num_personas- 1));
-			Usuario u=service.getByPos(numeroAleatorio);
+			int numeroAleatorio = Utilidades.getNumeroAleatorio((num_personas - 1));
+			Usuario u = service.getByPos(numeroAleatorio);
 			request.setAttribute("usuario", u);
 
 		}
