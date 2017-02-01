@@ -1,6 +1,7 @@
 package com.ipartek.formacion.recetas.ejercicios.herencia;
 
 import com.ipartek.formacion.recetas.ejercicios.collection.InterfazEstupida;
+import com.ipartek.formacion.recetas.ejercicios.enumeracion.EstadoCoche;
 
 public class Vehiculo implements Conducible, InterfazEstupida {
 
@@ -13,9 +14,11 @@ public class Vehiculo implements Conducible, InterfazEstupida {
 	private int plazas;
 	private float dimensiones;
 	private float potencia;
+	private EstadoCoche estado;
 
 	public Vehiculo() {
 		super();
+		this.estado = EstadoCoche.NUEVO;
 		this.id = -1;
 		this.modelo = "";
 		this.plazas = 1;
@@ -107,6 +110,14 @@ public class Vehiculo implements Conducible, InterfazEstupida {
 	public void girar(String direccion) {
 		System.out.println("gira a " + direccion);
 
+	}
+
+	public EstadoCoche getEstado() {
+		return estado;
+	}
+
+	public void setEstado(EstadoCoche estado) {
+		this.estado = estado;
 	}
 
 	@Override
