@@ -1,12 +1,13 @@
 package com.ipartek.formacion.recetas.ejercicios.herencia.pojo;
 
 import com.ipartek.formacion.recetas.ejercicios.comparator.IComparator;
+import com.ipartek.formacion.recetas.ejercicios.enumeration.EstadoCoche;
 import com.ipartek.formacion.recetas.ejercicios.exception.VehiculoException;
 import com.ipartek.formacion.recetas.ejercicios.herencia.IConducible;
 
 public class Vehiculo implements IConducible, IComparator {
 
-	//Declaracion
+	// Declaracion
 	private static final long serialVersionUID = 1L;
 	private long id;
 	private String modelo;
@@ -14,7 +15,10 @@ public class Vehiculo implements IConducible, IComparator {
 	private float dimensiones;
 	private float potencia;
 
-	//Constructor
+	// Enum
+	private EstadoCoche estado;
+
+	// Constructor
 	public Vehiculo() {
 		super();
 		this.id = -1;
@@ -22,22 +26,23 @@ public class Vehiculo implements IConducible, IComparator {
 		this.plazas = 1;
 		this.dimensiones = 0;
 		this.potencia = 100;
+		this.setEstado(EstadoCoche.NUEVO);
 	}
 
-	//Constructor con 1 parametro
+	// Constructor con 1 parametro
 	public Vehiculo(String modelo) {
 		this();
 		this.modelo = modelo;
 	}
 
-	//Constructor con 2 parametros
+	// Constructor con 2 parametros
 	public Vehiculo(String modelo, long id) {
 		this();
 		this.id = id;
 		this.modelo = modelo;
 	}
 
-	//Getter & Setter
+	// Getter & Setter
 	public long getId() {
 		return id;
 	}
@@ -45,7 +50,7 @@ public class Vehiculo implements IConducible, IComparator {
 	public void setId(long id) {
 		this.id = id;
 	}
-	
+
 	public String getModelo() {
 		return modelo;
 	}
@@ -54,17 +59,25 @@ public class Vehiculo implements IConducible, IComparator {
 		this.modelo = modelo;
 	}
 
+	public EstadoCoche getEstado() {
+		return estado;
+	}
+
+	public void setEstado(EstadoCoche estado) {
+		this.estado = estado;
+	}
+
 	public int getPlazas() {
 		return plazas;
 	}
 
-	//VehiculoException
+	// VehiculoException
 	public void setPlazas(int plazas) throws VehiculoException {
 
 		if (plazas < 0) {
-			//Instancia y lanza la CustomException
+			// Instancia y lanza la CustomException
 			throw new VehiculoException(VehiculoException.MSG_ERROR_PLAZAS);
-		
+
 		} else {
 			this.plazas = plazas;
 		}
@@ -96,7 +109,7 @@ public class Vehiculo implements IConducible, IComparator {
 		}
 	}
 
-	//IConducible
+	// IConducible
 	@Override
 	public void arrancar() {
 		System.out.println("Arrancado vehiculo brung brung....");
@@ -113,16 +126,16 @@ public class Vehiculo implements IConducible, IComparator {
 
 	}
 
-	//IComprobator
+	// IComprobator
 	@Override
 	public int getPeso() {
 		return (int) this.potencia;
 	}
-	
-	//toString()
-		@Override
-		public String toString() {
-			return "Vehiculo [id=" + id + ", modelo=" + modelo + ", plazas=" + plazas + ", dimensiones=" + dimensiones
-					+ ", potencia=" + potencia + "]";
-		}
+
+	// toString()
+	@Override
+	public String toString() {
+		return "Vehiculo [id=" + id + ", modelo=" + modelo + ", plazas=" + plazas + ", dimensiones=" + dimensiones
+				+ ", potencia=" + potencia + "]";
+	}
 }
