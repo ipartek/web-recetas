@@ -93,6 +93,28 @@
             </div>
         </div>
     </section>
+    
+    <!-- Creadores Section -->
+    <section id="creadores">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>Creadores</h2>
+                    <hr class="star-primary">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    
+                    <ol>
+                    	<li><a href="#">Usuario-x</a></li>
+                    </ol>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    
 
     <!-- Contact Section -->
     <section id="contact">
