@@ -3,6 +3,8 @@ package com.ipartek.formacion.recetas.controller;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -23,8 +25,7 @@ public class JDBCController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	// parametros conexion
-	final String url = "jdbc:mysql://localhost:3306/";
-	final String dbName = "concesionario";
+	final String url = "jdbc:mysql://localhost:3306/concesionario";
 	final String dbUser = "root";
 	final String dbPass = "";
 	final String driver = "com.mysql.jdbc.Driver";
@@ -50,11 +51,25 @@ public class JDBCController extends HttpServlet {
 			// establecer conexion
 			conn = DriverManager.getConnection(url, dbUser, dbPass);
 
-			// crear sentencia SQL
+			// crear sentencia SQL y preparar Statement
+			String sql = "SELECT * FROM `vehiculo`";
+			PreparedStatement pst = conn.prepareStatement(sql);
 
 			// ejecutar SQL y recuperar resultados ( ResultSet )
+			ResultSet rs = pst.executeQuery();
 
 			// iterar sobre ResultSEt y cargar array vehiculos
+			Vehiculo v = null;
+			while (rs.next()) {
+
+				v = new Vehiculo();
+
+				v.setId(rs.getLong("id"));
+				v.setModelo(rs.getString("modelo"));
+
+				vehiculos.add(v);
+
+			}
 
 			// cerrar conexiones
 
