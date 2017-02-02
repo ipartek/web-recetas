@@ -15,7 +15,9 @@
   	
    <div class="container">
       <div class="row">
-
+      
+			<%@include file="../../includes/mensaje.jsp" %>
+			
 			Ejercicio para realizar a pelo una consulta en BBDD:<br>
 			
 			<code>SELECT * FROM `vehiculo`</code> <br>
