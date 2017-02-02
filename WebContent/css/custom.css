@@ -95,3 +95,46 @@ body{
   cursor:pointer;
   color:#666;
 }
+  font-size:30px;
+}
+
+header .container{
+	padding-top:200px !important;
+	padding-bottom:30px !important;
+}
+
+.box input{
+  display:block;
+  width:300px;
+  margin:20px auto;
+  padding:15px;
+  background:rgba(0,0,0,0.2);
+  color:#fff;
+  border:0;
+}
+.box input:focus,.box input:active,.box button:focus,.box button:active{
+  outline:none;
+}
+.button{
+  background:#2ecc71 !important;
+  border:0 !important;
+  color:#fff !important;
+  padding:10px !important;
+  font-size:20px !important;
+  width:330px !important;
+  margin:20px auto !important;
+  display:block !important;
+  cursor:pointer !important;
+}
+.button:active{
+  background:#27ae60;
+}
+.box p{
+  font-size:14px;
+  text-align:center;
+}
+.box p span{
+  cursor:pointer;
+  color:#666;
+}
+

@@ -18,10 +18,12 @@
 		<form action="login" method="post">
 		
 			<input type="text" name="userName" required placeholder="Nombre Usuario">
+
 			<br>
 			<input type="password" name="userPass" required placeholder="Contraseña">
 			<br>
 			<input type="submit" value="login">	
+
 		</form>
 	</div>
 
