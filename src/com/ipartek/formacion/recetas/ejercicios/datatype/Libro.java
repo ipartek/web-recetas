@@ -2,13 +2,14 @@ package com.ipartek.formacion.recetas.ejercicios.datatype;
 
 public class Libro {
 
-	//Declaracion
+	// Declaracion
 	private String titulo;
 	private String autor;
 	private int numeroPaginas;
 
-	//Constructor
-	//Sirven para instanciar objetos de las Clase Tienen el mismo nombre que la Clase, no hace falta especificar return
+	// Constructor
+	// Sirven para instanciar objetos de las Clase Tienen el mismo nombre que la
+	// Clase, no hace falta especificar return
 	public Libro() {
 		super();
 		this.numeroPaginas = 0;
@@ -16,7 +17,7 @@ public class Libro {
 		this.autor = "anonimo";
 	}
 
-	//Constructor con parametros
+	// Constructor con parametros
 	public Libro(String titulo, int numeroPAginas) {
 		super();
 		this.setNumeroPaginas(numeroPAginas);
@@ -24,7 +25,7 @@ public class Libro {
 		this.autor = "anonimo";
 	}
 
-	//Getter & Setter
+	// Getter & Setter
 	public String getTitulo() {
 		return titulo;
 	}
@@ -50,8 +51,8 @@ public class Libro {
 		this.numeroPaginas = (numeroPaginas < 0) ? 0 : numeroPaginas;
 	}
 
-	//toString()
-	// sobrecarga es un metodo con el mismo nombre y mismo return
+	// toString()
+	// sobreescritura es un metodo con el mismo nombre y mismo return
 	@Override
 	public String toString() {
 		return "Libro [titulo=" + titulo + ", autor=" + autor + ", numeroPaginas=" + numeroPaginas + "]";
