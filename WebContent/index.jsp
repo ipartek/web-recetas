@@ -100,6 +100,9 @@
 				<li class="list-group-item">
 					<a href="ejercicios/crear-fichero-texto.jsp" class="custom-link">Crear Fichero de Texto</a>
 				</li>
+				<li class="list-group-item">
+					<a href="jdbc" class="custom-link">JDBC Consulta BBDD</a>
+				</li>
 			</ul>
 		</div>
 	</div>
