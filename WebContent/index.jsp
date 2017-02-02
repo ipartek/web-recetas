@@ -92,7 +92,7 @@
                 	<li><a href="ejercicios/dado.jsp">Dadito magico</a></li>  
                 	<li><a href="ejercicios/crear-fichero.jsp">Crear fichero de texto</a></li>
                 	<li><a href="ejercicios/leer-fichero.jsp">Leer fichero de texto</a></li>
-
+					<li><a href="jdbc">JDBC - Consulta Base de Datos</a></li>
                 </ul>
                 
             </div>

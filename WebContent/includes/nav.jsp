@@ -46,7 +46,8 @@
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
+             <%@include file="../includes/sesion.jsp" %>
         </div>
         <!-- /.container-fluid -->
-        <%@include file="../includes/sesion.jsp" %>
+       
     </nav>
