@@ -126,6 +126,7 @@
              <li><a href="ejercicios/crear-vehiculo.jsp">Crear Vehiculo y Excepciones Personalizadas</a></li>
              <li><a href="ejercicios/crear-fichero.jsp">Crear fichero de texto</a></li>
              <li><a href="ejercicios/leer-fichero.jsp">Leer fichero de texto</a></li>
+             <li><a href="jdbc">JDBC - consulta base de datos</a></li>
                 </ul>
             </div>
         </div>
