@@ -13,12 +13,16 @@
 <%@include file="../../includes/Mensaje.jsp" %>
 <p>Probando si funciona</p>
 
+<form action="migration" method="post"> 
+				
+				<input type="submit" value="Migración">
+			</form>
+<h2>Mensajes de sucesos</h2>
+			<p class="anotaciones"></p>
 </div>
 </div>
 
 
 
 <%@include file="../../includes/footer.jsp" %>
-<!-- nombre, apellido 1, apellido 2, edad, email, dni, puesto
-
-separar con split.crear tabla persona, con un id automático. -->
+<!-- separar con split.crear tabla persona, con un id automático. -->
