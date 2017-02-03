@@ -24,11 +24,19 @@ import com.ipartek.formacion.recetas.pojo.Mensaje;
 public class JDBCController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	ArrayList<Vehiculo> vehiculos = null;
+
 	// parametros conexion
 	static final String URL = "jdbc:mysql://localhost:3306/concesionario";
 	static final String DB_USER = "root";
 	static final String DB_PASS = "";
 	static final String DRIVER = "com.mysql.jdbc.Driver";
+
+	private Connection conn = null;
+	private PreparedStatement pst = null;
+	private ResultSet rs = null;
+
+	private StringBuilder msjDescripcion = null;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -38,13 +46,10 @@ public class JDBCController extends HttpServlet {
 			throws ServletException, IOException {
 
 		Mensaje msj = null;
-		ArrayList<Vehiculo> vehiculos = null;
-		Connection conn = null;
-		PreparedStatement pst = null;
-		ResultSet rs = null;
-
 		try {
+
 			msj = new Mensaje();
+			msjDescripcion = new StringBuilder();
 			vehiculos = new ArrayList<Vehiculo>();
 
 			// comprobar driver o libreria
@@ -53,29 +58,16 @@ public class JDBCController extends HttpServlet {
 			// establecer conexion
 			conn = DriverManager.getConnection(URL, DB_USER, DB_PASS);
 
-			// crear sentencia SQL y preparar Statement
-			String sql = "SELECT * FROM `vehiculo`";
-			pst = conn.prepareStatement(sql);
-
-			// ejecutar SQL y recuperar resultados ( ResultSet )
-			rs = pst.executeQuery();
-
-			// iterar sobre ResultSEt y cargar array vehiculos
-			Vehiculo v = null;
-			while (rs.next()) {
-
-				v = new Vehiculo();
-
-				v.setId(rs.getLong("id"));
-				v.setModelo(rs.getString("modelo"));
-
-				vehiculos.add(v);
-
+			if (request.getMethod().equalsIgnoreCase("POST")) {
+				insertar(request);
 			}
+
+			listar();
 
 			// mensaje usuario
 			msj.setClase(Mensaje.CLASE_INFO);
-			msj.setDescripcion("conexion establecida");
+			msjDescripcion.append("Consultado todos los vehiculos<br>");
+			msj.setDescripcion(msjDescripcion.toString());
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -101,6 +93,46 @@ public class JDBCController extends HttpServlet {
 			request.setAttribute("msj", msj);
 			request.setAttribute("vehiculos", vehiculos);
 			request.getRequestDispatcher("ejercicios/jdbc/consulta-bbdd.jsp").forward(request, response);
+		}
+
+	}
+
+	private void insertar(HttpServletRequest request) throws SQLException {
+
+		String sql = "INSERT INTO `vehiculo` (`id`, `modelo`, `plazas`, `potencia`) VALUES (NULL, ? , '5', '1500');";
+		String pModelo = request.getParameter("modelo");
+
+		pst = conn.prepareStatement(sql);
+		pst.setString(1, pModelo);
+
+		if (pst.executeUpdate() != 1) {
+			throw new SQLException("Algo hemos programado mal, deberia retornar 1");
+		}
+
+		pst = null;
+
+		msjDescripcion.append("Insertado nuevo Vechiculo.<br>");
+	}
+
+	private void listar() throws SQLException {
+		// crear sentencia SQL y preparar Statement
+		String sql = "SELECT * FROM `vehiculo`";
+		pst = conn.prepareStatement(sql);
+
+		// ejecutar SQL y recuperar resultados ( ResultSet )
+		rs = pst.executeQuery();
+
+		// iterar sobre ResultSEt y cargar array vehiculos
+		Vehiculo v = null;
+		while (rs.next()) {
+
+			v = new Vehiculo();
+
+			v.setId(rs.getLong("id"));
+			v.setModelo(rs.getString("modelo"));
+
+			vehiculos.add(v);
+
 		}
 
 	}

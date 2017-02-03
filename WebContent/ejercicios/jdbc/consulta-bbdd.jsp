@@ -18,9 +18,13 @@
       
 			<%@include file="../../includes/mensaje.jsp" %>
 			
-			Ejercicio para realizar a pelo una consulta en BBDD:<br>
-			
-			<code>SELECT * FROM `vehiculo`</code> <br>
+			Ejercicio para realizar a pelo una consulta en BBDD <code>SELECT * FROM `vehiculo`</code><br>
+			Además poder insertar nuevos mediante este formulario: <br><code>INSERT INTO `vehiculo` (`id`, `modelo`, `plazas`, `potencia`) VALUES (NULL,  ? , '5', '1500');</code><br>
+			<p>Cuando creemos el <code>PreparedStamtement</code> reemplazaremos el <b>?</b> por el campo del formulario.</p>			
+			<form action="jdbc" method="post"> 
+				<input type="text" name="modelo" required>
+				<input type="submit" value="Crear Vehiculo">
+			</form>
 			
 			<h2>Listado Vehiculos</h2>
 			${vehiculos}
