@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.recetas.ejercicios.herencia.Vehiculo;
 import com.ipartek.formacion.recetas.pojo.Mensaje;
+import com.ipartek.formacion.recetas.pojo.VehiculoException;
 
 /**
  * Servlet implementation class JDBCController
@@ -25,10 +26,15 @@ public class JDBCController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	// parametros conexion
-	final String url = "jdbc:mysql://localhost:3306/concesionario";
-	final String dbUser = "root";
-	final String dbPass = "";
-	final String driver = "com.mysql.jdbc.Driver";
+	static final String URL = "jdbc:mysql://localhost:3306/concesionario";
+	static final String DB_USER = "root";
+	static final String DB_PASS = "";
+	static final String DRIVER = "com.mysql.jdbc.Driver";
+	Connection conn = null;
+	PreparedStatement pst = null;
+	ResultSet rs = null;
+	StringBuilder msjDescripcion = null;
+	ArrayList<Vehiculo> vehiculos = null;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -38,44 +44,27 @@ public class JDBCController extends HttpServlet {
 			throws ServletException, IOException {
 
 		Mensaje msj = null;
-		ArrayList<Vehiculo> vehiculos = null;
-		Connection conn = null;
 
 		try {
 			msj = new Mensaje();
+			msjDescripcion = new StringBuilder();
 			vehiculos = new ArrayList<Vehiculo>();
 
 			// comprobar driver o libreria
-			Class.forName(driver);
+			Class.forName(DRIVER);
 
 			// establecer conexion
-			conn = DriverManager.getConnection(url, dbUser, dbPass);
+			conn = DriverManager.getConnection(URL, DB_USER, DB_PASS);
 
-			// crear sentencia SQL y preparar Statement
-			String sql = "SELECT * FROM `vehiculo`";
-			PreparedStatement pst = conn.prepareStatement(sql);
-
-			// ejecutar SQL y recuperar resultados ( ResultSet )
-			ResultSet rs = pst.executeQuery();
-
-			// iterar sobre ResultSEt y cargar array vehiculos
-			Vehiculo v = null;
-			while (rs.next()) {
-
-				v = new Vehiculo();
-
-				v.setId(rs.getLong("id"));
-				v.setModelo(rs.getString("modelo"));
-
-				vehiculos.add(v);
-
+			if (request.getMethod().equalsIgnoreCase("POST") ){
+				insertar(request);
 			}
-
-			// cerrar conexiones
-
+			listar();
+			
 			// mensaje usuario
 			msj.setClase(Mensaje.CLASE_INFO);
-			msj.setDescripcion("conexion establecida");
+			msjDescripcion.append("Consultado todos los vehiculos");
+			msj.setDescripcion(msjDescripcion.toString());
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -83,16 +72,69 @@ public class JDBCController extends HttpServlet {
 
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			msj.setDescripcion("No existe el Driver: " + driver + " ¿ seguro que has incluido la libreria .jar?");
+			msj.setDescripcion("No existe el Driver: " + DRIVER + " ¿ seguro que has incluido la libreria .jar?");
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
+			
+			// cerrar conexiones y objetos asociados
+			
+			try {
+				rs.close();
+				pst.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			
 			request.setAttribute("msj", msj);
 			request.setAttribute("vehiculos", vehiculos);
 			request.getRequestDispatcher("ejercicios/jdbc/consulta-bbdd.jsp").forward(request, response);
 		}
 
+	}
+
+	private void insertar(HttpServletRequest request) throws SQLException {
+
+		String sql = "INSERT INTO `vehiculo` (`id`, `modelo`, `plazas`, `potencia`) VALUES (NULL, ? , '5', '1500');";
+		String pModelo = request.getParameter("modelo");
+		
+		pst = conn.prepareStatement(sql);
+		pst.setString(1, pModelo);
+		if (pst.executeUpdate() != 1){
+			throw new SQLException("Algo hemos programado mal en el INSERT, deberia retornar 1");
+		}
+		pst = null;
+		
+		msjDescripcion.append("Insertado nuevo Vehiculo. <br>");
+		
+	}
+
+	private void listar() throws SQLException, VehiculoException {
+		// crear sentencia SQL y preparar Statement
+		String sql = "SELECT * FROM `vehiculo`";
+		pst = conn.prepareStatement(sql);
+
+		// ejecutar SQL y recuperar resultados ( ResultSet )
+		rs = pst.executeQuery();
+
+		// iterar sobre ResultSEt y cargar array vehiculos
+		Vehiculo v = null;
+		while (rs.next()) {
+
+			v = new Vehiculo();
+
+			v.setId(rs.getLong("id"));
+			v.setModelo(rs.getString("modelo"));
+			v.setPlazas(rs.getInt("plazas"));
+			v.setPotencia(rs.getFloat("potencia"));
+			
+			vehiculos.add(v);
+
+		}
+		
 	}
 
 	/**
