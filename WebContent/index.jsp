@@ -88,6 +88,7 @@
                 	<li><a href="files">Lectura y Escritura de Archivos</a></li>
                 	<li><a href="vehiculoOutput">Object Stream</a></li>
                 	<li><a href="jdbc">JDBC - Consulta Base de Datos</a></li>
+                	<li><a href="ejercicios/validar-migracion.jsp">Migracion de Base de Datos</a></li>
                 	
                 </ul>
                 
