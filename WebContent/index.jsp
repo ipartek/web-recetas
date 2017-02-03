@@ -127,6 +127,8 @@
              <li><a href="ejercicios/crear-fichero.jsp">Crear fichero de texto</a></li>
              <li><a href="ejercicios/leer-fichero.jsp">Leer fichero de texto</a></li>
              <li><a href="jdbc">JDBC - consulta base de datos</a></li>
+             <li><a href="migration">JDBC - migración .txt a BBDD</a></li>
+             
                 </ul>
             </div>
         </div>
