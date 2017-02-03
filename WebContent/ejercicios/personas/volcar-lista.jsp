@@ -16,7 +16,7 @@
 			
 			<p>Se han insertado ${correctos} correctamente</p>
 			<p>Se han insertado ${erroneos} erroneos</p>
-			<p>Se han detectado ${menores} menores de edad. <code>¡Explotadores!</code></p>
+			<p>Se han detectado ${menores} menores de edad. <c:if test="${menores > 10 }"><code>¡Explotadores!</code></c:if></p>
 			<p>Ha tardado ${tiempo} milisegundos</p>
 			
 			<%@include file="../../includes/mensaje.jsp" %>
