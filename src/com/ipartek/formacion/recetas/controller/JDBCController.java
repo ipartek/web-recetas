@@ -25,10 +25,10 @@ public class JDBCController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	// parametros conexion
-	final String url = "jdbc:mysql://localhost:3306/concesionario";
-	final String dbUser = "root";
-	final String dbPass = "";
-	final String driver = "com.mysql.jdbc.Driver";
+	static final String URL = "jdbc:mysql://localhost:3306/concesionario";
+	static final String DB_USER = "root";
+	static final String DB_PASS = "";
+	static final String DRIVER = "com.mysql.jdbc.Driver";
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -40,23 +40,25 @@ public class JDBCController extends HttpServlet {
 		Mensaje msj = null;
 		ArrayList<Vehiculo> vehiculos = null;
 		Connection conn = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
 
 		try {
 			msj = new Mensaje();
 			vehiculos = new ArrayList<Vehiculo>();
 
 			// comprobar driver o libreria
-			Class.forName(driver);
+			Class.forName(DRIVER);
 
 			// establecer conexion
-			conn = DriverManager.getConnection(url, dbUser, dbPass);
+			conn = DriverManager.getConnection(URL, DB_USER, DB_PASS);
 
 			// crear sentencia SQL y preparar Statement
 			String sql = "SELECT * FROM `vehiculo`";
-			PreparedStatement pst = conn.prepareStatement(sql);
+			pst = conn.prepareStatement(sql);
 
 			// ejecutar SQL y recuperar resultados ( ResultSet )
-			ResultSet rs = pst.executeQuery();
+			rs = pst.executeQuery();
 
 			// iterar sobre ResultSEt y cargar array vehiculos
 			Vehiculo v = null;
@@ -71,8 +73,6 @@ public class JDBCController extends HttpServlet {
 
 			}
 
-			// cerrar conexiones
-
 			// mensaje usuario
 			msj.setClase(Mensaje.CLASE_INFO);
 			msj.setDescripcion("conexion establecida");
@@ -83,11 +83,21 @@ public class JDBCController extends HttpServlet {
 
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			msj.setDescripcion("No existe el Driver: " + driver + " ¿ seguro que has incluido la libreria .jar?");
+			msj.setDescripcion("No existe el Driver: " + DRIVER + " ¿ seguro que has incluido la libreria .jar?");
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
+
+			// cerrar conexiones y objetos asociados
+			try {
+				rs.close();
+				pst.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
 			request.setAttribute("msj", msj);
 			request.setAttribute("vehiculos", vehiculos);
 			request.getRequestDispatcher("ejercicios/jdbc/consulta-bbdd.jsp").forward(request, response);
