@@ -18,36 +18,42 @@
       
 			<%@include file="../../includes/mensaje.jsp" %>
 			
-			Ejercicio para realizar a pelo una consulta en BBDD:<br>
+			Ejercicio para realizar a pelo una consulta en BBDD ademas de poder insertar nuevos mediante este formulario:<br>
 			
 			<code>SELECT * FROM `vehiculo`</code> <br>
 			
+			<code>INSERT INTO `vehiculo` (`id`, `modelo`, `plazas`, `potencia`) VALUES (NULL, ?, '5', '1500');</code>
+			
+			<p>Cuando creemos el PreparedStatement reemplazaremos el <b>?</b> por el campo del formulario.
+			
+			<form action="jdbc" method ="post">
+				<input type="text" name ="modelo" required>
+				<input type="submit" value="Crear vehiculo">
+			</form>
+			
 			<table class="display data-table-mio" cellspacing="0" width="100%">
-        <thead>
-            <tr>
-                <th>Modelo</th>
-                <th>Plazas</th>
-                <th>Dimensiones</th>
-                <th>Potencia</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-        <c:forEach var="v" items="${vehiculos}">
-            <tr>
-                <td><a href="vehiculo?op=2&id=${v.id}">${v.modelo}</a></td>
-                <td>${v.plazas}</td>
-                <td>${v.dimensiones}</td>      
-                <td>${v.potencia}</td>
-                <td><a href="vehiculo?op=5&id=${v.id}">Eliminar</a></td>
-            </tr>
+        		<thead>
+           			 <tr>
+              			  <th>Modelo</th>
+              		 	  <th>Plazas</th>
+               			  <th>Dimensiones</th>
+              			  <th>Potencia</th>
+           			 </tr>
+       		 </thead>
+       		 <tbody>
+       		 
+      		  <c:forEach var="v" items="${vehiculos}">
+            		<tr>
+		                <td>${v.modelo}</td>
+		                <td>${v.plazas}</td>
+		                <td>${v.dimensiones}</td>      
+		                <td>${v.potencia}</td>
+		                
+         		   </tr>
            </c:forEach>
        </tbody>
     </table>
 			
-			
-			<h2>Listado Vehiculos</h2>
-			${vehiculos}
 
 
 
