@@ -89,6 +89,7 @@
                 	<li><a href="dado?op=1">Dado</a></li>    
                 	<li><a href="ejercicios/crear-fichero.jsp">Crear Fichero Texto</a></li>
                 	<li><a href="jdbc">JDBC - Consulta Base Datos</a></li>
+                	<li><a href="migracionbd">JDBC - Migración Base Datos</a></li>
                 </ul>
                 
             </div>

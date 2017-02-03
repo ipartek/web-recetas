@@ -7,7 +7,7 @@
        <div class="container header-content">
            <div class="row">
                <div class="col-lg-12">
-               	<h1>Consulta Base Datos</h1>
+               	<h1>Proceso Migración Base Datos</h1>
                </div>
              </div>             
  		</div> 
@@ -18,18 +18,20 @@
       
 			<%@include file="../../includes/mensaje.jsp" %>
 			
-			<p>Ejercicio para realizar a pelo una consulta en BBDD: <code>SELECT * FROM `vehiculo`</code> </p>
-			<p>Además de poder insertar nuevos con este formulario</p><code>INSERT INTO `vehiculo` (`id`, `modelo`, `plazas`, `potencia`) VALUES (NULL, ?, '5', '1500')</code><br>
-			>p>cuando creemos el preparedStatement reemplazaremos el <code>?</code> por el campo del formulario</p>
+			<p>Ejercicio para realizar una migración de BBDD: <code>SELECT * FROM `persona`</code> </p> <br>
+			
+			
 			<form action="jdbc" method="post">
-				<input type="text" name= "modelo" required>
-				<input type="submit" value= "Crear Vehiculo">
+				<input type="submit" value= "Ejecutar migración">
 			</form>
 			
-			<br>
+			<br><hr><br>
 			
-			<h2>Listado Vehiculos</h2>
-			${vehiculos}
+			<h2>Resultado de la migración</h2> <br>
+			<p>Número de entradas de persona insertadas: </p> <!-- ${vehiculos} --> 
+			<p>Número de entradas de persona incorrectas: </p> <!-- ${vehiculos} --> 
+			<p>Número de entradas leidas: </p> <!-- ${vehiculos} --> <br>
+			<p>Tiempo de ejecución de la migración: </p> <!-- ${vehiculos} --> <br>
 			
 			
 

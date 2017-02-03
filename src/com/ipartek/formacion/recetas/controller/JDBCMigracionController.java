@@ -14,14 +14,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ipartek.formacion.recetas.ejercicios.herencia.Vehiculo;
 import com.ipartek.formacion.recetas.pojo.Mensaje;
+import com.ipartek.formacion.recetas.pojo.PersonaBBDD;
 
 /**
  * Servlet implementation class JDBCController
  */
-@WebServlet("/jdbc")
-public class JDBCController extends HttpServlet {
+@WebServlet("/migracionbd")
+public class JDBCMigracionController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	// parametros conexion
@@ -33,14 +33,14 @@ public class JDBCController extends HttpServlet {
 	private Connection conn = null;
 	private PreparedStatement pst = null;
 	private ResultSet rs = null;
-	private ArrayList<Vehiculo> vehiculos = null;
+	private ArrayList<PersonaBBDD> personas = null;
 	private StringBuilder msjDescripcion = null;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		Mensaje msj = null;
@@ -48,7 +48,7 @@ public class JDBCController extends HttpServlet {
 		try {
 			msjDescripcion = new StringBuilder();
 			msj = new Mensaje();
-			vehiculos = new ArrayList<Vehiculo>();
+			personas = new ArrayList<PersonaBBDD>();
 
 			// comprobar driver o libreria
 			Class.forName(DRIVER);
@@ -89,8 +89,8 @@ public class JDBCController extends HttpServlet {
 			}
 
 			request.setAttribute("msj", msj);
-			request.setAttribute("vehiculos", vehiculos);
-			request.getRequestDispatcher("ejercicios/jdbc/consulta-bbdd.jsp").forward(request, response);
+			request.setAttribute("personas", personas);
+
 		}
 
 	}
@@ -115,22 +115,28 @@ public class JDBCController extends HttpServlet {
 
 	private void listar() throws SQLException {
 		// crear sentencia SQL y preparar Statement
-		String sql = "SELECT * FROM `vehiculo`";
+		String sql = "SELECT * FROM `persona`";
 		pst = conn.prepareStatement(sql);
 
 		// ejecutar SQL y recuperar resultados ( ResultSet )
 		rs = pst.executeQuery();
 
 		// iterar sobre ResultSEt y cargar array vehiculos
-		Vehiculo v = null;
+		PersonaBBDD p = null;
 		while (rs.next()) {
 
-			v = new Vehiculo();
+			p = new PersonaBBDD();
 
-			v.setId(rs.getLong("id"));
-			v.setModelo(rs.getString("modelo"));
+			p.setId(rs.getInt("id"));
+			p.setNombre(rs.getString("nombre"));
+			p.setApellido1(rs.getString("apellido1"));
+			p.setApellido2(rs.getString("apellido2"));
+			p.setEdad(rs.getInt("edad"));
+			p.setEmail(rs.getString("email"));
+			p.setDni(rs.getString("dni"));
+			p.setPuesto(rs.getString("puesto"));
 
-			vehiculos.add(v);
+			personas.add(p);
 
 		}
 
@@ -140,9 +146,9 @@ public class JDBCController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		doGet(request, response);
+		request.getRequestDispatcher("ejercicios/jdbc/migracion-bbdd.jsp").forward(request, response);
 	}
 
 }
