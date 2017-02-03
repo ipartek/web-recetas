@@ -3,6 +3,7 @@ package com.ipartek.formacion.recetas.controller;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -24,6 +25,7 @@ import com.ipartek.formacion.recetas.pojo.Mensaje;
 public class PersonasController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public static final String PATH = "C:\\desarrollo\\workspace\\web-recetas\\data\\personas.txt";
+	public static final String PATH_I = "C:\\desarrollo\\workspace\\web-recetas\\data\\personasIncorrectos.txt";
 	static final String URL = "jdbc:mysql://localhost:3306/concesionario";
 	static final String DB_USER = "root";
 	static final String DB_PASS = "";
@@ -42,7 +44,17 @@ public class PersonasController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		contC = 0;
+	    contI = 0;
+	    total = 0;
+		system1 = System.currentTimeMillis();
 		String texto = "";
+		
+		//Creamos archivo de los datos incorrectos
+		FileWriter fw = new FileWriter(PATH_I);
+		
+		
+		
 		try {
 			File archivo = null;
 		    FileReader fr = null;
@@ -69,11 +81,12 @@ public class PersonasController extends HttpServlet {
 		    		
 		    	} else  {
 		    		++contI;
+		    		fw.write(linea + "\r\n");
 		    	}
 		    	total++;
 		    }
 		    try{
-		    	system1 = System.currentTimeMillis();
+		    	
 		    	conn.commit();
 		    
 		    } catch (SQLException e) {
@@ -96,7 +109,7 @@ public class PersonasController extends HttpServlet {
 			// cerrar conexiones y objetos asociados
 			
 			try {
-				
+				fw.close();
 				pst.close();
 				conn.close();
 			} catch (SQLException e) {
