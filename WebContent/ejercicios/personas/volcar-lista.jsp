@@ -33,7 +33,7 @@
 		     Implementaciones correctas: ${correctos} <br>
 		     Implementaciones incorrectas: ${incorrectos} <br>
 		     Lineas leidas en total: ${total} <br>
-		     Tiempo tardado: ${tiempo} ms
+		     Tiempo tardado: ${tiempo} segundos
   			 </c:if>
 			
 			

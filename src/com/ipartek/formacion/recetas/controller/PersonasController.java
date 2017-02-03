@@ -31,10 +31,11 @@ public class PersonasController extends HttpServlet {
 	static final String DB_PASS = "";
 	static final String DRIVER = "com.mysql.jdbc.Driver";
 	Mensaje msj = null; 
-    int contC = 0;
-    int contI = 0;
+    int contCorrectos = 0;
+    int contIncorrectos = 0;
     int total = 0;
     String[] trozos = null;
+    Float time;
     
     Connection conn = null;
 	PreparedStatement pst = null;
@@ -44,11 +45,10 @@ public class PersonasController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		contC = 0;
-	    contI = 0;
+		contCorrectos = 0;
+	    contIncorrectos = 0;
 	    total = 0;
 		system1 = System.currentTimeMillis();
-		String texto = "";
 		
 		//Creamos archivo de los datos incorrectos
 		FileWriter fw = new FileWriter(PATH_I);
@@ -77,10 +77,10 @@ public class PersonasController extends HttpServlet {
 		    	if (trozos.length == 7 && trozos[5].length() == 9) {
 		    		
 		    			insertar();
-		    			++contC;
+		    			++contCorrectos;
 		    		
 		    	} else  {
-		    		++contI;
+		    		++contIncorrectos;
 		    		fw.write(linea + "\r\n");
 		    	}
 		    	total++;
@@ -118,10 +118,11 @@ public class PersonasController extends HttpServlet {
 		} 
 		system2 = System.currentTimeMillis();
 		system2 -= system1;
-//		system2 /= 1000;
-		request.setAttribute("tiempo", system2);
-		request.setAttribute("correctos", contC);
-		request.setAttribute("incorrectos", contI);
+		time = (float) (system2);
+		time /= 1000;
+		request.setAttribute("tiempo", time);
+		request.setAttribute("correctos", contCorrectos);
+		request.setAttribute("incorrectos", contIncorrectos);
 		request.setAttribute("total", total);
 		request.getRequestDispatcher("ejercicios/personas/volcar-lista.jsp").forward(request, response);
 	}
