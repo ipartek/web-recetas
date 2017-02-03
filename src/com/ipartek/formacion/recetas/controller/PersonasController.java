@@ -1,7 +1,6 @@
 package com.ipartek.formacion.recetas.controller;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -10,17 +9,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.ipartek.formacion.recetas.pojo.Mensaje;
 
 /**
  * Servlet implementation class PersonasController
@@ -54,15 +48,14 @@ public class PersonasController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int contC = 0;
-	    int contI = 0;
-	    int contE = 0;
+		int contCorrecto = 0;
+	    int contIncorrecto = 0;
+	    int contEdad = 0;
 		File archivo = null;
 	    FileReader fr = null;
 	    BufferedReader br = null;
 	    FileWriter fw = new FileWriter(PATH2);
 	    FileWriter fw2 = new FileWriter(PATH3);
-	    String texto = "";
 	    long millis1 = System.currentTimeMillis();
 	    try{
 	    
@@ -85,14 +78,14 @@ public class PersonasController extends HttpServlet {
 		        if(trozos.length == 7 && trozos[5].length() == 9){
 		        	if(Integer.valueOf(trozos[3]) > 17){
 		        		insertar();
-		        		contC++;
+		        		contCorrecto++;
 		        	}else{
 		        		fw2.write(linea + "\r\n");
-		        		contE++;
+		        		contEdad++;
 		        	}
 		        }else{
 		        	fw.write(linea + "\r\n");
-		        	contI++;
+		        	contIncorrecto++;
 		        }
 		        	
 		    }
@@ -136,9 +129,9 @@ public class PersonasController extends HttpServlet {
 	    millis2 -= millis1;
 	    
 	    request.setAttribute("tiempo", millis2);
-		request.setAttribute("correctos", contC);
-		request.setAttribute("erroneos", contI);
-		request.setAttribute("menores", contE);
+		request.setAttribute("correctos", contCorrecto);
+		request.setAttribute("erroneos", contIncorrecto);
+		request.setAttribute("menores", contEdad);
 		request.getRequestDispatcher("ejercicios/personas/volcar-lista.jsp").forward(request, response);
 	}
 
