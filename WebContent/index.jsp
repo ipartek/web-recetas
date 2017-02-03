@@ -166,6 +166,8 @@
                 	<li><a href="vehiculo">CRUD de Vehiculos</a></li>
                 	<li><a href="ejercicios/dado.jsp">Dado</a></li>
                 	<li><a href="ejercicios/crear-fichero.jsp">Stream (Crear fichero)</a></li>
+                	<li><a href="jdbc">JDBC</a></li>
+                	<li><a href="personas">Volcar listado personas</a></li>
                 </ul>
             </div>
         </div>

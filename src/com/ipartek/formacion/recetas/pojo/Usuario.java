@@ -9,7 +9,6 @@ public class Usuario {
 	private String gitUserName;
 	private String password;
 	
-	
 	public Usuario() {
 		super();
 		this.id = -1;
