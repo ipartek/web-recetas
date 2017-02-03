@@ -103,6 +103,9 @@
 				<li class="list-group-item">
 					<a href="jdbc" class="custom-link">JDBC Consulta BBDD</a>
 				</li>
+				<li class="list-group-item">
+					<a href="ejercicios/jdbc/proceso-migracion.jsp" class="custom-link">Migracion de ficheros</a>
+				</li>
 			</ul>
 		</div>
 	</div>

@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.vehiculo.pojo.Mensaje;
 import com.ipartek.formacion.vehiculo.pojo.Vehiculo;
+import com.ipartek.formacion.vehiculo.pojo.VehiculoException;
 
 /**
  * Servlet implementation class JDBCController
@@ -23,6 +24,20 @@ import com.ipartek.formacion.vehiculo.pojo.Vehiculo;
 @WebServlet("/jdbc")
 public class JDBCController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private ArrayList<Vehiculo> vehiculos = null;
+	// Parametros conexion
+	static final String URL = "jdbc:mysql://localhost:3306/concesionario";
+	final static String dPASS = "";
+	final static String dUSER = "root";
+	final static String dDRIVER = "com.mysql.jdbc.Driver";
+	// variables de trabajo
+
+	private Connection conn = null;
+	private ResultSet rs = null;
+	private PreparedStatement pst = null;
+	private StringBuilder msjDescripcion = null;
+
+	private Mensaje msj = null;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -31,56 +46,54 @@ public class JDBCController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		ArrayList<Vehiculo> vehiculos = null;
-		Connection conn = null;
-		Mensaje msj = null;
-		// Parametros conexion
-		final String url = "jdbc:mysql://localhost:3306/concesionario";
-		final String pass = "";
-		final String user = "root";
-		final String driver = "com.mysql.jdbc.Driver";
+
 		try {
 			msj = new Mensaje();
+			msjDescripcion = new StringBuilder();
 			vehiculos = new ArrayList<Vehiculo>();
 
 			// comprobar driver
-			Class.forName(driver);
+			Class.forName(dDRIVER);
 			// establecer conexion
-			conn = DriverManager.getConnection(url, user, pass);
+			conn = DriverManager.getConnection(URL, dUSER, dPASS);
 
-			// Crear sentencia SQL
-			String sql = "SELECT * FROM `vehiculo`";
-			PreparedStatement pst = conn.prepareStatement(sql);
-			// Ejecutar Sql y recuperar resultados(ResulSet)
-			ResultSet rs = pst.executeQuery();
-
-			// Iterar sobre result set y cargar array de vehiculos
-			Vehiculo v = null;
-			while (rs.next()) {
-				v = new Vehiculo();
-				v.setId(rs.getLong("id"));
-				v.setModelo(rs.getString("modelo"));
-				v.setPlazas(rs.getInt("plazas"));
-
-				vehiculos.add(v);
+			// Seleccionamos la operacion segun de donde venga
+			if (request.getMethod().equalsIgnoreCase("POST")) {
+				insertar(request);
 			}
-			// cerrar conexiones
+			listar();
+
+			// Clase general del mensaje usuario
+			msj.setClase(Mensaje.CLASE_INFO);
+			msjDescripcion.append("Consultado todos los vehiculos<br>");
+			msj.setDescripcion(msjDescripcion.toString());
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			msj.setDescripcion("Error Establecer conexion" + driver);
-			msj.setClase(Mensaje.CLASE_DANGER);
+			msj.setDescripcion("Error Establecer conexion" + dDRIVER);
+
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			msj.setDescripcion("no existe el driver" + driver);
-			msj.setClase(Mensaje.CLASE_DANGER);
+			msj.setDescripcion("no existe el driver" + dDRIVER);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			msj.setClase(Mensaje.CLASE_DANGER);
-
 		} finally {
+			// cerrar conexiones y objetos asociados(Orden inverso)
+			try {
+				rs.close();
+				pst.close();
+				conn.close();
+			} catch (SQLException e) {
+
+				e.printStackTrace();
+			} catch (Exception e) {
+
+				e.printStackTrace();
+			}
+			// mensaje usuario
+
 			request.setAttribute("msj", msj);
 			request.setAttribute("vehiculos", vehiculos);
 			request.getRequestDispatcher("ejercicios/jdbc/consulta-bbdd.jsp").forward(request, response);
@@ -98,6 +111,49 @@ public class JDBCController extends HttpServlet {
 			throws ServletException, IOException {
 
 		doGet(request, response);
+	}
+
+	/**
+	 *
+	 * @throws SQLException
+	 * @throws VehiculoException
+	 */
+	private void listar() throws SQLException, VehiculoException {
+		// Crear sentencia SQL
+		String sql = "SELECT * FROM `vehiculo`";
+		pst = conn.prepareStatement(sql);
+		// Ejecutar Sql y recuperar resultados(ResulSet)
+		rs = pst.executeQuery();
+
+		// Iterar sobre result set y cargar array de vehiculos
+		Vehiculo v = null;
+		while (rs.next()) {
+			v = new Vehiculo();
+			v.setId(rs.getLong("id"));
+			v.setModelo(rs.getString("modelo"));
+			v.setPlazas(rs.getInt("plazas"));
+			v.setPotencia(rs.getFloat("potencia"));
+
+			vehiculos.add(v);
+		} // end while
+
+	}
+
+	private void insertar(HttpServletRequest request) throws SQLException {
+		String sql = "INSERT INTO `vehiculo` (`id`, `modelo`, `plazas`, `potencia`) VALUES (NULL, ? , '5', '1500');";
+		String pModelo = request.getParameter("modelo");
+
+		pst = conn.prepareStatement(sql);
+		pst.setString(1, pModelo);
+
+		if (pst.executeUpdate() != 1) {
+			throw new SQLException("Algo hemos programado mal, deberia retornar 1");
+		}
+
+		pst = null;
+
+		msjDescripcion.append("Insertado nuevo Vechiculo.<br>");
+
 	}
 
 }

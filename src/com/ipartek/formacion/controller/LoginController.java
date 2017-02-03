@@ -1,4 +1,4 @@
-package controller;
+package com.ipartek.formacion.controller;
 
 import java.io.IOException;
 
