@@ -15,6 +15,9 @@
 
 	<div class="container">
 		<div class="row">
+		
+			<%@include file="../../includes/mensaje.jsp" %>
+		
       		<p>descripcion.....</p><br>
       		
       		<form action="migracion" method="post">
@@ -22,11 +25,42 @@
       		</form>
       		
       		<br>
-      		<p>Se ha insertado X personas en la BBDD.</p>
-      		<p>X personas incorrectas sin incluir en la BBDD.</p>
       		
-      		${personas}
-      		
+      		<c:if test="${personas !=null}">
+	      		<p>Registros totales: ${numTotalFichero}<p>
+	      		<p>Se han insertado ${numInsertado} personas en la BBDD.</p>
+	      		<p>${numTotalFichero-numInsertado} personas incorrectas sin incluir en la BBDD.</p>
+	      		<br>
+	      		
+	      		<table class="display data-table-mio miTabla">
+	      			<thead>
+						<tr>
+							<th>Nombre</th>
+							<th>1º Apellido</th>
+							<th>2º Apellido</th>
+							<th>Edad</th>
+							<th>Email</th>
+							<th>DNI</th>
+							<th>Puesto</th>
+						</tr>
+					</thead>
+					
+					<tbody>				
+						<c:forEach var="p" items="${personas}">	
+							<tr>
+								<td>${p.nombre}</td>
+								<td>${p.apellido1}</td>
+								<td>${p.apellido2}</td>
+								<td>${p.edad}</td>
+								<td>${p.email}</td>
+								<td>${p.dni}</td>
+								<td>${p.puesto}</td>
+							</tr>
+						</c:forEach>
+					
+					</tbody>
+	      		</table>
+	      	</c:if> 		
 		</div> 
 		<!--  <div class="row"> -->
 	</div>    

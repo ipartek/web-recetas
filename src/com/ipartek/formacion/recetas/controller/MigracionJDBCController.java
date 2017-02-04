@@ -27,12 +27,15 @@ public class MigracionJDBCController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private static final String VIEW = "ejercicios/jdbc/migracion-personas.jsp";
-	public static final String PATH = "C:\\desarrollo\\workspace\\web-recetas\\data\\personas.txt";
+	// public static final String PATH =
+	// "C:\\desarrollo\\workspace\\web-recetas\\data\\personas.txt";
+	public static final String PATH = "/nagore/workspace/web-recetas/data/personas.txt";
 
 	// parametros conexion
 	static final String URL = "jdbc:mysql://localhost:3306/concesionario";
 	static final String DB_USER = "root";
-	static final String DB_PASS = "";
+	// static final String DB_PASS = "";
+	static final String DB_PASS = "root";
 	static final String DRIVER = "com.mysql.jdbc.Driver";
 
 	private Connection conn = null;
@@ -51,7 +54,7 @@ public class MigracionJDBCController extends HttpServlet {
 
 		Mensaje msj = null;
 		msjDescripcion = new StringBuilder();
-		Persona p = null;
+		// Persona p = null;
 
 		try {
 			msj = new Mensaje();
@@ -64,10 +67,12 @@ public class MigracionJDBCController extends HttpServlet {
 			conn = DriverManager.getConnection(URL, DB_USER, DB_PASS);
 
 			// leer del fichero
-			// insertar(request);
+			personas = leerFichero(request);
 
-			personas = leerFichero();
+			// Insertar todas las personas validas del fichero
+			insertar(personas);
 
+			// listar todo lo insertado
 			listar();
 
 			// mensaje usuario
@@ -76,12 +81,20 @@ public class MigracionJDBCController extends HttpServlet {
 			msj.setDescripcion(msjDescripcion.toString());
 
 		} catch (SQLException e) {
+			if (conn != null) {
+				// En caso de Fallo
+				try {
+					conn.rollback();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
 			e.printStackTrace();
 			msj.setDescripcion(e.getMessage());
 
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			msj.setDescripcion("No existe el Driver: " + DRIVER + " ¿seguro que has incluido la libreria .jar?");
+			msj.setDescripcion("No existe el Driver: " + DRIVER + " Â¿seguro que has incluido la libreria .jar?");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -91,13 +104,17 @@ public class MigracionJDBCController extends HttpServlet {
 			try {
 				rs.close();
 				pst.close();
-				conn.close();
+				if (conn != null && !conn.isClosed()) {
+					conn.close();
+				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 
 			request.setAttribute("msj", msj);
+			request.setAttribute("numInsertado", personas.size());
 			request.setAttribute("personas", personas);
+
 			request.getRequestDispatcher(VIEW).forward(request, response);
 		}
 
@@ -114,6 +131,8 @@ public class MigracionJDBCController extends HttpServlet {
 
 	private void listar() throws SQLException {
 
+		personas = new ArrayList<Persona>();
+
 		// crear sentencia SQL y preparar Statement
 		String sql = "SELECT * FROM `persona`";
 		pst = conn.prepareStatement(sql);
@@ -129,78 +148,97 @@ public class MigracionJDBCController extends HttpServlet {
 
 			p.setId(rs.getLong("id"));
 			p.setNombre(rs.getString("nombre"));
+			p.setApellido1(rs.getString("apellido1"));
+			p.setApellido2(rs.getString("apellido2"));
+			p.setEdad(rs.getInt("edad"));
+			p.setEmail(rs.getString("email"));
+			p.setDni(rs.getString("dni"));
+			p.setPuesto(rs.getString("puesto"));
 
 			personas.add(p);
 
 		}
 	}
 
-	private void insertar(Persona pers) throws SQLException {
+	private void insertar(ArrayList<Persona> pers) throws SQLException {
 
-		// recoger parametro
-		Persona p = pers;
-		StringBuilder insertTodo = new StringBuilder();
+		// Poner Autocommit a false
+		conn.setAutoCommit(false);
 
-		// crear sentencia SQL y preparar Statement
-		String sql = "INSERT INTO `persona` (`id`, `nombre`, `apellido1`, `apellido2`, `edad`, `email`, `dni`, `puesto`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?);";
-		pst = conn.prepareStatement(sql);
-		pst.setString(1, p.getNombre());
-		pst.setString(2, p.getApellido1());
-		pst.setString(3, p.getApellido2());
-		pst.setInt(4, p.getEdad());
-		pst.setString(5, p.getEmail());
-		pst.setString(6, p.getDni());
-		pst.setString(7, p.getPuesto());
+		// Proceso de migracion: crear sentencia SQL y preparar Statement por
+		// cada uno de las Personas
+		for (Persona p : pers) {
+			String sql = "INSERT INTO `persona` (`id`, `nombre`, `apellido1`, `apellido2`, `edad`, `email`, `dni`, `puesto`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?);";
+			pst = conn.prepareStatement(sql);
+			pst.setString(1, p.getNombre());
+			pst.setString(2, p.getApellido1());
+			pst.setString(3, p.getApellido2());
+			pst.setInt(4, p.getEdad());
+			pst.setString(5, p.getEmail());
+			pst.setString(6, p.getDni());
+			pst.setString(7, p.getPuesto());
 
-		if (pst.executeUpdate() != 1) {
-			throw new SQLException("Algo hemos programado mal, deberia retornar 1");
+			if (pst.executeUpdate() != 1) {
+				throw new SQLException("Algo hemos programado mal, deberia retornar 1");
+			}
 		}
+
+		conn.commit();
 
 		pst = null;
 
-		msjDescripcion.append("Insertado nueva persona.<br>");
+		msjDescripcion.append("Insertado todas las personas del fichero.<br>");
 
 	}
 
 	// Leer del fichero y sacar a un ArrayList<Vehiculo>
-	public ArrayList<Persona> leerFichero() throws Exception {
+	public ArrayList<Persona> leerFichero(HttpServletRequest request) throws Exception {
 		personas = new ArrayList<Persona>();
 		Persona p = null;
+
+		int contTotalPersonas = 0;
 
 		FileReader fr = new FileReader(PATH);
 		BufferedReader br = new BufferedReader(fr);
 
 		// Lectura del fichero
-		String linea;
-		p = new Persona();
+		String linea = "";
 
 		while ((linea = br.readLine()) != null) {
+			contTotalPersonas++;
 
+			p = new Persona();
 			// dividir en trozos la linea
 			String[] trozos = linea.split(",");
 
-			// comprobar el tamaño que sea igual a 7.
+			// comprobar el tamaÃ±o que sea igual a 7.
 
 			if (trozos.length == 7) {
+				if (trozos[5].length() <= 9) {
+					if (Integer.parseInt(trozos[3]) >= 18) {
+						// incluir los trozos en Persona
+						p.setNombre(trozos[0]);
+						p.setApellido1(trozos[1]);
+						p.setApellido2(trozos[2]);
+						p.setEdad(Integer.parseInt(trozos[3]));
+						p.setEmail(trozos[4]);
+						p.setDni(trozos[5]);
+						p.setPuesto(trozos[6]);
 
-				// incluir los trozos en Persona
-				p.setNombre(trozos[0]);
-				p.setApellido1(trozos[1]);
-				p.setApellido2(trozos[2]);
-				p.setEdad(Integer.parseInt(trozos[3]));
-				p.setEmail(trozos[4]);
-				p.setDni(trozos[5]);
-				p.setPuesto(trozos[6]);
-
-				// incluir Persona en el ArrayList<Persona>
-				personas.add(p);
+						// incluir Persona en el ArrayList<Persona>
+						personas.add(p);
+					}
+				}
 			}
 
-			// cerrar todo
-			br.close();
-			fr.close();
-
 		}
+
+		// cerrar todo
+		br.close();
+		fr.close();
+
+		request.setAttribute("numTotalFichero", contTotalPersonas);
+
 		return personas;
 	}
 }

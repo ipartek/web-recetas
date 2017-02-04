@@ -2,7 +2,7 @@ package com.ipartek.formacion.recetas.ejercicios.enumeracion;
 
 enum Vaso {
 	// Tipos de vaso disponibles. Pasan al constructor su capacidad en cc.
-	JARRA(500), TUBO(250), TERCIO(333), CAÑA(200), QUINTO(220), CHUPITO(25);
+	JARRA(500), TUBO(250), TERCIO(333), CANA(200), QUINTO(220), CHUPITO(25);
 	private int cc; // Variable interna donde almacenaremos la capacidad
 	// Nuestro constructor nos fuerza a pasar parï¿½metros al definir un nuevo
 	// tipo
@@ -23,8 +23,8 @@ enum Vaso {
 		case JARRA:
 			resul = "Jarra de cerveza";
 			break;
-		case CAÑA:
-			resul = "Caña";
+		case CANA:
+			resul = "Cana";
 			break;
 		case CHUPITO:
 			resul = "chupito";
