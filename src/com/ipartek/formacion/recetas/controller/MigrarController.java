@@ -1,13 +1,15 @@
 package com.ipartek.formacion.recetas.controller;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -16,119 +18,135 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ipartek.formacion.recetas.pojo.Mensaje;
+
 /**
  * Servlet implementation class MigrarController
  */
 @WebServlet("/migracion")
 public class MigrarController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	String linea = null;
-	String[] arrayLinea = null;
-	ArrayList<String[]> arrayTabla = new ArrayList<String[]>();
-
-	// parametros conexion
-	private static final String URL = "jdbc:mysql://localhost:3306/concesionario";
+	//conexion BBDD
+	private static final String URL = "jdbc:mysql://localhost:3306/concesionario";		
 	private static final String DB_USER = "root";
 	private static final String DB_PASS = "";
 	private static final String DRIVER = "com.mysql.jdbc.Driver";
-
 	private Connection conn = null;
-	private PreparedStatement pst = null;
-	private ResultSet rs = null;
+	
+	//leerArchivo
+	private FileReader fr;
+	private BufferedReader bf;
+	private String linea = null;
+	private String[] arrayLinea = null;
+	private ArrayList<String[]> arrayTabla = new ArrayList<String[]>();
+	
+	//GuardarIncompletas
+	private FileOutputStream fos;
+	private ObjectOutputStream oos;
+	
+	//SQL
+	private PreparedStatement pst;
+	private String sql = "INSERT INTO `persona` (`id`, `nombre`, `apellido1`,`apellido2`, `edad`, `email`, `dni`, `puesto`) VALUES (NULL, ? , ? , ? , ? , ? , ? , ?);";
+	private ArrayList<String[]> sqlEquivocado = new ArrayList<String[]>();
+	
+	//Mensaje
+	private Mensaje msj = new Mensaje();
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		try {
-			leerArchivo();
-			abrirConexionBD();
-			insertarArchivo();
-			cerrarConexionBD();
-
-		} catch (Exception e) {
-			// handle Exception FileNotFound, IOException, ClassNotFound,
-			// SQLException
-			e.printStackTrace();
-
-		}
-
-		request.getRequestDispatcher("ejercicios/validar-migracion.jsp").forward(request, response);
-	}
-
-	private void cerrarConexionBD() throws Exception {
-		rs.close();
-		pst.close();
-		conn.close();
-
-	}
-
-	private void insertarArchivo() throws Exception {
-		// String sql = "INSERT INTO `persona` (`id`, `nombre`,
-		// `apellido1`,`apellido2`, `edad`, `email`, `dni`, `puesto`) VALUES
-		// (NULL, ? , ? , ? , ? , ? , ? , ?);";
-		String sql = "INSERT INTO `persona` (`id`, `nombre`) VALUES (NULL, ?);";
-
-		for (String[] strings : arrayTabla) {
-			if (strings.length != 7) {
-				guardarArchivo(strings);
-			} else {
-				pst = conn.prepareStatement(sql);
-				pst.setString(1, strings[1]);
-				// pst.setString(2, strings[2]);
-				// pst.setString(3, strings[3]);
-				// pst.setInt(4, Integer.parseInt(strings[4]));
-				// pst.setString(5, strings[5]);
-				// pst.setString(6, strings[6]);
-				// pst.setString(7, strings[7]);
-
+	/** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse */
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			try {	
+				leerArchivo();
+				abrirConexionBD();
+				insertarArchivo();
+				cerrarConexionBD();
+				guardarIncompletas();
+				msj.setClase(Mensaje.CLASE_SUCCESS);
+				msj.setDescripcion("Migracion Correcta");
+				
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+				msj.setDescripcion(e.getMessage() + "driver no funciona " + DRIVER);
+				
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+				msj.setDescripcion(e.getMessage() + "no encuentra archivo C:/java/workspace/web-recetas/data/personas.txt" );
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+				msj.setDescripcion(e.getMessage() + "problemas al insertar datos");
+				
+			}finally{
+				request.setAttribute("msj", msj);
+				request.getRequestDispatcher("ejercicios/validar-migracion.jsp").forward(request, response);
+				
 			}
+	}
+
+	//INSERTAR EN BBDD desde ARRAY
+	private void insertarArchivo() throws SQLException {
+		
+		for (String[] strings : arrayTabla) {
+	
+				if (strings.length != 7) {
+					sqlEquivocado.add(strings);
+				
+				} else {
+						pst = conn.prepareStatement(sql);
+						pst.setString(1, strings[0]);
+						pst.setString(2, strings[1]);
+						pst.setString(3, strings[2]);
+						pst.setInt(4, Integer.parseInt(strings[3]));
+						pst.setString(5, strings[4]);
+						pst.setString(6, strings[5]);
+						pst.setString(7, strings[6]);
+						pst.executeUpdate();
+						pst.close();
+				}
+				
 		}
+	}
+
+	//LEER ARCHIVO txt con BBDD A MIGRAR
+	private void leerArchivo() throws FileNotFoundException, IOException {
+			fr = new FileReader("C:/desarrollo/workspace/web-recetas/data/personas.txt");
+			bf = new BufferedReader(fr);
+
+			while ((linea = bf.readLine()) != null) {
+				arrayLinea = linea.split(",");
+				arrayTabla.add(arrayLinea);
+				arrayLinea = null;
+			}
+		
+			bf.close();
+			fr.close();
+		
+	}
+	
+	//GUARDAR LINEAS ERRONEAS
+	private void guardarIncompletas() throws IOException{
+			fos = new FileOutputStream("C:/desarrollo/workspace/web-recetas/data/personas-incompletas.txt");
+			oos = new ObjectOutputStream(fos);
+			oos.writeObject(sqlEquivocado);
+			oos.close();
+			fos.close();
+
+	}
+	
+	//CONEXION BASE DE DATOS
+	private void abrirConexionBD() throws ClassNotFoundException, SQLException{
+			Class.forName(DRIVER);
+			conn = DriverManager.getConnection(URL, DB_USER, DB_PASS);
+			
+	}
+	
+	private void cerrarConexionBD() throws SQLException {
+			conn.close();	
 
 	}
 
-	private void guardarArchivo(String[] strings) throws Exception {
-		FileWriter fw = new FileWriter("C:/desarrollo/workspace/web-recetas/data/personas-incompletas.txt");
-		for (String string : strings) {
-			fw.write(string);
-		}
-
-		fw.close();
-
-	}
-
-	private void abrirConexionBD() throws Exception {
-		// comprobar driver o libreria
-		Class.forName(DRIVER);
-		// establecer conexion
-		conn = DriverManager.getConnection(URL, DB_USER, DB_PASS);
-
-	}
-
-	private void leerArchivo() throws Exception {
-
-		FileReader fr = new FileReader("C:/desarrollo/workspace/web-recetas/data/personas.txt");
-		BufferedReader bf = new BufferedReader(fr);
-
-		while ((linea = bf.readLine()) != null) {
-			arrayLinea = linea.split(",");
-			arrayTabla.add(arrayLinea);
-			arrayLinea = null;
-		}
-
-		bf.close();
-		fr.close();
-
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+	/** @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response) */
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 

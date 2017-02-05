@@ -14,6 +14,7 @@
   	
     <div class="container">
        <div class="row">
+       <%@include file="../includes/mensaje.jsp" %>
        		<form action="migracion" method="POST">
        			<input type="submit" value="validar">
        		</form>    
