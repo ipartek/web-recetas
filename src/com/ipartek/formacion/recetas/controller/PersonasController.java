@@ -75,7 +75,7 @@ public class PersonasController extends HttpServlet {
 		    while((linea=br.readLine())!=null) {
 		    	trozos = linea.split(",");
 		    	if (trozos.length == 7 && trozos[5].length() == 9) {
-		    		
+		    
 		    			insertar();
 		    			++contCorrectos;
 		    		
@@ -85,9 +85,12 @@ public class PersonasController extends HttpServlet {
 		    	}
 		    	total++;
 		    }
+		    
 		    try{
 		    	
 		    	conn.commit();
+		    	msj.setClase(Mensaje.CLASE_INFO);
+		    	msj.setDescripcion("Datos insertados correctamente");
 		    
 		    } catch (SQLException e) {
 		    	if (conn != null) {
@@ -124,6 +127,7 @@ public class PersonasController extends HttpServlet {
 		request.setAttribute("correctos", contCorrectos);
 		request.setAttribute("incorrectos", contIncorrectos);
 		request.setAttribute("total", total);
+		request.setAttribute("msj", msj);
 		request.getRequestDispatcher("ejercicios/personas/volcar-lista.jsp").forward(request, response);
 	}
 
