@@ -20,6 +20,7 @@
 			
 			<p>Ejercicio para realizar una migración de datos desde un fichero de texto a una Base Datos.</p>
 			<p>Aprenderemos ha realizar transacciones atomicas, con <code>commit</code> y <code>rollback</code></p>
+			<p>Recordar que las tablas de la base datos deben usar <code>InnoDB</code>, por defecto suele ser <code>MySam</code></p>
 			<form action="migracion" method="post">				
 				<input type="submit" value="Lanzar Proceso">
 				${tiempo}
