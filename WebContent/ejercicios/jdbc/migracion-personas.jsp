@@ -18,7 +18,8 @@
 		
 			<%@include file="../../includes/mensaje.jsp" %>
 		
-      		<p>descripcion.....</p><br>
+      		<p>Ejercicio para realizar una migracion de datos desde un fichero de texto a una Base de Datos</p><br>
+      		<p>Aprenderemos a realizar transacciones atomicas, con <code>commit</code> y <code>rollback</code></p><br>
       		
       		<form action="migracion" method="post">
       			<input type="submit" value="MIGRACION">
@@ -28,6 +29,7 @@
       		
       		<c:if test="${personas !=null}">
 	      		<p>Registros totales: ${numTotalFichero}<p>
+	      		<p>Tiempo transcurrido: ${tiempo} ms<p>
 	      		<p>Se han insertado ${numInsertado} personas en la BBDD.</p>
 	      		<p>${numTotalFichero-numInsertado} personas incorrectas sin incluir en la BBDD.</p>
 	      		<br>

@@ -8,6 +8,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Savepoint;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -27,23 +28,26 @@ public class MigracionJDBCController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private static final String VIEW = "ejercicios/jdbc/migracion-personas.jsp";
+	public static final String PATH = "C:\\desarrollo\\workspace\\web-recetas\\data\\personas.txt";
 	// public static final String PATH =
-	// "C:\\desarrollo\\workspace\\web-recetas\\data\\personas.txt";
-	public static final String PATH = "/nagore/workspace/web-recetas/data/personas.txt";
+	// "/nagore/workspace/web-recetas/data/personas.txt";
 
 	// parametros conexion
 	static final String URL = "jdbc:mysql://localhost:3306/concesionario";
 	static final String DB_USER = "root";
-	// static final String DB_PASS = "";
-	static final String DB_PASS = "root";
+	static final String DB_PASS = "";
+	// static final String DB_PASS = "root";
 	static final String DRIVER = "com.mysql.jdbc.Driver";
 
 	private Connection conn = null;
 	private PreparedStatement pst = null;
 	private ResultSet rs = null;
+	Savepoint sp = null;
 
 	private StringBuilder msjDescripcion = null;
 	ArrayList<Persona> personas = null;
+	private int contTotalPersonas;
+	long tiempo;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -55,8 +59,11 @@ public class MigracionJDBCController extends HttpServlet {
 		Mensaje msj = null;
 		msjDescripcion = new StringBuilder();
 		// Persona p = null;
+		contTotalPersonas = 0;
 
 		try {
+
+			tiempo = System.currentTimeMillis();
 			msj = new Mensaje();
 			personas = new ArrayList<Persona>();
 
@@ -67,7 +74,7 @@ public class MigracionJDBCController extends HttpServlet {
 			conn = DriverManager.getConnection(URL, DB_USER, DB_PASS);
 
 			// leer del fichero
-			personas = leerFichero(request);
+			personas = leerFichero();
 
 			// Insertar todas las personas validas del fichero
 			insertar(personas);
@@ -84,8 +91,10 @@ public class MigracionJDBCController extends HttpServlet {
 			if (conn != null) {
 				// En caso de Fallo
 				try {
-					conn.rollback();
+					conn.rollback(sp);
+					personas.removeAll(personas);
 				} catch (SQLException e1) {
+					msj.setDescripcion(e.getMessage());
 					e1.printStackTrace();
 				}
 			}
@@ -97,12 +106,15 @@ public class MigracionJDBCController extends HttpServlet {
 			msj.setDescripcion("No existe el Driver: " + DRIVER + " Â¿seguro que has incluido la libreria .jar?");
 
 		} catch (Exception e) {
+			msj.setDescripcion(e.getMessage());
 			e.printStackTrace();
 		} finally {
 
 			// cerrar conexiones y objetos asociados
 			try {
-				rs.close();
+				if (rs != null) {
+					rs.close();
+				}
 				pst.close();
 				if (conn != null && !conn.isClosed()) {
 					conn.close();
@@ -111,8 +123,11 @@ public class MigracionJDBCController extends HttpServlet {
 				e.printStackTrace();
 			}
 
+			tiempo = System.currentTimeMillis() - tiempo;
 			request.setAttribute("msj", msj);
+			request.setAttribute("tiempo", tiempo);
 			request.setAttribute("numInsertado", personas.size());
+			request.setAttribute("numTotalFichero", contTotalPersonas);
 			request.setAttribute("personas", personas);
 
 			request.getRequestDispatcher(VIEW).forward(request, response);
@@ -162,12 +177,16 @@ public class MigracionJDBCController extends HttpServlet {
 
 	private void insertar(ArrayList<Persona> pers) throws SQLException {
 
-		// Poner Autocommit a false
+		// Establecer conexion NO-COMITABLE: Autocommit a false
 		conn.setAutoCommit(false);
+
+		// set a Savepoint
+		sp = conn.setSavepoint("sp");
 
 		// Proceso de migracion: crear sentencia SQL y preparar Statement por
 		// cada uno de las Personas
 		for (Persona p : pers) {
+
 			String sql = "INSERT INTO `persona` (`id`, `nombre`, `apellido1`, `apellido2`, `edad`, `email`, `dni`, `puesto`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?);";
 			pst = conn.prepareStatement(sql);
 			pst.setString(1, p.getNombre());
@@ -186,17 +205,16 @@ public class MigracionJDBCController extends HttpServlet {
 		conn.commit();
 
 		pst = null;
+		personas = null;
 
 		msjDescripcion.append("Insertado todas las personas del fichero.<br>");
 
 	}
 
 	// Leer del fichero y sacar a un ArrayList<Vehiculo>
-	public ArrayList<Persona> leerFichero(HttpServletRequest request) throws Exception {
+	public ArrayList<Persona> leerFichero() throws Exception {
 		personas = new ArrayList<Persona>();
 		Persona p = null;
-
-		int contTotalPersonas = 0;
 
 		FileReader fr = new FileReader(PATH);
 		BufferedReader br = new BufferedReader(fr);
@@ -211,24 +229,23 @@ public class MigracionJDBCController extends HttpServlet {
 			// dividir en trozos la linea
 			String[] trozos = linea.split(",");
 
-			// comprobar el tamaÃ±o que sea igual a 7.
+			// comprobar el tamaño que sea igual a 7, que el dni tenga una
+			// logitud de 9 y quitar aquellas personas que sean menores de 18
+			// años
 
-			if (trozos.length == 7) {
-				if (trozos[5].length() <= 9) {
-					if (Integer.parseInt(trozos[3]) >= 18) {
-						// incluir los trozos en Persona
-						p.setNombre(trozos[0]);
-						p.setApellido1(trozos[1]);
-						p.setApellido2(trozos[2]);
-						p.setEdad(Integer.parseInt(trozos[3]));
-						p.setEmail(trozos[4]);
-						p.setDni(trozos[5]);
-						p.setPuesto(trozos[6]);
+			if (trozos.length == 7 && trozos[5].length() == 9 && Integer.parseInt(trozos[3]) >= 18) {
+				// incluir los trozos en Persona
+				p.setNombre(trozos[0]);
+				p.setApellido1(trozos[1]);
+				p.setApellido2(trozos[2]);
+				p.setEdad(Integer.parseInt(trozos[3]));
+				p.setEmail(trozos[4]);
+				p.setDni(trozos[5]);
+				p.setPuesto(trozos[6]);
 
-						// incluir Persona en el ArrayList<Persona>
-						personas.add(p);
-					}
-				}
+				// incluir Persona en el ArrayList<Persona>
+				personas.add(p);
+
 			}
 
 		}
@@ -236,8 +253,6 @@ public class MigracionJDBCController extends HttpServlet {
 		// cerrar todo
 		br.close();
 		fr.close();
-
-		request.setAttribute("numTotalFichero", contTotalPersonas);
 
 		return personas;
 	}
