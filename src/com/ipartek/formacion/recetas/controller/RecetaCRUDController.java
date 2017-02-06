@@ -17,13 +17,13 @@ import com.ipartek.formacion.recetas.services.ServiceVehiculoMysql;
 /**
  * Servlet implementation class VehiculoCRUDController
  */
-@WebServlet("/vehiculo")
-public class VehiculoCRUDController extends HttpServlet {
+@WebServlet("/receta")
+public class RecetaCRUDController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	// vistas
-	private static final String VIEW_LIST = "ejercicios/vehiculo/index.jsp";
-	private static final String VIEW_FORM = "ejercicios/vehiculo/formulario.jsp";
+	private static final String VIEW_LIST = "ejercicios/receta/index.jsp";
+	private static final String VIEW_FORM = "ejercicios/receta/formulario.jsp";
 
 	// Operaciones que puede realizar
 	public static final String OP_LISTAR = "1";
@@ -63,7 +63,7 @@ public class VehiculoCRUDController extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public VehiculoCRUDController() {
+	public RecetaCRUDController() {
 		super();
 	}
 
