@@ -21,6 +21,7 @@
 			<p></p>
 			<form action="migracion" method="get">
 				<button type="submit" class="btn btn-default">Iniciar migracion</button>
+				${tiempo}
 				<br>
 				<br>
 			</form>

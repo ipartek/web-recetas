@@ -1,4 +1,4 @@
-<%@page import="com.ipartek.formacion.vehiculo.controller.VehiculoCRUDController"%>
+<%@page import="com.ipartek.formacion.vehiculo.controller.VehiculoCRUDControllerDB"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.ipartek.formacion.vehiculo.pojo.Vehiculo"%>
 <%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
@@ -21,7 +21,7 @@
 			<img src="img/vehiculo.jpg" class="img-responsive img-rounded" alt="">
 		</div>
 		<%@include file="../../includes/mensaje.jsp"%>
-		<a class="portfolio-link" href="vehiculo?op=3">Crear Nuevo</a>
+		<a class="portfolio-link" href="vehiculoDB?op=3">Crear Nuevo</a>
 		<table  class="display data-table-mio"  width="100%">
 			<thead>
 				<tr>
@@ -37,7 +37,7 @@
 			<tbody>
 			<c:forEach var="v" items="${vehiculos}">
 				<tr>
-					<td><a href="vehiculo?op=<%=VehiculoCRUDController.OP_VER_DETALLE %>&id=${v.id}">${v.modelo}</a></td>
+					<td><a href="vehiculoDB?op=<%=VehiculoCRUDControllerDB.OP_VER_DETALLE %>&id=${v.id}">${v.modelo}</a></td>
 					<td>${v.plazas}</td>
 					<td><fmt:formatNumber type="number" 
             pattern="##,###0.00" value="${v.dimensiones}" /></td>
