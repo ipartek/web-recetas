@@ -14,10 +14,10 @@
 <div class="container">
  	<div class="row">
  	
- 	<%@include file="../includes/mensaje.jsp" %>
+ 	<%@include file="../includes/mensaje.jsp"%>
  	
  	<hr>
- 	<form action="migracion" method="post">
+ 	<form action="migracion" method="POST">
  	
  	<input type="submit" value="Migracion">
  	</form>
@@ -28,4 +28,4 @@
  </div>
  	
  	
-<%@include file="../includes/footer.jsp" %> 
+<%@include file="../includes/footer.jsp"%> 
