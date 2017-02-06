@@ -11,14 +11,44 @@
 <div class="container">
       <div class="row">
 <%@include file="../../includes/Mensaje.jsp" %>
-<p>Probando si funciona</p>
+<p>Ejercicio para realizar una migración de datos desde un fichero de texto a una Base Datos.</p>
+			<p>Aprenderemos ha realizar transacciones atomicas, con <code>commit</code> y <code>rollback</code></p>
 
 <form action="migration" method="post"> 
 				
 				<input type="submit" value="Migración">
 			</form>
 <h2>Mensajes de sucesos</h2>
-			<p class="anotaciones"></p>
+			<table class="display data-table-mio" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Primer Apellido</th>
+                <th>Segundo Apellido</th>
+                <th>Edad</th>
+                <th>E-mail</th>
+                <th>DNI</th>
+                <th>Puesto</th>               
+            </tr>
+        </thead>        
+        <tbody>
+        <c:forEach var="p" items="${personas}">        
+	            <tr>
+	                <td>${p.id}</td>
+	                <td>${p.nombre}</td> 
+	                <td>${p.apellido1}</td>
+	                <td>${p.apellido2}</td>   
+	                <td>${p.edad}</td>
+	                <td>${p.email}</td>
+	                <td>${p.dni}</td>
+	                <td>${p.puesto}</td>     
+	            </tr>
+           </c:forEach> 
+        
+        </tbody>
+        </table>
+			<p class="anotaciones">${tiempo}</p>
 </div>
 </div>
 
