@@ -18,6 +18,18 @@ public class Receta implements Comparable<Receta>{
 	public String IMG_DEFAULT = "https://media.licdn.com/mpr/mpr/shrink_200_200/AAEAAQAAAAAAAASOAAAAJDc3ZTk5YWNhLWU4MGQtNDUyNi04MTU0LWYyN2Q0NjZjZjY3ZA.png";
 
 	//Constructor titulo
+	
+	public Receta() {
+		super();
+		this.titulo = "";
+		this.imagen = IMG_DEFAULT;
+		setIngredientes(null);
+		this.tiempo = 0;
+		this.comensales = 0;
+		this.dificultad = "facil";
+		this.descripcion = "Lorem ipsum....";
+	}
+	
 	public Receta(String titulo) {
 		super();
 		this.titulo = titulo;
@@ -28,6 +40,8 @@ public class Receta implements Comparable<Receta>{
 		this.dificultad = "facil";
 		this.descripcion = "Lorem ipsum....";
 	}
+
+	
 
 	//Constructor +ingredientes
 	public Receta(String titulo, ArrayList<Ingrediente> ingredientes) {
