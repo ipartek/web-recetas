@@ -75,7 +75,7 @@ public class PersonasController extends HttpServlet {
 		    while((linea=br.readLine())!=null) {
 		    	trozos = linea.split(",");
 		    	if (trozos.length == 7 && trozos[5].length() == 9) {
-		    
+		    			
 		    			insertar();
 		    			++contCorrectos;
 		    		
