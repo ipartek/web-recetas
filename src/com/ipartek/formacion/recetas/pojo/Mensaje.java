@@ -21,7 +21,7 @@ public class Mensaje {
 	public Mensaje() {
 		super();
 		this.clase = CLASE_DANGER;
-		this.descripcion = "Error!!! Upsss algo esta fallando";
+		this.descripcion = "¡Error! Upsss algo esta fallando";
 	}
 
 	public Mensaje(String descripcion, String clase) {
