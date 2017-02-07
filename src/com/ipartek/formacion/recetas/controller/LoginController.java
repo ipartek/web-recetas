@@ -47,6 +47,7 @@ public class LoginController extends HttpServlet {
 			// comprobacion
 			if (validarUsuario(user)) {
 
+				// guardar en sesion
 				session = request.getSession(true);
 				session.setAttribute("usuario", user);
 

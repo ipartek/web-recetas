@@ -9,13 +9,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ipartek.formacion.recetas.ejercicios.herencia.Vehiculo;
+import com.ipartek.formacion.recetas.model.Persistable;
 import com.ipartek.formacion.recetas.pojo.Mensaje;
-import com.ipartek.formacion.recetas.services.ServiceVehiculo;
-import com.ipartek.formacion.recetas.services.ServiceVehiculoMysql;
+import com.ipartek.formacion.recetas.pojo.Receta;
+import com.ipartek.formacion.recetas.services.ServiceRecetaMysql;
 
 /**
- * Servlet implementation class VehiculoCRUDController
+ * Servlet implementation class RecetaCRUDController
  */
 @WebServlet("/receta")
 public class RecetaCRUDController extends HttpServlet {
@@ -33,15 +33,13 @@ public class RecetaCRUDController extends HttpServlet {
 	public static final String OP_GUARDAR = "5"; // sirve para crear o modificar
 													// un vehiculo
 
-	// private static ServiceVehiculo service;
-	private static ServiceVehiculo service;
+	// private static ServiceReceta service;
+	private static Persistable<Receta> service;
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-		// service = ServiceVehiculoArrayList.getInstance();
-		// service = VehiculoServiceObjectStream.getInstance();
-		service = ServiceVehiculoMysql.getInstance();
+		service = ServiceRecetaMysql.getInstance();
 
 	}
 
@@ -88,13 +86,13 @@ public class RecetaCRUDController extends HttpServlet {
 
 					// mensaje.setClase(Mensaje.CLASE_SUCCESS);
 
-					// Recoger variables y crear Vehiculo
-					Vehiculo v = new Vehiculo();
-					v.setModelo(request.getParameter("modelo"));
-					v.setPlazas(Integer.parseInt(request.getParameter("plazas")));
-					// convertir de formato castellano a anglosajos
-					v.setDimensiones(Float.parseFloat(request.getParameter("dimensiones").replace(",", ".")));
-					v.setPotencia(Float.parseFloat(request.getParameter("potencia").replace(",", ".")));
+					// Recoger variables y crear Receta
+					Receta r = new Receta("");
+					r.setTitulo(request.getParameter("titulo"));
+					r.setTiempo(Integer.parseInt(request.getParameter("tiempo")));
+					r.setDificultad(request.getParameter("dificultad"));
+					r.setComensales(Integer.parseInt(request.getParameter("comensales")));
+					r.setDescripcion(request.getParameter("descripcion"));
 
 					long pIid = (Long.parseLong(request.getParameter("id")));
 
@@ -102,34 +100,33 @@ public class RecetaCRUDController extends HttpServlet {
 					boolean guardado = false;
 					if (pIid == -1) {
 						// mensaje.setDescripcion("Se ha creado correctamente");
-						guardado = service.create(v);
+						guardado = service.create(r);
 					} else {
 						// mensaje.setDescripcion("Se ha modificado
 						// correctamente");
-						v.setId(Long.parseLong(request.getParameter("id")));
-						guardado = service.update(v);
+						r.setId(Long.parseLong(request.getParameter("id")));
+						guardado = service.update(r);
 					}
 
 					// comprobar guardado y gestión de mensajes
 					if (guardado) {
-						mensaje.setDescripcion("Vehiculo guardado correctamente");
+						mensaje.setDescripcion("Receta guardada correctamente");
 						mensaje.setClase(Mensaje.CLASE_SUCCESS);
 					} else {
-						mensaje.setDescripcion("Vehiculo no guardado. Intentelo mas tarde");
+						mensaje.setDescripcion("Receta no guardada. Intentelo mas tarde");
 						mensaje.setClase(Mensaje.CLASE_WARNING);
 					}
 
 					request.setAttribute("msj", mensaje);
-					request.setAttribute("vehiculos", service.getAll());
+					request.setAttribute("recetas", service.getAll());
 					request.getRequestDispatcher(VIEW_LIST).forward(request, response);
 				} catch (Exception e) {
-					// di es Vehiculo creado, volver a recuperarlo para mostrar
-					// en
-					// formulario
+					// si es Receta creado, volver a recuperarlo para mostrar
+					// en formulario
 					if ((Long.parseLong(request.getParameter("id"))) != -1) {
-						request.setAttribute("vehiculo", service.getById((Long.parseLong(request.getParameter("id")))));
+						request.setAttribute("receta", service.getById((Long.parseLong(request.getParameter("id")))));
 					} else {
-						request.setAttribute("vehiculo", new Vehiculo());
+						request.setAttribute("receta", new Receta(""));
 					}
 					mensaje.setDescripcion("Error: " + e.getMessage());
 					mensaje.setClase(Mensaje.CLASE_DANGER);
@@ -145,30 +142,30 @@ public class RecetaCRUDController extends HttpServlet {
 				// TODO confirmar si realmente quiere eliminar
 
 				if (service.delete(Long.parseLong(request.getParameter("id")))) {
-					mensaje.setDescripcion("Vehiculo eliminado correctamente");
+					mensaje.setDescripcion("Receta eliminada correctamente");
 					mensaje.setClase(Mensaje.CLASE_SUCCESS);
 				} else {
-					mensaje.setDescripcion("Vehiculo no eliminado. Intentelo mas tarde.");
+					mensaje.setDescripcion("Receta no eliminada. Intentelo mas tarde.");
 					mensaje.setClase(Mensaje.CLASE_WARNING);
 				}
 
 				request.setAttribute("msj", mensaje);
-				request.setAttribute("vehiculos", service.getAll());
+				request.setAttribute("recetas", service.getAll());
 				request.getRequestDispatcher(VIEW_LIST).forward(request, response);
 				break;
 			case OP_VER_NUEVO: // 3
-				request.setAttribute("vehiculo", new Vehiculo());
+				request.setAttribute("receta", new Receta(""));
 				request.getRequestDispatcher(VIEW_FORM).forward(request, response);
 				break;
 
 			case OP_VER_DETALLE: // 2
 				long id = Long.parseLong(request.getParameter("id"));
-				request.setAttribute("vehiculo", service.getById(id));
+				request.setAttribute("receta", service.getById(id));
 				request.getRequestDispatcher(VIEW_FORM).forward(request, response);
 				break;
 			default: // 1
 				// listar
-				request.setAttribute("vehiculos", service.getAll());
+				request.setAttribute("recetas", service.getAll());
 				request.getRequestDispatcher(VIEW_LIST).forward(request, response);
 				break;
 			}// end switch

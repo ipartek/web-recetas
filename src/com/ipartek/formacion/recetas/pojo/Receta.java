@@ -191,9 +191,9 @@ public class Receta implements Comparable<Receta> {
 
 	@Override
 	public String toString() {
-		return "Receta [titulo=" + titulo + ", imagen=" + imagen + ", ingredientes=" + ingredientes + ", tiempo="
-				+ tiempo + ", dificultad=" + dificultad + ", comensales=" + comensales + ", descripcion=" + descripcion
-				+ "]";
+		return "Receta [id=" + id + ", titulo=" + titulo + ", imagen=" + imagen + ", ingredientes=" + ingredientes
+				+ ", tiempo=" + tiempo + ", dificultad=" + dificultad + ", comensales=" + comensales + ", descripcion="
+				+ descripcion + "]";
 	}
 
 	@Override

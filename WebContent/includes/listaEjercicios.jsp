@@ -13,7 +13,9 @@
     	<li><a href="vehiculo">CRUD de Vehiculos</a></li>
     	<li><a href="ejercicios/crear-fichero.jsp">Crear Fichero Texto</a></li>                	
     	<li><a href="jdbc">JDBC - Consulta Base Datos</a></li>
-    	<li><a href="ejercicios\jdbc\migracion-personas.jsp">Proceso Migracion Personas</a></li>                	
+    	<li><a href="ejercicios\jdbc\migracion-personas.jsp">Proceso Migracion Personas</a></li>
+    	<li><a href="receta">CRUD de Recetas con MySql</a></li>         	
+    	<li><a href="zona-segura/index.jsp">Filtro Seguridad</a></li>         	
     	            	
     </ul>
     
