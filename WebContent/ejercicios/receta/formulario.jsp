@@ -8,7 +8,7 @@
        <div class="container header-content">
            <div class="row">
                <div class="col-lg-12">               
-               	<h1>Vehiculo</h1>               		
+               	<h1>Receta</h1>               		
                </div>
              </div>             
  		</div> 

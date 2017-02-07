@@ -103,7 +103,7 @@ public class RecetaCRUDController extends HttpServlet {
 					// crear Vehiculo
 					Receta r = new Receta();
 					r.setId(id);
-					r.setModelo(pTitulo);
+					r.setTitulo(pTitulo);
 
 					// guardarlo o persistirlo en la bbdd
 					boolean guardado = false;

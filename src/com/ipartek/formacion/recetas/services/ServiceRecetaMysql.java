@@ -2,16 +2,16 @@ package com.ipartek.formacion.recetas.services;
 
 import java.util.List;
 
-import com.ipartek.formacion.recetas.ejercicios.herencia.Vehiculo;
-import com.ipartek.formacion.recetas.model.dao.VehiculoDAO;
+import com.ipartek.formacion.recetas.model.dao.RecetaDAO;
+import com.ipartek.formacion.recetas.pojo.Receta;
 
-public class ServiceRecetaMysql implements ServiceVehiculo {
+public class ServiceRecetaMysql implements ServiceReceta {
 
 	private static ServiceRecetaMysql INSTANCE;
-	private static VehiculoDAO daoVehiculo;
+	private static RecetaDAO daoReceta;
 
 	private ServiceRecetaMysql() {
-		daoVehiculo = VehiculoDAO.getInstance();
+		daoReceta = RecetaDAO.getInstance();
 	}
 
 	private synchronized static void createInstance() {
@@ -28,28 +28,28 @@ public class ServiceRecetaMysql implements ServiceVehiculo {
 	}
 
 	@Override
-	public List<Vehiculo> getAll() {
-		return daoVehiculo.getAll();
+	public List<Receta> getAll() {
+		return daoReceta.getAll();
 	}
 
 	@Override
-	public Vehiculo getById(long id) {
-		return daoVehiculo.getById(id);
+	public Receta getById(long id) {
+		return daoReceta.getById(id);
 	}
 
 	@Override
 	public boolean delete(long id) {
-		return daoVehiculo.delete(id);
+		return daoReceta.delete(id);
 	}
 
 	@Override
-	public boolean update(Vehiculo v) {
-		return daoVehiculo.update(v);
+	public boolean update(Receta r) {
+		return daoReceta.update(r);
 	}
 
 	@Override
-	public boolean create(Vehiculo v) {
-		return daoVehiculo.create(v);
+	public boolean create(Receta r) {
+		return daoReceta.create(r);
 	}
 
 }
