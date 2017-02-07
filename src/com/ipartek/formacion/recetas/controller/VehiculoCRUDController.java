@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.ipartek.formacion.recetas.ejercicios.herencia.Vehiculo;
 import com.ipartek.formacion.recetas.pojo.Mensaje;
 import com.ipartek.formacion.recetas.services.ServiceVehiculo;
-import com.ipartek.formacion.recetas.services.VehiculoServiceObjectStream;
+import com.ipartek.formacion.recetas.services.ServiceVehiculoMysql;
 
 /**
  * Servlet implementation class VehiculoCRUDController
@@ -40,7 +40,9 @@ public class VehiculoCRUDController extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		// service = ServiceVehiculoArrayList.getInstance();
-		service = VehiculoServiceObjectStream.getInstance();
+		// service = VehiculoServiceObjectStream.getInstance();
+		service = ServiceVehiculoMysql.getInstance();
+
 	}
 
 	@Override
@@ -125,7 +127,7 @@ public class VehiculoCRUDController extends HttpServlet {
 					// compobar guardado y gestion Mensaje
 					if (guardado) {
 						msj.setClase(Mensaje.CLASE_SUCCESS);
-						msj.setDescripcion("Vehivulo Guardado con Exito");
+						msj.setDescripcion("Vehiculo Guardado con Exito");
 					} else {
 						msj.setClase(Mensaje.CLASE_WARNING);
 						msj.setDescripcion("No se ha podido Guardar el Vehiculo");

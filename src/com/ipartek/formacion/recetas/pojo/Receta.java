@@ -1,15 +1,17 @@
 package com.ipartek.formacion.recetas.pojo;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 
-public class Receta implements Comparable<Receta>{
+public class Receta implements Comparable<Receta> {
 
 	public static final String FACIL = "facil";
 	public static final String MODERADO = "moderado";
 	public static final String DIFICIL = "dificil";
 
 	public String IMG_DEFAULT = "http://apps.enyojs.com/assets/apps/17daydietmealplan_icon.png";
+
+	// ATRIBUTOS
+	private long id;
 
 	private String titulo;
 	private String imagen;
@@ -19,15 +21,26 @@ public class Receta implements Comparable<Receta>{
 	private int comensales;
 	private String descripcion;
 
-	public Receta(String titulo) {
-		super();
-		this.titulo = titulo;
+	// CONSTRUCTORES
+	public Receta() {
+		this.id = -1;
+		this.titulo = "";
 		this.imagen = IMG_DEFAULT;
 		setIngredientes(null);
 		this.tiempo = 0;
 		this.comensales = 0;
 		this.dificultad = "facil";
 		this.descripcion = "Lorem ipsum....";
+	}
+
+	public Receta(long id) {
+		super();
+		this.id = id;
+	}
+
+	public Receta(String titulo) {
+		super();
+		this.titulo = titulo;
 	}
 
 	public Receta(String titulo, ArrayList<Ingrediente> ingredientes) {
@@ -39,6 +52,72 @@ public class Receta implements Comparable<Receta>{
 		this.comensales = 0;
 		this.dificultad = "facil";
 		this.descripcion = "Lorem ipsum....";
+	}
+
+	// GETTERS AND SETTERS
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
+	public ArrayList<Ingrediente> getIngredientes() {
+		return ingredientes;
+	}
+
+	public void setIngredientes(ArrayList<Ingrediente> ingredientes) {
+
+		this.ingredientes = (ingredientes == null) ? new ArrayList<Ingrediente>() : ingredientes;
+	}
+
+	public int getTiempo() {
+		return tiempo;
+	}
+
+	public void setTiempo(int tiempo) {
+		this.tiempo = tiempo;
+	}
+
+	public String getDificultad() {
+		return dificultad;
+	}
+
+	public void setDificultad(String dificultad) {
+		this.dificultad = dificultad;
+	}
+
+	public int getComensales() {
+		return comensales;
+	}
+
+	public void setComensales(int comensales) {
+		this.comensales = comensales;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
 	}
 
 	/**
@@ -122,90 +201,19 @@ public class Receta implements Comparable<Receta>{
 		return resul;
 	}
 
-	public String getTitulo() {
-		return titulo;
-	}
-
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
-	}
-
-	public ArrayList<Ingrediente> getIngredientes() {
-		return ingredientes;
-	}
-
-	public void setIngredientes(ArrayList<Ingrediente> ingredientes) {
-
-		this.ingredientes = (ingredientes == null) ? new ArrayList<Ingrediente>() : ingredientes;
-	}
-
-	public int getTiempo() {
-		return tiempo;
-	}
-
-	public void setTiempo(int tiempo) {
-		this.tiempo = tiempo;
-	}
-
-	public String getDificultad() {
-		return dificultad;
-	}
-
-	public void setDificultad(String dificultad) {
-		this.dificultad = dificultad;
-	}
-
-	public int getComensales() {
-		return comensales;
-	}
-
-	public void setComensales(int comensales) {
-		this.comensales = comensales;
-	}
-
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-
-	public String getImagen() {
-		return imagen;
-	}
-
-	public void setImagen(String imagen) {
-		this.imagen = imagen;
-	}
-
 	@Override
-	public String toString() {
-		return "Receta [titulo=" + titulo + ", imagen=" + imagen + ", ingredientes=" + ingredientes + ", tiempo="
-				+ tiempo + ", dificultad=" + dificultad + ", comensales=" + comensales + ", descripcion=" + descripcion
-				+ "]";
-	}
-
-	
-
-	@Override
-	public int compareTo(Receta o) {		
-		//pasamos a toLowerCase, para ignorar mayusculas y minusculas
+	public int compareTo(Receta o) {
+		// pasamos a toLowerCase, para ignorar mayusculas y minusculas
 		return this.getTitulo().toLowerCase().compareTo(o.getTitulo().toLowerCase());
 	}
 
-	
-	
+	// TO STRING
+
+	@Override
+	public String toString() {
+		return "Receta [IMG_DEFAULT=" + IMG_DEFAULT + ", id=" + id + ", titulo=" + titulo + ", imagen=" + imagen
+				+ ", ingredientes=" + ingredientes + ", tiempo=" + tiempo + ", dificultad=" + dificultad
+				+ ", comensales=" + comensales + ", descripcion=" + descripcion + "]";
+	}
+
 }
-
-
-
-
-
-
-
-
-
-
-
-

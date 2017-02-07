@@ -86,10 +86,12 @@
                 	<li><a href="controladorExcepcion?p=2">Gestion Error VehiculoException</a></li>                   	
                 	<li><a href="ejercicios/crear-vehiculo.jsp">Crear Vehiculo y Excepciones Personalizadas</a></li>
                 	<li><a href="vehiculo">CRUD de Vehiculos</a></li>  
+                	<li><a href="receta">CRUD de Recetas</a></li> 
                 	<li><a href="dado?op=1">Dado</a></li>    
                 	<li><a href="ejercicios/crear-fichero.jsp">Crear Fichero Texto</a></li>
                 	<li><a href="jdbc">JDBC - Consulta Base Datos</a></li>
                 	<li><a href="migracion">Proceso Migración</a></li>
+                	<li><a href="zona-segura/index.jsp">Filtro seguridad</a></li>
                 </ul>
                 
             </div>
