@@ -27,6 +27,22 @@ public class ServiceReceta {
 		}
 	}
 	public List<Receta> getAll() {
-		return daoReceta.getAll();}
+		return daoReceta.getAll();
+	}
+	
+	public Receta getById(long id) {
+		return daoReceta.getById(id);
+	}
+	public boolean create(Receta r) {
+		return daoReceta.create(r);
+	}
+	
+	public boolean update(Receta r) {
+		return daoReceta.update(r);
+	}
+	
+	public boolean delete(long id) {
+		return daoReceta.delete(id);
+	}
 	
 }

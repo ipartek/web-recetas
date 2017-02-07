@@ -8,6 +8,7 @@ public class Receta implements Comparable<Receta>{
 	public static final String FACIL = "facil";
 	public static final String MODERADO = "moderado";
 	public static final String DIFICIL = "dificil";
+	private long id;
 	private ArrayList<Ingrediente> ingredientes;
 	private String titulo;
 	private int tiempo;
@@ -21,6 +22,7 @@ public class Receta implements Comparable<Receta>{
 	
 	public Receta() {
 		super();
+		this.id= -1;
 		this.titulo = "";
 		this.imagen = IMG_DEFAULT;
 		setIngredientes(null);
@@ -114,6 +116,14 @@ public class Receta implements Comparable<Receta>{
 	}
 
 	//Getter & Setter
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+	
 	public ArrayList<Ingrediente> getIngredientes() {
 		return ingredientes;
 	}
@@ -184,4 +194,6 @@ public class Receta implements Comparable<Receta>{
 				+ tiempo + ", dificultad=" + dificultad + ", comensales=" + comensales + ", descripcion=" + descripcion
 				+ "]";
 	}
+
+	
 }

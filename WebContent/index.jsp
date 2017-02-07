@@ -89,7 +89,8 @@
                 	<li><a href="vehiculoOutput">Object Stream</a></li>
                 	<li><a href="jdbc">JDBC - Consulta Base de Datos</a></li>
                 	<li><a href="ejercicios/validar-migracion.jsp">Migracion de Base de Datos</a></li>
-                	<li><a href="ejercicios/receta">Receta</a></li>
+                	<li><a href="receta">Receta</a></li>
+                	<li><a href="zona-segura/index.jsp">Filtro Seguridad</a></li>
                 	
                 </ul>
                 
