@@ -94,6 +94,7 @@
                 	<li><a href="ejercicios/leer-fichero.jsp">Leer fichero de texto</a></li>
 					<li><a href="jdbc">JDBC - Consulta Base de Datos</a></li>
 					<li><a href="personas">Migración de Datos</a></li>
+					<li><a href="recetas">CRUD Recetas</a></li>
                 </ul>
                 
             </div>

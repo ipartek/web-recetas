@@ -1,36 +1,34 @@
 package com.ipartek.formacion.recetas.model.dao;
 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ipartek.formacion.recetas.ejercicios.herencia.Vehiculo;
 import com.ipartek.formacion.recetas.model.DataBaseConnectionImpl;
 import com.ipartek.formacion.recetas.model.Persistable;
-import com.ipartek.formacion.recetas.pojo.VehiculoException;
+import com.ipartek.formacion.recetas.pojo.Receta;
 
-public class VehiculoDAO implements Persistable<Vehiculo> {
+public class RecetaDAO implements Persistable<Receta> {
 
-	private static VehiculoDAO INSTANCE = null;
+	private static RecetaDAO INSTANCE = null;
 	private static DataBaseConnectionImpl db;
 	private Connection conn;
 	
-	private static String SQL_GET_ALL = "SELECT `id`,`modelo`,`plazas`,`potencia`,`dimensiones` FROM `vehiculo` ORDER BY `id` DESC LIMIT 100";
-	private static String SQL_GET_BY_ID = "SELECT `id`,`modelo`,`plazas`,`potencia`,`dimensiones` FROM `vehiculo` WHERE id=?";
-	private static String SQL_CREATE = "INSERT INTO `vehiculo`(`id`, `modelo`, `plazas`, `potencia`, `dimensiones`) VALUES (NULL,?,?,?,?)";
-	private static String SQL_UPDATE = "UPDATE `vehiculo` SET `modelo`=?,`plazas`=?,`potencia`=?,`dimensiones`=? WHERE id = ?";
-	private static String SQL_DELETE = "DELETE FROM `vehiculo` WHERE id = ?";
+	private static String SQL_GET_ALL = "SELECT `id`,`nombre` FROM `receta` ORDER BY `id` DESC LIMIT 100";
+	private static String SQL_GET_BY_ID = "SELECT `id`,`nombre` FROM `receta` WHERE id=?";
+	private static String SQL_CREATE = "INSERT INTO `receta`(`id`, `nombre`) VALUES (NULL,?)";
+	private static String SQL_UPDATE = "UPDATE `receta` SET `nombre`=? WHERE id = ?";
+	private static String SQL_DELETE = "DELETE FROM `receta` WHERE id = ?";
 	
-	
-	private VehiculoDAO() {
+	private RecetaDAO() {
 		db = DataBaseConnectionImpl.getInstance();
 	}
 	
-	public static VehiculoDAO getInstance() {
+	public static RecetaDAO getInstance() {
 		if (INSTANCE == null) {
 			createInstance();
 		}
@@ -39,54 +37,50 @@ public class VehiculoDAO implements Persistable<Vehiculo> {
 
 	private synchronized static void createInstance() {
 		if (INSTANCE == null) {
-			INSTANCE = new VehiculoDAO();
+			INSTANCE = new RecetaDAO();
 		}
 	}
 	
 	@Override
-	public List<Vehiculo> getAll() {
-		ArrayList<Vehiculo> list = null;
+	public List<Receta> getAll() {
+		ArrayList<Receta> list = null;
 		// buscamos los ultimos 100 vehiculos por id ordenacion descendiente
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 
 		try {
-			list = new ArrayList<Vehiculo>();
+			list = new ArrayList<Receta>();
 			conn = db.getConexion();			
 			pst = conn.prepareStatement(SQL_GET_ALL);
 			rs = pst.executeQuery();
 			while(rs.next()) {			
 				list.add(mapear(rs));
-			}			
-			rs.close();
-			pst.close();
+			}
 		} catch(Exception e) {
 			e.printStackTrace();
-		} finally {			
+		} finally {
 			db.desconectar();
 		}
 		return list;
 	}
 
 	@Override
-	public Vehiculo getById(long id) {
-		Vehiculo v = null;
+	public Receta getById(long id) {
+		Receta v = new Receta();
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		
 		try {
 			conn = db.getConexion();			
 			pst = conn.prepareStatement(SQL_GET_BY_ID);
-			pst.setLong(1, id);
+			pst.setString(1, String.valueOf(id));
 			rs = pst.executeQuery();
 			while(rs.next()) {			
 				v = mapear(rs);
-			}			
-			rs.close();
-			pst.close();
+			}
 		} catch(Exception e) {
 			e.printStackTrace();
-		} finally {			
+		} finally {
 			db.desconectar();
 		}
 		
@@ -94,30 +88,26 @@ public class VehiculoDAO implements Persistable<Vehiculo> {
 	}
 
 	@Override
-	public boolean create(Vehiculo v) {
+	public boolean create(Receta r) {
 		Boolean resul = false;
 		PreparedStatement pst = null;
-		ResultSet conseguirId = null;
+		ResultSet conseguirId = null; 
 		try {
 			conn = db.getConexion();			
-			pst = conn.prepareStatement(SQL_CREATE,Statement.RETURN_GENERATED_KEYS);
-			pst.setString(1, v.getModelo());
-			pst.setInt(2, v.getPlazas());
-			pst.setFloat(3, v.getPotencia());
-			pst.setFloat(4, v.getDimensiones());
+			pst = conn.prepareStatement(SQL_CREATE);
+			pst.setString(1, r.getTitulo());
+			
 			if (pst.executeUpdate() == 1) {
 				resul = true;
 				conseguirId = pst.getGeneratedKeys();
 				if ( conseguirId.next()) {
 					//Buscamos la ID en la columna 1
-					v.setId(conseguirId.getLong(1));
+					r.setId(conseguirId.getLong(1));
 				}
-			} 
-			
-			pst.close();
+			} 			
 		} catch(Exception e) {
 			e.printStackTrace();
-		} finally {			
+		} finally {
 			db.desconectar();
 		}
 		
@@ -126,7 +116,7 @@ public class VehiculoDAO implements Persistable<Vehiculo> {
 	}
 
 	@Override
-	public boolean update(Vehiculo v) {
+	public boolean update(Receta r) {
 		Boolean resul = false;
 		PreparedStatement pst = null;
 
@@ -134,18 +124,15 @@ public class VehiculoDAO implements Persistable<Vehiculo> {
 		try {
 			conn = db.getConexion();			
 			pst = conn.prepareStatement(SQL_UPDATE);
-			pst.setString(1, v.getModelo());
-			pst.setInt(2, v.getPlazas());
-			pst.setFloat(3, v.getPotencia());
-			pst.setFloat(4, v.getDimensiones());
-			pst.setLong(5, v.getId());
+			pst.setString(1, r.getTitulo());
+			pst.setLong(2, r.getId());
 			if (pst.executeUpdate() == 1) {
 				resul = true;
 			} 
-			pst.close();	
+			pst.close();
 		} catch(Exception e) {
 			e.printStackTrace();
-		} finally {		
+		} finally {
 			db.desconectar();
 		}
 		
@@ -161,15 +148,13 @@ public class VehiculoDAO implements Persistable<Vehiculo> {
 		try {
 			conn = db.getConexion();			
 			pst = conn.prepareStatement(SQL_DELETE);
-			pst.setLong(1, id);
+			pst.setString(1, String.valueOf(id));
 			if (pst.executeUpdate() == 1) {
 				resul = true;
 			} 
-			pst.close();;
 		} catch(Exception e) {
 			e.printStackTrace();
 		} finally {
-			
 			db.desconectar();
 		}
 		
@@ -177,16 +162,14 @@ public class VehiculoDAO implements Persistable<Vehiculo> {
 		return resul;
 	}
 	
-	private Vehiculo mapear(ResultSet rs) throws SQLException, VehiculoException{
-		Vehiculo v = new Vehiculo();
+	private Receta mapear(ResultSet rs) throws SQLException{
+		Receta r = new Receta();
 		
-		v.setId(rs.getLong("id"));
-		v.setModelo(rs.getString("modelo"));
-		v.setDimensiones(rs.getFloat("dimensiones"));
-		v.setPlazas(rs.getInt("plazas"));
-		v.setPotencia(rs.getFloat("potencia"));
+		r.setId(rs.getLong("id"));
+		r.setTitulo(rs.getString("nombre"));
 		
-		return v;		
+		
+		return r;		
 	}
 
 }
