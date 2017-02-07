@@ -90,6 +90,7 @@
                 	<li><a href="ejercicios/crear-fichero.jsp">Crear Fichero Texto</a></li>
                 	<li><a href="jdbc">JDBC - Consulta Base Datos</a></li>
                 	<li><a href="migracion">Proceso Migración</a></li>
+                	<li><a href="zona-segura/index.jsp">Filtro Seguridad</a></li>
                 </ul>
                 
             </div>
