@@ -95,6 +95,7 @@
 					<li><a href="jdbc">JDBC - Consulta Base de Datos</a></li>
 					<li><a href="personas">Migración de Datos</a></li>
 					<li><a href="recetas">CRUD Recetas</a></li>
+					<li><a href="zona-segura/index.jsp">Filtro Seguridad</a></li>
                 </ul>
                 
             </div>

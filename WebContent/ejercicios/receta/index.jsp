@@ -28,6 +28,11 @@
             <tr>
             	<th>Id</th>
                 <th>Titulo</th>
+                <th>Dificultad</th>
+                <th>Comensales</th>
+                <th>Descripcion</th>
+                <th>Tiempo</th>
+                <th>Imagen</th>
             </tr>
         </thead>
         <tbody>
@@ -35,6 +40,11 @@
             <tr>
             	<td>${r.id}</td>
                 <td><a href="recetas?op=<%=RecetasCRUDController.OP_VER_DETALLE %>&id=${r.id}">${r.titulo}</td>            
+            	<td>${r.dificultad}</td>
+            	<td>${r.comensales}</td>
+            	<td>${r.descripcion}</td>
+            	<td>${r.tiempo}</td>
+            	<td><a href="${r.imagen}"><img style="width:50px;" src="${r.imagen}"></a>
             </tr>
         </c:forEach>
         </tbody>

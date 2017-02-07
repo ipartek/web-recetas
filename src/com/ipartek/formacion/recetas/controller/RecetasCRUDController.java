@@ -91,7 +91,11 @@ public class RecetasCRUDController extends HttpServlet {
 			r = new Receta();
 			r.setId(Long.valueOf(request.getParameter("id")));
 			r.setTitulo(request.getParameter("nombre"));
-			
+			r.setComensales(Integer.valueOf(request.getParameter("comensales")));
+			r.setDescripcion(request.getParameter("descripcion"));
+			r.setTiempo(Integer.valueOf(request.getParameter("tiempo")));
+			r.setDificultad(request.getParameter("dificultad"));
+			r.setImagen(request.getParameter("imagen"));
 			mensaje.setClase(Mensaje.CLASE_SUCCESS);
 			if (r.getId() > 0) {
 				accion = service.update(r);
