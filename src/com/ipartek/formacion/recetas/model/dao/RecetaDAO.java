@@ -1,4 +1,4 @@
-package com.ipartek.formacion.vehiculo.model.dao;
+package com.ipartek.formacion.recetas.model.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,27 +9,26 @@ import java.util.List;
 
 import com.ipartek.formacion.model.DataBaseConnectionImpl;
 import com.ipartek.formacion.model.Persistable;
-import com.ipartek.formacion.vehiculo.pojo.Vehiculo;
-import com.ipartek.formacion.vehiculo.pojo.VehiculoException;
+import com.ipartek.formacion.recetas.pojo.Receta;
 import com.mysql.jdbc.Statement;
 
-public class VehiculoDAO implements Persistable<Vehiculo> {
+public class RecetaDAO implements Persistable<Receta> {
 
-	private static VehiculoDAO INSTANCE = null;
+	private static RecetaDAO INSTANCE = null;
 	private static DataBaseConnectionImpl db;
 	private Connection conn;
-	private static String SQL_GET_ALL = "SELECT `id`,`modelo`,`plazas`,`potencia` FROM `vehiculo` ORDER BY `id` DESC LIMIT 100";
-	private static String SQL_GET_BY_ID = "SELECT `id`,`modelo`,`plazas`,`potencia` FROM `vehiculo` WHERE `id` = ?";
-	private static String SQL_DELETE = "DELETE FROM `vehiculo` WHERE `id` = ?";
-	private static String SQL_UPDATE = "UPDATE `vehiculo` SET `modelo` = ?, `plazas` = ?, `potencia` = ? WHERE `id` = ?;";
-	private static String SQL_CREATE = "INSERT INTO `vehiculo` (`modelo`, `plazas`, `potencia`) VALUES ( ? , ? , ? );";
+	private static String SQL_GET_ALL = "SELECT `id`,`nombre`,`tiempo` FROM `receta` ORDER BY `id` DESC LIMIT 100";
+	private static String SQL_GET_BY_ID = "SELECT `id`,`nombre`,`tiempo` FROM `receta` WHERE `id` = ?";
+	private static String SQL_DELETE = "DELETE FROM `receta` WHERE `id` = ?";
+	private static String SQL_UPDATE = "UPDATE `receta` SET `nombre` = ? , `tiempo` = ? WHERE `id` = ?;";
+	private static String SQL_CREATE = "INSERT INTO `receta` (`nombre`, `tiempo`) VALUES ( ?,? );";
 
 	// Usamos patron singleton
-	private VehiculoDAO() {
+	private RecetaDAO() {
 		db = DataBaseConnectionImpl.getInstance();
 	}
 
-	public static VehiculoDAO getInstance() {
+	public static RecetaDAO getInstance() {
 		if (INSTANCE == null) {
 			createInstance();
 		}
@@ -38,19 +37,19 @@ public class VehiculoDAO implements Persistable<Vehiculo> {
 
 	private synchronized static void createInstance() {
 		if (INSTANCE == null) {
-			INSTANCE = new VehiculoDAO();
+			INSTANCE = new RecetaDAO();
 		}
 	}
 
 	@Override
-	public List<Vehiculo> getAll() {
+	public List<Receta> getAll() {
 
-		ArrayList<Vehiculo> list = null;
+		ArrayList<Receta> list = null;
 
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		try {
-			list = new ArrayList<Vehiculo>();
+			list = new ArrayList<Receta>();
 			conn = db.getConexion();
 			pst = conn.prepareStatement(SQL_GET_ALL);
 			rs = pst.executeQuery();
@@ -68,8 +67,8 @@ public class VehiculoDAO implements Persistable<Vehiculo> {
 	}
 
 	@Override
-	public Vehiculo getByID(long id) {
-		Vehiculo v = null;
+	public Receta getByID(long id) {
+		Receta v = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		try {
@@ -91,15 +90,14 @@ public class VehiculoDAO implements Persistable<Vehiculo> {
 	}
 
 	@Override
-	public boolean create(Vehiculo v) {
+	public boolean create(Receta v) {
 		boolean resul = false;
 		PreparedStatement pst = null;
 		try {
 			conn = db.getConexion();
 			pst = conn.prepareStatement(SQL_CREATE, Statement.RETURN_GENERATED_KEYS);
-			pst.setString(1, v.getModelo());
-			pst.setInt(2, v.getPlazas());
-			pst.setFloat(3, v.getPotencia());
+			pst.setString(1, v.getTitulo());
+			pst.setInt(2, v.getTiempo());
 
 			// insertamos vehiculo
 			int affectedRows = pst.executeUpdate();
@@ -122,16 +120,15 @@ public class VehiculoDAO implements Persistable<Vehiculo> {
 	}
 
 	@Override
-	public boolean update(Vehiculo v) {
+	public boolean update(Receta v) {
 		boolean resul = false;
 		PreparedStatement pst = null;
 		try {
 			conn = db.getConexion();
 			pst = conn.prepareStatement(SQL_UPDATE);
-			pst.setString(1, v.getModelo());
-			pst.setInt(2, v.getPlazas());
-			pst.setFloat(3, v.getPotencia());
-			pst.setLong(4, v.getId());
+			pst.setString(1, v.getTitulo());
+			pst.setLong(3, v.getId());
+			pst.setInt(2, v.getTiempo());
 
 			if (pst.executeUpdate() == 1) {
 				resul = true;
@@ -168,12 +165,11 @@ public class VehiculoDAO implements Persistable<Vehiculo> {
 		return resul;
 	}
 
-	private Vehiculo mapper(ResultSet rs) throws SQLException, VehiculoException {
-		Vehiculo v = new Vehiculo();
+	private Receta mapper(ResultSet rs) throws SQLException {
+		Receta v = new Receta();
 		v.setId(rs.getLong("id"));
-		v.setModelo(rs.getString("modelo"));
-		v.setPlazas(rs.getInt("plazas"));
-		v.setPotencia(rs.getFloat("potencia"));
+		v.setTitulo(rs.getString("nombre"));
+		v.setTiempo(rs.getInt("tiempo"));
 		return v;
 	}
 

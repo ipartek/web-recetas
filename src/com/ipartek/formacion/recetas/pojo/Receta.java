@@ -1,9 +1,8 @@
 package com.ipartek.formacion.recetas.pojo;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 
-public class Receta implements Comparable<Receta>{
+public class Receta implements Comparable<Receta> {
 
 	public static final String FACIL = "facil";
 	public static final String MODERADO = "moderado";
@@ -18,6 +17,7 @@ public class Receta implements Comparable<Receta>{
 	private String dificultad;
 	private int comensales;
 	private String descripcion;
+	private long id;
 
 	public Receta(String titulo) {
 		super();
@@ -28,6 +28,19 @@ public class Receta implements Comparable<Receta>{
 		this.comensales = 0;
 		this.dificultad = "facil";
 		this.descripcion = "Lorem ipsum....";
+		this.setId(-1);
+	}
+
+	public Receta() {
+		super();
+		this.titulo = "";
+		this.imagen = IMG_DEFAULT;
+		setIngredientes(null);
+		this.tiempo = 0;
+		this.comensales = 0;
+		this.dificultad = "facil";
+		this.descripcion = "Lorem ipsum....";
+		this.setId(-1);
 	}
 
 	public Receta(String titulo, ArrayList<Ingrediente> ingredientes) {
@@ -39,11 +52,12 @@ public class Receta implements Comparable<Receta>{
 		this.comensales = 0;
 		this.dificultad = "facil";
 		this.descripcion = "Lorem ipsum....";
+		this.setId(-1);
 	}
 
 	/**
 	 * Nos indica si la receta esta libre de ingredientes con gluten
-	 * 
+	 *
 	 * @return true si todos los ingredientes no contienen gluten <br>
 	 *         false si alguno de los ingredientes contienen gluten <br>
 	 *         true si no existen ingredientes
@@ -63,7 +77,7 @@ public class Receta implements Comparable<Receta>{
 
 	/**
 	 * Comprueba si contiene el {@code Ingrediente} pasado como parametro
-	 * 
+	 *
 	 * @param ingrendiente
 	 *            {@code Ingrediente} a buscar
 	 * @return true si contiene ingrediente<br>
@@ -86,7 +100,7 @@ public class Receta implements Comparable<Receta>{
 	/**
 	 * TODO cuando sea null lanzar Exception personalizada<br>
 	 * Añadimos un nuevo {@code Ingrediente} a la receta
-	 * 
+	 *
 	 * @param ingrendiente
 	 *            si es null no hace nada
 	 */
@@ -99,7 +113,7 @@ public class Receta implements Comparable<Receta>{
 	/**
 	 * Eliminar el primer ingrendiente que encuentre con el mismo
 	 * <ode>nombre</code> CaseInsesitive
-	 * 
+	 *
 	 * @param ingrendiente
 	 *            ingrediente a eliminar
 	 * @return true si eliminar ingrediente<br>
@@ -186,26 +200,18 @@ public class Receta implements Comparable<Receta>{
 				+ "]";
 	}
 
-	
-
 	@Override
-	public int compareTo(Receta o) {		
-		//pasamos a toLowerCase, para ignorar mayusculas y minusculas
+	public int compareTo(Receta o) {
+		// pasamos a toLowerCase, para ignorar mayusculas y minusculas
 		return this.getTitulo().toLowerCase().compareTo(o.getTitulo().toLowerCase());
 	}
 
-	
-	
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
 }
-
-
-
-
-
-
-
-
-
-
-
-

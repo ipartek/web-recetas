@@ -1,6 +1,7 @@
-<%@page import="com.ipartek.formacion.vehiculo.controller.VehiculoCRUDController"%>
+
+<%@page import="com.ipartek.formacion.recetas.controller.RecetasController"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.ipartek.formacion.vehiculo.pojo.Vehiculo"%>
+
 <%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@include file="../../includes/header.jsp"%>
 <%@include file="../../includes/nav.jsp"%>
@@ -9,7 +10,7 @@
 	<div class="container header-content">
 		<div class="row">
 			<div class="col-lg-12">
-				<h1>CRUD Vehiculo</h1>
+				<h1>CRUD Receta</h1>
 			</div>
 		</div>
 	</div>
@@ -17,33 +18,25 @@
 
 <div class="container">
 	<div class="row">
-		<div id="imagenVehiculo">
-			<img src="img/vehiculo.jpg" class="img-responsive img-rounded" alt="">
-		</div>
+		
 		<%@include file="../../includes/mensaje.jsp"%>
-		<a class="portfolio-link" href="vehiculo?op=3">Crear Nuevo</a>
+		<a class="portfolio-link" href="receta?op=3">Crear Nueva</a>
 		<table  class="display data-table-mio"  width="100%">
 			<thead>
 				<tr>
-					<th>Modelo</th>
-					<th>Plazas</th>
-					<th>Dimensiones</th>
-					<th>Potencia</th>
+					<th>Titulo</th>
+					<th>Tiempo</th>
+					
 					
 				</tr>
 			</thead>
 			<tfoot>
 			</tfoot>
 			<tbody>
-			<c:forEach var="v" items="${vehiculos}">
+			<c:forEach var="r" items="${recetas}">
 				<tr>
-					<td><a href="vehiculo?op=<%=VehiculoCRUDController.OP_VER_DETALLE %>&id=${v.id}">${v.modelo}</a></td>
-					<td>${v.plazas}</td>
-					<td><fmt:formatNumber type="number" 
-            pattern="##,###0.00" value="${v.dimensiones}" /></td>
-					<td><fmt:formatNumber type="number" 
-            pattern="##,###0.00" value="${v.potencia}"/></td>
-					
+					<td><a href="receta?op=<%=RecetasController.OP_VER_DETALLE %>&id=${r.id}">${r.titulo}</a></td>	
+			       <td><a href="receta?op=<%=RecetasController.OP_VER_DETALLE %>&id=${r.id}">${r.tiempo}</a></td>			
 				</tr>
 			</c:forEach>
 			</tbody>
@@ -53,7 +46,7 @@
 
 		<%-- 		</c:choose> --%>
 		<%-- 		<p><%=user%></p> --%>
-		<p>Total Vehiculos: ${fn:length(vehiculos)}</p>
+		<p>Total Recetas: ${fn:length(recetas)}</p>
 		<c:set var="now" value="<%=new java.util.Date()%>" />
 		<p>
 			Fecha:

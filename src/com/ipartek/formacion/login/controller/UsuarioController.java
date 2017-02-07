@@ -1,4 +1,4 @@
-package com.ipartek.formacion.vehiculo.controller;
+package com.ipartek.formacion.login.controller;
 
 import java.io.IOException;
 
@@ -10,30 +10,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ipartek.formacion.login.servicios.ServiceUsuario;
 import com.ipartek.formacion.vehiculo.pojo.Mensaje;
 import com.ipartek.formacion.vehiculo.pojo.Vehiculo;
-import com.ipartek.formacion.vehiculo.servicios.ServiceVehiculo;
 import com.ipartek.formacion.vehiculo.servicios.ServiceVehiculoMysql;
 
 /**
  * Servlet implementation class VehiculoCRUDController
  */
-@WebServlet("/vehiculo")
-public class VehiculoCRUDController extends HttpServlet {
+@WebServlet("/login")
+public class UsuarioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	// vistas
-	private static final String VIEW_LIST = "ejercicios/vehiculo/index.jsp";
-	private static final String VIEW_FORM = "ejercicios/vehiculo/formulario.jsp";
 
-	// Operaciones que puede realizar el form
-	public static final String OP_LISTAR = "1";
-	public static final String OP_VER_DETALLE = "2";
-	public static final String OP_VER_NUEVO = "3";
-	public static final String OP_GUARDAR = "4";
-	public static final String OP_ELIMINAR = "5";
+	private static final String VIEW_FORM = "login.jsp";
+
 	// otros
-	private static ServiceVehiculo service;
+	private static ServiceUsuario service;
 
 	/**
 	 * Solo se hace en la primera peticion al controlador

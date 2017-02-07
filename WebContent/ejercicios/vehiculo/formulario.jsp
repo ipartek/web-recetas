@@ -1,5 +1,5 @@
 
-<%@page import="com.ipartek.formacion.vehiculo.controller.VehiculoCRUDControllerDB"%>
+<%@page import="com.ipartek.formacion.vehiculo.controller.VehiculoCRUDController"%>
 <%@page import="com.ipartek.formacion.vehiculo.pojo.Vehiculo"%>
 <%@include file="../../includes/header.jsp"%>
 <%@include file="../../includes/nav.jsp"%>
@@ -45,8 +45,8 @@
 		<p>
 			<code>${vehiculo}</code>
 		</p>
-		<a href="vehiculoDB">volver</a>
-		<form action="vehiculoDB" method="post">
+		<a href="vehiculo">volver</a>
+		<form action="vehiculo" method="post">
 			<div class="form-group">
 				<label for="modelo">Modelo</label>
 				<input type="text" autofocus value="${vehiculo.modelo}" class="form-control" id="modelo" name="modelo" placeholder="Modelo" required="required">
@@ -60,7 +60,7 @@
 				<input type="text" value="<fmt:formatNumber type="number" 
             pattern="##,###0.00" value="${vehiculo.potencia}" />" class="form-control" id="potencia" name="potencia" placeholder="0 cvv"
 					required="required">
-				<input type="hidden" name="op" value="<%=VehiculoCRUDControllerDB.OP_GUARDAR%>">
+				<input type="hidden" name="op" value="<%=VehiculoCRUDController.OP_GUARDAR%>">
 				<label for="id">Identificador:</label>
 				<input type="text" name="id" value="${vehiculo.id}" readonly>
 				<br>
@@ -77,7 +77,7 @@
 	</div>
 	<c:if test="${vehiculo.id != -1}">
 		<form action="vehiculo" method="post">
-			<input type="hidden" name="op" value="<%=VehiculoCRUDControllerDB.OP_ELIMINAR%>">
+			<input type="hidden" name="op" value="<%=VehiculoCRUDController.OP_ELIMINAR%>">
 			<br>
 			<br>
 			<br>

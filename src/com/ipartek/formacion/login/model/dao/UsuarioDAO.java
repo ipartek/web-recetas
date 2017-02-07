@@ -1,4 +1,4 @@
-package com.ipartek.formacion.vehiculo.model.dao;
+package com.ipartek.formacion.login.model.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,9 +13,9 @@ import com.ipartek.formacion.vehiculo.pojo.Vehiculo;
 import com.ipartek.formacion.vehiculo.pojo.VehiculoException;
 import com.mysql.jdbc.Statement;
 
-public class VehiculoDAO implements Persistable<Vehiculo> {
+public class UsuarioDAO implements Persistable<Vehiculo> {
 
-	private static VehiculoDAO INSTANCE = null;
+	private static UsuarioDAO INSTANCE = null;
 	private static DataBaseConnectionImpl db;
 	private Connection conn;
 	private static String SQL_GET_ALL = "SELECT `id`,`modelo`,`plazas`,`potencia` FROM `vehiculo` ORDER BY `id` DESC LIMIT 100";
@@ -25,11 +25,11 @@ public class VehiculoDAO implements Persistable<Vehiculo> {
 	private static String SQL_CREATE = "INSERT INTO `vehiculo` (`modelo`, `plazas`, `potencia`) VALUES ( ? , ? , ? );";
 
 	// Usamos patron singleton
-	private VehiculoDAO() {
+	private UsuarioDAO() {
 		db = DataBaseConnectionImpl.getInstance();
 	}
 
-	public static VehiculoDAO getInstance() {
+	public static UsuarioDAO getInstance() {
 		if (INSTANCE == null) {
 			createInstance();
 		}
@@ -38,7 +38,7 @@ public class VehiculoDAO implements Persistable<Vehiculo> {
 
 	private synchronized static void createInstance() {
 		if (INSTANCE == null) {
-			INSTANCE = new VehiculoDAO();
+			INSTANCE = new UsuarioDAO();
 		}
 	}
 

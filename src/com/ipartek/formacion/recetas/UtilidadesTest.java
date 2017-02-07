@@ -53,8 +53,8 @@ public class UtilidadesTest {
 		}
 
 		// recorrer array y comprobar todo true
-		for (int i = 0; i < aResultado.length; i++) {
-			assertTrue(aResultado[i]);
+		for (boolean element : aResultado) {
+			assertTrue(element);
 		}
 
 	}

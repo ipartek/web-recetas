@@ -1,20 +1,19 @@
-package com.ipartek.formacion.services;
+package com.ipartek.formacion.recetas.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.ipartek.formacion.vehiculo.pojo.Vehiculo;
+import com.ipartek.formacion.recetas.model.dao.RecetaDAO;
+import com.ipartek.formacion.recetas.pojo.Receta;
 
 public class ServiceReceta {
 	private static ServiceReceta INSTANCE = null;
-	private static ArrayList<String> recetas = null;
+	private static RecetaDAO daoReceta;
 	// Simular indice
-	private static long indice = 500;
 
 	// Private constructor suppresses
 	private ServiceReceta() {
 
-		recetas = new ArrayList<>();
+		daoReceta = RecetaDAO.getInstance();
 
 	}
 
@@ -33,59 +32,30 @@ public class ServiceReceta {
 		return INSTANCE;
 	}
 
-	@Override
-	public List<Vehiculo> getAll() {
+	public List<Receta> getAll() {
 
-		return this.vehiculos;
+		return daoReceta.getAll();
 
 	}
 
-	@Override
-	public Vehiculo getById(long id) {
-		Vehiculo resul = null;
-		for (Vehiculo v : vehiculos) {
-			if (id == v.getId()) {
-				resul = v;
-				break;
-			}
-		}
-		return resul;
+	public Receta getById(long id) {
+
+		return daoReceta.getByID(id);
 	}
 
-	@Override
 	public boolean delete(long id) {
-		boolean resul = false;
-		for (Vehiculo v : vehiculos) {
-			if (id == v.getId()) {
-				resul = true;
-				vehiculos.remove(v);
-				break;
-			}
-		}
-		return resul;
+
+		return daoReceta.delete(id);
 	}
 
-	@Override
-	public boolean update(Vehiculo vMod) {
+	public boolean update(Receta vMod) {
 
-		boolean resul = false;
-		for (Vehiculo v : vehiculos) {
-			if (vMod.getId() == v.getId()) {
-				resul = true;
-				int pos = vehiculos.indexOf(v);
-				vehiculos.remove(v);
-				vehiculos.add(pos, vMod);
-				break;
-			}
-		}
-		return resul;
+		return daoReceta.update(vMod);
 	}
 
-	@Override
-	public boolean create(Vehiculo v) {
-		v.setId(++indice);
+	public boolean create(Receta v) {
 
-		return vehiculos.add(v);
+		return daoReceta.create(v);
 	}
 
 }

@@ -106,6 +106,12 @@
 				<li class="list-group-item">
 					<a href="ejercicios/jdbc/proceso-migracion.jsp" class="custom-link">Migracion de ficheros</a>
 				</li>
+				<li class="list-group-item">
+					<a href="receta" class="custom-link">Recetas CRUD</a>
+				</li>
+				<li class="list-group-item">
+					<a href="zona-segura/index.jsp" class="custom-link">Filtro de seguridad</a>
+				</li>
 			</ul>
 		</div>
 	</div>

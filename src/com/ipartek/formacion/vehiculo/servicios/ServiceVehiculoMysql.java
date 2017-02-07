@@ -2,7 +2,7 @@ package com.ipartek.formacion.vehiculo.servicios;
 
 import java.util.List;
 
-import com.ipartek.formacion.model.dao.VehiculoDAO;
+import com.ipartek.formacion.vehiculo.model.dao.VehiculoDAO;
 import com.ipartek.formacion.vehiculo.pojo.Vehiculo;
 
 public class ServiceVehiculoMysql implements ServiceVehiculo {
@@ -34,26 +34,25 @@ public class ServiceVehiculoMysql implements ServiceVehiculo {
 
 	@Override
 	public Vehiculo getById(long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return daoVehiculo.getByID(id);
 	}
 
 	@Override
 	public boolean delete(long id) {
 		// TODO Auto-generated method stub
-		return false;
+		return daoVehiculo.delete(id);
 	}
 
 	@Override
 	public boolean update(Vehiculo v) {
 		// TODO Auto-generated method stub
-		return false;
+		return daoVehiculo.update(v);
 	}
 
 	@Override
 	public boolean create(Vehiculo v) {
 		// TODO Auto-generated method stub
-		return false;
+		return daoVehiculo.create(v);
 	}
 
 }
