@@ -29,4 +29,7 @@ public interface Persistable<T> {
 	boolean create(T objeto);
 
 	boolean update(T objeto);
+
+	boolean delete(long id);
+
 }
