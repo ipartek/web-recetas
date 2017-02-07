@@ -17,6 +17,8 @@
 						<input type="text" name="potenciacrear" placeholder="Potencia" required/></br></br>
 						<label>Plazas: </label></br>
 						<input type="number" name="plazascrear" placeholder="Nº Plazas" required /></br></br>
+						<label>Dimensiones: </label>
+						<input type="number" name="dimensionescrear" placeholder="Dimensiones" required /></br></br>
 						<input type="hidden" name="op" value="4"/>
 						<input type="hidden" name="id" value="${vehiculo.id}"/>
 						<input type="submit" value="Crear Coche"/>
@@ -31,6 +33,8 @@
 						<input type="text" name="potenciacrear" value="${vehiculo.potencia}"/></br></br>
 						<label>Plazas: </label></br>
 						<input type="number" name="plazascrear" value="${vehiculo.plazas}"  required /></br></br>
+						<label>Dimensiones: </label>
+						<input type="number" name="dimensionescrear" value="${vehiculo.dimensiones}" required /></br></br>
 						<input type="hidden" name="op" value="4"/>
 						<input type="hidden" name="id" value="${vehiculo.id}"/>
 						<input type="submit" value="Modificar"/>

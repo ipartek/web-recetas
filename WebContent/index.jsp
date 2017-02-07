@@ -168,6 +168,7 @@
                 	<li><a href="ejercicios/crear-fichero.jsp">Stream (Crear fichero)</a></li>
                 	<li><a href="jdbc">JDBC</a></li>
                 	<li><a href="personas">Volcar listado personas</a></li>
+                	<li><a href="zona-segura/index.jsp">Filtro seguridad</a></li>
                 </ul>
             </div>
         </div>

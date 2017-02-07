@@ -12,18 +12,19 @@ import com.ipartek.formacion.recetas.ejercicios.herencia.Vehiculo;
 import com.ipartek.formacion.recetas.ejercicios.herencia.VehiculoException;
 import com.ipartek.formacion.recetas.model.DataBaseConnectionImpl;
 import com.ipartek.formacion.recetas.model.Persistable;
+import com.ipartek.formacion.recetas.pojo.Receta;
 
-public class VehiculoDAO implements Persistable<Vehiculo> {
-	
-	private static VehiculoDAO INSTANCE = null;
+public class RecetaDAO implements Persistable<Receta> {
+
+	private static RecetaDAO INSTANCE = null;
 	private static DataBaseConnectionImpl db;
 	private Connection conn;
 	
-	private VehiculoDAO() {
+	private RecetaDAO() {
 		db = DataBaseConnectionImpl.getInstance();
 	}
 	
-	public static VehiculoDAO getInstance() {
+	public static RecetaDAO getInstance() {
 		if (INSTANCE == null) {
 			createInstance();
 		}
@@ -32,20 +33,20 @@ public class VehiculoDAO implements Persistable<Vehiculo> {
 
 	private synchronized static void createInstance() {
 		if (INSTANCE == null) {
-			INSTANCE = new VehiculoDAO();
+			INSTANCE = new RecetaDAO();
 		}
 	}
-
+	
 	@Override
-	public List<Vehiculo> getAll() {
-		ArrayList<Vehiculo> list = null;
+	public List<Receta> getAll() {
+		ArrayList<Receta> list = null;
 		//Buscamos los 100 ultimos vehiculos por id descendente
-		String sql="SELECT `id`,`modelo`,`plazas`,`potencia`,`dimensiones` FROM `vehiculo` ORDER BY `id` DESC LIMIT 100";
+		String sql="SELECT `id`,`nombre`,`imagen`,`tiempo`,`dificultad`,`comensales`,`descripcion` FROM `receta` ORDER BY `id` DESC LIMIT 100";
 		PreparedStatement pst = null;
 		ResultSet rs = null;
-		Vehiculo v = null;
+		Receta r = null;
 		try{
-			list = new ArrayList<Vehiculo>();
+			list = new ArrayList<Receta>();
 			conn = db.getConexion();
 			pst = conn.prepareStatement(sql);
 			rs = pst.executeQuery();
@@ -63,9 +64,9 @@ public class VehiculoDAO implements Persistable<Vehiculo> {
 	}
 
 	@Override
-	public Vehiculo getbyId(long id) {
-		Vehiculo v = new Vehiculo();
-		String sql = "SELECT `id`,`modelo`,`plazas`,`potencia`,`dimensiones` FROM `vehiculo` WHERE id=?";
+	public Receta getbyId(long id) {
+		Receta r = new Receta();
+		String sql = "SELECT `id`,`nombre`,`imagen`,`tiempo`,`dificultad`,`comensales`,`descripcion` FROM `receta` WHERE id=?";
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		
@@ -75,7 +76,7 @@ public class VehiculoDAO implements Persistable<Vehiculo> {
 			pst.setString(1, String.valueOf(id));
 			rs = pst.executeQuery();
 			while(rs.next()) {			
-				v = mapear(rs);
+				r = mapear(rs);
 			}
 			
 		} catch(Exception e) {
@@ -84,12 +85,13 @@ public class VehiculoDAO implements Persistable<Vehiculo> {
 			db.desconectar();
 		}
 		
-		return v;
+		return r;
 	}
 
+
 	@Override
-	public boolean create(Vehiculo v) {
-		String sql = "INSERT INTO `vehiculo`(`id`, `modelo`, `plazas`, `potencia`,`dimensiones`) VALUES (NULL,?,?,?,?)";
+	public boolean create(Receta r) {
+		String sql = "INSERT INTO `receta`(`id`,`nombre`,`imagen`,`tiempo`,`dificultad`,`comensales`,`descripcion`) VALUES (NULL,?,?,?,?,?,?)";
 		Boolean resul = false;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
@@ -97,10 +99,12 @@ public class VehiculoDAO implements Persistable<Vehiculo> {
 		try {
 			conn = db.getConexion();			
 			pst = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			pst.setString(1, v.getModelo());
-			pst.setString(2, String.valueOf(v.getPlazas()));
-			pst.setString(3, String.valueOf(v.getPotencia()));
-			pst.setString(4, String.valueOf(v.getDimensiones()));
+			pst.setString(1, r.getTitulo());
+			pst.setString(2, r.getImagen());
+			pst.setInt(3, r.getTiempo());
+			pst.setString(4, r.getDificultad());
+			pst.setInt(5, r.getComensales());
+			pst.setString(6, r.getDescripcion());
 			//insertamos vehiculo
 			int affectedRows = pst.executeUpdate();
 
@@ -108,7 +112,7 @@ public class VehiculoDAO implements Persistable<Vehiculo> {
 				//buscamos el id generado
 				ResultSet generatedKeys = pst.getGeneratedKeys();
 				if(generatedKeys.next()){
-					v.setId(generatedKeys.getLong(1));
+					r.setId(generatedKeys.getLong(1));
 					resul = true;
 				}
 			}
@@ -125,8 +129,8 @@ public class VehiculoDAO implements Persistable<Vehiculo> {
 	}
 
 	@Override
-	public boolean update(Vehiculo v) {
-		String sql = "UPDATE `vehiculo` SET `modelo`=?,`plazas`=?,`potencia`=?,`dimensiones`=? WHERE id = ?";
+	public boolean update(Receta r) {
+		String sql = "UPDATE `receta` SET `nombre`=?,`imagen`=?,`tiempo`=?,`dificultad`=?,`comensales`=?,`descripcion`=?  WHERE id = ?";
 		Boolean resul = false;
 		PreparedStatement pst = null;
 
@@ -134,11 +138,13 @@ public class VehiculoDAO implements Persistable<Vehiculo> {
 		try {
 			conn = db.getConexion();			
 			pst = conn.prepareStatement(sql);
-			pst.setString(1, v.getModelo());
-			pst.setString(2, String.valueOf(v.getPlazas()));
-			pst.setString(3, String.valueOf(v.getPotencia()));
-			pst.setString(4, String.valueOf(v.getDimensiones()));
-			pst.setString(5, String.valueOf(v.getId()));
+			pst.setString(1, r.getTitulo());
+			pst.setString(2, r.getImagen());
+			pst.setInt(3, r.getTiempo());
+			pst.setString(4, r.getDificultad());
+			pst.setInt(5, r.getComensales());
+			pst.setString(6, r.getDescripcion());
+			pst.setString(7, String.valueOf(r.getId()));
 			if (pst.executeUpdate() == 1) {
 				resul = true;
 			} 
@@ -154,9 +160,10 @@ public class VehiculoDAO implements Persistable<Vehiculo> {
 		return resul;
 	}
 
+
 	@Override
 	public boolean delete(long id) {
-		String sql = "DELETE FROM `vehiculo` WHERE id = ?";
+		String sql = "DELETE FROM `receta` WHERE id = ?";
 		Boolean resul = false;
 		PreparedStatement pst = null;
 		
@@ -179,16 +186,22 @@ public class VehiculoDAO implements Persistable<Vehiculo> {
 		return resul;
 	}
 
-	private Vehiculo mapear(ResultSet rs) throws SQLException, VehiculoException{
-		Vehiculo v = new Vehiculo();
+	
+	private Receta mapear(ResultSet rs) throws SQLException, VehiculoException{
+		Receta r = new Receta();
 		
-		v.setId(rs.getLong("id"));
-		v.setModelo(rs.getString("modelo"));
-		v.setPlazas(rs.getInt("plazas"));
-		v.setPotencia(rs.getFloat("potencia"));
-		v.setDimensiones(rs.getFloat("dimensiones"));
+		r.setId(rs.getLong("id"));
+		r.setTitulo(rs.getString("nombre"));
+		r.setImagen(rs.getString("imagen"));
+		r.setTiempo(rs.getInt("tiempo"));
+		r.setDificultad(rs.getString("dificultad"));
+		r.setComensales(rs.getInt("comensales"));
+		r.setDescripcion(rs.getString("descripcion"));
 		
-		return v;
+		return r;
 		
 	}
+
+
+
 }

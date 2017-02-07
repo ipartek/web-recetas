@@ -1,7 +1,6 @@
 package com.ipartek.formacion.recetas.controller;
 
 import java.io.IOException;
-import java.text.DecimalFormat;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -13,20 +12,21 @@ import javax.servlet.http.HttpServletResponse;
 import com.ipartek.formacion.recetas.ejercicios.herencia.Vehiculo;
 import com.ipartek.formacion.recetas.ejercicios.herencia.VehiculoException;
 import com.ipartek.formacion.recetas.pojo.Mensaje;
+import com.ipartek.formacion.recetas.pojo.Receta;
+import com.ipartek.formacion.recetas.services.ServiceReceta;
+import com.ipartek.formacion.recetas.services.ServiceRecetasMysql;
 import com.ipartek.formacion.recetas.services.ServiceVehiculo;
-import com.ipartek.formacion.recetas.services.ServiceVehiculoArraylist;
 import com.ipartek.formacion.recetas.services.ServiceVehiculoMysql;
-import com.ipartek.formacion.recetas.services.VehiculoServiceObjectStream;
 
 /**
- * Servlet implementation class VehiculoCRUDController
+ * Servlet implementation class RecetasController
  */
-@WebServlet("/vehiculo")
-public class VehiculoCRUDController extends HttpServlet {
+@WebServlet("/recetas")
+public class RecetasController extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
-	private static final String VIEW_LIST = "ejercicios/vehiculo/index.jsp";
-	private static final String VIEW_FORM = "ejercicios/vehiculo/form.jsp";
+	private static final String VIEW_LIST = "ejercicios/recetas/lista-recetas.jsp";
+	private static final String VIEW_FORM = "ejercicios/recetas/formrecetas.jsp";
     
 	//Operaciones que puede realizar
 	public static final String OP_LISTAR = "1";
@@ -35,17 +35,17 @@ public class VehiculoCRUDController extends HttpServlet {
 	public static final String OP_GUARDAR = "4";
 	public static final String OP_ELIMINAR = "5";
 	
-	Vehiculo v;
+	Receta r;
 	Mensaje mensaje = new Mensaje();
 
-	private static ServiceVehiculo service;
+	private static ServiceReceta service;
 	
 	
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		//service = VehiculoServiceObjectStream.getInstance();
-		service = ServiceVehiculoMysql.getInstance();
+		service = ServiceRecetasMysql.getInstance();
 	}
 	
 	@Override
@@ -71,13 +71,13 @@ public class VehiculoCRUDController extends HttpServlet {
 		
 		switch (op){
 		case OP_VER_NUEVO:
-			request.setAttribute("vehiculo", new Vehiculo());
+			request.setAttribute("receta", new Receta());
 			request.getRequestDispatcher(VIEW_FORM).forward(request, response);
 			break;
 			
 		case OP_VER_DETALLE:
 			long id = Long.valueOf(request.getParameter("id"));
-			request.setAttribute("vehiculo", service.getById(id));
+			request.setAttribute("receta", service.getById(id));
 			request.getRequestDispatcher(VIEW_FORM).forward(request, response);
 			break;
 			
@@ -85,24 +85,22 @@ public class VehiculoCRUDController extends HttpServlet {
 			
 			try {
 				
-				String pPotencia = request.getParameter("potenciacrear");
 				
-				Float potencia = Float.valueOf(pPotencia.replace(",","."));
-				
-				v = new Vehiculo();
-				v.setId(Long.valueOf(request.getParameter("id")));
-				v.setModelo(request.getParameter("modelocrear"));
-				v.setPlazas(Integer.valueOf(request.getParameter("plazascrear")));
-				v.setDimensiones(Integer.valueOf(request.getParameter("dimensionescrear")));
-				
-				v.setPotencia(potencia);
+				r = new Receta();
+				r.setId(Long.valueOf(request.getParameter("id")));
+				r.setTitulo(request.getParameter("titulocrear"));
+				r.setImagen(request.getParameter("imagencrear"));
+				r.setTiempo(Integer.valueOf(request.getParameter("tiempocrear")));
+				r.setDificultad(request.getParameter("dificultadcrear"));
+				r.setComensales(Integer.valueOf(request.getParameter("comensalescrear")));
+				r.setDescripcion(request.getParameter("descripcioncrear"));
 				
 				mensaje.setClase(mensaje.CLASE_SUCCESS);
 				
 				
-				if(v.getId() > 0){
+				if(r.getId() > 0){
 					
-					if(service.update(v)){
+					if(service.update(r)){
 						mensaje.setDescripcion("Modificado correctamente");
 					}else{
 						mensaje.setClase(mensaje.CLASE_DANGER);
@@ -111,7 +109,7 @@ public class VehiculoCRUDController extends HttpServlet {
 					
 				}else{
 					
-					if(service.create(v)){
+					if(service.create(r)){
 						mensaje.setDescripcion("Coche creado correctamente");
 					}else{
 						mensaje.setClase(mensaje.CLASE_DANGER);
@@ -120,13 +118,7 @@ public class VehiculoCRUDController extends HttpServlet {
 					
 				}
 				
-				
-			} catch (VehiculoException e) {
-				
-				mensaje.setClase(mensaje.CLASE_DANGER);
-				mensaje.setDescripcion(e.getMessage());
-				
-			} catch (Exception e) {
+			}catch (Exception e) {
 				
 				mensaje.setClase(mensaje.CLASE_DANGER);
 				mensaje.setDescripcion("Upps ha habido algun error, lo sentimos...");
@@ -134,7 +126,7 @@ public class VehiculoCRUDController extends HttpServlet {
 				
 			}finally{
 				request.setAttribute("msj", mensaje);
-				request.setAttribute("vehiculos", service.getAll());
+				request.setAttribute("recetas", service.getAll());
 				request.getRequestDispatcher(VIEW_LIST).forward(request, response);
 			}
 			
@@ -152,14 +144,14 @@ public class VehiculoCRUDController extends HttpServlet {
 			}
 			
 			request.setAttribute("msj", mensaje);
-			request.setAttribute("vehiculos", service.getAll());
+			request.setAttribute("recetas", service.getAll());
 			request.getRequestDispatcher(VIEW_LIST).forward(request, response);
 			
 			break;
 			
 			
 		default:
-			request.setAttribute("vehiculos", service.getAll());
+			request.setAttribute("recetas", service.getAll());
 			request.getRequestDispatcher(VIEW_LIST).forward(request, response);
 			break;
 		}

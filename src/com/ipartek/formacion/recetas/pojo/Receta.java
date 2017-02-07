@@ -11,6 +11,7 @@ public class Receta implements Comparable<Receta>{
 
 	public String IMG_DEFAULT = "http://apps.enyojs.com/assets/apps/17daydietmealplan_icon.png";
 
+	private long id;
 	private String titulo;
 	private String imagen;
 	private ArrayList<Ingrediente> ingredientes;
@@ -18,9 +19,17 @@ public class Receta implements Comparable<Receta>{
 	private String dificultad;
 	private int comensales;
 	private String descripcion;
+	
+	
+
+	public Receta() {
+		super();
+		this.id = -1;
+	}
 
 	public Receta(String titulo) {
 		super();
+		this.id = -1;
 		this.titulo = titulo;
 		this.imagen = IMG_DEFAULT;
 		setIngredientes(null);
@@ -32,6 +41,7 @@ public class Receta implements Comparable<Receta>{
 
 	public Receta(String titulo, ArrayList<Ingrediente> ingredientes) {
 		super();
+		this.id = -1;
 		this.titulo = titulo;
 		this.imagen = IMG_DEFAULT;
 		setIngredientes(ingredientes);
@@ -120,6 +130,14 @@ public class Receta implements Comparable<Receta>{
 			} // end for
 		} // end if
 		return resul;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public String getTitulo() {
