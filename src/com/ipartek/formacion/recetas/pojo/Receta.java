@@ -1,9 +1,8 @@
 package com.ipartek.formacion.recetas.pojo;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 
-public class Receta implements Comparable<Receta>{
+public class Receta implements Comparable<Receta> {
 
 	public static final String FACIL = "facil";
 	public static final String MODERADO = "moderado";
@@ -11,6 +10,7 @@ public class Receta implements Comparable<Receta>{
 
 	public String IMG_DEFAULT = "http://apps.enyojs.com/assets/apps/17daydietmealplan_icon.png";
 
+	private long id;
 	private String titulo;
 	private String imagen;
 	private ArrayList<Ingrediente> ingredientes;
@@ -19,8 +19,15 @@ public class Receta implements Comparable<Receta>{
 	private int comensales;
 	private String descripcion;
 
+	public Receta() {
+		super();
+		this.id = -1;
+		this.titulo = "";
+	}
+
 	public Receta(String titulo) {
 		super();
+		this.id = -1;
 		this.titulo = titulo;
 		this.imagen = IMG_DEFAULT;
 		setIngredientes(null);
@@ -32,6 +39,7 @@ public class Receta implements Comparable<Receta>{
 
 	public Receta(String titulo, ArrayList<Ingrediente> ingredientes) {
 		super();
+		this.id = -1;
 		this.titulo = titulo;
 		this.imagen = IMG_DEFAULT;
 		setIngredientes(ingredientes);
@@ -179,6 +187,14 @@ public class Receta implements Comparable<Receta>{
 		this.imagen = imagen;
 	}
 
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	@Override
 	public String toString() {
 		return "Receta [titulo=" + titulo + ", imagen=" + imagen + ", ingredientes=" + ingredientes + ", tiempo="
@@ -186,26 +202,10 @@ public class Receta implements Comparable<Receta>{
 				+ "]";
 	}
 
-	
-
 	@Override
-	public int compareTo(Receta o) {		
-		//pasamos a toLowerCase, para ignorar mayusculas y minusculas
+	public int compareTo(Receta o) {
+		// pasamos a toLowerCase, para ignorar mayusculas y minusculas
 		return this.getTitulo().toLowerCase().compareTo(o.getTitulo().toLowerCase());
 	}
 
-	
-	
 }
-
-
-
-
-
-
-
-
-
-
-
-
