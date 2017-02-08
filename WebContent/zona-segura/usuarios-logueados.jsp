@@ -1,3 +1,4 @@
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@page import="com.ipartek.formacion.recetas.listener.ListenerContadorUsuarios"%>
 <%@include file="../../includes/header.jsp" %>
 <%@include file="../../includes/nav.jsp" %>
@@ -16,9 +17,12 @@
       <div class="row">
       	<p>Listado usuarios</p>
       	<p>Vamos a usar un listener para mostrar los usuarios conectados<p>
+      	<p>Ver documentacion en: <a target="blank"href="\javadoc\index.html"></a></p>	
+			
       	   <table class="display data-table-mio" cellspacing="0" width="100%">
         <thead>
             <tr>
+            	<th>Id</th>
                 <th>Imagen</th>
                 <th>Nombre</th>
                            
@@ -26,18 +30,21 @@
         </thead>        
         <tbody>
         
-        	<c:forEach var="r" items="${recetas}">        
+        	<c:forEach var="user" items="<%=ListenerContadorUsuarios.usuariosLogueados%>">        
 	            <tr>
-	            	<td>${r.id}</td>
-	                <td><a href="receta?op=2&id=${r.id}">${r.titulo}</a></td>
-	                      
+	            	<td>${user.id()}</td>
+	                <td><img src="${user.imagen}alt="foto del usuario"></td>
+	                <td>${user.nombre}</td>
+	                   
 	            </tr>
            </c:forEach> 
                        
        </tbody>
        </table>
-      	<img href=>
-      	<%=ListenerContadorUsuarios.usuariosLogueados %>
+      
+     <%=ListenerContadorUsuarios.usuariosLogueados%>
+      	
+  
     </div> 
     <!--  <div class="row"> -->
 </div>    

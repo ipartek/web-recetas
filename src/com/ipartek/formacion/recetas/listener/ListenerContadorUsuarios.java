@@ -47,6 +47,10 @@ public class ListenerContadorUsuarios implements HttpSessionListener, HttpSessio
 			// Se acaba de logear con exito un usuario nuevo
 			usuariosLogueados.add((Usuario) se.getValue());
 
+			for (Usuario user : usuariosLogueados) {
+				user.getNombre();
+			}
+
 		}
 	}
 	// 192.168.0.16
@@ -56,7 +60,10 @@ public class ListenerContadorUsuarios implements HttpSessionListener, HttpSessio
 	 */
 	public void attributeRemoved(HttpSessionBindingEvent se) {
 		System.out.println("Atributo removido o eliminado");
-		usuariosLogueados.remove((Usuario) se.getValue());
+		if ("usuario".equals(se.getName())) {
+			// SE acaba de Logear con exito un usuario nuevo
+			usuariosLogueados.remove((Usuario) se.getValue());
+		}
 	}
 
 	/**

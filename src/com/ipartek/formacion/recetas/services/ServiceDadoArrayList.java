@@ -3,10 +3,9 @@ package com.ipartek.formacion.recetas.services;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ipartek.formacion.recetas.ejercicios.herencia.Vehiculo;
 import com.ipartek.formacion.recetas.pojo.Usuario;
 
-public class ServiceDadoArrayList implements ServiceUsuario {
+public class ServiceDadoArrayList {
 
 	private static ServiceDadoArrayList INSTANCE;
 	private static ArrayList<Usuario> usuarios = null;
@@ -49,13 +48,11 @@ public class ServiceDadoArrayList implements ServiceUsuario {
 		return INSTANCE;
 	}
 
-	@Override
-	public List<Usuario> getAll() {
+	public List<Usuario> listar() {
 		return this.usuarios;
 	}
 
-	@Override
-	public Usuario getById(long id) {
+	public Usuario buscarPorId(long id) {
 		Usuario resul = null;
 		for (Usuario u : usuarios) {
 			if (id == u.getId()) {
@@ -66,8 +63,7 @@ public class ServiceDadoArrayList implements ServiceUsuario {
 		return resul;
 	}
 
-	@Override
-	public boolean delete(long id) {
+	public boolean darDeBaja(long id) {
 		boolean resul = false;
 		for (Usuario u : usuarios) {
 			if (id == u.getId()) {
@@ -79,8 +75,7 @@ public class ServiceDadoArrayList implements ServiceUsuario {
 		return resul;
 	}
 
-	@Override
-	public boolean update(Usuario uModificar) {
+	public boolean modificar(Usuario uModificar) {
 		boolean resul = false;
 		for (Usuario v : usuarios) {
 			if (uModificar.getId() == v.getId()) {
@@ -94,22 +89,9 @@ public class ServiceDadoArrayList implements ServiceUsuario {
 		return resul;
 	}
 
-	@Override
-	public boolean create(Usuario u) {
+	public boolean darDeAlta(Usuario u) {
 		u.setId(++indice);
 		return usuarios.add(u);
-	}
-
-	@Override
-	public int getNumeroUsuarios() {
-		// TODO Auto-generated method stub
-		return usuarios.size();
-	}
-
-	@Override
-	public Usuario getByPos(int index) {
-		// TODO Auto-generated method stub
-		return usuarios.get(index);
 	}
 
 }
