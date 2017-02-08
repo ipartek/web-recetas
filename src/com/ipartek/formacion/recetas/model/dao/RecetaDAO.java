@@ -157,6 +157,11 @@ public class RecetaDAO implements Persistable<Receta> {
 			pst = conn.prepareStatement(SQL_UPDATE);
 			pst.setString(1, r.getTitulo());
 			pst.setLong(2, r.getId());
+			pst.setString(3, r.getImagen());
+			pst.setInt(4, r.getTiempo());
+			pst.setInt(5, r.getComensales());
+			pst.setString(6, r.getDificultad());
+			pst.setString(7, r.getDescripcion());
 
 			if (pst.executeUpdate() == 1) {
 				resul = true;
