@@ -13,7 +13,7 @@
   	
     <div class="container">
        <div class="row">
-       		<h2><a href="usuario?op=3">Crear Nuevo</a></h2>
+       		<h2><a href="usuarios?op=3">Crear Nuevo</a></h2>
        
        
 			 <table class="display data-table-mio" cellspacing="0" width="100%">
@@ -33,7 +33,7 @@
 		        <tbody>
 		        	<c:forEach var="u" items="${usuarios}">        
 			            <tr>
-			                <td><a href="usuario?op=2&id=${u.id}">${u.id}</a></td>
+			                <td><a href="usuarios?op=2&id=${u.id}">${u.id}</a></td>
 			                <td>${u.nombre}</td>
 			                <td>${u.apellido1}</td>
 			                <td>${u.apellido2}</td>

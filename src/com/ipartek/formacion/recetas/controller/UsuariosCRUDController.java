@@ -10,13 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ipartek.formacion.recetas.ejercicios.herencia.Vehiculo;
 import com.ipartek.formacion.recetas.pojo.Mensaje;
 import com.ipartek.formacion.recetas.pojo.Usuario;
 import com.ipartek.formacion.recetas.services.ServiceUsuario;
 import com.ipartek.formacion.recetas.services.ServiceUsuarioMysql;
-import com.ipartek.formacion.recetas.services.ServiceVehiculo;
-import com.ipartek.formacion.recetas.services.ServiceVehiculoMysql;
 
 /**
  * Servlet implementation class UsuariosCRUDController
@@ -39,8 +36,6 @@ public class UsuariosCRUDController extends HttpServlet {
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-		// service = ServiceVehiculoArrayList.getInstance();
-		// service = VehiculoServiceObjectStream.getInstance();
 		service = ServiceUsuarioMysql.getInstance();
 
 	}
