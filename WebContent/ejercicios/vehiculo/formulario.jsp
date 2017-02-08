@@ -24,25 +24,24 @@
         <form action="vehiculo" method="post">
         
         	<label for="id">Identificador:</label>
-        	<input type="text" name="id" value="${vehiculo.id}" readonly>
+        	<input type="text" name="id" value="${usuario.id}" readonly class="form-control">
         	<br>
         
-        	<label for="modelo">Modelo:</label>
-        	<input autofocus type="text" name="modelo" required value="${vehiculo.modelo}">
+        	<label for="nombre">Nombre:</label>
+        	<input autofocus type="text" name="nombre" required value="${usuario.nombre}" class="form-control">
         	<br>
         	
-        	<label for="plazas">Plazas:</label>
-        	<input type="number" name="plazas" required value="${vehiculo.plazas}">
+        	<label for="apellido1">Apellido 1:</label>
+        	<input type="text" name="apellido1" required value="${usuario.apellido1}" class="form-control">
         	<br>
         	
-        	<label for="potencia">Potencia:</label>
-        	<input type="text" name="potencia" required 
-        	       value="<fmt:formatNumber pattern="#,##0.00" value="${vehiculo.potencia}"/>">
+        	<label for="apellido2">Apellido 2:</label>
+        	<input type="text" name="apellido2"  value="${usuario.apellido2}" >
         	<br>
         	
         	<label for="dimensiones">Dimensiones:</label>
         	<input type="text" name="dimensiones" required 
-        		   value="<fmt:formatNumber pattern="#,##0.00" value="${vehiculo.dimensiones}"/>"
+        		   value="<fmt:formatNumber pattern="#,##0.00" value="${usuario.dimensiones}"/>"
         		   >
         	<br>
             
