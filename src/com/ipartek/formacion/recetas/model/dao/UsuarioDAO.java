@@ -120,7 +120,7 @@ public class UsuarioDAO implements Persistable<Usuario> {
 		u.setEdad(rs.getInt("edad"));
 		u.setEmail(rs.getString("email"));
 		u.setDni(rs.getString("dni"));
-		u.setPuesto(rs.String("puesto"));
+		u.setPuesto(rs.getString("puesto"));
 		u.setPassword(rs.getString("passwogetrd"));
 		u.setImagen(rs.getString("imagen"));
 
