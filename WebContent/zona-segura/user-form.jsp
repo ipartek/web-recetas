@@ -34,22 +34,26 @@
 			<label for="apellido2">Apellido 2:</label>
 			<input type="text" name="apellido2" value="${usuario.apellido2}" class="form-control" />
 			<br>
-			<label for="apellido2">Apellido 2:</label>
-			<input type="text" name="apellido2" value="${usuario.apellido2}" class="form-control" />
+			<label for="email">E-Mail :</label>
+			<input type="text" name="email" value="${usuario.email}" class="form-control" />
 			<br>
-			<label for="apellido2">Apellido 2:</label>
-			<input type="text" name="apellido2" value="${usuario.apellido2}" class="form-control" />
+			<label for="dni">dni :</label>
+			<input type="text" name="dni" value="${usuario.dni}" class="form-control" />
 			<br>
-			<label for="apellido2">Apellido 2:</label>
-			<input type="text" name="apellido2" value="${usuario.apellido2}" class="form-control" />
+			<label for="puesto">puesto:</label>
+			<input type="text" name="puesto" value="${usuario.puesto}" class="form-control" />
+			<label for="edad">edad:</label>
+			<input type="number" name="edad" value="${usuario.edad}" class="form-control" />
+			<label for="imagen">imagen:</label>
+			<input type="text" name="imagen" value="${usuario.imagen}" class="form-control" />
             
             <input type="hidden" name="op" value="<%=UsuarioController.OP_GUARDAR%>">
             
-            <c:if test="${vehiculo.id == -1}">
+            <c:if test="${usuario.id == -1}">
         		<input type="submit" value="Crear">
         	</c:if>		
         	
-        	 <c:if test="${vehiculo.id != -1}">
+        	 <c:if test="${usuario.id != -1}">
         		<input type="submit" value="Modificar">
         	</c:if>		
         	
@@ -59,10 +63,10 @@
         
         <!-- Formulario Eliminar -->
         <br><br>
-        <c:if test="${vehiculo.id != -1}">
+        <c:if test="${usuario.id != -1}">
 	         <form action="vehiculo" method="post">	        
-	        	<input type="hidden" name="op" value="<%=VehiculoCRUDController.OP_ELIMINAR%>">
-	        	<input type="hidden" name="id" value="${vehiculo.id}">	        	
+	        	<input type="hidden" name="op" value="<%=UsuarioController.OP_ELIMINAR%>">
+	        	<input type="hidden" name="id" value="${usuario.id}">	        	
         		<input type="submit" value="Eliminar">
         	</form>
         </c:if>	
