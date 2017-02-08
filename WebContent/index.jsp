@@ -92,6 +92,7 @@
                 	<li><a href="jdbc">JDBC - Consulta Base Datos</a></li>
                 	<li><a href="migracion">Proceso Migración</a></li>
                 	<li><a href="zona-segura/index.jsp">Filtro seguridad</a></li>
+                	<li><a href="zona-segura/usuarios-logueados.jsp">Listado Usuario logueados</a></li>
                 </ul>
                 
             </div>
