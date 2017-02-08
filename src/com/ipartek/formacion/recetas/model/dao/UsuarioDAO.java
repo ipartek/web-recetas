@@ -203,7 +203,7 @@ public class UsuarioDAO implements Persistable<Usuario> {
 		return u;
 	}
 
-	Usuario existe(String email, String password) {
+	public Usuario existe(String email, String password) {
 		Usuario u = new Usuario();
 		u = getByEmail(email);
 		if (!password.equals(u.getPassword())) {
@@ -217,7 +217,7 @@ public class UsuarioDAO implements Persistable<Usuario> {
 	 * 
 	 * @return <code>int </code>numero entero de registros
 	 */
-	int count() {
+	public int count() {
 		int c = 0;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
