@@ -57,6 +57,12 @@ public class ListenerContadorUsuarios implements HttpSessionListener, HttpSessio
 	 */
 	public void attributeRemoved(HttpSessionBindingEvent se) {
 		System.out.println("Atributo removido o eliminado");
+
+		if ("usuario".equals(se.getName())) {
+			// SE acaba de Logout con exito un usuario
+			usuariosLogeados.remove((Usuario) se.getValue());
+		}
+
 	}
 
 	/**

@@ -3,10 +3,9 @@ package com.ipartek.formacion.recetas.services;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ipartek.formacion.recetas.ejercicios.herencia.Vehiculo;
 import com.ipartek.formacion.recetas.pojo.Usuario;
 
-public class ServiceDadoArrayList implements ServiceUsuario {
+public class ServiceDadoArrayList {
 
 	private static ServiceDadoArrayList INSTANCE;
 	private static ArrayList<Usuario> usuarios = null;
@@ -49,12 +48,10 @@ public class ServiceDadoArrayList implements ServiceUsuario {
 		return INSTANCE;
 	}
 
-	@Override
 	public List<Usuario> getAll() {
 		return this.usuarios;
 	}
 
-	@Override
 	public Usuario getById(long id) {
 		Usuario resul = null;
 		for (Usuario u : usuarios) {
@@ -66,7 +63,6 @@ public class ServiceDadoArrayList implements ServiceUsuario {
 		return resul;
 	}
 
-	@Override
 	public boolean delete(long id) {
 		boolean resul = false;
 		for (Usuario u : usuarios) {
@@ -79,7 +75,6 @@ public class ServiceDadoArrayList implements ServiceUsuario {
 		return resul;
 	}
 
-	@Override
 	public boolean update(Usuario uModificar) {
 		boolean resul = false;
 		for (Usuario v : usuarios) {
@@ -94,19 +89,16 @@ public class ServiceDadoArrayList implements ServiceUsuario {
 		return resul;
 	}
 
-	@Override
 	public boolean create(Usuario u) {
 		u.setId(++indice);
 		return usuarios.add(u);
 	}
 
-	@Override
 	public int getNumeroUsuarios() {
 		// TODO Auto-generated method stub
 		return usuarios.size();
 	}
 
-	@Override
 	public Usuario getByPos(int index) {
 		// TODO Auto-generated method stub
 		return usuarios.get(index);
