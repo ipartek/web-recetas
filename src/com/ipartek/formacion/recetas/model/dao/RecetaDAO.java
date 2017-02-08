@@ -19,8 +19,8 @@ public class RecetaDAO implements Persistable<Receta> {
 
 	private static String sql = "SELECT `id`,`nombre`,`imagen`,`tiempo`,`comensales`,`dificultad`,`descripcion` FROM `receta` ORDER BY `id` DESC LIMIT 100 ";
 	private static String SQL_DELETE = "DELETE FROM `receta` WHERE `id` = ?";
-	private static String SQL_GET_BY_ID = "SELECT `id`,`nombre`,`imagen`,`tiempo`,`comensales`,`dificultad`,`descripcion`FROM `receta` WHERE `id` = ? ";
-	private static String SQL_UPDATE = "UPDATE `receta` SET `nombre` = ? , `imagen`= ? , `tiempo`= ? , `comensales`= ?, `dificultad`= ?,, `descripcion`= ? WHERE `id` = ? ";
+	private static String SQL_GET_BY_ID = "SELECT `id`,`nombre`,`imagen`,`tiempo`,`comensales`,`dificultad`,`descripcion` FROM `receta` WHERE `id` = ? ";
+	private static String SQL_UPDATE = "UPDATE `receta` SET `nombre` = ? , `imagen`= ? , `tiempo`= ? , `comensales`= ?, `dificultad`= ?, `descripcion`= ? WHERE `id` = ? ";
 	private static String SQL_CREATE = "INSERT INTO `receta` (`nombre`,`imagen`,`tiempo`,`comensales`,`dificultad`,`descripcion`) VALUES (?,?,?,?,?,?)";
 
 	private RecetaDAO() {
@@ -124,6 +124,11 @@ public class RecetaDAO implements Persistable<Receta> {
 			// generada.
 			pst = conn.prepareStatement(SQL_CREATE, Statement.RETURN_GENERATED_KEYS);
 			pst.setString(1, r.getTitulo());
+			pst.setString(2, r.getImagen());
+			pst.setInt(3, r.getTiempo());
+			pst.setInt(4, r.getComensales());
+			pst.setString(5, r.getDificultad());
+			pst.setString(6, r.getDescripcion());
 
 			// Insertamos vehiculo
 			int affectedRows = pst.executeUpdate();
@@ -156,12 +161,13 @@ public class RecetaDAO implements Persistable<Receta> {
 			conn = db.getConexion();
 			pst = conn.prepareStatement(SQL_UPDATE);
 			pst.setString(1, r.getTitulo());
-			pst.setLong(2, r.getId());
-			pst.setString(3, r.getImagen());
-			pst.setInt(4, r.getTiempo());
-			pst.setInt(5, r.getComensales());
-			pst.setString(6, r.getDificultad());
-			pst.setString(7, r.getDescripcion());
+			pst.setString(2, r.getImagen());
+			pst.setInt(3, r.getTiempo());
+			pst.setInt(4, r.getComensales());
+			pst.setString(5, r.getDificultad());
+			pst.setString(6, r.getDescripcion());
+
+			pst.setInt(7, r.getId());
 
 			if (pst.executeUpdate() == 1) {
 				resul = true;

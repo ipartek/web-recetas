@@ -22,8 +22,8 @@ public class Receta implements Comparable<Receta> {
 	public Receta() {
 		super();
 		this.id = -1;
-		this.titulo = "";
-		this.imagen = IMG_DEFAULT;
+		this.titulo = "titulo";
+		this.imagen = "Esto es una imagen";
 		this.tiempo = 0;
 		this.comensales = 0;
 		this.dificultad = "facil";

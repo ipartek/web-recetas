@@ -128,11 +128,11 @@
                     <li><a href="ejercicios/validar-migracion.jsp">Migracion de BBDD</a></li>
                     <li><a href="receta">Recetas</a></li>
                     <li><a href="zona-segura/index.jsp">Filtro de seguridad</a></li>
+                    <li><a href="zona-segura/usuarios-logeados.jsp">Listado Usuario Logeado</a></li>
                </ul>
                
                 </div>
             </div>
-        </div>
     </section>
 
     <!-- Contact Section -->
