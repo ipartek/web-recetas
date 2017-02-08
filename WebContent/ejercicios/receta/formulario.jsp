@@ -29,6 +29,12 @@
 				<input type="text" autofocus value="${receta.titulo}" class="form-control" id="titulo" name="titulo" placeholder="Titulo" required="required">
 				<label for="tiempo">Tiempo</label>
 				<input type="text"  value="${receta.tiempo}" class="form-control" id="tiempo" name="tiempo" placeholder="Tiempo" required="required">
+				<label for="comensales">Tiempo</label>
+				<input type="number"  value="${receta.comensales}" class="form-control" id="comensales" name="comensales" placeholder="comensales" required="required">
+				<label for="descripcion">descripcion</label>
+				<input type="text"  value="${receta.descripcion}" class="form-control" id="descripcion" name="descripcion" placeholder="descripcion" required="required">
+				<label for="imagen">imagen</label>
+				<input type="text"  value="${receta.imagen}" class="form-control" id="imagen" name="imagen" placeholder="imagen" required="required">
 				<input type="hidden" name="op" value="<%=RecetasController.OP_GUARDAR%>">
 				<label for="id">Identificador:</label>
 				<input type="text" name="id" value="${receta.id}" readonly>
@@ -39,19 +45,18 @@
 				<button type="submit" class="btn btn-default" value="Crear">Crear</button>
 			</c:if>
 			<c:if test="${receta.id != -1}">
-				<button type="submit" class="btn btn-default" value="Modificar">Modificar</button>
+				<button type="submit" class="btn btn-default" value="Modificar" style="display:inline-block">Modificar</button>
 			</c:if>
 			<!-- formulario eliminar -->
 		</form>
 	</div>
 	<c:if test="${receta.id != -1}">
-		<form action="receta" method="post">
+		<form action="receta" method="post" style="display:inline-block">
 			<input type="hidden" name="op" value="<%=RecetasController.OP_ELIMINAR%>">
-			<br>
-			<br>
+			
 			<br>
 			<input type="hidden" name="id" value="${receta.id}">
-			<input type="submit" value="Eliminar">
+			<button type="submit" class="btn btn-default" value="Eliminar">Eliminar</button>
 		</form>
 	</c:if>
 	<div class="row"></div>

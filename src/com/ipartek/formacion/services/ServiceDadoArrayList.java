@@ -7,7 +7,7 @@ import java.util.List;
 import com.ipartek.formacion.vehiculo.pojo.Vehiculo;
 import com.ipartek.formacion.pojo.Usuario;
 
-public class ServiceDadoArrayList implements ServiceUsuario {
+public class ServiceDadoArrayList implements ServiceUsuarioDado {
 
 	private static ServiceDadoArrayList INSTANCE;
 	private static ArrayList<Usuario> usuarios = null;

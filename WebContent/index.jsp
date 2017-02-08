@@ -112,6 +112,12 @@
 				<li class="list-group-item">
 					<a href="zona-segura/index.jsp" class="custom-link">Filtro de seguridad</a>
 				</li>
+				<li class="list-group-item">
+					<a href="zona-segura/usuarios-logeados.jsp" class="custom-link">Usuarios logeados-Listener</a>
+				</li>
+				<li class="list-group-item">
+					<a href="javadoc/index.html" class="custom-link">Documentacion Proyecto</a>
+				</li>
 			</ul>
 		</div>
 	</div>

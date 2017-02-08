@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.ipartek.formacion.pojo.Usuario;
 
-public interface ServiceUsuario {
+public interface ServiceUsuarioDado {
 
 	
 	List<Usuario> getAll();
