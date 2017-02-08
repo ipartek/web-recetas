@@ -6,26 +6,20 @@ import com.ipartek.formacion.recetas.pojo.Usuario;
 
 public interface ServiceUsuario {
 
-	/**
-	 * Optener todos los Vehiculos, limitado a 500
-	 * 
-	 * @return Coleccion de Vehiculos, si no colecion vacia pero no nula
-	 */
-	List<Usuario> getAll();
+	List<Usuario> listar();
 
+	Usuario buscarPorId(long id);
 
-	Usuario getById(long id);
+	Usuario buscarPorEmail(String email);
 
+	boolean darDeBaja(long id);
 
-	boolean delete(long id);
+	boolean darDeAlta(Usuario u);
 
+	boolean modificar(Usuario u);
 
-	boolean update(Usuario u);
+	Usuario existe(String email, String password);
 
+	int usuarioTotales();
 
-	boolean create(Usuario u);
-
-	int getNumeroUsuarios();
-	
-	Usuario getByPos(int id);
 }
