@@ -6,8 +6,9 @@
  	 <section id="portfolio">
         <div class="container">
             <div class="row">
-			 	<h1>Formulario Recetas</h1>
-			 	<%@include file="../../../includes/mensaje.jsp" %>
+            <h1>Formulario Recetas</h1>
+            <%@include file="../../../includes/mensaje.jsp" %>
+            	<div class="formularios" style="float:left;width:500px;margin-left:120px;">
 				<c:set var="identificador" scope="request" value="${receta.id}"/>
 				<c:if test="${identificador < 0}">
 					<form action="recetas" method="post">
@@ -54,8 +55,12 @@
 					</form></br></br>
 					<a href="javascript:history.back()">Volver</a>
 				</c:if>
+				</div>
+				<div style="float:left;"><img style="width:400px;" src="${receta.imagen}"></div>
+				
 			</div>
 		</div>
+		
 	</section>
 			
 	<%@include file="../../includes/footer.jsp" %>

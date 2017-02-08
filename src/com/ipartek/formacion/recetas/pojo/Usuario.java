@@ -13,6 +13,7 @@ public class Usuario {
 		super();
 		this.id = -1;
 		this.nombre = "anonimo";
+		this.email = "admin@admin.com";
 		this.imagen = "https://d304k3mn1nwj0a.cloudfront.net/the_simpsons/ralph.png";
 	}
 	

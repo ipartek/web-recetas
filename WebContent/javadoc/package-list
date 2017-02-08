@@ -1,0 +1,13 @@
+com.ipartek.formacion.recetas
+com.ipartek.formacion.recetas.controller
+com.ipartek.formacion.recetas.ejercicios
+com.ipartek.formacion.recetas.ejercicios.collection
+com.ipartek.formacion.recetas.ejercicios.enumeracion
+com.ipartek.formacion.recetas.ejercicios.herencia
+com.ipartek.formacion.recetas.filter
+com.ipartek.formacion.recetas.listener
+com.ipartek.formacion.recetas.model
+com.ipartek.formacion.recetas.model.DAO
+com.ipartek.formacion.recetas.pojo
+com.ipartek.formacion.recetas.pojo.comparator
+com.ipartek.formacion.recetas.services
