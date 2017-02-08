@@ -8,6 +8,7 @@ import com.ipartek.formacion.recetas.pojo.VehiculoException;
 
 public class Vehiculo implements Conducible, InterfazEstupida, Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private long id;
 	private String modelo;
 	private int plazas;

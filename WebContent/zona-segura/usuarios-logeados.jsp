@@ -1,4 +1,5 @@
-<%@page import="com.ipartek.formacion.recetas.listener.ListenerContadorUsuarios"%>
+<%@page import="com.ipartek.formacion.recetas.controller.UsuarioCRUDController"%>
+<%@page import="com.ipartek.formacion.recetas.pojo.Usuario"%>
 <%@include file="../includes/header.jsp" %>
 <%@include file="../includes/nav.jsp" %>
     
@@ -29,7 +30,7 @@
 	            </tr>
 	        </thead>        
 	        <tbody>
-				<c:forEach var="u" items="<%=ListenerContadorUsuarios.usuariosLogeados%>">
+				<c:forEach var="u" items="${usuarios}">
 					<tr>
 						<td>${u.id}</td>
 						<td><img src="${u.imagen}" alt="foto del usuario"></td>

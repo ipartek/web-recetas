@@ -23,8 +23,8 @@ public class UsuarioCRUDController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	// vistas
-	private static final String VIEW_LIST = "ejercicios/vehiculo/index.jsp";
-	private static final String VIEW_FORM = "ejercicios/vehiculo/formulario.jsp";
+	private static final String VIEW_LIST = "zona-segura/usuarios-logeados.jsp";
+	private static final String VIEW_FORM = "zona-segura/usuario-registro.jsp";
 
 	// Operaciones que puede realizar
 	public static final String OP_LISTAR = "1";
