@@ -4,6 +4,11 @@ public class Usuario {
 
 	private long id;
 	private String nombre;
+	private String apellido1;
+	private String apellido2;
+	private String puesto;
+	private int edad;
+	private String dni;
 	private String email;
 	private String password;
 	private String imagen;
@@ -14,6 +19,13 @@ public class Usuario {
 		this.id = -1;
 		this.nombre = "anonimo";
 		this.imagen = "https://pbs.twimg.com/profile_images/617295207202209792/P8kGVpP-_reasonably_small.png";
+		this.apellido1 = "";
+		this.apellido2 = "";
+		this.edad = 0;
+		this.dni = "";
+		this.email = "";
+		this.puesto = "";
+		this.password = "";
 	}
 	
 	public Usuario(String nombre) {
@@ -76,6 +88,48 @@ public class Usuario {
 
 	public void setGitUserName(String gitUserName) {
 		this.gitUserName = gitUserName;
+	}
+
+	
+	
+	public String getApellido1() {
+		return apellido1;
+	}
+
+	public void setApellido1(String apellido1) {
+		this.apellido1 = apellido1;
+	}
+
+	public String getApellido2() {
+		return apellido2;
+	}
+
+	public void setApellido2(String apellido2) {
+		this.apellido2 = apellido2;
+	}
+
+	public String getPuesto() {
+		return puesto;
+	}
+
+	public void setPuesto(String puesto) {
+		this.puesto = puesto;
+	}
+
+	public int getEdad() {
+		return edad;
+	}
+
+	public void setEdad(int edad) {
+		this.edad = edad;
+	}
+
+	public String getDni() {
+		return dni;
+	}
+
+	public void setDni(String dni) {
+		this.dni = dni;
 	}
 
 	@Override
