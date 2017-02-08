@@ -19,11 +19,11 @@ public class RecetaDAO implements Persistable<Receta> {
 	
 	private PreparedStatement pst = null;
 	private ResultSet rs = null;
-	private static String SQL_GET_ALL ="SELECT `id`, `nombre` FROM `receta` ORDER BY `id` DESC LIMIT 100";
-	private static String SQL_GET_BY_ID = "SELECT `id`, `nombre` FROM `receta` WHERE `id` = ?";
-	private static String SQL_UPDATE = "UPDATE `receta` SET `nombre` = ? WHERE `id` = ?";
-	private static String SQL_CREATE = "INSERT INTO `receta` (`nombre`) VALUES ( ? )";
+	private static String SQL_GET_ALL = "SELECT `id`,`nombre`,`imagen`,`tiempo`,`comensales`,`dificultad`,`descripcion` FROM `receta` ORDER BY `id` DESC LIMIT 100 ";
 	private static String SQL_DELETE = "DELETE FROM `receta` WHERE `id` = ?";
+	private static String SQL_GET_BY_ID = "SELECT `id`,`nombre`,`imagen`,`tiempo`,`comensales`,`dificultad`,`descripcion`FROM `receta` WHERE `id` = ? ";
+	private static String SQL_UPDATE = "UPDATE `receta` SET `nombre` = ? , `imagen`= ? , `tiempo`= ? , `comensales`= ?, `dificultad`= ?, `descripcion`= ? WHERE `id` = ? ";
+	private static String SQL_CREATE = "INSERT INTO `receta` (`nombre`,`imagen`,`tiempo`,`comensales`,`dificultad`,`descripcion`) VALUES (?,?,?,?,?,?)";
 	
 	private RecetaDAO() {
 		db = DataBaseConnectionImpl.getInstance();
@@ -98,6 +98,11 @@ public class RecetaDAO implements Persistable<Receta> {
 			conn = db.getConexion();
 			pst = conn.prepareStatement(SQL_CREATE, Statement.RETURN_GENERATED_KEYS);
 			pst.setString(1, r.getTitulo());
+			pst.setString(2, r.getImagen());
+			pst.setInt(3, r.getTiempo());
+			pst.setInt(4, r.getComensales());
+			pst.setString(5, r.getDificultad());
+			pst.setString(6, r.getDescripcion());
 			
 			if (pst.executeUpdate() == 1) {
 				rs = pst.getGeneratedKeys();
@@ -124,7 +129,13 @@ public class RecetaDAO implements Persistable<Receta> {
 			conn = db.getConexion();
 			pst = conn.prepareStatement(SQL_UPDATE);
 			pst.setString(1, r.getTitulo());
-			pst.setLong(2, r.getId());
+			pst.setString(2, r.getImagen());
+			pst.setInt(3, r.getTiempo());
+			pst.setInt(4, r.getComensales());
+			pst.setString(5, r.getDificultad());
+			pst.setString(6, r.getDescripcion());
+			
+			pst.setLong(7, r.getId());
 			
 			if( pst.executeUpdate() == 1 ){
 				resul= true;
@@ -163,9 +174,13 @@ public class RecetaDAO implements Persistable<Receta> {
 
 	private Receta mapear (ResultSet rs) throws SQLException  {
 		Receta r = new Receta();
-		
 		r.setId(rs.getLong("id"));
 		r.setTitulo(rs.getString("nombre"));
+		r.setImagen(rs.getString("imagen"));
+		r.setTiempo(rs.getInt("tiempo"));
+		r.setComensales(rs.getInt("comensales"));
+		r.setDificultad(rs.getString("dificultad"));
+		r.setDescripcion(rs.getString("descripcion"));
 		
 		return r;
 	}

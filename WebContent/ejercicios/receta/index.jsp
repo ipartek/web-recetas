@@ -33,7 +33,7 @@
             <tr>
                 <td><a href="receta?op=2&id=${r.id}">${r.id}</a></td>
                 <td>${r.titulo}</td>
-                <td>${r.imagen}</td>
+                <td><img src="${r.imagen}"></img></td>
                 <td>${r.tiempo}</td>
                 <td>${r.comensales}</td>
                 <td>${r.dificultad}</td>

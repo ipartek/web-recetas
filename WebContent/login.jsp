@@ -1,4 +1,4 @@
-<%@include file="../includes/header.jsp" %>
+<%@include file="includes/header.jsp" %>
 <div class="container">
                 <div class="row">
 					<h1>LOGIN</h1>
@@ -11,4 +11,4 @@
 					</form>
 				</div>
 </div>
-<%@include file="../includes/footer.jsp" %>
+<%@include file="includes/footer.jsp" %>
