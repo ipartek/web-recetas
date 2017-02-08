@@ -47,7 +47,7 @@ public class UsuarioDAO implements Persistable<Usuario> {
 		return null;
 	}
 
-	Usuario existe(String email, String password) {
+	public Usuario existe(String email, String password) {
 		return null;
 	}
 
@@ -56,7 +56,7 @@ public class UsuarioDAO implements Persistable<Usuario> {
 	 * 
 	 * @return <code>int </code>numero entero de registros
 	 */
-	int count() {
+	public int count() {
 		return 0;
 	}
 
