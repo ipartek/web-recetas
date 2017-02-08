@@ -25,6 +25,7 @@
 							<tr>
 								<th>Titulo</th>
 								<th>Imagen</th>
+								<th>Ingredientes</th>
 								<th>Tiempo</th>
 								<th>Dificultad</th>
 								<th>Comensales</th>
@@ -39,8 +40,9 @@
 								
 								<tr>
 									<td><a href="receta?op=2&id=${r.id}">${r.titulo}</a></td>
+									<td><img class="imgTabla" alt="" src="${r.imagen}"></td>
+									<td></td>
 									<td>${r.tiempo}</td>
-									<td>${r.imagen}</td>
 									<td>${r.dificultad}</td>
 									<td>${r.comensales}</td>
 									<td>${r.descripcion}</td>

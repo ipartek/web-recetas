@@ -16,7 +16,7 @@
     	<li><a href="ejercicios\jdbc\migracion-personas.jsp">Proceso Migracion Personas</a></li>
     	<li><a href="receta">CRUD de Recetas con MySql</a></li>         	
     	<li><a href="zona-segura/index.jsp">Filtro Seguridad</a></li>         	
-    	            	
+    	<li><a href="zona-segura/usuarios-logeados.jsp">Listado Usuario Logeados</a></li>            	
     </ul>
     
 </div>
