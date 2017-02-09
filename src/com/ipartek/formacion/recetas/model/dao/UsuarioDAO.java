@@ -299,7 +299,7 @@ public class UsuarioDAO implements Persistable<Usuario> {
 		u.setEmail(rs.getString("email"));
 		u.setDni(rs.getString("dni"));
 		u.setPuesto(rs.getString("puesto"));
-		u.setPassword(rs.getString("passwogetrd"));
+		u.setPassword(rs.getString("password"));
 		u.setImagen(rs.getString("imagen"));
 
 		return u;
