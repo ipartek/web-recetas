@@ -24,29 +24,34 @@
         <form action="zona-segura/usuario" method="post">
         
         <label for="id">Identificador:</label>
-			<input type="text" name="id" value="${usuario.id}" readonly class="form-control" />
+			<input type="hidden" name="id" value="${usuario.id}" readonly class="form-control" />
 			<br>
 			<label for="nombre">Nombre:</label>
-			<input autofocus type="text" name="nombre" required value="${usuario.nombre}" class="form-control" />
+			<input autofocus type="text" name="nombre" required value="${usuario.nombre}" class="form-control" required autofocus/>
 			<br>
 			<label for="apellido1">Apellido 1:</label>
-			<input type="text" name="apellido1" required value="${usuario.apellido1}" class="form-control" />
+			<input type="text" name="apellido1" required value="${usuario.apellido1}" class="form-control" required/>
 			<br>
 			<label for="apellido2">Apellido 2:</label>
-			<input type="text" name="apellido2" value="${usuario.apellido2}" class="form-control" />
+			<input type="text" name="apellido2" value="${usuario.apellido2}" class="form-control" required/>
 			<br>
 			<label for="email">E-Mail :</label>
-			<input type="text" name="email" value="${usuario.email}" class="form-control" />
+			<input type="text" name="email" value="${usuario.email}" class="form-control" required/>
 			<br>
+			
+			<label for="password">Password :</label>
+			<input type="text" name="password" value="${usuario.password}" class="form-control" required/>
+			<br>
+			
 			<label for="dni">dni :</label>
-			<input type="text" name="dni" value="${usuario.dni}" class="form-control" />
+			<input type="text" name="dni" value="${usuario.dni}" class="form-control" required/>
 			<br>
 			<label for="puesto">puesto:</label>
-			<input type="text" name="puesto" value="${usuario.puesto}" class="form-control" />
+			<input type="text" name="puesto" value="${usuario.puesto}" class="form-control" required/>
 			<label for="edad">edad:</label>
-			<input type="number" name="edad" value="${usuario.edad}" class="form-control" />
+			<input type="number" name="edad" value="${usuario.edad}" class="form-control" required/>
 			<label for="imagen">imagen:</label>
-			<input type="text" name="imagen" value="${usuario.imagen}" class="form-control" />
+			<input type="text" name="imagen" value="${usuario.imagen}" class="form-control" required/>
             
             <input type="hidden" name="op" value="<%=UsuarioController.OP_GUARDAR%>">
             

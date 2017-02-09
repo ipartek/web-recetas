@@ -104,6 +104,7 @@ public class UsuarioController extends HttpServlet {
 					String pPuesto = request.getParameter("puesto");
 					String pMail = request.getParameter("email");
 					String pImagen = request.getParameter("imagen");
+					String pPassword = request.getParameter("password");
 					String pDni = request.getParameter("dni");
 
 					int pEdad = Integer.valueOf(request.getParameter("edad"));
@@ -112,6 +113,7 @@ public class UsuarioController extends HttpServlet {
 					Usuario u = new Usuario(pNombre, pAp1, pAp2, pMail, pDni, pPuesto, pEdad);
 					u.setId(id);
 					u.setImagen(pImagen);
+					u.setPassword(pPassword);
 
 					// guardarlo o persistirlo en la bbdd
 					boolean guardado = false;

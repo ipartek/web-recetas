@@ -187,8 +187,33 @@ public class UsuarioDAO implements Persistable<Usuario> {
 
 	@Override
 	public boolean delete(long id) {
-		// TODO Auto-generated method stub
-		return false;
+
+		boolean resul = false;
+
+		PreparedStatement pst = null;
+
+		try {
+
+			conn = db.getConexion();
+
+			pst = conn.prepareStatement(SQL_DELETE);
+			pst.setLong(1, id);
+
+			if (pst.executeUpdate() == 1) {
+				resul = true;
+			}
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+		} finally {
+
+			db.conectar();
+
+		}
+
+		return resul;
 	}
 
 	public Usuario getByEmail(String email) {
