@@ -1,6 +1,6 @@
 <%@page import="com.ipartek.formacion.recetas.controller.UsuariosCRUDController"%>
-<%@include file="../includes/header.jsp" %>
-<%@include file="../includes/nav.jsp" %>
+<%@include file="../../includes/header.jsp" %>
+<%@include file="../../includes/nav.jsp" %>
    
   <header>
        <div class="container header-content">
@@ -82,4 +82,4 @@
 	</div>	
 	
 	
-<%@include file="../includes/footer.jsp" %>		
+<%@include file="../../includes/footer.jsp" %>		

@@ -1,5 +1,5 @@
-<%@include file="../includes/header.jsp" %>
-<%@include file="../includes/nav.jsp" %>
+<%@include file="../../includes/header.jsp" %>
+<%@include file="../../includes/nav.jsp" %>
    
   <header>
        <div class="container header-content">
@@ -15,6 +15,10 @@
        <div class="row">
        <%@include file="../../includes/mensaje.jsp" %>
        		<h2><a href="usuarios?op=3">Crear Nuevo</a></h2>
+       		<form>
+       			<label>Filtro por Dni</label>
+       			<input type="text" name="dnifiltro">
+       		</form>
        		
        
 			 <table class="display data-table-mio" cellspacing="0" width="100%">
@@ -52,4 +56,4 @@
 	</div>	
 	
 	
-<%@include file="../includes/footer.jsp" %>		
+<%@include file="../../includes/footer.jsp" %>		
