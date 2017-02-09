@@ -50,6 +50,10 @@ public class UsuarioCRUDController extends HttpServlet {
 		service = null;
 	}
 
+	public int usuariosTotales() {
+		return service.usuarioTotales();
+	}
+
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// System.out.println("Antes de Realizar doGet o doPost");

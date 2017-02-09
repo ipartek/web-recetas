@@ -25,7 +25,7 @@ public class UsuarioDAO implements Persistable<Usuario> {
 	private static final String SQL_DELETE = "DELETE FROM `usuario` WHERE `id` = ?";
 	private static final String SQL_UPDATE = "UPDATE `usuario` SET `nombre` = ?, `apellido1` = ?, `apellido2` = ?, `edad` = ?, `dni` = ?, `email` = ?, `puesto` = ?, `password` = ?, `imagen` = ? WHERE `id` = ?;";
 	private static final String SQL_CREATE = "INSERT INTO `usuario` (`nombre`, `apellido1`, `apellido2`, `edad`, `dni`, `edad`, `email`, `puesto`, `password`, `imagen`) VALUES ( ? , ? , ? , ? , ? , ?, ? , ? , ? ,? );";
-	private static final String SQL_EXISTE = "SELECT COUNT(`id`) FROM `usuario`;";
+	private static final String SQL_EXISTE = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `email` = ?, `password` = ?;";
 
 	private UsuarioDAO() {
 		db = DataBaseConnectionImpl.getInstance();
@@ -186,7 +186,7 @@ public class UsuarioDAO implements Persistable<Usuario> {
 		ResultSet rs = null;
 		try {
 			conn = db.getConexion();
-			pst = conn.prepareStatement(SQL_GET_BY_ID);
+			pst = conn.prepareStatement(SQL_GET_BY_EMAIL);
 			pst.setString(5, email);
 
 			rs = pst.executeQuery();
@@ -212,7 +212,25 @@ public class UsuarioDAO implements Persistable<Usuario> {
 	 * @return <code>int </code>numero entero de registros
 	 */
 	public int count() {
-		return 0;
+		int totales = 0;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		try {
+			conn = db.getConexion();
+			pst = conn.prepareStatement(SQL_COUNT);
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+				totales++;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			db.desconectar();
+		}
+
+		return totales;
 	}
 
 	private Usuario mapear(ResultSet rs) throws SQLException {

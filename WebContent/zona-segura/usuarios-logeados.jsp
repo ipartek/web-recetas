@@ -1,3 +1,4 @@
+<%@page import="com.ipartek.formacion.recetas.model.dao.UsuarioDAO"%>
 <%@page import="com.ipartek.formacion.recetas.controller.UsuarioCRUDController"%>
 <%@page import="com.ipartek.formacion.recetas.pojo.Usuario"%>
 <%@include file="../includes/header.jsp" %>
@@ -18,9 +19,13 @@
        <div class="row">
        		<p>Empleamos un Listener de Session <code>ListenerContadorUsuarios</code> para gestionar los usuarios logeados.</p>
        		<p>Ver documentación de Listener en: <a target="_blank" href="javadoc/index.html">javadoc</a></p> 
+			
+			<p>N&uacute;mero de usuarios encontrados: </p>
+			
+			<p> <a href="zona-segura/usuario?op=3">Registrarse</a></p>
+			
 			<p>Listado usuarios:</p>
 			
-		 <a href="zona-segura/usuario?op=3">Registrarse</a>
 			
 			<table class="display data-table-mio" cellspacing="0" width="100%">
 	        <thead>
@@ -55,7 +60,9 @@
 				</c:forEach>
 			  </tbody>
      	  </table>
-     
+     	  
+     	 
+     	       
 		</div>
 	</div>	
 	
