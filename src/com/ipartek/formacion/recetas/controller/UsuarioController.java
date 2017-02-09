@@ -1,6 +1,7 @@
 package com.ipartek.formacion.recetas.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -33,6 +34,7 @@ public class UsuarioController extends HttpServlet {
 	public static final String OP_VER_NUEVO = "3";
 	public static final String OP_GUARDAR = "4";
 	public static final String OP_ELIMINAR = "5";
+	public static final String OP_FILTRAR = "6";
 
 	private static ServiceUsuario service;
 
@@ -167,6 +169,59 @@ public class UsuarioController extends HttpServlet {
 				totalUsers = service.usuarioTotales();
 
 				dispatcher = request.getRequestDispatcher(VIEW_LIST);
+				break;
+			case OP_FILTRAR:
+				try {
+					// recoger parametros
+
+					String pNombre = request.getParameter("nombre");
+					String pAp1 = request.getParameter("apellido1");
+					String pAp2 = request.getParameter("apellido2");
+					String pMail = request.getParameter("email");
+					String pDni = request.getParameter("dni");
+					int pMin = Integer.parseInt(request.getParameter("min"));
+					int pMax = Integer.parseInt(request.getParameter("max"));
+					// init parametros null a %
+
+					pNombre = (pNombre != null) ? pNombre : "%";
+					pAp1 = (pAp1 != null) ? pAp1 : "%";
+					pAp2 = (pAp2 != null) ? pAp2 : "%";
+					pMail = (pMail != null) ? pMail : "%";
+					pDni = (pDni != null) ? pDni : "%";
+
+					// Buscar Usuario
+					ArrayList<Usuario> aUser = (ArrayList<Usuario>) service.fiterPersona(pNombre, pAp1, pAp2, pMail,
+							pDni, pMin, pMax);
+
+					// Ver si existen resultados
+					boolean existen = false;
+					if (aUser.size() != 0) {
+						// listar
+						request.setAttribute("usuarios", aUser);
+						msj = null;
+						totalUsers = service.usuarioTotales();
+						dispatcher = request.getRequestDispatcher(VIEW_LIST);
+						break;
+					} else {
+						msj.setClase(Mensaje.CLASE_WARNING);
+						msj.setDescripcion("No existen resultados con estos parametros de busqueda");
+						dispatcher = request.getRequestDispatcher(VIEW_LIST);
+
+					}
+
+				} catch (Exception e) {
+
+					// si es Vehiculo creado, volver a recuperarlo para mostrar
+					// en formulario
+					if (id != -1) {
+						request.setAttribute("usuarios", service.buscarPorId(id));
+					} else {
+						request.setAttribute("usuarios", new Usuario());
+					}
+
+					msj.setDescripcion("Error:" + e.getMessage());
+					dispatcher = request.getRequestDispatcher(VIEW_FORM);
+				}
 				break;
 
 			default:

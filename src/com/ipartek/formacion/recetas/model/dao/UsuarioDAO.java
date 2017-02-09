@@ -27,7 +27,7 @@ public class UsuarioDAO implements Persistable<Usuario> {
 	static final private String SQL_DELETE = "DELETE FROM `usuario` WHERE `id` = ?;";
 	static final private String SQL_UPDATE = "UPDATE `usuario` SET `nombre`= ?,`apellido1`= ?,`apellido2`= ?,`edad`= ?,`email`= ?,`dni`= ?,`puesto`= ?,`password`= ?,`imagen`= ? WHERE `id` = ?;";
 	static final private String SQL_EXIST = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `email` = ? AND `password` = ?;";
-	static final private String SQL_GET_BY_FILTER = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `nombre` LIKE `%?%` AND `apellido1` LIKE `%?%` AND `apellido2` LIKE `%?%` AND `email` LIKE `%?%` AND `dni` LIKE `%?%` AND (`edad` BETWEEN ? AND ? ) ORDER BY `id` DESC LIMIT 500;";
+	static final private String SQL_GET_BY_FILTER = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `nombre` LIKE ? AND `apellido1` LIKE ? AND `apellido2` LIKE ? AND `email` LIKE ? AND `dni` LIKE ? AND (`edad` BETWEEN ? AND ? ) ORDER BY `id` DESC LIMIT 500;";
 
 	private UsuarioDAO() {
 		db = DataBaseConnectionImpl.getInstance();
@@ -283,7 +283,7 @@ public class UsuarioDAO implements Persistable<Usuario> {
 
 	/**
 	 * Cuenta los usuario totales de la tabla
-	 * 
+	 *
 	 * @return <code>int </code>numero entero de registros
 	 */
 	public int count() {
