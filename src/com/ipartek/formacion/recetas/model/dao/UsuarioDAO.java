@@ -205,10 +205,15 @@ public class UsuarioDAO implements Persistable<Usuario> {
 
 	public Usuario existe(String email, String password) {
 		Usuario u = new Usuario();
+		String pass = "";
 		u = getByEmail(email);
-		if (!password.equals(u.getPassword())) {
+		if (u!= null) {
+			pass = u.getPassword();
+		}
+		if (!password.equals(pass)) {
 			u = null;
 		}
+		
 		return u;
 	}
 
