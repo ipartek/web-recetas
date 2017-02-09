@@ -32,7 +32,7 @@
 	            </tr>
 	        </thead>        
 	        <tbody>
-				<c:forEach var="u" items="<%=ListenerContadorUsuarios.usuariosLogeados%>">
+				<c:forEach var="u" items="<%=%>">
 					<tr>
 						<td>${u.id}</td>
 						<td>${u.nombre}</td>

@@ -1,11 +1,17 @@
 package com.ipartek.formacion.recetas.model.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
+import com.ipartek.formacion.recetas.ejercicios.herencia.Vehiculo;
 import com.ipartek.formacion.recetas.model.DataBaseConnectionImpl;
 import com.ipartek.formacion.recetas.model.Persistable;
 import com.ipartek.formacion.recetas.pojo.Usuario;
+import com.ipartek.formacion.recetas.pojo.VehiculoException;
 
 public class UsuarioDAO implements Persistable<Usuario> {
 
@@ -38,7 +44,26 @@ public class UsuarioDAO implements Persistable<Usuario> {
 	@Override
 	public List<Usuario> getAll() {
 		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Usuario> list = null;
+
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		try {
+			list = new ArrayList<Usuario>();
+			conn = db.getConexion();
+			pst = conn.prepareStatement(SQL_GET_ALL); //Mirar SQL
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				list.add(mapear(rs));
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} finally {
+			db.desconectar();
+		}
+		return list;
 	}
 
 	@Override
@@ -81,6 +106,17 @@ public class UsuarioDAO implements Persistable<Usuario> {
 	 */
 	int count() {
 		return 0;
+	}
+	
+	private Vehiculo mapear(ResultSet rs) throws SQLException, VehiculoException {
+		Vehiculo v = new Vehiculo();
+		v.setId(rs.getLong("id"));
+		v.setModelo(rs.getString("modelo"));
+		// TODO dimensiones
+		// v.setDimensiones(dimensiones);
+		v.setPlazas(rs.getInt("plazas"));
+		v.setPotencia(rs.getFloat("potencia"));
+		return v;
 	}
 
 }

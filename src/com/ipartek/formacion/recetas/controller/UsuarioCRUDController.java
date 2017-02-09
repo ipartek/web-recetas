@@ -21,8 +21,8 @@ import com.ipartek.formacion.recetas.services.ServiceUsuarioMysql;
 public class UsuarioCRUDController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	// vistas
-	private static final String VIEW_LIST = "zona-segura/indexUsuario.jsp";
-	private static final String VIEW_FORM = "zona-segura/formularioUsuario.jsp";
+	private static final String VIEW_LIST = "zona-segura/usuario/indexUsuario.jsp";
+	private static final String VIEW_FORM = "zona-segura/usuario/formularioUsuario.jsp";
 
 	// Operaciones que puede realizar
 	public static final String OP_LISTAR = "1";

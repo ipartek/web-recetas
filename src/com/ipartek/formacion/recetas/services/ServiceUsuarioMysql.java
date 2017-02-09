@@ -29,7 +29,7 @@ public class ServiceUsuarioMysql implements ServiceUsuario {
 	@Override
 	public List<Usuario> listar() {
 		// TODO Auto-generated method stub
-		return null;
+		return daoUsuario.getAll();
 	}
 
 	@Override
