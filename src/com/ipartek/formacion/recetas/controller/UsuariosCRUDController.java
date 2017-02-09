@@ -163,6 +163,7 @@ public class UsuariosCRUDController extends HttpServlet {
 			e.printStackTrace();
 
 		} finally {
+			request.setAttribute("total", service.usuarioTotales());
 			request.setAttribute("msj", msj);
 			dispatcher.forward(request, response);
 		}

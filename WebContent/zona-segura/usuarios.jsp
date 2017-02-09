@@ -47,6 +47,7 @@
 		       </tbody>
 		     </table>
 		</div>
+		<p> Se muestran los ultimos 500 usuarios de un total de: ${total} usuarios </p>
 	</div>	
 	
 	

@@ -26,7 +26,6 @@ public class UsuarioDAO implements Persistable<Usuario> {
 	static final private String SQL_CREATE = "INSERT INTO `usuario`(`id`, `nombre`, `apellido1`, `apellido2`, `edad`, `email`, `dni`, `puesto`, `password`, `imagen`) VALUES (NULL,?,?,?,?,?,?,?,?,?)";
 	static final private String SQL_UPDATE = "UPDATE `usuario` SET `nombre`=?,`apellido1`=?,`apellido2`=?,`edad`=?,`email`=?,`dni`=?,`puesto`=?,`password`=?,`imagen`=? WHERE `id` = ?;";
 	static final private String SQL_DELETE = "DELETE FROM `usuario` WHERE `id` = ?;";
-	static final private String SQL_EXIST = "";
 
 	private UsuarioDAO() {
 		db = DataBaseConnectionImpl.getInstance();
@@ -145,6 +144,7 @@ public class UsuarioDAO implements Persistable<Usuario> {
 			pst.setString(7, u.getPuesto());
 			pst.setString(8, u.getPassword());
 			pst.setString(9, u.getImagen());
+			pst.setLong(10, u.getId());
 			
 			if (pst.executeUpdate() == 1) {
 				resul = true;
@@ -227,7 +227,7 @@ public class UsuarioDAO implements Persistable<Usuario> {
 			pst = conn.prepareStatement(SQL_COUNT);
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				c++;
+				c = rs.getInt(1);
 			}
 
 		} catch (Exception e) {
