@@ -193,11 +193,6 @@ public class UsuarioCRUDController extends HttpServlet {
 
 	}
 
-	public int usuariosTotales() {
-
-		return service.usuarioTotales();
-	}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
