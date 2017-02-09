@@ -14,6 +14,10 @@
 	<div class="row">
 		<%@include file="../../includes/mensaje.jsp"%>
 		<a href="zona-segura/usuario?op=3">Crear Nuevo</a>
+		
+		<p>Mostrando 500 usuarios de ${totalUsers} totales que se encuentran en la BBDD.</p>
+		<p>Para buscar un usuario ver: <a href="zona-segura\usuario\form-filtro.jsp">Fitro Buscar Usuario en BBDD</a></p><br>
+		
 		<table class="display data-table-mio" cellspacing="0" width="100%">
 			<thead>
 				<tr>

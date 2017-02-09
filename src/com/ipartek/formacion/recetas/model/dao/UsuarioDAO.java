@@ -27,7 +27,7 @@ public class UsuarioDAO implements Persistable<Usuario> {
 	static final private String SQL_DELETE = "DELETE FROM `usuario` WHERE `id` = ?;";
 	static final private String SQL_UPDATE = "UPDATE `usuario` SET `nombre`= ?,`apellido1`= ?,`apellido2`= ?,`edad`= ?,`email`= ?,`dni`= ?,`puesto`= ?,`password`= ?,`imagen`= ? WHERE `id` = ?;";
 	static final private String SQL_EXIST = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `email` = ? AND `password` = ?;";
-	static final private String SQL_GET_BY_NAME = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `NOMBRE` LIKE `%?%` ORDER BY `id` DESC LIMIT 500;";
+	static final private String SQL_GET_BY_FILTER = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `nombre` LIKE `%?%` AND `apellido1` LIKE `%?%` AND `apellido2` LIKE `%?%` AND `email` LIKE `%?%` AND `dni` LIKE `%?%` AND (`edad` BETWEEN ? AND ? ) ORDER BY `id` DESC LIMIT 500;";
 
 	private UsuarioDAO() {
 		db = DataBaseConnectionImpl.getInstance();
@@ -313,6 +313,48 @@ public class UsuarioDAO implements Persistable<Usuario> {
 
 		}
 		return resul;
+	}
+
+	public List<Usuario> fiterPersona(String nombre, String apellido1, String apellido2, String email, String dni,
+			int edadMin, int edadMax) {
+
+		ArrayList<Usuario> list = null;
+
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+
+		try {
+
+			list = new ArrayList<Usuario>();
+			conn = db.getConexion();
+
+			pst = conn.prepareStatement(SQL_GET_BY_FILTER);
+			pst.setString(1, nombre);
+			pst.setString(2, apellido1);
+			pst.setString(3, apellido2);
+			pst.setString(4, email);
+			pst.setString(5, dni);
+			pst.setInt(6, edadMin);
+			pst.setInt(7, edadMax);
+
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+				list.add(mapear(rs));
+
+			}
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+		} finally {
+
+			db.desconectar();
+
+		}
+
+		return list;
 	}
 
 	private Usuario mapear(ResultSet rs) throws SQLException {

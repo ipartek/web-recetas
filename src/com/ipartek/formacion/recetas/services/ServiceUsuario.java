@@ -22,4 +22,6 @@ public interface ServiceUsuario {
 
 	int usuarioTotales();
 
+	List<Usuario> fiterPersona(String nombre, String apellido1, String apellido2, String email, String dni, int edadMin,
+			int edadMax);
 }

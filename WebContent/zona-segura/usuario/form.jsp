@@ -16,7 +16,7 @@
   	   
    <div class="container">
    
-   	  <a href="usuario" class="portfolio-link">Volver al indice</a>
+   	  <a href="zona-segura/usuario" class="portfolio-link">Volver al indice</a>
    	  
       <div class="row">
       	<%@include file="../../includes/mensaje.jsp" %>

@@ -67,4 +67,10 @@ public class ServiceUsuarioMysql implements ServiceUsuario {
 		return daoUsuario.count();
 	}
 
+	@Override
+	public List<Usuario> fiterPersona(String nombre, String apellido1, String apellido2, String email, String dni,
+			int edadMin, int edadMax) {
+		return daoUsuario.fiterPersona(nombre, apellido1, apellido2, email, dni, edadMin, edadMax);
+	}
+
 }
