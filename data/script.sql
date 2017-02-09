@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generaci√≥n: 09-02-2017 a las 07:43:43
--- Versi√≥n del servidor: 5.7.14
--- Versi√≥n de PHP: 5.6.25
+-- Tiempo de generaciÛn: 09-02-2017 a las 08:17:18
+-- VersiÛn del servidor: 5.7.14
+-- VersiÛn de PHP: 5.6.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -9128,7 +9128,7 @@ INSERT INTO `vehiculo` (`id`, `modelo`, `plazas`, `potencia`) VALUES
 (8, 'Nissan Vanette', 10, 120);
 
 --
--- √çndices para tablas volcadas
+-- Õndices para tablas volcadas
 --
 
 --
