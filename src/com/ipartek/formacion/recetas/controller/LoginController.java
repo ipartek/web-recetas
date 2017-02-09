@@ -12,18 +12,20 @@ import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.recetas.pojo.Mensaje;
 import com.ipartek.formacion.recetas.pojo.Usuario;
+import com.ipartek.formacion.recetas.services.ServiceUsuario;
+import com.ipartek.formacion.recetas.services.ServiceUsuarioMysql;
 
 /**
  * Servlet implementation class LoginController
  */
-@WebServlet(urlPatterns = { "/login" }, initParams = { @WebInitParam(name = "userNameCredential", value = "admin"),
-		@WebInitParam(name = "userPassCredential", value = "123") })
+@WebServlet(urlPatterns = { "/login" })
 public class LoginController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
 	private Mensaje msj;
 	private HttpSession session;
+	private static ServiceUsuario service;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -37,19 +39,19 @@ public class LoginController extends HttpServlet {
 			msj = new Mensaje();
 
 			// recoger parametros
-			String pNombre = request.getParameter("userName");
+			String pEmail = request.getParameter("userEmail");
 			String pPassword = request.getParameter("userPass");
 
 			// crear usuario con parametros
 			Usuario user = new Usuario();
-			user.setNombre(pNombre);
+			user.setEmail(pEmail);
 			user.setPassword(pPassword);
 
 			if (validarUsuario(user)) {
 
 				// guardar en sessison
 				session = request.getSession(true);
-				session.setAttribute("usuario", user);
+				session.setAttribute("usuario", service.buscarPorEmail(pEmail));
 
 				// redirect a index.jsp
 				response.sendRedirect("index.jsp");
@@ -85,14 +87,8 @@ public class LoginController extends HttpServlet {
 	private boolean validarUsuario(Usuario user) {
 		boolean resul = false;
 		// TODO implementar con BBDD algun dia
-
-		// contexto para los parametros de inicio
-		final String userNameCredential = getInitParameter("userNameCredential");
-		final String userPassCredential = getInitParameter("userPassCredential");
-
-		// comprobar que coincidan
-		if (userNameCredential.equalsIgnoreCase(user.getNombre())
-				&& userPassCredential.equalsIgnoreCase(user.getPassword())) {
+		service = ServiceUsuarioMysql.getInstance();
+		if(service.existe(user.getEmail(), user.getPassword())!=null){
 			resul = true;
 		}
 
