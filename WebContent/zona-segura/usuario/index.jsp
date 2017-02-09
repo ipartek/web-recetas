@@ -12,23 +12,27 @@
  		</div> 
  	</header> 
   	
+  <div class="container">
+  	<div class="row">
+  	<p> Mostrando 500 de  ${count} <p>
+  	<a href="zona-segura\usuario\filtro.jsp"><img src="../../img/filtro.jpg"></img></a>
+  	
+  	
+  	
+  	
+  	</div>
+  </div>	
+  	
    <div class="container">
       <div class="row">
       	<%@include file="../../includes/mensaje.jsp" %>
         
       
        <a href="zona-segura/usuario?op=3">Crear Nuevo</a>
-       <br>
-        <h1>Buscar por Email</h1>
-       <form method="post" action="zona-segura/usuario">
-       	<input type="text" name="email">
-       	<input type="submit" value="Buscar">
-       	<input type="hidden" name="op" value="6">
-       </form>
-       <br>
+      
        
        
-       <table class="display data-table-mio" cellspacing="0" width="100%">
+       <table class="display data-table-mio">
         <thead>
             <tr>
             	<th></th>

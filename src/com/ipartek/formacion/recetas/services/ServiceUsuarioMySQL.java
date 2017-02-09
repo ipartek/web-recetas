@@ -5,7 +5,7 @@ import java.util.List;
 import com.ipartek.formacion.recetas.model.dao.UsuarioDAO;
 import com.ipartek.formacion.recetas.pojo.Usuario;
 
-public class ServiceUsuarioMySQL implements ServiceUsuario{
+public class ServiceUsuarioMySQL implements ServiceUsuario {
 	private static ServiceUsuarioMySQL INSTANCE;
 	private static UsuarioDAO daoUsuario;
 
@@ -63,7 +63,7 @@ public class ServiceUsuarioMySQL implements ServiceUsuario{
 
 	@Override
 	public int usuarioTotales() {
-		return daoUsuario.count() ;
+		return daoUsuario.count();
 	}
 
 	@Override
@@ -73,14 +73,12 @@ public class ServiceUsuarioMySQL implements ServiceUsuario{
 
 	@Override
 	public List<Usuario> buscarPorNombreOApellido(String busqueda) {
-		// TODO Auto-generated method stub
-		return null;
+		return daoUsuario.buscarPorNombreOApellido(busqueda);
 	}
 
 	@Override
 	public List<Usuario> buscarPorEdad(int edadMin, int edadMax) {
-		// TODO Auto-generated method stub
-		return null;
+		return daoUsuario.buscarPorEdad(edadMin, edadMax);
 	}
 
 }
