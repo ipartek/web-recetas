@@ -118,7 +118,7 @@ public class ServiceUsuarioArrayList implements ServiceUsuario {
 	}
 
 	@Override
-	public int usuarioTotales() {
+	public int usuariosTotales() {
 		return usuarios.size();
 	}
 
