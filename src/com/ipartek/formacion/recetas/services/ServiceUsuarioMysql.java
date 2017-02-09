@@ -35,37 +35,37 @@ public class ServiceUsuarioMysql implements ServiceUsuario {
 	@Override
 	public Usuario buscarPorId(long id) {
 		// TODO Auto-generated method stub
-		return null;
+		return daoUsuario.getById(id);
 	}
 
 	@Override
 	public Usuario buscarPorEmail(String email) {
 		// TODO Auto-generated method stub
-		return null;
+		return daoUsuario.getByEmail(email);
 	}
 
 	@Override
 	public boolean darDeBaja(long id) {
 		// TODO Auto-generated method stub
-		return false;
+		return daoUsuario.delete(id);
 	}
 
 	@Override
 	public boolean darDeAlta(Usuario u) {
 		// TODO Auto-generated method stub
-		return false;
+		return daoUsuario.create(u);
 	}
 
 	@Override
 	public boolean modificar(Usuario u) {
 		// TODO Auto-generated method stub
-		return false;
+		return daoUsuario.update(u);
 	}
 
 	@Override
 	public Usuario existe(String email, String password) {
 		// TODO Auto-generated method stub
-		return null;
+		return daoUsuario.existe(email, password);
 	}
 
 	@Override
