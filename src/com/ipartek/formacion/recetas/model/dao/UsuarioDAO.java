@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ipartek.formacion.recetas.ejercicios.herencia.Vehiculo;
 import com.ipartek.formacion.recetas.model.DataBaseConnectionImpl;
 import com.ipartek.formacion.recetas.model.Persistable;
 import com.ipartek.formacion.recetas.pojo.Usuario;
@@ -28,7 +27,6 @@ public class UsuarioDAO implements Persistable<Usuario> {
 	static final String SQL_UPDATE = "UPDATE `usuario` SET `nombre` = ?, `apellido1` = ?, `apellido2` = ? , `edad` = ?, `email` = ?, `dni` = ?, `puesto` = ?,`password` = ?, `imagen` = ? WHERE `id` = ?;";
 	static final private String SQL_COUNT = "SELECT COUNT(`id`) FROM `usuario`";
 	static final private String SQL_EXIST_USUARIO = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `email` = ? AND `password` = ?;";
-
 
 	private UsuarioDAO() {
 		db = DataBaseConnectionImpl.getInstance();
@@ -212,7 +210,7 @@ public class UsuarioDAO implements Persistable<Usuario> {
 		ResultSet rs = null;
 		try {
 			conn = db.getConexion();
-			pst = conn.prepareStatement(SQL_GET_BY_ID);
+			pst = conn.prepareStatement(SQL_EXIST_USUARIO);
 			pst.setString(1, email);
 			pst.setString(2, password);
 			rs = pst.executeQuery();
