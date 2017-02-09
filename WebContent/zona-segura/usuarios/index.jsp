@@ -15,12 +15,14 @@
        <div class="row">
        <%@include file="../../includes/mensaje.jsp" %>
        		<h2><a href="usuarios?op=3">Crear Nuevo</a></h2>
-       		<form>
+       		<form method="post" action="filtrodni">
        			<label>Filtro por Dni</label>
-       			<input type="text" name="dnifiltro">
+       			<input type="text" name="dnifiltro"><input type="submit" value="Filtrar">
        		</form>
        		
-       
+       		<c:if test="${filtro} != ''">
+       			${filtro}
+       		</c:if>
 			 <table class="display data-table-mio" cellspacing="0" width="100%">
 		        <thead>
 		            <tr>
