@@ -11,31 +11,44 @@
              </div>             
  		</div> 
  	</header> 
- 		
  	<div class="container">
       <div class="row">
+
+        
+
       
     <p><a href="zona-segura/usuario">Volver</a></p><br>
     
- 	<form action="zona-segura/usuario" method="post">
+ 	<form action="zona-segura/usuario" method="post" class="borde">
         
-        <label for="dni">dni :</label>
+			<label for="dni">DNI :</label>
 			<input type="text" name="dni" class="form-control" placeholder="Escribe un DNI"/>
 			<br>
 			<label for="email">E-Mail :</label>
 			<input type="text" name="email" class="form-control" placeholder="Escribe un e-mail"/>
 			<br>
-			<label for="nombre_apellido">Nombre y Apellidos </label>
-			<input type="text" name="email" class="form-control" placeholder="Escribe un nombre y los dos apellidos"/>
+			<label for="nombre">Nombre </label>
+			<input type="text" name="nombre" class="form-control" placeholder="Escribe un nombre"/>
 			<br>
-			<label>Rango edad:</label>
+			<label for="apellido1">Primer Apellido </label>
+			<input type="text" name="apellido1" class="form-control" placeholder="Escribe el primer apellido"/>
+			<br>
+			<label for="apellido2">Segundo Apellido </label>
+			<input type="text" name="apellido2" class="form-control" placeholder="Escribe el segundo apellido"/>
+			<br>
+			<label>Rango mínimo edad:</label>
+			<input type="range" name="edad" min="1" max="130">
+			<br>
+			<label>Rango máximo edad:</label>
 			<input type="range" name="edad" min="1" max="130">
 			<br>
 			<input type="submit" value="Filtrar">
 			</form>
  	    </div> 
     <!--  <div class="row"> -->
+    <a href="zona-segura/usuario">Volver</a>
 </div>    
 <!-- <div class="container"> -->
+
 
 <%@include file="../../includes/footer.jsp" %>

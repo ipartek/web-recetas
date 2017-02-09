@@ -147,3 +147,12 @@ div#impresionDatos {
   cursor:pointer;
   color:#666;
 }
+
+/* Estilo form zona-segura  */
+
+form.borde {
+	
+	border:groove 2px green;
+	border-radius: 10px;
+	
+}
