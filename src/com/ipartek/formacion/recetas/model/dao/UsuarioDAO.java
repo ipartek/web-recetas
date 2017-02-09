@@ -25,7 +25,7 @@ public class UsuarioDAO implements Persistable<Usuario> {
 	private static final String SQL_DELETE = "DELETE FROM `usuario` WHERE `id` = ?";
 	private static final String SQL_UPDATE = "UPDATE `usuario` SET `nombre` = ?, `apellido1` = ?, `apellido2` = ?, `edad` = ?, `dni` = ?, `email` = ?, `puesto` = ?, `password` = ?, `imagen` = ? WHERE `id` = ?;";
 	private static final String SQL_CREATE = "INSERT INTO `usuario` (`nombre`, `apellido1`, `apellido2`, `edad` , `email`,`dni`, `puesto`, `password`, `imagen`) VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? );";
-	private static final String SQL_EXISTE = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `email` = ?, `password` = ?;";
+	private static final String SQL_EXISTE = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `email` = ? AND `password` = ?;";
 
 	private UsuarioDAO() {
 		db = DataBaseConnectionImpl.getInstance();
@@ -205,7 +205,31 @@ public class UsuarioDAO implements Persistable<Usuario> {
 
 	public Usuario existe(String email, String password) {
 
-		return null;
+		Usuario u = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+
+		try {
+			conn = db.getConexion();
+			pst = conn.prepareStatement(SQL_EXISTE);
+			pst.setString(1, email);
+			pst.setString(2, password);
+
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				u = mapear(rs);
+
+			}
+
+		} catch (
+
+		Exception e) {
+			e.printStackTrace();
+		} finally {
+			db.desconectar();
+		}
+
+		return u;
 	}
 
 	/**

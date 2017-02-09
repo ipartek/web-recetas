@@ -2,8 +2,8 @@ package com.ipartek.formacion.recetas.controller;
 
 import java.io.IOException;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,12 +13,17 @@ import javax.servlet.http.HttpSession;
 import com.ipartek.formacion.recetas.pojo.Mensaje;
 import com.ipartek.formacion.recetas.pojo.Usuario;
 import com.ipartek.formacion.recetas.services.ServiceUsuario;
+import com.ipartek.formacion.recetas.services.ServiceUsuarioMysql;
 
 /**
  * Servlet implementation class LoginController
  */
-@WebServlet(urlPatterns = { "/login" }, initParams = { @WebInitParam(name = "userEmailCredential", value = "admin"),
-		@WebInitParam(name = "userPassCredential", value = "123") })
+
+@WebServlet("/login")
+
+// @WebServlet(urlPatterns = { "/login" }, initParams = { @WebInitParam(name =
+// "userEmailCredential", value = "admin"),
+// @WebInitParam(name = "userPassCredential", value = "123") })
 public class LoginController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -26,6 +31,13 @@ public class LoginController extends HttpServlet {
 	private Mensaje msj;
 	private HttpSession session;
 	private static ServiceUsuario service;
+
+	@Override
+	public void init(ServletConfig config) throws ServletException {
+
+		super.init(config);
+		service = ServiceUsuarioMysql.getInstance();
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -49,7 +61,7 @@ public class LoginController extends HttpServlet {
 
 			if (validarUsuario(user)) {
 
-				// guardar en sessison
+				// guardar en session
 				session = request.getSession(true);
 				session.setAttribute("usuario", user);
 
@@ -85,23 +97,27 @@ public class LoginController extends HttpServlet {
 	}
 
 	private boolean validarUsuario(Usuario user) {
+
 		boolean resul = false;
 		// implementar con BBDD algun dia
-		/*
-		 * if (service.existe(user.getEmail(), user.getPassword()) != null) {
-		 * resul = true; } ;
-		 */
+
+		if ((user = service.existe(user.getEmail(), user.getPassword())) != null) {
+
+			resul = true;
+		}
 
 		// contexto para los parametros de inicio
-		final String userEmailCredential = getInitParameter("userEmailCredential");
-		final String userPassCredential = getInitParameter("userPassCredential");
+		// final String userEmailCredential =
+		// getInitParameter("userEmailCredential");
+		// final String userPassCredential =
+		// getInitParameter("userPassCredential");
 
 		// comprobar que coincidan
 
-		if (userEmailCredential.equalsIgnoreCase(user.getEmail())
-				&& userPassCredential.equalsIgnoreCase(user.getPassword())) {
-			resul = true;
-		}
+		// if (userEmailCredential.equalsIgnoreCase(user.getEmail())
+		// && userPassCredential.equalsIgnoreCase(user.getPassword())) {
+		// resul = true;
+		// }
 
 		return resul;
 
