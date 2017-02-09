@@ -36,7 +36,7 @@
        		</form>
        		<form method="post" action="usuarios">
        			<label>Rango de edad:</label>
-       			<input id="ex2" type="text" class="span2" value="" data-slider-min="10" data-slider-max="1000" data-slider-step="5" data-slider-value="[250,450]"/>
+       			<input id="ex2" type="text" class="span2" name="edadfiltro" value="" data-slider-min="1" data-slider-max="100" data-slider-step="1" data-slider-value="[18,35]"/>
        			<input type="hidden" name="op" value="<%=UsuariosCRUDController.OP_FILTRAR_EDAD%>">
        			<input type="submit" value="Filtrar">
        		</form>

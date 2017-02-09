@@ -26,6 +26,6 @@ public interface ServiceUsuario {
 	
 	List<Usuario> getNombreApellido(String busqueda);
 	
-	public List<Usuario> getRangoEdad(int rangoMin, int rangoMax);
+	List<Usuario> getRangoEdad(int rangoMin, int rangoMax);
 
 }

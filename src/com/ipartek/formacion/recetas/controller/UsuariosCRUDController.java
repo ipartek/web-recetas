@@ -217,9 +217,9 @@ public class UsuariosCRUDController extends HttpServlet {
 				
 			case OP_FILTRAR_EDAD:
 				String uRangoEdad = request.getParameter("edadfiltro");
+				String[] datos = uRangoEdad.split(",");
 				
-				
-				if (service.getRangoEdad(18, Integer.valueOf(uRangoEdad)) != null) {
+				if (service.getRangoEdad(Integer.valueOf(datos[0]), Integer.valueOf(datos[1])) != null) {
 					msj.setClase(Mensaje.CLASE_SUCCESS);
 					msj.setDescripcion("Busqueda realizada con Exito");
 				} else {
@@ -227,7 +227,7 @@ public class UsuariosCRUDController extends HttpServlet {
 					msj.setDescripcion("Error al realizar la busqueda");
 				}
 				
-				request.setAttribute("edadencontrado" , service.getRangoEdad(18, Integer.valueOf(uRangoEdad)));
+				request.setAttribute("edadencontrado" , service.getRangoEdad(Integer.valueOf(datos[0]), Integer.valueOf(datos[1])));
 				request.setAttribute("msj", msj);
 				request.setAttribute("usuarios", service.listar());
 				dispatcher = request.getRequestDispatcher(VIEW_LIST);
