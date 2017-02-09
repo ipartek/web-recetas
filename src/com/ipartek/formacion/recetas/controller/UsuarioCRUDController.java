@@ -23,8 +23,8 @@ public class UsuarioCRUDController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	// vistas
-	private static final String VIEW_LIST = "zona-segura/usuarios-logeados.jsp";
-	private static final String VIEW_FORM = "zona-segura/usuario-registro.jsp";
+	private static final String VIEW_LIST = "/zona-segura/usuarios-logeados.jsp";
+	private static final String VIEW_FORM = "/zona-segura/usuario-registro.jsp";
 
 	// Operaciones que puede realizar
 	public static final String OP_LISTAR = "1";
@@ -81,14 +81,14 @@ public class UsuarioCRUDController extends HttpServlet {
 			switch (op) {
 
 			case OP_VER_NUEVO:
-				request.setAttribute("/zona-segura/usuario", new Usuario());
+				request.setAttribute("zona-segura/usuario", new Usuario());
 				dispatcher = request.getRequestDispatcher(VIEW_FORM);
 				msj = null;
 				break;
 
 			case OP_VER_DETALLE:
 				id = Long.valueOf(request.getParameter("id"));
-				request.setAttribute("/zona-segura/usuario", service.buscarPorId(id));
+				request.setAttribute("zona-segura/usuario", service.buscarPorId(id));
 				dispatcher = request.getRequestDispatcher(VIEW_FORM);
 				msj = null;
 				break;
@@ -146,9 +146,9 @@ public class UsuarioCRUDController extends HttpServlet {
 					// si es Vehiculo creado, volver a recuperarlo para mostrar
 					// en formulario
 					if (id != -1) {
-						request.setAttribute("/zona-segura/usuario", service.buscarPorId(id));
+						request.setAttribute("zona-segura/usuario", service.buscarPorId(id));
 					} else {
-						request.setAttribute("/zona-segura/usuario", new Usuario());
+						request.setAttribute("zona-segura/usuario", new Usuario());
 					}
 
 					msj.setDescripcion("Error:" + e.getMessage());
@@ -165,7 +165,7 @@ public class UsuarioCRUDController extends HttpServlet {
 					msj.setClase(Mensaje.CLASE_WARNING);
 					msj.setDescripcion("No se ha podido Eliminar el Usuario");
 				}
-				request.setAttribute("vehiculos", service.listar());
+				request.setAttribute("usuarios", service.listar());
 				dispatcher = request.getRequestDispatcher(VIEW_LIST);
 				break;
 

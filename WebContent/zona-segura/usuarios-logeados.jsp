@@ -20,6 +20,8 @@
        		<p>Ver documentación de Listener en: <a target="_blank" href="javadoc/index.html">javadoc</a></p> 
 			<p>Listado usuarios:</p>
 			
+		 <a href="zona-segura/usuario?op=3">Registrarse</a>
+			
 			<table class="display data-table-mio" cellspacing="0" width="100%">
 	        <thead>
 	            <tr>
@@ -40,6 +42,7 @@
 				</c:forEach>
 			  </tbody>
      	  </table>
+     	  ${usuario.nombre}
 			
 		</div>
 	</div>	
