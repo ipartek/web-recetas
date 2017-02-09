@@ -21,5 +21,11 @@ public interface ServiceUsuario {
 	Usuario existe(String email, String password);
 
 	int usuarioTotales();
+	
+	Usuario buscarPorDni(String dni);
+	
+	List<Usuario> getNombreApellido(String busqueda);
+	
+	public List<Usuario> getRangoEdad(int rangoMin, int rangoMax);
 
 }

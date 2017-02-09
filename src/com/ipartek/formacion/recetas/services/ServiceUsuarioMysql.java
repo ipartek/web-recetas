@@ -73,5 +73,22 @@ public class ServiceUsuarioMysql implements ServiceUsuario {
 		
 		return daoUsuario.count();
 	}
+	
+	@Override
+	public Usuario buscarPorDni(String dni) {
+	
+		return daoUsuario.getByDni(dni);
+	}
 
+	@Override
+	public List<Usuario> getNombreApellido(String busqueda) {
+		
+		return daoUsuario.getNombreApellido(busqueda);
+	}
+
+	@Override
+	public List<Usuario> getRangoEdad(int rangoMin, int rangoMax) {
+
+		return daoUsuario.getRangoEdad(rangoMin, rangoMax);
+	}
 }

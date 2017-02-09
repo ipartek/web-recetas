@@ -26,7 +26,11 @@ public class UsuarioDAO implements Persistable<Usuario> {
 	static final private String SQL_CREATE = "INSERT INTO `usuario`(`id`, `nombre`, `apellido1`, `apellido2`, `edad`, `email`, `dni`, `puesto`, `password`, `imagen`) VALUES (NULL,?,?,?,?,?,?,?,?,?)";
 	static final private String SQL_UPDATE = "UPDATE `usuario` SET `nombre`=?,`apellido1`=?,`apellido2`=?,`edad`=?,`email`=?,`dni`=?,`puesto`=?,`password`=?,`imagen`=? WHERE `id` = ?;";
 	static final private String SQL_DELETE = "DELETE FROM `usuario` WHERE `id` = ?;";
-
+	
+	static final private String SQL_GET_BY_DNI = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `dni` = ?;";
+	static final private String SQL_GET_NOMBREAPELLIDO = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `nombre` LIKE '%?%' OR `apellido1` LIKE '%?%' OR `apellido2` LIKE %?%'";
+	static final private String SQL_GET_RANGO_EDAD = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `edad` BETWEEN ? AND ?";
+	
 	private UsuarioDAO() {
 		db = DataBaseConnectionImpl.getInstance();
 	}
@@ -244,6 +248,79 @@ public class UsuarioDAO implements Persistable<Usuario> {
 		return c;
 	}
 	
+	public Usuario getByDni(String dni) {
+		Usuario u = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		try {
+			conn = db.getConexion();
+			pst = conn.prepareStatement(SQL_GET_BY_DNI);
+			pst.setString(1, dni);
+
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				u = mapear(rs);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			db.desconectar();
+		}
+		return u;
+	}
+	
+	public List<Usuario> getNombreApellido(String busqueda) {
+		ArrayList<Usuario> list = null;
+
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		try {
+			list = new ArrayList<Usuario>();
+			conn = db.getConexion();
+			pst = conn.prepareStatement(SQL_GET_NOMBREAPELLIDO);
+			pst.setString(1, busqueda);
+			pst.setString(2, busqueda);
+			pst.setString(3, busqueda);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				list.add(mapear(rs));
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} finally {
+			db.desconectar();
+		}
+		return list;
+	}
+	
+	public List<Usuario> getRangoEdad(int rangoMin, int rangoMax) {
+		ArrayList<Usuario> list = null;
+
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		try {
+			list = new ArrayList<Usuario>();
+			conn = db.getConexion();
+			pst = conn.prepareStatement(SQL_GET_RANGO_EDAD);
+			pst.setInt(1, rangoMin);
+			pst.setInt(2, rangoMax);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				list.add(mapear(rs));
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} finally {
+			db.desconectar();
+		}
+		return list;
+	}
+	
 	private Usuario mapear(ResultSet rs) throws SQLException{
 		Usuario u = new Usuario();
 		
@@ -260,5 +337,5 @@ public class UsuarioDAO implements Persistable<Usuario> {
 		
 		return u;
 	}
-
+	
 }
