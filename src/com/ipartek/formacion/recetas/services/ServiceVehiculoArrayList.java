@@ -3,12 +3,12 @@ package com.ipartek.formacion.recetas.services;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ipartek.formacion.recetas.ejercicios.herencia.Vehiculo;
+import com.ipartek.formacion.recetas.ejercicios.herencia.Usuario;
 
 public class ServiceVehiculoArrayList implements ServiceVehiculo {
 
 	private static ServiceVehiculoArrayList INSTANCE;
-	private static ArrayList<Vehiculo> vehiculos = null;
+	private static ArrayList<Usuario> vehiculos = null;
 	// simular el indice en la BaseDatos
 	private static long indice = 500;
 
@@ -16,12 +16,12 @@ public class ServiceVehiculoArrayList implements ServiceVehiculo {
 	private ServiceVehiculoArrayList() {
 
 		vehiculos = new ArrayList<>();
-		vehiculos.add(new Vehiculo("Seat Panda", 2));
-		vehiculos.add(new Vehiculo("Lamborgini", 4));
-		vehiculos.add(new Vehiculo("Ford K2", 1));
-		vehiculos.add(new Vehiculo("Citoren Shara", 12));
-		vehiculos.add(new Vehiculo("Ferrari", 500));
-		vehiculos.add(new Vehiculo("Tesla", 23));
+		vehiculos.add(new Usuario("Seat Panda", 2));
+		vehiculos.add(new Usuario("Lamborgini", 4));
+		vehiculos.add(new Usuario("Ford K2", 1));
+		vehiculos.add(new Usuario("Citoren Shara", 12));
+		vehiculos.add(new Usuario("Ferrari", 500));
+		vehiculos.add(new Usuario("Tesla", 23));
 
 	}
 
@@ -41,14 +41,14 @@ public class ServiceVehiculoArrayList implements ServiceVehiculo {
 	}
 
 	@Override
-	public List<Vehiculo> getAll() {
+	public List<Usuario> getAll() {
 		return this.vehiculos;
 	}
 
 	@Override
-	public Vehiculo getById(long id) {
-		Vehiculo resul = null;
-		for (Vehiculo v : vehiculos) {
+	public Usuario getById(long id) {
+		Usuario resul = null;
+		for (Usuario v : vehiculos) {
 			if (id == v.getId()) {
 				resul = v;
 				break;
@@ -60,7 +60,7 @@ public class ServiceVehiculoArrayList implements ServiceVehiculo {
 	@Override
 	public boolean delete(long id) {
 		boolean resul = false;
-		for (Vehiculo v : vehiculos) {
+		for (Usuario v : vehiculos) {
 			if (id == v.getId()) {
 				resul = true;
 				vehiculos.remove(v);
@@ -71,9 +71,9 @@ public class ServiceVehiculoArrayList implements ServiceVehiculo {
 	}
 
 	@Override
-	public boolean update(Vehiculo vModificar) {
+	public boolean update(Usuario vModificar) {
 		boolean resul = false;
-		for (Vehiculo v : vehiculos) {
+		for (Usuario v : vehiculos) {
 			if (vModificar.getId() == v.getId()) {
 				resul = true;
 				int pos = vehiculos.indexOf(v);
@@ -86,7 +86,7 @@ public class ServiceVehiculoArrayList implements ServiceVehiculo {
 	}
 
 	@Override
-	public boolean create(Vehiculo v) {
+	public boolean create(Usuario v) {
 		v.setId(++indice);
 		return vehiculos.add(v);
 	}

@@ -6,7 +6,7 @@ import com.ipartek.formacion.recetas.ejercicios.collection.InterfazEstupida;
 import com.ipartek.formacion.recetas.ejercicios.enumeracion.EstadoCoche;
 import com.ipartek.formacion.recetas.pojo.VehiculoException;
 
-public class Vehiculo implements Conducible, InterfazEstupida, Serializable {
+public class Usuario implements Conducible, InterfazEstupida, Serializable {
 
 	private long id;
 	private String modelo;
@@ -15,7 +15,7 @@ public class Vehiculo implements Conducible, InterfazEstupida, Serializable {
 	private float potencia;
 	private EstadoCoche estado;
 
-	public Vehiculo() {
+	public Usuario() {
 		super();
 		this.estado = EstadoCoche.NUEVO;
 		this.id = -1;
@@ -25,12 +25,12 @@ public class Vehiculo implements Conducible, InterfazEstupida, Serializable {
 		this.potencia = 100;
 	}
 
-	public Vehiculo(String modelo) {
+	public Usuario(String modelo) {
 		this();
 		this.modelo = modelo;
 	}
 
-	public Vehiculo(String modelo, long id) {
+	public Usuario(String modelo, long id) {
 		this();
 		this.id = id;
 		this.modelo = modelo;

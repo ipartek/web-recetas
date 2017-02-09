@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ipartek.formacion.recetas.ejercicios.herencia.Vehiculo;
+import com.ipartek.formacion.recetas.ejercicios.herencia.Usuario;
 import com.ipartek.formacion.recetas.pojo.Mensaje;
 import com.ipartek.formacion.recetas.services.ServiceVehiculo;
 import com.ipartek.formacion.recetas.services.ServiceVehiculoMysql;
@@ -82,7 +82,7 @@ public class VehiculoCRUDController extends HttpServlet {
 			switch (op) {
 
 			case OP_VER_NUEVO:
-				request.setAttribute("vehiculo", new Vehiculo());
+				request.setAttribute("vehiculo", new Usuario());
 				dispatcher = request.getRequestDispatcher(VIEW_FORM);
 				msj = null;
 				break;
@@ -109,7 +109,7 @@ public class VehiculoCRUDController extends HttpServlet {
 					Float dimensiones = Float.valueOf(pDimensiones.replace(",", "."));
 
 					// crear Vehiculo
-					Vehiculo v = new Vehiculo();
+					Usuario v = new Usuario();
 					v.setId(id);
 					v.setModelo(pModelo);
 					v.setPlazas(pPlazas);
@@ -144,7 +144,7 @@ public class VehiculoCRUDController extends HttpServlet {
 					if (id != -1) {
 						request.setAttribute("vehiculo", service.getById(id));
 					} else {
-						request.setAttribute("vehiculo", new Vehiculo());
+						request.setAttribute("vehiculo", new Usuario());
 					}
 
 					msj.setDescripcion("Error:" + e.getMessage());

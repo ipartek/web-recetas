@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.ipartek.formacion.recetas.ejercicios.herencia.Pajaro;
-import com.ipartek.formacion.recetas.ejercicios.herencia.Vehiculo;
+import com.ipartek.formacion.recetas.ejercicios.herencia.Usuario;
 import com.ipartek.formacion.recetas.pojo.Receta;
 import com.ipartek.formacion.recetas.pojo.comparator.ComparatorRecetaNivelDificultad;
 
@@ -22,8 +22,8 @@ public class ComparacionesTest {
 	Receta tortilla = new Receta("Torilla Patatas");
 
 	private ArrayList<InterfazEstupida> listadoEStupido = null;
-	private Vehiculo vSeat = null;
-	private Vehiculo vFord = null;
+	private Usuario vSeat = null;
+	private Usuario vFord = null;
 	private Pajaro pKiwi = null;
 	private Pajaro pGallina = null;
 
@@ -38,10 +38,10 @@ public class ComparacionesTest {
 		recetas.add(tortilla);
 
 		listadoEStupido = new ArrayList<InterfazEstupida>();
-		vSeat = new Vehiculo("Seat");
+		vSeat = new Usuario("Seat");
 		vSeat.setPotencia(500);
 
-		vFord = new Vehiculo("Ford K");
+		vFord = new Usuario("Ford K");
 		vFord.setPotencia(100);
 
 		pKiwi = new Pajaro("Kiwi", 0);

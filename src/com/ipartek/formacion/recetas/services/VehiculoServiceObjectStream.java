@@ -8,26 +8,26 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ipartek.formacion.recetas.ejercicios.herencia.Vehiculo;
+import com.ipartek.formacion.recetas.ejercicios.herencia.Usuario;
 
 public class VehiculoServiceObjectStream implements ServiceVehiculo {
 
 	private static VehiculoServiceObjectStream INSTANCE;
-	private static ArrayList<Vehiculo> vehiculos = null;
+	private static ArrayList<Usuario> vehiculos = null;
 	public static final String PATH = "C:\\desarrollo\\workspace\\web-recetas\\data\\vehiculo.txt";
 
 	private VehiculoServiceObjectStream() {
 
-		vehiculos = new ArrayList<Vehiculo>();
+		vehiculos = new ArrayList<Usuario>();
 		if (!existeFile()) {
 
 			vehiculos = new ArrayList<>();
-			vehiculos.add(new Vehiculo("Seat Panda", 0));
-			vehiculos.add(new Vehiculo("Lamborgini", 1));
-			vehiculos.add(new Vehiculo("Ford K2", 2));
-			vehiculos.add(new Vehiculo("Citoren Shara", 3));
-			vehiculos.add(new Vehiculo("Ferrari", 4));
-			vehiculos.add(new Vehiculo("Tesla", 5));
+			vehiculos.add(new Usuario("Seat Panda", 0));
+			vehiculos.add(new Usuario("Lamborgini", 1));
+			vehiculos.add(new Usuario("Ford K2", 2));
+			vehiculos.add(new Usuario("Citoren Shara", 3));
+			vehiculos.add(new Usuario("Ferrari", 4));
+			vehiculos.add(new Usuario("Tesla", 5));
 
 			guardarFichero(vehiculos);
 
@@ -35,11 +35,11 @@ public class VehiculoServiceObjectStream implements ServiceVehiculo {
 
 	}
 
-	private ArrayList<Vehiculo> leerFichero() {
+	private ArrayList<Usuario> leerFichero() {
 		ObjectInputStream ois = null;
 		try {
 			ois = new ObjectInputStream(new FileInputStream(PATH));
-			vehiculos = (ArrayList<Vehiculo>) ois.readObject();
+			vehiculos = (ArrayList<Usuario>) ois.readObject();
 			ois.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -47,7 +47,7 @@ public class VehiculoServiceObjectStream implements ServiceVehiculo {
 		return vehiculos;
 	}
 
-	private void guardarFichero(ArrayList<Vehiculo> vehiculos) {
+	private void guardarFichero(ArrayList<Usuario> vehiculos) {
 
 		ObjectOutputStream oos = null;
 
@@ -85,16 +85,16 @@ public class VehiculoServiceObjectStream implements ServiceVehiculo {
 	}
 
 	@Override
-	public List<Vehiculo> getAll() {
+	public List<Usuario> getAll() {
 		vehiculos = leerFichero();
 		return vehiculos;
 	}
 
 	@Override
-	public Vehiculo getById(long id) {
-		Vehiculo resul = null;
+	public Usuario getById(long id) {
+		Usuario resul = null;
 		vehiculos = leerFichero();
-		for (Vehiculo vehiculo : vehiculos) {
+		for (Usuario vehiculo : vehiculos) {
 			if (id == vehiculo.getId()) {
 				resul = vehiculo;
 				break;
@@ -107,7 +107,7 @@ public class VehiculoServiceObjectStream implements ServiceVehiculo {
 	public boolean delete(long id) {
 		boolean resul = false;
 		vehiculos = leerFichero();
-		for (Vehiculo vehiculo : vehiculos) {
+		for (Usuario vehiculo : vehiculos) {
 			if (id == vehiculo.getId()) {
 				vehiculos.remove(vehiculo);
 				resul = true;
@@ -124,10 +124,10 @@ public class VehiculoServiceObjectStream implements ServiceVehiculo {
 	}
 
 	@Override
-	public boolean update(Vehiculo vAcambiar) {
+	public boolean update(Usuario vAcambiar) {
 		boolean resul = false;
 		vehiculos = leerFichero();
-		for (Vehiculo vehiculo : vehiculos) {
+		for (Usuario vehiculo : vehiculos) {
 			if (vAcambiar.getId() == vehiculo.getId()) {
 				int pos = vehiculos.indexOf(vehiculo);
 				vehiculos.remove(vehiculo);
@@ -146,7 +146,7 @@ public class VehiculoServiceObjectStream implements ServiceVehiculo {
 	}
 
 	@Override
-	public boolean create(Vehiculo v) {
+	public boolean create(Usuario v) {
 		boolean resul = false;
 		try {
 			vehiculos = leerFichero();

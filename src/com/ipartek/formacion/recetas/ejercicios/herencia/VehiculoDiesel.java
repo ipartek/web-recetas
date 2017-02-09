@@ -1,6 +1,6 @@
 package com.ipartek.formacion.recetas.ejercicios.herencia;
 
-public class VehiculoDiesel extends Vehiculo {
+public class VehiculoDiesel extends Usuario {
 
 	public final float MIN_CAPACIDAD_COMBUSTIBLE = 70;
 

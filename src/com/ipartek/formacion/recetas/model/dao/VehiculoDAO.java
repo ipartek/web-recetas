@@ -7,13 +7,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ipartek.formacion.recetas.ejercicios.herencia.Vehiculo;
+import com.ipartek.formacion.recetas.ejercicios.herencia.Usuario;
 import com.ipartek.formacion.recetas.model.DataBaseConnectionImpl;
 import com.ipartek.formacion.recetas.model.Persistable;
 import com.ipartek.formacion.recetas.pojo.VehiculoException;
 import com.mysql.jdbc.Statement;
 
-public class VehiculoDAO implements Persistable<Vehiculo> {
+public class VehiculoDAO implements Persistable<Usuario> {
 
 	private static VehiculoDAO INSTANCE = null;
 	private static DataBaseConnectionImpl db;
@@ -43,13 +43,13 @@ public class VehiculoDAO implements Persistable<Vehiculo> {
 	}
 
 	@Override
-	public List<Vehiculo> getAll() {
-		ArrayList<Vehiculo> list = null;
+	public List<Usuario> getAll() {
+		ArrayList<Usuario> list = null;
 
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		try {
-			list = new ArrayList<Vehiculo>();
+			list = new ArrayList<Usuario>();
 			conn = db.getConexion();
 			pst = conn.prepareStatement(SQL_GET_ALL);
 			rs = pst.executeQuery();
@@ -67,8 +67,8 @@ public class VehiculoDAO implements Persistable<Vehiculo> {
 	}
 
 	@Override
-	public Vehiculo getById(long id) {
-		Vehiculo v = null;
+	public Usuario getById(long id) {
+		Usuario v = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		try {
@@ -90,7 +90,7 @@ public class VehiculoDAO implements Persistable<Vehiculo> {
 	}
 
 	@Override
-	public boolean create(Vehiculo v) {
+	public boolean create(Usuario v) {
 		boolean resul = false;
 		PreparedStatement pst = null;
 		try {
@@ -121,7 +121,7 @@ public class VehiculoDAO implements Persistable<Vehiculo> {
 	}
 
 	@Override
-	public boolean update(Vehiculo v) {
+	public boolean update(Usuario v) {
 		boolean resul = false;
 		PreparedStatement pst = null;
 		try {
@@ -167,8 +167,8 @@ public class VehiculoDAO implements Persistable<Vehiculo> {
 		return resul;
 	}
 
-	private Vehiculo mapear(ResultSet rs) throws SQLException, VehiculoException {
-		Vehiculo v = new Vehiculo();
+	private Usuario mapear(ResultSet rs) throws SQLException, VehiculoException {
+		Usuario v = new Usuario();
 		v.setId(rs.getLong("id"));
 		v.setModelo(rs.getString("modelo"));
 		// TODO dimensiones

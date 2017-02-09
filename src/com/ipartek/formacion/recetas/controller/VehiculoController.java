@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ipartek.formacion.recetas.ejercicios.herencia.Vehiculo;
+import com.ipartek.formacion.recetas.ejercicios.herencia.Usuario;
 import com.ipartek.formacion.recetas.pojo.Mensaje;
 
 /**
@@ -48,7 +48,7 @@ public class VehiculoController extends HttpServlet {
 			pPotencia = request.getParameter("potencia");
 
 			// crear Vehiculo
-			Vehiculo v = new Vehiculo();
+			Usuario v = new Usuario();
 			v.setModelo(pModelo);
 			v.setPlazas(Integer.parseInt(pPlazas));
 			v.setPotencia(Float.parseFloat(pPotencia));

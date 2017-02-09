@@ -92,6 +92,7 @@
                 	<li><a href="migracion">Proceso Migración</a></li>
                 	<li><a href="zona-segura/index.jsp">Filtro Seguridad</a></li>
                 	<li><a href="zona-segura/usuarios-logeados.jsp">Listado Usuario Logeados</a></li>
+                	<li><a href="zona-segura/usuario">CRUD Usuario</a></li>
                 </ul>
                 
             </div>

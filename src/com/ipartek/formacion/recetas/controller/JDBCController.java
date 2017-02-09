@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ipartek.formacion.recetas.ejercicios.herencia.Vehiculo;
+import com.ipartek.formacion.recetas.ejercicios.herencia.Usuario;
 import com.ipartek.formacion.recetas.pojo.Mensaje;
 
 /**
@@ -24,7 +24,7 @@ import com.ipartek.formacion.recetas.pojo.Mensaje;
 public class JDBCController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	ArrayList<Vehiculo> vehiculos = null;
+	ArrayList<Usuario> vehiculos = null;
 
 	// parametros conexion
 	static final String URL = "jdbc:mysql://localhost:3306/concesionario";
@@ -50,7 +50,7 @@ public class JDBCController extends HttpServlet {
 
 			msj = new Mensaje();
 			msjDescripcion = new StringBuilder();
-			vehiculos = new ArrayList<Vehiculo>();
+			vehiculos = new ArrayList<Usuario>();
 
 			// comprobar driver o libreria
 			Class.forName(DRIVER);
@@ -123,10 +123,10 @@ public class JDBCController extends HttpServlet {
 		rs = pst.executeQuery();
 
 		// iterar sobre ResultSEt y cargar array vehiculos
-		Vehiculo v = null;
+		Usuario v = null;
 		while (rs.next()) {
 
-			v = new Vehiculo();
+			v = new Usuario();
 
 			v.setId(rs.getLong("id"));
 			v.setModelo(rs.getString("modelo"));

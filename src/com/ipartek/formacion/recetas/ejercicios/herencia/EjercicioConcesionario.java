@@ -14,9 +14,9 @@ public class EjercicioConcesionario {
 
 	public static void main(String[] args) throws VehiculoException {
 
-		Vehiculo v1 = new Vehiculo("Prius");
-		Vehiculo v2 = new Vehiculo("Ibiza");
-		Vehiculo v3 = new Vehiculo("Ford Fiesta");
+		Usuario v1 = new Usuario("Prius");
+		Usuario v2 = new Usuario("Ibiza");
+		Usuario v3 = new Usuario("Ford Fiesta");
 		v1.setPlazas(5);
 		v1.setPotencia(300);
 
@@ -41,7 +41,7 @@ public class EjercicioConcesionario {
 		vd2.setPotencia(120);
 		vd2.setCapacidadCombustible(98);
 
-		ArrayList<Vehiculo> stock = new ArrayList<Vehiculo>();
+		ArrayList<Usuario> stock = new ArrayList<Usuario>();
 		stock.add(v1);
 		stock.add(v2);
 		stock.add(v3);
@@ -50,7 +50,7 @@ public class EjercicioConcesionario {
 		stock.add(vd2);
 
 		// mostrar por pantalla
-		for (Vehiculo vehiculo : stock) {
+		for (Usuario vehiculo : stock) {
 			System.out.println();
 			System.out.println("---------------------------------");
 			System.out.println(vehiculo.getModelo());

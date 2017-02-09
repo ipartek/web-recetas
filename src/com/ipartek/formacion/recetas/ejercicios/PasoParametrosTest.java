@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.ipartek.formacion.recetas.ejercicios.herencia.Vehiculo;
+import com.ipartek.formacion.recetas.ejercicios.herencia.Usuario;
 import com.ipartek.formacion.recetas.pojo.VehiculoException;
 
 /**
@@ -35,7 +35,7 @@ public class PasoParametrosTest {
 	@Test
 	public void testParametroReferencia() throws VehiculoException {
 
-		Vehiculo x = new Vehiculo();
+		Usuario x = new Usuario();
 		x.setPlazas(0);
 
 		sumaPlazas(x);
@@ -48,7 +48,7 @@ public class PasoParametrosTest {
 		return ++pValor;
 	}
 
-	private void sumaPlazas(Vehiculo v) throws VehiculoException {
+	private void sumaPlazas(Usuario v) throws VehiculoException {
 		v.setPlazas((v.getPlazas() + 1));
 	}
 

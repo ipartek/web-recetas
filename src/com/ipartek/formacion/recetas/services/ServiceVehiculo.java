@@ -2,7 +2,7 @@ package com.ipartek.formacion.recetas.services;
 
 import java.util.List;
 
-import com.ipartek.formacion.recetas.ejercicios.herencia.Vehiculo;
+import com.ipartek.formacion.recetas.ejercicios.herencia.Usuario;
 
 public interface ServiceVehiculo {
 
@@ -11,7 +11,7 @@ public interface ServiceVehiculo {
 	 * 
 	 * @return Coleccion de Vehiculos, si no colecion vacia pero no nula
 	 */
-	List<Vehiculo> getAll();
+	List<Usuario> getAll();
 
 	/**
 	 * Obtenemos Vehiculo por su identificador en la Base Datos
@@ -20,7 +20,7 @@ public interface ServiceVehiculo {
 	 *            identificador
 	 * @return Vehiculo, null si no existe
 	 */
-	Vehiculo getById(long id);
+	Usuario getById(long id);
 
 	/**
 	 * Elimina Vehiculo por su identificador
@@ -38,7 +38,7 @@ public interface ServiceVehiculo {
 	 *            Vehiculo con los datos a modificar
 	 * @return true si modifica, false en caso contrario
 	 */
-	boolean update(Vehiculo v);
+	boolean update(Usuario v);
 
 	/**
 	 * Crea un nuevo Vehiculo y le asigna un identificador
@@ -47,6 +47,6 @@ public interface ServiceVehiculo {
 	 *            Vehiculo a crear
 	 * @return true si crea, false en caso contrario
 	 */
-	boolean create(Vehiculo v);
+	boolean create(Usuario v);
 
 }

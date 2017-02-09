@@ -1,6 +1,6 @@
 package com.ipartek.formacion.recetas.ejercicios.herencia;
 
-public class VehiculoElectrico extends Vehiculo {
+public class VehiculoElectrico extends Usuario {
 
 	public final float MIN_CAPACIDAD_BATERIA = 100;
 
