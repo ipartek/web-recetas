@@ -1,7 +1,9 @@
 package com.ipartek.formacion.recetas.model.dao;
 
+import java.sql.Connection;
 import java.util.List;
 
+import com.ipartek.formacion.recetas.model.DataBaseConnectionImpl;
 import com.ipartek.formacion.recetas.model.Persistable;
 import com.ipartek.formacion.recetas.pojo.Usuario;
 
@@ -11,6 +13,27 @@ public class UsuarioDAO implements Persistable<Usuario> {
 	static final private String SQL_GET_BY_ID = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `id` = ?;";
 	static final private String SQL_GET_BY_EMAIL = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `email` = ?;";
 	static final private String SQL_COUNT = "SELECT COUNT(`id`) FROM `usuario`;";
+
+	private static UsuarioDAO INSTANCE = null;
+	private static DataBaseConnectionImpl db = null;
+	private Connection conn = null;
+
+	private UsuarioDAO() {
+		db = DataBaseConnectionImpl.getInstance();
+	}
+
+	public static UsuarioDAO getInstance() {
+		if (INSTANCE == null) {
+			createInstance();
+		}
+		return INSTANCE;
+	}
+
+	private synchronized static void createInstance() {
+		if (INSTANCE == null) {
+			INSTANCE = new UsuarioDAO();
+		}
+	}
 
 	@Override
 	public List<Usuario> getAll() {
