@@ -221,8 +221,38 @@ public class UsuarioDAO implements Persistable<Usuario> {
 		return u;
 	}
 
-	Usuario existe(String email, String password) {
-		return null;
+	public Usuario existe(String email, String password) {
+
+		Usuario u = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+
+		try {
+
+			conn = db.getConexion();
+
+			pst = conn.prepareStatement(SQL_EXIST);
+			pst.setString(1, email);
+			pst.setString(2, password);
+
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+
+				u = mapear(rs);
+
+			}
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+		} finally {
+
+			db.desconectar();
+
+		}
+		return u;
 	}
 
 	/**
@@ -230,8 +260,33 @@ public class UsuarioDAO implements Persistable<Usuario> {
 	 * 
 	 * @return <code>int </code>numero entero de registros
 	 */
-	int count() {
-		return 0;
+	public int count() {
+
+		int resul = 0;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+
+		try {
+
+			conn = db.getConexion();
+
+			pst = conn.prepareStatement(SQL_COUNT);
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+				resul = rs.getInt(1);
+			}
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+		} finally {
+
+			db.desconectar();
+
+		}
+		return resul;
 	}
 
 	private Usuario mapear(ResultSet rs) throws SQLException {
