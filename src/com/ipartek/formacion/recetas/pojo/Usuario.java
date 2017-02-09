@@ -16,10 +16,12 @@ public class Usuario {
 	private String gitUserName;
 
 	// CONSTRUCTORES
+
 	public Usuario() {
 		super();
 		this.id = -1;
-		this.nombre = "anonimo";
+		this.email = "";
+		this.nombre = "";
 		this.imagen = "https://pbs.twimg.com/profile_images/617295207202209792/P8kGVpP-_reasonably_small.png";
 	}
 
