@@ -39,9 +39,9 @@
 	            </tr>
 	        </thead>        
 	        <tbody>
-				<c:forEach var="u" items="${listaUsuario }">
+				<c:forEach var="u" items="${listaUsuario}">
 					<tr>
-						<td><a href="zona">${u.id}</a></td>
+						<td><a href="zona-segura/usuario?op=2&id=${u.id}">${u.id}</a></td>
 						<td>${u.nombre}</td>
 						<td>${u.apellido1}</td>
 						<td>${u.apellido2}</td>

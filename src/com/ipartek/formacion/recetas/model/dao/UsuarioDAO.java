@@ -147,6 +147,7 @@ public class UsuarioDAO implements Persistable<Usuario> {
 			pst.setString(7, u.getPuesto());
 			pst.setString(8, u.getPassword());
 			pst.setString(9, u.getImagen());
+			pst.setLong(10, u.getId());
 
 			if (pst.executeUpdate() == 1) {
 				resul = true;

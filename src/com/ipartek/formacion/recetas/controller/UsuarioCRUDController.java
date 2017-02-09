@@ -77,7 +77,6 @@ public class UsuarioCRUDController extends HttpServlet {
 			op = request.getParameter("op");
 			if (op == null) {
 				op = OP_LISTAR;
-				System.out.println("LISTARRRRRR");
 			}
 
 			switch (op) {
@@ -94,7 +93,6 @@ public class UsuarioCRUDController extends HttpServlet {
 				dispatcher = request.getRequestDispatcher(VIEW_FORM);
 				msj = null;
 				break;
-
 			case OP_GUARDAR:
 				try {
 					// recoger parametros
@@ -170,8 +168,7 @@ public class UsuarioCRUDController extends HttpServlet {
 				dispatcher = request.getRequestDispatcher(VIEW_LIST);
 				break;
 			default:
-				// listar
-				System.out.println("DEFAULTTTT");
+
 
 				request.setAttribute("listaUsuario", service.listar());
 				msj = null;
