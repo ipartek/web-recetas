@@ -158,7 +158,10 @@ public class UsuarioCRUDController extends HttpServlet {
 
 			String dni = request.getParameter("dni");
 			if (dni != "") {
-				request.setAttribute("usuarios", service.buscarPorDni(dni));
+				ArrayList<Usuario> ArrayDni = new ArrayList<Usuario>();
+				Usuario userDni = service.buscarPorDni(dni);
+				ArrayDni.add(userDni);
+				request.setAttribute("usuarios", ArrayDni);
 			}
 
 			String busqueda = request.getParameter("busqueda");
