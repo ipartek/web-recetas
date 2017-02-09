@@ -5,7 +5,7 @@ import java.util.List;
 import com.ipartek.formacion.recetas.model.dao.UsuarioDAO;
 import com.ipartek.formacion.recetas.pojo.Usuario;
 
-public class ServiceUsuarioMySQL implements ServiceUsuario{
+public class ServiceUsuarioMySQL implements ServiceUsuario {
 	private static ServiceUsuarioMySQL INSTANCE;
 	private static UsuarioDAO daoUsuario;
 
@@ -63,7 +63,7 @@ public class ServiceUsuarioMySQL implements ServiceUsuario{
 
 	@Override
 	public int usuarioTotales() {
-		return daoUsuario.count() ;
+		return daoUsuario.count();
 	}
 
 	@Override
