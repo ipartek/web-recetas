@@ -13,8 +13,9 @@
   	
     <div class="container">
        <div class="row">
+       <%@include file="../../includes/mensaje.jsp" %>
        		<h2><a href="usuarios?op=3">Crear Nuevo</a></h2>
-       
+       		
        
 			 <table class="display data-table-mio" cellspacing="0" width="100%">
 		        <thead>
