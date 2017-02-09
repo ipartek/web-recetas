@@ -139,6 +139,7 @@ public class UsuarioCRUDController extends HttpServlet {
 
 					// cargar dispatch
 					request.setAttribute("usuarios", service.listar());
+					request.setAttribute("totales", service.usuariosTotales());
 					dispatcher = request.getRequestDispatcher(VIEW_LIST);
 
 				} catch (Exception e) {

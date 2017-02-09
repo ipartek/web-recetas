@@ -44,12 +44,12 @@
         	<br>
         	
         	<label for="email">Email: </label>
-        	<input type="text" name="edad" required value="${usuario.email}"/>
+        	<input type="text" name="email" required value="${usuario.email}"/>
         		   
         	<br>
         	
         	<label for="dni">DNI: </label>
-        	<input type="text" name="edad" required value="${usuario.dni}"/>
+        	<input type="text" name="dni" required value="${usuario.dni}"/>
         		   
         	<br>
         	
