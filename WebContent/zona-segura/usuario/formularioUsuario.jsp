@@ -1,3 +1,4 @@
+<%@page import="com.ipartek.formacion.recetas.controller.UsuarioCRUDController"%>
 <%@include file="../../includes/header.jsp" %>
 <%@include file="../../includes/nav.jsp" %>
     
@@ -44,7 +45,7 @@
         		   >
         	<br>
             
-            <input type="hidden" name="op" value="<%=VehiculoCRUDController.OP_GUARDAR%>">
+            <input type="hidden" name="op" value="<%=UsuarioCRUDController.o%>">
             
             <c:if test="${vehiculo.id == -1}">
         		<input type="submit" value="Crear">

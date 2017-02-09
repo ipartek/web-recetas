@@ -1,5 +1,5 @@
-<%@include file="../includes/header.jsp" %>
-<%@include file="../includes/nav.jsp" %>
+<%@include file="../../includes/header.jsp" %>
+<%@include file="../../includes/nav.jsp" %>
     
    
   <header>
@@ -53,4 +53,4 @@
 	</div>	
 	
 	
-<%@include file="../includes/footer.jsp" %>		
+<%@include file="../../includes/footer.jsp" %>		
