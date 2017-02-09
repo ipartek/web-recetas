@@ -45,7 +45,7 @@
         		   >
         	<br>
             
-            <input type="hidden" name="op" value="<%=UsuarioCRUDController.o%>">
+            <input type="hidden" name="op" value="<%=%>">
             
             <c:if test="${vehiculo.id == -1}">
         		<input type="submit" value="Crear">
@@ -63,7 +63,7 @@
         <br><br>
         <c:if test="${vehiculo.id != -1}">
 	         <form action="vehiculo" method="post">	        
-	        	<input type="hidden" name="op" value="<%=VehiculoCRUDController.OP_ELIMINAR%>">
+	        	<input type="hidden" name="op" value="<%=%>">
 	        	<input type="hidden" name="id" value="${vehiculo.id}">	        	
         		<input type="submit" value="Eliminar">
         	</form>
