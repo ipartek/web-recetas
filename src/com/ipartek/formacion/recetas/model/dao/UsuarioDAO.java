@@ -18,7 +18,7 @@ public class UsuarioDAO implements Persistable<Usuario> {
 	private static DataBaseConnectionImpl db;
 	private Connection conn;
 
-	private static final String SQL_GET_ALL = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` ORDER BY `id` DESC LIMIT 500;";
+	private static final String SQL_GET_ALL = "SELECT `id`,`nombre`,`email`,`imagen` FROM `usuario` ORDER BY `id` DESC LIMIT 500;";
 	private static final String SQL_GET_BY_ID = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `id` = ?;";
 	private static final String SQL_GET_BY_EMAIL = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `email` = ?;";
 	private static final String SQL_COUNT = "SELECT COUNT(`id`) FROM `usuario`;";
@@ -190,7 +190,7 @@ public class UsuarioDAO implements Persistable<Usuario> {
 		return u;
 	}
 
-	Usuario existe(String email, String password) {
+	public Usuario existe(String email, String password) {
 		Usuario resul = null;
 		Usuario u = new Usuario();
 		u = getByEmail(email);
@@ -205,7 +205,7 @@ public class UsuarioDAO implements Persistable<Usuario> {
 	 * 
 	 * @return <code>int </code>numero entero de registros
 	 */
-	int count() {
+	public int count() {
 		int resul = -1;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
@@ -225,8 +225,10 @@ public class UsuarioDAO implements Persistable<Usuario> {
 
 	private Usuario mapear(ResultSet rs) throws SQLException {
 		Usuario u = new Usuario();
+		u.setId(rs.getLong("id"));
 		u.setNombre(rs.getString("nombre"));
 		u.setEmail(rs.getString("email"));
+		u.setImagen(rs.getString("imagen"));
 		// TODO faltan campos
 		return u;
 	}

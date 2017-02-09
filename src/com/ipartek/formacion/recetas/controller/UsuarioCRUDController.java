@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.ipartek.formacion.recetas.pojo.Mensaje;
 import com.ipartek.formacion.recetas.pojo.Usuario;
 import com.ipartek.formacion.recetas.services.ServiceUsuario;
+import com.ipartek.formacion.recetas.services.ServiceUsuarioMysql;
 
 /**
  * Servlet implementation class VehiculoCRUDController
@@ -40,7 +41,7 @@ public class UsuarioCRUDController extends HttpServlet {
 		super.init(config);
 		// service = ServiceVehiculoArrayList.getInstance();
 		// service = VehiculoServiceObjectStream.getInstance();
-		service = ServiceUsuarioArrayList.getInstance();
+		service = ServiceUsuarioMysql.getInstance();
 
 	}
 
