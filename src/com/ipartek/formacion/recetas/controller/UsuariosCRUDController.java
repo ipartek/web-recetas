@@ -30,6 +30,10 @@ public class UsuariosCRUDController extends HttpServlet {
 	public static final String OP_VER_NUEVO = "3";
 	public static final String OP_GUARDAR = "4";
 	public static final String OP_ELIMINAR = "5";
+	public static final String OP_FILTRAR_EMAIL = "6";
+	public static final String OP_FILTRAR_DNI = "7";
+	public static final String OP_FILTRAR_NOMBRE_APELLIDO = "8";
+	public static final String OP_FILTRAR_EDAD = "9";
 
 	private static ServiceUsuario service;
 	
@@ -148,6 +152,86 @@ public class UsuariosCRUDController extends HttpServlet {
 				}
 				request.setAttribute("usuarios", service.listar());
 				dispatcher = request.getRequestDispatcher(VIEW_LIST);
+				break;
+				
+			case OP_FILTRAR_EMAIL:
+				
+				String uEmail = request.getParameter("emailfiltro");
+				
+				
+				if (service.buscarPorEmail(uEmail) != null) {
+					msj.setClase(Mensaje.CLASE_SUCCESS);
+					msj.setDescripcion("Busqueda realizada con Exito");
+				} else {
+					msj.setClase(Mensaje.CLASE_DANGER);
+					msj.setDescripcion("Error al realizar la busqueda");
+				}
+				
+				request.setAttribute("emailencontrado" , service.buscarPorEmail(uEmail));
+				request.setAttribute("msj", msj);
+				request.setAttribute("usuarios", service.listar());
+				dispatcher = request.getRequestDispatcher(VIEW_LIST);
+				
+				break;
+				
+			case OP_FILTRAR_DNI:
+				String uDNI = request.getParameter("dnifiltro");
+				
+				
+				if (service.buscarPorDni(uDNI) != null) {
+					msj.setClase(Mensaje.CLASE_SUCCESS);
+					msj.setDescripcion("Busqueda realizada con Exito");
+				} else {
+					msj.setClase(Mensaje.CLASE_DANGER);
+					msj.setDescripcion("Error al realizar la busqueda");
+				}
+				
+				request.setAttribute("dniencontrado" , service.buscarPorDni(uDNI));
+				request.setAttribute("msj", msj);
+				request.setAttribute("usuarios", service.listar());
+				dispatcher = request.getRequestDispatcher(VIEW_LIST);
+				
+				
+				break;
+				
+			case OP_FILTRAR_NOMBRE_APELLIDO:
+				
+				String uNombreApellido = request.getParameter("nombreapellidofiltro");
+				
+				
+				if (service.getNombreApellido(uNombreApellido) != null) {
+					msj.setClase(Mensaje.CLASE_SUCCESS);
+					msj.setDescripcion("Busqueda realizada con Exito");
+				} else {
+					msj.setClase(Mensaje.CLASE_DANGER);
+					msj.setDescripcion("Error al realizar la busqueda");
+				}
+				
+				request.setAttribute("nombreapellidoencontrado" , service.getNombreApellido(uNombreApellido));
+				request.setAttribute("msj", msj);
+				request.setAttribute("usuarios", service.listar());
+				dispatcher = request.getRequestDispatcher(VIEW_LIST);
+				
+				
+				break;
+				
+			case OP_FILTRAR_EDAD:
+				String uRangoEdad = request.getParameter("edadfiltro");
+				
+				
+				if (service.getRangoEdad(18, Integer.valueOf(uRangoEdad)) != null) {
+					msj.setClase(Mensaje.CLASE_SUCCESS);
+					msj.setDescripcion("Busqueda realizada con Exito");
+				} else {
+					msj.setClase(Mensaje.CLASE_DANGER);
+					msj.setDescripcion("Error al realizar la busqueda");
+				}
+				
+				request.setAttribute("edadencontrado" , service.getRangoEdad(18, Integer.valueOf(uRangoEdad)));
+				request.setAttribute("msj", msj);
+				request.setAttribute("usuarios", service.listar());
+				dispatcher = request.getRequestDispatcher(VIEW_LIST);
+				
 				break;
 
 			default:

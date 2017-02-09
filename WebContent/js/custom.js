@@ -15,3 +15,6 @@ $(document).ready(function() {
 	
 	
 });
+
+//Bootstrap slider codigo que nos pide
+var slider = new Slider('#ex2', {});

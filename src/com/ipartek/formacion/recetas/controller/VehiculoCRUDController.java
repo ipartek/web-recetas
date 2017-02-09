@@ -33,6 +33,7 @@ public class VehiculoCRUDController extends HttpServlet {
 	public static final String OP_VER_NUEVO = "3";
 	public static final String OP_GUARDAR = "4";
 	public static final String OP_ELIMINAR = "5";
+	public static final String OP_FILTRAR_EMAIL = "6";
 
 	private static ServiceVehiculo service;
 
@@ -164,6 +165,7 @@ public class VehiculoCRUDController extends HttpServlet {
 				request.setAttribute("vehiculos", service.getAll());
 				dispatcher = request.getRequestDispatcher(VIEW_LIST);
 				break;
+				
 
 			default:
 				// listar

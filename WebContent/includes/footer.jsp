@@ -23,6 +23,8 @@
     <!--  Custom JavaScript -->
     <script src="js/custom.js"></script>
     
+    <!-- Bootstrap Slider -->
+    <script src="vendor/bootstrap-slider/bootstrap-slider.min.js"></script>
        
 	      
       

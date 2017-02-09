@@ -32,6 +32,9 @@
 <!-- Custom -->
 <link href="css/custom.css" rel="stylesheet">
 
+<!-- Bootstrap slider -->
+<link href="vendor/bootstrap-slider/bootstrap-slider.min.css" rel="stylesheet">
+
 <!-- Custom Fonts -->
 <link href="vendor/font-awesome/css/font-awesome.min.css"
 	rel="stylesheet" type="text/css">

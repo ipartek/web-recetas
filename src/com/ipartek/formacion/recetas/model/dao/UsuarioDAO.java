@@ -28,7 +28,7 @@ public class UsuarioDAO implements Persistable<Usuario> {
 	static final private String SQL_DELETE = "DELETE FROM `usuario` WHERE `id` = ?;";
 	
 	static final private String SQL_GET_BY_DNI = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `dni` = ?;";
-	static final private String SQL_GET_NOMBREAPELLIDO = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `nombre` LIKE '%?%' OR `apellido1` LIKE '%?%' OR `apellido2` LIKE %?%'";
+	static final private String SQL_GET_NOMBREAPELLIDO = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `nombre` LIKE ? OR `apellido1` LIKE ? OR `apellido2` LIKE ?";
 	static final private String SQL_GET_RANGO_EDAD = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `edad` BETWEEN ? AND ?";
 	
 	private UsuarioDAO() {
@@ -279,9 +279,9 @@ public class UsuarioDAO implements Persistable<Usuario> {
 			list = new ArrayList<Usuario>();
 			conn = db.getConexion();
 			pst = conn.prepareStatement(SQL_GET_NOMBREAPELLIDO);
-			pst.setString(1, busqueda);
-			pst.setString(2, busqueda);
-			pst.setString(3, busqueda);
+			pst.setString(1, "%" + busqueda + "%");
+			pst.setString(2, "%" + busqueda + "%");
+			pst.setString(3, "%" + busqueda + "%");
 			rs = pst.executeQuery();
 			while (rs.next()) {
 				list.add(mapear(rs));
