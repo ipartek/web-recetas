@@ -27,6 +27,7 @@ public class ListenerContadorUsuarios implements HttpSessionListener, HttpSessio
 	/**
 	 * @see HttpSessionListener#sessionCreated(HttpSessionEvent)
 	 */
+	@Override
 	public void sessionCreated(HttpSessionEvent se) {
 		System.out.println("Session creada");
 	}
@@ -34,6 +35,7 @@ public class ListenerContadorUsuarios implements HttpSessionListener, HttpSessio
 	/**
 	 * @see HttpSessionListener#sessionDestroyed(HttpSessionEvent)
 	 */
+	@Override
 	public void sessionDestroyed(HttpSessionEvent se) {
 		System.out.println("Session destruida");
 	}
@@ -42,6 +44,7 @@ public class ListenerContadorUsuarios implements HttpSessionListener, HttpSessio
 	 * @see com.ipartek.formacion.recetas.controller.LoginController
 	 * @see HttpSessionAttributeListener#attributeAdded(HttpSessionBindingEvent)
 	 */
+	@Override
 	public void attributeAdded(HttpSessionBindingEvent se) {
 		System.out.println("Atributo añadido");
 
@@ -55,18 +58,20 @@ public class ListenerContadorUsuarios implements HttpSessionListener, HttpSessio
 	/**
 	 * @see HttpSessionAttributeListener#attributeRemoved(HttpSessionBindingEvent)
 	 */
+	@Override
 	public void attributeRemoved(HttpSessionBindingEvent se) {
 		System.out.println("Atributo removido o eliminado");
 
 		if ("usuario".equals(se.getName())) {
 			// SE acaba de Logear con exito un usuario nuevo
-			usuariosLogeados.remove((Usuario) se.getValue());
+			usuariosLogeados.remove(se.getValue());
 		}
 	}
 
 	/**
 	 * @see HttpSessionAttributeListener#attributeReplaced(HttpSessionBindingEvent)
 	 */
+	@Override
 	public void attributeReplaced(HttpSessionBindingEvent se) {
 		System.out.println("Atributo reemplazado");
 	}

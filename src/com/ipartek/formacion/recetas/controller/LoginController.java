@@ -76,7 +76,7 @@ public class LoginController extends HttpServlet {
 
 				// guardar en sessison
 				session = request.getSession(true);
-				session.setAttribute("usuario", user);
+				session.setAttribute("usuario", service.existe(user.getEmail(), user.getPassword()));
 
 				// redirect a index.jsp
 				response.sendRedirect("index.jsp");
