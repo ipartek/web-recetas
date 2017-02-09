@@ -1,6 +1,7 @@
 package com.ipartek.formacion.recetas.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -34,7 +35,7 @@ public class UsuarioCRUDController extends HttpServlet {
 	public static final String OP_VER_NUEVO = "3";
 	public static final String OP_GUARDAR = "4";
 	public static final String OP_ELIMINAR = "5";
-	public static final String OP_EMAIL = "6";
+	public static final String OP_FILTRO = "6";
 
 	// Se ejecuta la primera vez que se realiza una peticion
 	@Override
@@ -79,6 +80,7 @@ public class UsuarioCRUDController extends HttpServlet {
 						request.setAttribute("msj", msg);
 					}
 
+					request.setAttribute("count", service.usuarioTotales());
 					request.setAttribute("usuarios", service.listar());
 					request.getRequestDispatcher(VIEW_LIST).forward(request, response);
 					break;
@@ -114,7 +116,8 @@ public class UsuarioCRUDController extends HttpServlet {
 								request.setAttribute("msj", msg);
 							}
 						}
-
+						
+						request.setAttribute("count", service.usuarioTotales());
 						request.setAttribute("usuarios", service.listar());
 						request.getRequestDispatcher(VIEW_LIST).forward(request, response);
 
@@ -143,11 +146,32 @@ public class UsuarioCRUDController extends HttpServlet {
 					request.getRequestDispatcher(VIEW_FORM).forward(request, response);
 					break;
 					
-				case OP_EMAIL:
+				case OP_FILTRO:
 					String email = request.getParameter("email");
-					request.setAttribute("usuarios", service.buscarPorEmail(email));
-					request.setAttribute("op", OP_VER_DETALLE);
-					request.getRequestDispatcher(VIEW_FORM).forward(request, response);
+					if (email != "") {
+						ArrayList<Usuario> ArrayEmail = new ArrayList<Usuario>();
+						Usuario userEmail = service.buscarPorEmail(email);
+						ArrayEmail.add(userEmail);
+						request.setAttribute("usuarios", ArrayEmail);
+					}
+					
+					String dni = request.getParameter("dni");
+					if (dni != "") {
+						request.setAttribute("usuarios", service.buscarPorDni(dni));
+					}
+					
+					String busqueda = request.getParameter("busqueda");
+					if (busqueda != "") {
+						request.setAttribute("usuarios", service.buscarPorNombreOApellido(busqueda));
+					}
+					
+					String edadMin = request.getParameter("edadMin");
+					String edadMax = request.getParameter("edadMax");
+					if (edadMin != "" && edadMax != "") {
+						request.setAttribute("usuarios", service.buscarPorEdad(Integer.parseInt(edadMin), Integer.parseInt(edadMax)));
+					}
+					request.setAttribute("op", OP_LISTAR);
+					request.getRequestDispatcher(VIEW_LIST).forward(request, response);
 					break;
 
 				// Cuando OP no es definida, por ejemplo al clickar listar

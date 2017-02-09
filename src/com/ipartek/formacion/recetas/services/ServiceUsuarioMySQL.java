@@ -73,14 +73,12 @@ public class ServiceUsuarioMySQL implements ServiceUsuario{
 
 	@Override
 	public List<Usuario> buscarPorNombreOApellido(String busqueda) {
-		// TODO Auto-generated method stub
-		return null;
+		return daoUsuario.buscarPorNombreOApellido(busqueda);
 	}
 
 	@Override
 	public List<Usuario> buscarPorEdad(int edadMin, int edadMax) {
-		// TODO Auto-generated method stub
-		return null;
+		return daoUsuario.buscarPorEdad(edadMin, edadMax);
 	}
 
 }
