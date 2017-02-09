@@ -185,7 +185,7 @@ public class UsuarioController extends HttpServlet {
 			e.printStackTrace();
 
 		} finally {
-			request.setAttribute("total-users", totalUsers);
+			request.setAttribute("totalUsers", totalUsers);
 			request.setAttribute("msj", msj);
 			dispatcher.forward(request, response);
 		}

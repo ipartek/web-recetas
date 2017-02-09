@@ -27,6 +27,7 @@ public class UsuarioDAO implements Persistable<Usuario> {
 	static final private String SQL_DELETE = "DELETE FROM `usuario` WHERE `id` = ?;";
 	static final private String SQL_UPDATE = "UPDATE `usuario` SET `nombre`= ?,`apellido1`= ?,`apellido2`= ?,`edad`= ?,`email`= ?,`dni`= ?,`puesto`= ?,`password`= ?,`imagen`= ? WHERE `id` = ?;";
 	static final private String SQL_EXIST = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `email` = ? AND `password` = ?;";
+	static final private String SQL_GET_BY_NAME = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `NOMBRE` LIKE `%?%` ORDER BY `id` DESC LIMIT 500;";
 
 	private UsuarioDAO() {
 		db = DataBaseConnectionImpl.getInstance();
