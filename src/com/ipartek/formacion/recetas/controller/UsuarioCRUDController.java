@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.recetas.pojo.Mensaje;
+import com.ipartek.formacion.recetas.pojo.Usuario;
 import com.ipartek.formacion.recetas.services.ServiceUsuario;
 import com.ipartek.formacion.recetas.services.ServiceUsuarioMysql;
 
@@ -27,6 +28,9 @@ public class UsuarioCRUDController extends HttpServlet {
 	// Operaciones que puede realizar
 	public static final String OP_LISTAR = "1";
 	public static final String OP_VER_DETALLE = "2";
+	public static final String OP_VER_NUEVO = "3";
+	public static final String OP_GUARDAR = "4";
+	public static final String OP_ELIMINAR = "5";
 
 	private static ServiceUsuario service;
 
@@ -75,11 +79,12 @@ public class UsuarioCRUDController extends HttpServlet {
 			}
 
 			switch (op) {
-			/*
-			 * case OP_VER_NUEVO: request.setAttribute("vehiculo", new
-			 * Vehiculo()); dispatcher =
-			 * request.getRequestDispatcher(VIEW_FORM); msj = null; break;
-			 */
+
+			case OP_VER_NUEVO:
+				request.setAttribute("usuario", new Usuario());
+				dispatcher = request.getRequestDispatcher(VIEW_FORM);
+				msj = null;
+				break;
 
 			case OP_VER_DETALLE:
 				id = Long.valueOf(request.getParameter("id"));
@@ -87,57 +92,81 @@ public class UsuarioCRUDController extends HttpServlet {
 				dispatcher = request.getRequestDispatcher(VIEW_FORM);
 				msj = null;
 				break;
-			/*
-			 * case OP_GUARDAR: try { // recoger parametros id =
-			 * Long.valueOf(request.getParameter("id")); String pModelo =
-			 * request.getParameter("modelo"); int pPlazas =
-			 * Integer.valueOf(request.getParameter("plazas"));
-			 * 
-			 * // covertir de formato castellano a anglosajon String pPotencia =
-			 * request.getParameter("potencia"); String pDimensiones =
-			 * request.getParameter("dimensiones");
-			 * 
-			 * Float potencia = Float.valueOf(pPotencia.replace(",", "."));
-			 * Float dimensiones = Float.valueOf(pDimensiones.replace(",",
-			 * "."));
-			 * 
-			 * // crear Vehiculo Vehiculo v = new Vehiculo(); v.setId(id);
-			 * v.setModelo(pModelo); v.setPlazas(pPlazas);
-			 * v.setPotencia(potencia); v.setDimensiones(dimensiones);
-			 * 
-			 * // guardarlo o persistirlo en la bbdd boolean guardado = false;
-			 * if (v.getId() == -1) { guardado = service.create(v); } else {
-			 * guardado = service.update(v); }
-			 * 
-			 * // compobar guardado y gestion Mensaje if (guardado) {
-			 * msj.setClase(Mensaje.CLASE_SUCCESS); msj.setDescripcion(
-			 * "Vehivulo Guardado con Exito"); } else {
-			 * msj.setClase(Mensaje.CLASE_WARNING); msj.setDescripcion(
-			 * "No se ha podido Guardar el Vehiculo"); }
-			 * 
-			 * // cargar dispatch request.setAttribute("vehiculos",
-			 * service.getAll()); dispatcher =
-			 * request.getRequestDispatcher(VIEW_LIST);
-			 * 
-			 * } catch (Exception e) {
-			 * 
-			 * // si es Vehiculo creado, volver a recuperarlo para mostrar // en
-			 * formulario if (id != -1) { request.setAttribute("vehiculo",
-			 * service.getById(id)); } else { request.setAttribute("vehiculo",
-			 * new Vehiculo()); }
-			 * 
-			 * msj.setDescripcion("Error:" + e.getMessage()); dispatcher =
-			 * request.getRequestDispatcher(VIEW_FORM); } break;
-			 */
-			/*
-			 * case OP_ELIMINAR: id = Long.valueOf(request.getParameter("id"));
-			 * if (service.delete(id)) { msj.setClase(Mensaje.CLASE_SUCCESS);
-			 * msj.setDescripcion("Vehivulo Eliminado con Exito"); } else {
-			 * msj.setClase(Mensaje.CLASE_WARNING); msj.setDescripcion(
-			 * "No se ha podido Eliminar el Vehiculo"); }
-			 * request.setAttribute("vehiculos", service.getAll()); dispatcher =
-			 * request.getRequestDispatcher(VIEW_LIST); break;
-			 */
+
+			case OP_GUARDAR:
+				try {
+					// recoger parametros
+					id = Long.valueOf(request.getParameter("id"));
+					String pNombre = request.getParameter("nombre");
+					String pApellido1 = request.getParameter("apellido1");
+					String pApellido2 = request.getParameter("apellido2");
+					int pEdad = Integer.valueOf(request.getParameter("edad"));
+					String pEmail = request.getParameter("email");
+					String pDni = request.getParameter("dni");
+					String pPuesto = request.getParameter("puesto");
+					String pPassword = request.getParameter("password");
+					String pImagen = request.getParameter("imagen");
+
+					// crear Usuario
+					Usuario u = new Usuario();
+					u.setId(id);
+					u.setNombre(pNombre);
+					u.setApellido1(pApellido1);
+					u.setApellido2(pApellido2);
+					u.setEdad(pEdad);
+					u.setEmail(pEmail);
+					u.setDni(pDni);
+					u.setPuesto(pPuesto);
+					u.setPassword(pPassword);
+					u.setImagen(pImagen);
+
+					// guardarlo o persistirlo en la bbdd
+					boolean guardado = false;
+					if (u.getId() == -1) {
+						guardado = service.darDeAlta(u);
+					} else {
+						guardado = service.modificar(u);
+					}
+
+					// compobar guardado y gestion Mensaje
+					if (guardado) {
+						msj.setClase(Mensaje.CLASE_SUCCESS);
+						msj.setDescripcion("Vehivulo Guardado con Exito");
+					} else {
+						msj.setClase(Mensaje.CLASE_WARNING);
+						msj.setDescripcion("No se ha podido Guardar el Vehiculo");
+					}
+
+					// cargar dispatch
+					request.setAttribute("usuario", service.listar());
+					dispatcher = request.getRequestDispatcher(VIEW_LIST);
+
+				} catch (Exception e) {
+
+					// si es Usuario creado, volver a recuperarlo para mostrar
+					// en formulario
+					if (id != -1) {
+						request.setAttribute("usuario", service.buscarPorId(id));
+					} else {
+						request.setAttribute("usuario", new Usuario());
+					}
+
+					msj.setDescripcion("Error:" + e.getMessage());
+					dispatcher = request.getRequestDispatcher(VIEW_FORM);
+				}
+				break;
+			case OP_ELIMINAR:
+				id = Long.valueOf(request.getParameter("id"));
+				if (service.darDeBaja(id)) {
+					msj.setClase(Mensaje.CLASE_SUCCESS);
+					msj.setDescripcion("Usuario Eliminado con Exito");
+				} else {
+					msj.setClase(Mensaje.CLASE_WARNING);
+					msj.setDescripcion("No se ha podido Eliminar el Usuario");
+				}
+				request.setAttribute("usuario", service.listar());
+				dispatcher = request.getRequestDispatcher(VIEW_LIST);
+				break;
 			default:
 				// listar
 				request.setAttribute("usuario", service.listar());
