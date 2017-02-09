@@ -40,7 +40,7 @@
 						<td>${u.puesto}</td>
 						<td>${u.edad}</td>
 						<td>
-							<img src="${u.imagen}" alt="usr-image">
+							<img src="${u.imagen}" alt="usr-image" style="width:20%">
 						</td>
 					</tr>
 				</c:forEach>
@@ -52,7 +52,7 @@
 				<p>Usuario No Conectado</p>
 			</c:when>
 			<c:when test="${user!=null}">
-				<p>Usuario: ${user.nombre}</p>
+				<p>Usuario: ${usuario.nombre}</p>
 			</c:when>
 		</c:choose>
  		<p>Total Usuarios: ${total-users}</p> 

@@ -68,6 +68,7 @@ public class UsuarioController extends HttpServlet {
 		long id = -1;
 		Mensaje msj = null;
 		RequestDispatcher dispatcher = null;
+		int totalUsers = 0;
 
 		try {
 			// incializar mensaje
@@ -134,6 +135,8 @@ public class UsuarioController extends HttpServlet {
 
 					// cargar dispatch
 					request.setAttribute("usuarios", service.listar());
+					totalUsers = service.usuarioTotales();
+
 					dispatcher = request.getRequestDispatcher(VIEW_LIST);
 
 				} catch (Exception e) {
@@ -161,6 +164,8 @@ public class UsuarioController extends HttpServlet {
 					msj.setDescripcion("No se ha podido Eliminar el Usuario");
 				}
 				request.setAttribute("usuarios", service.listar());
+				totalUsers = service.usuarioTotales();
+
 				dispatcher = request.getRequestDispatcher(VIEW_LIST);
 				break;
 
@@ -168,16 +173,19 @@ public class UsuarioController extends HttpServlet {
 				// listar
 				request.setAttribute("usuarios", service.listar());
 				msj = null;
+				totalUsers = service.usuarioTotales();
 				dispatcher = request.getRequestDispatcher(VIEW_LIST);
 				break;
 			}// end switch
 
 		} catch (Exception e) {
 			dispatcher = request.getRequestDispatcher(VIEW_LIST);
+
 			msj.setDescripcion(e.getMessage());
 			e.printStackTrace();
 
 		} finally {
+			request.setAttribute("total-users", totalUsers);
 			request.setAttribute("msj", msj);
 			dispatcher.forward(request, response);
 		}
