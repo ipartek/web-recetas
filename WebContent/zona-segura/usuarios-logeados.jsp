@@ -53,7 +53,7 @@
 				<c:forEach var="u" items="${usuarios}">
 					<tr>
 						<td>${u.id}</td>
-						<td><img src="${u.imagen}" alt="foto del usuario"></td>
+						<td><a href="zona-segura/usuario?op=2&id=${v.id}"><img src="${u.imagen}" alt="foto del usuario"></a></td>
 						<td>${u.nombre}</td>
 						<td>${u.apellido1}</td>
 						<td>${u.apellido2}</td>
