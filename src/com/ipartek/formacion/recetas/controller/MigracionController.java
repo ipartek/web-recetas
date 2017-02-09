@@ -31,7 +31,7 @@ public class MigracionController extends HttpServlet {
 	// INSERT INTO `persona` (`id`, `nombre`, `apellido1`, `apellido2`, `edad`,
 	// `email`, `dni`, `puesto`) VALUES (NULL, 'pepe', 'gorriti', 'zubiri',
 	// '56', 'a@a.com', '1111111H', 'jefe');
-	private String sql = "INSERT INTO `persona` (`id`, `nombre`, `apellido1`, `apellido2`, `edad`, `email`, `dni`, `puesto`) VALUES (NULL, ? , 'gorriti', 'zubiri', '56', 'a@a.com', '1111111H', 'jefe');";
+	private String sql = "INSERT INTO `usuario` (`id`, `nombre`, `apellido1`, `apellido2`, `edad`, `email`, `dni`, `puesto`) VALUES (NULL, ? , 'gorriti', 'zubiri', '56', 'a@a.com', '1111111H', 'jefe');";
 	// parametros conexion
 	static final String URL = "jdbc:mysql://localhost:3306/concesionario";
 	static final String DB_USER = "root";

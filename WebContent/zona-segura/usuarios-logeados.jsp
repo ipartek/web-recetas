@@ -28,7 +28,14 @@
 	                <th>id</th>
 	                <th>Foto</th>
 	                <th>Nombre</th>
-	                <th>Email</th>	                                
+	                <th>Apellido 1</th>
+	                <th>Apellido 2</th>
+	                <th>Edad</th>
+	                <th>Email</th>	  
+	                <th>Dni</th>	 
+	                <th>Password</th>	 
+	                <th>Puesto</th>	 
+	                                              
 	            </tr>
 	        </thead>        
 	        <tbody>
@@ -37,13 +44,18 @@
 						<td>${u.id}</td>
 						<td><img src="${u.imagen}" alt="foto del usuario"></td>
 						<td>${u.nombre}</td>
+						<td>${u.apellido1}</td>
+						<td>${u.apellido2}</td>
+						<td>${u.edad}</td>
 						<td>${u.email}</td>
+						<td>${u.dni}</td>
+						<td>${u.password}</td>
+						<td>${u.puesto}</td>
 					</tr>
 				</c:forEach>
 			  </tbody>
      	  </table>
-     	  ${usuario.nombre}
-			
+     
 		</div>
 	</div>	
 	
