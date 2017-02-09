@@ -20,7 +20,13 @@
        		<p>Empleamos un Listener de Session <code>ListenerContadorUsuarios</code> para gestionar los usuarios logeados.</p>
        		<p>Ver documentación de Listener en: <a target="_blank" href="javadoc/index.html">javadoc</a></p> 
 			
-			<p>N&uacute;mero de usuarios encontrados: </p>
+			<p>N&uacute;mero de usuarios encontrados: ${totales}</p>
+			
+			
+			
+			<!-- ${usuarios.size()} -->
+			
+			
 			
 			<p> <a href="zona-segura/usuario?op=3">Registrarse</a></p>
 			

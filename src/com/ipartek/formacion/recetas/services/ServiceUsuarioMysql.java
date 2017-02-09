@@ -65,7 +65,7 @@ public class ServiceUsuarioMysql implements ServiceUsuario {
 	}
 
 	@Override
-	public int usuarioTotales() {
+	public int usuariosTotales() {
 
 		return daoUsuario.count();
 	}

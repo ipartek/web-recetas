@@ -24,7 +24,7 @@ public class UsuarioDAO implements Persistable<Usuario> {
 	private static final String SQL_COUNT = "SELECT COUNT(`id`) FROM `usuario`;";
 	private static final String SQL_DELETE = "DELETE FROM `usuario` WHERE `id` = ?";
 	private static final String SQL_UPDATE = "UPDATE `usuario` SET `nombre` = ?, `apellido1` = ?, `apellido2` = ?, `edad` = ?, `dni` = ?, `email` = ?, `puesto` = ?, `password` = ?, `imagen` = ? WHERE `id` = ?;";
-	private static final String SQL_CREATE = "INSERT INTO `usuario` (`nombre`, `apellido1`, `apellido2`, `edad`, `dni`, `edad`, `email`, `puesto`, `password`, `imagen`) VALUES ( ? , ? , ? , ? , ? , ?, ? , ? , ? ,? );";
+	private static final String SQL_CREATE = "INSERT INTO `usuario` (`nombre`, `apellido1`, `apellido2`, `edad`, `dni`, `edad`, `email`, `puesto`, `password`, `imagen`) VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? );";
 	private static final String SQL_EXISTE = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `email` = ?, `password` = ?;";
 
 	private UsuarioDAO() {
@@ -106,7 +106,7 @@ public class UsuarioDAO implements Persistable<Usuario> {
 			pst.setString(6, u.getDni());
 			pst.setString(7, u.getPuesto());
 			pst.setString(8, u.getPassword());
-			pst.setString(8, u.getImagen());
+			pst.setString(9, u.getImagen());
 
 			// Insertamos Usuario
 			int affectedRows = pst.executeUpdate();
@@ -222,7 +222,7 @@ public class UsuarioDAO implements Persistable<Usuario> {
 			rs = pst.executeQuery();
 
 			while (rs.next()) {
-				totales++;
+				totales = rs.getInt(1);
 			}
 
 		} catch (SQLException e) {
