@@ -55,7 +55,7 @@
 				<p>Usuario: ${user.nombre}</p>
 			</c:when>
 		</c:choose>
-		<p>Total Usuarios: ${total-users}</p>
+ 		<p>Total Usuarios: ${total-users}</p> 
 		<c:set var="now" value="<%=new java.util.Date()%>" />
 		<p>
 			Fecha:

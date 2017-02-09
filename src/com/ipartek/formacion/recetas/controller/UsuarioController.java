@@ -24,8 +24,8 @@ public class UsuarioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	// vistas
-	private static final String VIEW_LIST = "zona-segura/user-index.jsp";
-	private static final String VIEW_FORM = "zona-segura/user-form.jsp";
+	private static final String VIEW_LIST = "usuario/index.jsp";
+	private static final String VIEW_FORM = "usuario/form.jsp";
 
 	// Operaciones que puede realizar
 	public static final String OP_LISTAR = "1";
