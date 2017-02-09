@@ -100,6 +100,7 @@ public class UsuariosCRUDController extends HttpServlet {
 					u.setDni(uDni);
 					u.setPuesto(uPuesto);
 					u.setPassword(uPassword);
+					u.setImagen(uImagen);
 					// guardarlo o persistirlo en la bbdd
 					boolean guardado = false;
 					if (u.getId() == -1) {

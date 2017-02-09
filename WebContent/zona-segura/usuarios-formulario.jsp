@@ -35,25 +35,26 @@
         	
         	<label>Apellido 2:</label>
         	<input type="text" name="apellido2" required value="${usuario.apellido2}">
-        	
+        	<br>
         	<label>Edad:</label>
         	<input type="number" name="edad" required value="${usuario.edad}">
-        	
+        	<br>
         	<label>Email:</label>
         	<input type="text" name="email" required value="${usuario.email}">
-        	
+        	<br>
         	<label>Dni:</label>
         	<input type="text" name="dni" required value="${usuario.dni}">
-        	
+        	<br>
         	<label>Puesto:</label>
         	<input type="text" name="puesto" required value="${usuario.puesto}">
-        	
+        	<br>
         	<label>Password:</label>
         	<input type="text" name="password" required value="${usuario.password}">
-        	
+        	<br>
         	<label>Imagen:</label>
         	<input type="text" name="imagen" required value="${usuario.imagen}">
-            
+        	<img style="width:50px;" src="${usuario.imagen}">
+            <br>
             <input type="hidden" name="op" value="<%=UsuariosCRUDController.OP_GUARDAR%>">
             
             <c:if test="${usuario.id == -1}">
