@@ -2,6 +2,7 @@ package com.ipartek.formacion.recetas.controller;
 
 import java.io.IOException;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +13,8 @@ import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.recetas.pojo.Mensaje;
 import com.ipartek.formacion.recetas.pojo.Usuario;
+import com.ipartek.formacion.recetas.services.ServiceUsuario;
+import com.ipartek.formacion.recetas.services.ServiceUsuarioMysql;
 
 /**
  * Servlet implementation class LoginController
@@ -24,6 +27,29 @@ public class LoginController extends HttpServlet {
 
 	private Mensaje msj;
 	private HttpSession session;
+
+	private static ServiceUsuario service;
+
+	@Override
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
+
+		service = ServiceUsuarioMysql.getInstance();
+
+	}
+
+	@Override
+	public void destroy() {
+		super.destroy();
+		service = null;
+	}
+
+	@Override
+	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// System.out.println("Antes de Realizar doGet o doPost");
+		super.service(req, resp);
+		// System.out.println("Tras realizar doGet o doPost");
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -46,7 +72,7 @@ public class LoginController extends HttpServlet {
 			user.setEmail(pMail);
 			user.setPassword(pPassword);
 
-			if (user.existe(user.getEmail(), user.getPassword()) != null) {
+			if (service.existe(user.getEmail(), user.getPassword()) != null) {
 
 				// guardar en sessison
 				session = request.getSession(true);
