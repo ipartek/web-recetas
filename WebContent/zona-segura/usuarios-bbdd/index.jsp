@@ -1,3 +1,4 @@
+<%@page import="com.ipartek.formacion.recetas.services.ServiceUsuarioMysql"%>
 <%@page import="com.ipartek.formacion.recetas.controller.VehiculoCRUDController"%>
 <%@page import="com.ipartek.formacion.recetas.ejercicios.herencia.Vehiculo"%>
 <%@include file="../../includes/header.jsp" %>
@@ -43,7 +44,7 @@
        </table>
        
        
-       <p>Total Usuarios: ${u.usuariosTotales()}</p>
+       <p>Total Usuarios: ${totalUsuarios}</p>
        
        <c:set var="now" value="<%=new java.util.Date()%>" />       
        <p>Fecha: <fmt:formatDate pattern="dd-MM-yyyy HH:mm" value="${now}" /></p> 

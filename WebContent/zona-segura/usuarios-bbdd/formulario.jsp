@@ -1,5 +1,4 @@
 <%@page import="com.ipartek.formacion.recetas.controller.UsuarioCRUDController"%>
-<%@page import="com.ipartek.formacion.recetas.controller.VehiculoCRUDController"%>
 <%@page import="com.ipartek.formacion.recetas.ejercicios.herencia.Vehiculo"%>
 <%@include file="../../includes/header.jsp" %>
 <%@include file="../../includes/nav.jsp" %>
@@ -29,11 +28,11 @@
         	<br>
         
         	<label for="nombre">Nombre:</label>
-        	<input autofocus type="text" name="modelo" required value="${usuario.nombre}">
+        	<input autofocus type="text" name="nombre" required value="${usuario.nombre}">
         	<br>
         	
         	<label for="email">Email:</label>
-        	<input type="number" name="plazas" required value="${usuario.email}">
+        	<input type="text" name="email" required value="${usuario.email}">
         	<br>
             
             <input type="hidden" name="op" value="<%=UsuarioCRUDController.OP_GUARDAR%>">
@@ -53,8 +52,8 @@
         <!-- Formulario Eliminar -->
         <br><br>
         <c:if test="${usuario.id != -1}">
-	         <form action="vehiculo" method="post">	        
-	        	<input type="hidden" name="op" value="<%=VehiculoCRUDController.OP_ELIMINAR%>">
+	         <form action="usuario" method="post">	        
+	        	<input type="hidden" name="op" value="<%=UsuarioCRUDController.OP_ELIMINAR%>">
 	        	<input type="hidden" name="id" value="${usuario.id}">	        	
         		<input type="submit" value="Eliminar">
         	</form>

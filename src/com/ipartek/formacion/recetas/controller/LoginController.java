@@ -44,7 +44,7 @@ public class LoginController extends HttpServlet {
 			Usuario user = new Usuario();
 			user.setNombre(pNombre);
 			user.setPassword(pPassword);
-
+			//
 			if (validarUsuario(user)) {
 
 				// guardar en sessison

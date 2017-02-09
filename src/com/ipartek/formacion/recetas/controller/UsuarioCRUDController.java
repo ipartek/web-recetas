@@ -118,14 +118,14 @@ public class UsuarioCRUDController extends HttpServlet {
 					// compobar guardado y gestion Mensaje
 					if (guardado) {
 						msj.setClase(Mensaje.CLASE_SUCCESS);
-						msj.setDescripcion("Vehivulo Guardado con Exito");
+						msj.setDescripcion("Usuario Guardado con Exito");
 					} else {
 						msj.setClase(Mensaje.CLASE_WARNING);
-						msj.setDescripcion("No se ha podido Guardar el Vehiculo");
+						msj.setDescripcion("No se ha podido Guardar el Usuario");
 					}
 
 					// cargar dispatch
-					request.setAttribute("vehiculos", service.listar());
+					request.setAttribute("usuarios", service.listar());
 					dispatcher = request.getRequestDispatcher(VIEW_LIST);
 
 				} catch (Exception e) {
@@ -159,6 +159,7 @@ public class UsuarioCRUDController extends HttpServlet {
 			default:
 				// listar
 				request.setAttribute("usuarios", service.listar());
+				request.setAttribute("totalUsuarios", service.usuariosTotales());
 				msj = null;
 				dispatcher = request.getRequestDispatcher(VIEW_LIST);
 				break;

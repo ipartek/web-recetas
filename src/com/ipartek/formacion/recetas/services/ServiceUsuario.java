@@ -20,6 +20,6 @@ public interface ServiceUsuario {
 
 	Usuario existe(String email, String password);
 
-	int usuarioTotales();
+	int usuariosTotales();
 
 }
