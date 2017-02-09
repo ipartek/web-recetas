@@ -109,7 +109,7 @@ public class UsuarioCRUDController extends HttpServlet {
 					String pDni = request.getParameter("dni");
 					String pPuesto = request.getParameter("puesto");
 					String pPassword = request.getParameter("password");
-					String pImagen = request.getParameter("imagen");
+					// String pImagen = request.getParameter("imagen");
 
 					// crear Usuario
 					Usuario user = new Usuario();
@@ -122,7 +122,7 @@ public class UsuarioCRUDController extends HttpServlet {
 					user.setDni(pDni);
 					user.setPassword(pPassword);
 					user.setPuesto(pPuesto);
-					user.setImagen(pImagen);
+					// user.setImagen(pImagen);
 
 					// guardarlo o persistirlo en la bbdd
 					boolean guardado = false;
@@ -191,6 +191,11 @@ public class UsuarioCRUDController extends HttpServlet {
 			dispatcher.forward(request, response);
 		}
 
+	}
+
+	public int usuariosTotales() {
+
+		return service.usuarioTotales();
 	}
 
 	/**
