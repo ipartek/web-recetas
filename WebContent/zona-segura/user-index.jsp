@@ -13,7 +13,7 @@
 <div class="container">
 	<div class="row">
 		<%@include file="../../includes/mensaje.jsp"%>
-		<a href="usuario?op=3">Crear Nuevo</a>
+		<a href="zona-segura/usuario?op=3">Crear Nuevo</a>
 		<table class="display data-table-mio" cellspacing="0" width="100%">
 			<thead>
 				<tr>
@@ -31,7 +31,7 @@
 				<c:forEach var="u" items="${usuarios}">
 					<tr>
 						<td>
-							<a href="usuario?op=2&id=${u.id}">${u.nombre}</a>
+							<a href="zona-segura/usuario?op=2&id=${u.id}">${u.nombre}</a>
 						</td>
 						<td>${u.apellido1}</td>
 						<td>${u.apellido2}</td>

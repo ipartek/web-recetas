@@ -21,7 +21,7 @@
       <div class="row">
       	<%@include file="../../includes/mensaje.jsp" %>
         
-        <form action="usuario" method="post">
+        <form action="zona-segura/usuario" method="post">
         
         <label for="id">Identificador:</label>
 			<input type="text" name="id" value="${usuario.id}" readonly class="form-control" />
@@ -65,7 +65,7 @@
         <!-- Formulario Eliminar -->
         <br><br>
         <c:if test="${usuario.id != -1}">
-	         <form action="vehiculo" method="post">	        
+	         <form action="zona-segura/usuario" method="post">	        
 	        	<input type="hidden" name="op" value="<%=UsuarioController.OP_ELIMINAR%>">
 	        	<input type="hidden" name="id" value="${usuario.id}">	        	
         		<input type="submit" value="Eliminar">

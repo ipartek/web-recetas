@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ipartek.formacion.recetas.ejercicios.herencia.Vehiculo;
 import com.ipartek.formacion.recetas.pojo.Mensaje;
 import com.ipartek.formacion.recetas.pojo.Usuario;
 import com.ipartek.formacion.recetas.services.ServiceUsuario;
@@ -18,7 +17,7 @@ import com.ipartek.formacion.recetas.services.ServiceUsuario;
 /**
  * Servlet implementation class VehiculoCRUDController
  */
-@WebServlet("/usuario")
+@WebServlet("/zona-segura/usuario")
 public class UsuarioController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -116,9 +115,9 @@ public class UsuarioController extends HttpServlet {
 					// guardarlo o persistirlo en la bbdd
 					boolean guardado = false;
 					if (u.getId() == -1) {
-						guardado = service.create(u);
+						guardado = service.darDeAlta(u);
 					} else {
-						guardado = service.update(u);
+						guardado = service.modificar(u);
 					}
 
 					// compobar guardado y gestion Mensaje
@@ -139,9 +138,9 @@ public class UsuarioController extends HttpServlet {
 					// si es Vehiculo creado, volver a recuperarlo para mostrar
 					// en formulario
 					if (id != -1) {
-						request.setAttribute("usuarios", service.getById(id));
+						request.setAttribute("usuarios", service.buscarPorId(id));
 					} else {
-						request.setAttribute("usuarios", new Vehiculo());
+						request.setAttribute("usuarios", new Usuario());
 					}
 
 					msj.setDescripcion("Error:" + e.getMessage());
@@ -151,20 +150,20 @@ public class UsuarioController extends HttpServlet {
 
 			case OP_ELIMINAR:
 				id = Long.valueOf(request.getParameter("id"));
-				if (service.delete(id)) {
+				if (service.darDeBaja(id)) {
 					msj.setClase(Mensaje.CLASE_SUCCESS);
-					msj.setDescripcion("Vehivulo Eliminado con Exito");
+					msj.setDescripcion("Usuario Eliminado con Exito");
 				} else {
 					msj.setClase(Mensaje.CLASE_WARNING);
-					msj.setDescripcion("No se ha podido Eliminar el Vehiculo");
+					msj.setDescripcion("No se ha podido Eliminar el Usuario");
 				}
-				request.setAttribute("vehiculos", service.getAll());
+				request.setAttribute("usuarios", service.listar());
 				dispatcher = request.getRequestDispatcher(VIEW_LIST);
 				break;
 
 			default:
 				// listar
-				request.setAttribute("vehiculos", service.getAll());
+				request.setAttribute("usuarios", service.listar());
 				msj = null;
 				dispatcher = request.getRequestDispatcher(VIEW_LIST);
 				break;

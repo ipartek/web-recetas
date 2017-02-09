@@ -29,6 +29,7 @@ public class LoginController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -37,15 +38,15 @@ public class LoginController extends HttpServlet {
 			msj = new Mensaje();
 
 			// recoger parametros
-			String pNombre = request.getParameter("userName");
+			String pMail = request.getParameter("userMail");
 			String pPassword = request.getParameter("userPass");
 
 			// crear usuario con parametros
 			Usuario user = new Usuario();
-			user.setNombre(pNombre);
+			user.setEmail(pMail);
 			user.setPassword(pPassword);
 
-			if (validarUsuario(user)) {
+			if (user.existe(user.getEmail(), user.getPassword()) != null) {
 
 				// guardar en sessison
 				session = request.getSession(true);
@@ -77,26 +78,27 @@ public class LoginController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);
 	}
 
-	private boolean validarUsuario(Usuario user) {
-		boolean resul = false;
-		// TODO implementar con BBDD algun dia
-
-		// contexto para los parametros de inicio
-		final String userNameCredential = getInitParameter("userNameCredential");
-		final String userPassCredential = getInitParameter("userPassCredential");
-
-		// comprobar que coincidan
-		if (userNameCredential.equalsIgnoreCase(user.getNombre())
-				&& userPassCredential.equalsIgnoreCase(user.getPassword())) {
-			resul = true;
-		}
-
-		return resul;
-	}
+	// private boolean validarUsuario(Usuario user) {
+	// boolean resul = false;
+	// // TODO implementar con BBDD algun dia
+	//
+	// // contexto para los parametros de inicio
+	// final String userNameCredential = getInitParameter("userNameCredential");
+	// final String userPassCredential = getInitParameter("userPassCredential");
+	//
+	// // comprobar que coincidan
+	// if (userNameCredential.equalsIgnoreCase(user.getNombre())
+	// && userPassCredential.equalsIgnoreCase(user.getPassword())) {
+	// resul = true;
+	// }
+	//
+	// return resul;
+	// }
 
 }
