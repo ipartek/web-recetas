@@ -16,6 +16,11 @@
   	
     <div class="container">
        <div class="row">
+       
+       	<%@include file="../../includes/mensaje.jsp" %>
+        
+       
+       <a href="zona-segura/usuario?op=3">Crear Nuevo Usuario</a>
        		<p>LISTADO DE USUARIOS:</p>
 			
 			<table class="display data-table-mio" cellspacing="0" width="100%">

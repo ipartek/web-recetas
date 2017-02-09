@@ -21,7 +21,7 @@ public class UsuarioDAO implements Persistable<Usuario> {
 
 	static final private String SQL_GET_ALL = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` ORDER BY `id` DESC LIMIT 500;";
 	static final private String SQL_GET_BY_ID = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `id` = ?;";
-	static final String SQL_CREATE = "INSERT INTO `vehiculo` (`nombre`, `apellido1`, `apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen`) VALUES ( ? , ? , ?,?,?,?,?,?,? );";
+	static final String SQL_CREATE = "INSERT INTO `usuario` (`nombre`, `apellido1`, `apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen`) VALUES ( ? , ? , ?,?,?,?,?,?,? );";
 	static final private String SQL_GET_BY_EMAIL = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `email` = ?;";
 	private final static String SQL_DELETE = "DELETE FROM `usuario` WHERE `id` = ?";
 	static final String SQL_UPDATE = "UPDATE `usuario` SET `nombre` = ?, `apellido1` = ?, `apellido2` = ? , `edad` = ?, `email` = ?, `dni` = ?, `puesto` = ?,`password` = ?, `imagen` = ? WHERE `id` = ?;";
@@ -110,7 +110,7 @@ public class UsuarioDAO implements Persistable<Usuario> {
 			pst.setString(7, u.getPuesto());
 			pst.setString(8, u.getPassword());
 			pst.setString(9, u.getImagen());
-			// insertamos vehiculo
+			// insertamos Usuario
 			int affectedRows = pst.executeUpdate();
 
 			if (affectedRows == 1) {

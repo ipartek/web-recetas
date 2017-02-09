@@ -24,6 +24,7 @@ public class UsuarioCRUDController extends HttpServlet {
 	// vistas
 	private static final String VIEW_LIST = "usuario/indexUsuario.jsp";
 	private static final String VIEW_FORM = "usuario/formularioUsuario.jsp";
+	private static final String VIEW_ADD = "usuario/crear-usuario.jsp";
 
 	// Operaciones que puede realizar
 	public static final String OP_LISTAR = "1";
@@ -83,7 +84,7 @@ public class UsuarioCRUDController extends HttpServlet {
 
 			case OP_VER_NUEVO:
 				request.setAttribute("usuario", new Usuario());
-				dispatcher = request.getRequestDispatcher(VIEW_FORM);
+				dispatcher = request.getRequestDispatcher(VIEW_ADD);
 				msj = null;
 				break;
 
@@ -97,7 +98,7 @@ public class UsuarioCRUDController extends HttpServlet {
 			case OP_GUARDAR:
 				try {
 					// recoger parametros
-					id = Long.valueOf(request.getParameter("id"));
+
 					String pNombre = request.getParameter("nombre");
 					String pApellido1 = request.getParameter("apellido1");
 					String pApellido2 = request.getParameter("apellido2");
@@ -106,11 +107,11 @@ public class UsuarioCRUDController extends HttpServlet {
 					String pDni = request.getParameter("dni");
 					String pPuesto = request.getParameter("puesto");
 					String pPassword = request.getParameter("password");
-					String pImagen = request.getParameter("imagen");
+					// String pImagen = request.getParameter("imagen");
 
 					// crear Usuario
 					Usuario u = new Usuario();
-					u.setId(id);
+
 					u.setNombre(pNombre);
 					u.setApellido1(pApellido1);
 					u.setApellido2(pApellido2);
@@ -119,7 +120,7 @@ public class UsuarioCRUDController extends HttpServlet {
 					u.setDni(pDni);
 					u.setPuesto(pPuesto);
 					u.setPassword(pPassword);
-					u.setImagen(pImagen);
+					// u.setImagen(pImagen);
 
 					// guardarlo o persistirlo en la bbdd
 					boolean guardado = false;
@@ -132,14 +133,14 @@ public class UsuarioCRUDController extends HttpServlet {
 					// compobar guardado y gestion Mensaje
 					if (guardado) {
 						msj.setClase(Mensaje.CLASE_SUCCESS);
-						msj.setDescripcion("Vehivulo Guardado con Exito");
+						msj.setDescripcion("Usuario Guardado con Exito");
 					} else {
 						msj.setClase(Mensaje.CLASE_WARNING);
-						msj.setDescripcion("No se ha podido Guardar el Vehiculo");
+						msj.setDescripcion("No se ha podido Guardar el Usuario");
 					}
 
 					// cargar dispatch
-					request.setAttribute("usuario", service.listar());
+					request.setAttribute("listaUsuario", service.listar());
 					dispatcher = request.getRequestDispatcher(VIEW_LIST);
 
 				} catch (Exception e) {
@@ -151,7 +152,7 @@ public class UsuarioCRUDController extends HttpServlet {
 					} else {
 						request.setAttribute("usuario", new Usuario());
 					}
-
+					e.printStackTrace();
 					msj.setDescripcion("Error:" + e.getMessage());
 					dispatcher = request.getRequestDispatcher(VIEW_FORM);
 				}
@@ -165,7 +166,7 @@ public class UsuarioCRUDController extends HttpServlet {
 					msj.setClase(Mensaje.CLASE_WARNING);
 					msj.setDescripcion("No se ha podido Eliminar el Usuario");
 				}
-				request.setAttribute("usuario", service.listar());
+				request.setAttribute("listaUsuario", service.listar());
 				dispatcher = request.getRequestDispatcher(VIEW_LIST);
 				break;
 			default:

@@ -13,12 +13,10 @@ public class Usuario {
 	private String password;
 	private String imagen;
 
-	
-	
 	public Usuario(long id, String nombre, String apellido1, String apellido2, int edad, String email, String dni,
 			String puesto, String password, String imagen) {
 		super();
-		this.id = id;
+		this.id = -1;
 		this.nombre = nombre;
 		this.setApellido1(apellido1);
 		this.setApellido2(apellido2);
@@ -36,20 +34,18 @@ public class Usuario {
 		this.nombre = "anonimo";
 		this.imagen = "https://pbs.twimg.com/profile_images/617295207202209792/P8kGVpP-_reasonably_small.png";
 	}
-	
+
 	public Usuario(String nombre) {
 		super();
 		this.nombre = nombre;
 		this.imagen = "https://pbs.twimg.com/profile_images/617295207202209792/P8kGVpP-_reasonably_small.png";
 	}
-	
+
 	public Usuario(String nombre, String imagen) {
 		super();
 		this.nombre = nombre;
 		this.imagen = imagen;
 	}
-
-
 
 	public long getId() {
 		return id;
@@ -90,9 +86,6 @@ public class Usuario {
 	public void setImagen(String imagen) {
 		this.imagen = imagen;
 	}
-
-
-
 
 	public String getApellido1() {
 		return apellido1;
@@ -140,8 +133,5 @@ public class Usuario {
 				+ ", edad=" + edad + ", email=" + email + ", dni=" + dni + ", puesto=" + puesto + ", password="
 				+ password + ", imagen=" + imagen + "]";
 	}
-	
-	
-	
 
 }
