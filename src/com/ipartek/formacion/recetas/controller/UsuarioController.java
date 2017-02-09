@@ -39,7 +39,7 @@ public class UsuarioController extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 
-		service = ServiceUsuario.getInstance();
+		service = ServiceUsuarioMysql.getInstance();
 
 	}
 
