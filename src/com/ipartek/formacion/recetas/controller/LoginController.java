@@ -2,6 +2,7 @@ package com.ipartek.formacion.recetas.controller;
 
 import java.io.IOException;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +13,8 @@ import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.recetas.pojo.Mensaje;
 import com.ipartek.formacion.recetas.pojo.Usuario;
+import com.ipartek.formacion.recetas.services.ServiceUsuario;
+import com.ipartek.formacion.recetas.services.ServiceUsuarioMySQL;
 
 /**
  * Servlet implementation class LoginController
@@ -21,9 +24,22 @@ import com.ipartek.formacion.recetas.pojo.Usuario;
 public class LoginController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-
+	private static ServiceUsuario service;
 	private Mensaje msj;
 	private HttpSession session;
+	
+	@Override
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
+		//service = ServiceVehiculoArrayList.getInstance();
+		service = ServiceUsuarioMySQL.getInstance();
+	}
+
+	@Override
+	public void destroy() {
+		super.destroy();
+		service = null;
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -37,15 +53,15 @@ public class LoginController extends HttpServlet {
 			msj = new Mensaje();
 
 			// recoger parametros
-			String pNombre = request.getParameter("userName");
-			String pPassword = request.getParameter("userPass");
+			String email = request.getParameter("userEmail");
+			String password = request.getParameter("userPass");
 
 			// crear usuario con parametros
 			Usuario user = new Usuario();
-			user.setNombre(pNombre);
-			user.setPassword(pPassword);
+			user.setEmail(email);
+			user.setPassword(password);
 
-			if (validarUsuario(user)) {
+			if ((user= service.existe(email, password))!=null) {
 
 				// guardar en sessison
 				session = request.getSession(true);
@@ -82,21 +98,5 @@ public class LoginController extends HttpServlet {
 		doGet(request, response);
 	}
 
-	private boolean validarUsuario(Usuario user) {
-		boolean resul = false;
-		// TODO implementar con BBDD algun dia
-
-		// contexto para los parametros de inicio
-		final String userNameCredential = getInitParameter("userNameCredential");
-		final String userPassCredential = getInitParameter("userPassCredential");
-
-		// comprobar que coincidan
-		if (userNameCredential.equalsIgnoreCase(user.getNombre())
-				&& userPassCredential.equalsIgnoreCase(user.getPassword())) {
-			resul = true;
-		}
-
-		return resul;
-	}
 
 }

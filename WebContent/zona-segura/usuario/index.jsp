@@ -18,6 +18,14 @@
         
       
        <a href="zona-segura/usuario?op=3">Crear Nuevo</a>
+       <br>
+        <h1>Buscar por Email</h1>
+       <form method="post" action="zona-segura/usuario">
+       	<input type="text" name="email">
+       	<input type="submit" value="Buscar">
+       	<input type="hidden" name="op" value="6">
+       </form>
+       <br>
        
        
        <table class="display data-table-mio" cellspacing="0" width="100%">
@@ -49,7 +57,7 @@
 	                <td>${u.apellido1}</td>
 	                <td>${u.apellido2}</td>
 	                <td>${u.edad}</td>
-	                <td><a href="zona-segura/usuario?op=6">${u.email}</a></td>
+	                <td>${u.email}</td>
 	                <td>${u.dni}</td>
 	                <td>${u.puesto}</td>
 	                <td>${u.password}</td>
@@ -58,10 +66,10 @@
      
 	            </tr>
            </c:forEach> 
-                       
        </tbody>
        </table>
        <p>Usuarios Registrados : ${count} </p>
+
        
     </div> 
     <!--  <div class="row"> -->

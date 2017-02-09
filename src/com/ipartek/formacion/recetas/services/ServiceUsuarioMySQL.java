@@ -58,13 +58,29 @@ public class ServiceUsuarioMySQL implements ServiceUsuario{
 
 	@Override
 	public Usuario existe(String email, String password) {
-		// TODO Auto-generated method stub
-		return null;
+		return daoUsuario.existe(email, password);
 	}
 
 	@Override
 	public int usuarioTotales() {
 		return daoUsuario.count() ;
+	}
+
+	@Override
+	public Usuario buscarPorDni(String dni) {
+		return daoUsuario.getByDni(dni);
+	}
+
+	@Override
+	public List<Usuario> buscarPorNombreOApellido(String busqueda) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Usuario> buscarPorEdad(int edadMin, int edadMax) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

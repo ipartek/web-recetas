@@ -11,6 +11,18 @@ public interface ServiceUsuario {
 	Usuario buscarPorId(long id);
 
 	Usuario buscarPorEmail(String email);
+		
+	Usuario buscarPorDni(String dni);
+	
+	/**
+	 * Busca cualquier coincidencia en los nombre o apellidos, ignorecase
+	 * @param busqueda 
+	 * @return
+	 */
+	List<Usuario> buscarPorNombreOApellido(String busqueda);
+	
+	List<Usuario> buscarPorEdad(int edadMin, int edadMax);
+	
 
 	boolean darDeBaja(long id);
 

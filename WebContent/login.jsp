@@ -12,7 +12,7 @@
      
       <form action="login" method="post">
 				
-			<input type="text" name="userName" required placeholder="Nombre Usuario">
+			<input type="text" name="userEmail" required placeholder="Email">
 			
 			<input type="password" name="userPass" required placeholder="Contraseña">
 			

@@ -19,13 +19,19 @@ public class UsuarioDAO implements Persistable<Usuario> {
 	private Connection conn;
 
 	static final private String SQL_GET_ALL = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` ORDER BY `id` DESC LIMIT 500;";
+	static final private String SQL_GET_EDAD = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `edad` BETWEEN ? AND ? ORDER BY `id` DESC LIMIT 500;";
+	static final private String SQL_GET_LIKE = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `nombre` OR `apellido1` OR `apellido2` LIKE '%?%' ORDER BY `id` DESC LIMIT 500;";
+	
 	static final private String SQL_GET_BY_ID = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `id` = ?;";
 	static final private String SQL_GET_BY_EMAIL = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `email` = ?;";
+	static final private String SQL_GET_BY_DNI = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `dni` = ?;";
+
+	
 	static final private String SQL_COUNT = "SELECT COUNT(`id`) FROM `usuario`;";
 	private static final String SQL_DELETE = "DELETE FROM `usuario` WHERE `id` = ?";
 	private static final String SQL_UPDATE = "UPDATE `usuario` SET `nombre` = ?, `apellido1` = ?, `apellido2` = ?, `edad` = ?, `email` = ?, `dni` = ?,`puesto` = ?, `password` = ?, `imagen` = ? WHERE `id` = ? ;";
 	private static final String SQL_CREATE = "INSERT INTO `usuario` (`nombre`, `apellido1`, `apellido2`, `edad`, `email`, `dni`, `puesto`, `password`, `imagen`) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-	
+	private static final String SQL_EXISTE = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `email` = ? AND `password`= ?;";
 	private UsuarioDAO() {
 		db = DataBaseConnectionImpl.getInstance();
 	}
@@ -219,9 +225,99 @@ public class UsuarioDAO implements Persistable<Usuario> {
 		}
 		return u;
 	}
+	
+	public Usuario getByDni(String dni) {
+		Usuario u = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		try {
+			conn = db.getConexion();
+			pst = conn.prepareStatement(SQL_GET_BY_DNI);
+			pst.setString(1, dni);
 
-	Usuario existe(String email, String password) {
-		return null;
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				u = mapear(rs);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			db.desconectar();
+		}
+		return u;
+	}
+	
+	public List<Usuario> buscarPorEdad(int edadMin, int edadMax) {
+		ArrayList<Usuario> list = null;
+
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		try {
+			list = new ArrayList<Usuario>();
+			conn = db.getConexion();
+			pst = conn.prepareStatement(SQL_GET_EDAD);
+			pst.setInt(1, edadMin);
+			pst.setInt(2, edadMax);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				list.add(mapear(rs));
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} finally {
+			db.desconectar();
+		}
+		return list;
+	}
+	
+	public List<Usuario> buscarPorNombreOApellido(String busqueda) {
+		ArrayList<Usuario> list = null;
+
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		try {
+			list = new ArrayList<Usuario>();
+			conn = db.getConexion();
+			pst = conn.prepareStatement(SQL_GET_LIKE);
+			pst.setString(1, busqueda);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				list.add(mapear(rs));
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} finally {
+			db.desconectar();
+		}
+		return list;
+	}
+
+	public Usuario existe(String email, String password) {
+		Usuario u = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		try {
+			conn = db.getConexion();
+			pst = conn.prepareStatement(SQL_EXISTE);
+			pst.setString(1, email);
+			pst.setString(2, password);
+
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				u = mapear(rs);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			db.desconectar();
+		}
+		return u;
 	}
 
 	/**
