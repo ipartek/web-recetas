@@ -26,8 +26,15 @@
         <thead>
             <tr>
                 <th>Identificador</th>
-                <th>Nombres</th>
-                <th>Email</th>               
+                <th>Nombre</th>
+                <th>1er Apellido</th>
+                <th>2o Apellido</th>
+                <th>Edad</th>
+                <th>Email</th>
+                <th>DNI</th>
+                <th>Puesto</th>
+                <th>Password</th>
+                <th>Imagen</th>               
             </tr>
         </thead>        
         <tbody>
@@ -36,7 +43,14 @@
 	            <tr>
 	             	<td>${u.id}</td> 
 	                <td><a href="usuario?op=2&id=${u.id}">${u.nombre}</a></td>
-	                <td>${u.email}</td>      
+	                <td>${u.apellido1}</td>
+	                <td>${u.apellido2}</td>
+	                <td>${u.edad}</td>
+	                <td>${u.email}</td>   
+	                <td>${u.dni}</td>   
+	                <td>${u.puesto}</td>   
+	                <td>${u.password}</td>   
+	                <td><img src="${u.imagen}"></td>         
 	            </tr>
            </c:forEach> 
                        

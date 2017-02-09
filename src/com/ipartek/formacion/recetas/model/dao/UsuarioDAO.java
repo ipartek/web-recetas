@@ -22,7 +22,7 @@ public class UsuarioDAO implements Persistable<Usuario> {
 	private static final String SQL_GET_BY_ID = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `id` = ?;";
 	private static final String SQL_GET_BY_EMAIL = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `email` = ?;";
 	private static final String SQL_COUNT = "SELECT COUNT(`id`) FROM `usuario`;";
-	private static final String SQL_UPDATE = "UPDATE `usuario` SET `nombre` = ?, `email` = ?, `imagen` = ? WHERE `id` = ?;";
+	private static final String SQL_UPDATE = "UPDATE `usuario` SET `nombre` = ?, `apellido1` = ?, `apellido2` = ?, `edad` = ?, `email` = ?, `dni` = ?, `puesto` = ?, `password` = ?, `imagen` = ? WHERE `id` = ?;";
 	private static final String SQL_CREATE = "INSERT INTO `usuario` (`nombre`, `apellido1`, `apellido2`, `edad`, `email`, `dni`, `puesto`, `password`, `imagen`) VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? );";
 	private static final String SQL_FILTER_BY_STR = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `nombre` LIKE '%?%' OR `apellido1` LIKE '%?%' OR `apellido2` LIKE '%?%' ORDER BY `id` DESC LIMIT 500;";
 	private static final String SQL_DELETE = "DELETE FROM `usuario` WHERE `id` = ?";
@@ -136,9 +136,15 @@ public class UsuarioDAO implements Persistable<Usuario> {
 			conn = db.getConexion();
 			pst = conn.prepareStatement(SQL_UPDATE);
 			pst.setString(1, u.getNombre());
-			pst.setString(2, u.getEmail());
-			pst.setString(3, u.getImagen());
-			pst.setFloat(4, u.getId());
+			pst.setString(2, u.getApellido1());
+			pst.setString(3, u.getApellido2());
+			pst.setInt(4, u.getEdad());
+			pst.setString(5, u.getEmail());
+			pst.setString(6, u.getDni());
+			pst.setString(7, u.getPuesto());
+			pst.setString(8, u.getPassword());
+			pst.setString(9, u.getImagen());
+			pst.setFloat(10, u.getId());
 
 			if (pst.executeUpdate() == 1) {
 				resul = true;

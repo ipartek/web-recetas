@@ -99,13 +99,27 @@ public class UsuarioCRUDController extends HttpServlet {
 					// recoger parametros
 					id = Long.valueOf(request.getParameter("id"));
 					String pNombre = request.getParameter("nombre");
+					String pApellido1 = request.getParameter("apellido1");
+					String pApellido2 = request.getParameter("apellido2");
+					int pEdad = Integer.valueOf(request.getParameter("edad"));
 					String pEmail = request.getParameter("email");
+					String pDni = request.getParameter("dni");
+					String pPuesto = request.getParameter("puesto");
+					String pPassword = request.getParameter("password");
+					String pImagen = request.getParameter("imagen");
 
 					// crear Vehiculo
 					Usuario u = new Usuario();
 					u.setId(id);
 					u.setNombre(pNombre);
+					u.setApellido1(pApellido1);
+					u.setApellido1(pApellido2);
+					u.setEdad(pEdad);
 					u.setEmail(pEmail);
+					u.setDni(pDni);
+					u.setPuesto(pPuesto);
+					u.setPassword(pPassword);
+					u.setImagen(pImagen);
 
 					// guardarlo o persistirlo en la bbdd
 					boolean guardado = false;
