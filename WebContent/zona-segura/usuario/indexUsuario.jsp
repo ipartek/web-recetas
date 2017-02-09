@@ -1,6 +1,8 @@
 <%@include file="../../includes/header.jsp" %>
 <%@include file="../../includes/nav.jsp" %>
-    
+<%@page import="com.ipartek.formacion.recetas.controller.UsuarioCRUDController"%>
+<%@page import="com.ipartek.formacion.recetas.pojo.Usuario"%>
+
    
   <header>
        <div class="container header-content">
@@ -32,9 +34,9 @@
 	            </tr>
 	        </thead>        
 	        <tbody>
-				<c:forEach var="u" items="<%=%>">
+				<c:forEach var="u" items="${listaUsuario }">
 					<tr>
-						<td>${u.id}</td>
+						<td><a href="zona">${u.id}</a></td>
 						<td>${u.nombre}</td>
 						<td>${u.apellido1}</td>
 						<td>${u.apellido2}</td>
@@ -43,7 +45,7 @@
 						<td>${u.dni}</td>
 						<td>${u.puesto}</td>
 						<td>${u.password}</td>
-						<td><img src="${u.imagen}" alt="foto del usuario"></td>
+						<td><img height="150px" width="150px" src="${u.imagen}" alt="foto del usuario"></td>
 					</tr>
 				</c:forEach>
 			  </tbody>

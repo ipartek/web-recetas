@@ -18,12 +18,12 @@ import com.ipartek.formacion.recetas.services.ServiceUsuarioMysql;
 /**
  * Servlet implementation class UsuarioCRUDController
  */
-@WebServlet("/usuario")
+@WebServlet("/zona-segura/usuario")
 public class UsuarioCRUDController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	// vistas
-	private static final String VIEW_LIST = "zona-segura/usuario/indexUsuario.jsp";
-	private static final String VIEW_FORM = "zona-segura/usuario/formularioUsuario.jsp";
+	private static final String VIEW_LIST = "usuario/indexUsuario.jsp";
+	private static final String VIEW_FORM = "usuario/formularioUsuario.jsp";
 
 	// Operaciones que puede realizar
 	public static final String OP_LISTAR = "1";
@@ -76,6 +76,7 @@ public class UsuarioCRUDController extends HttpServlet {
 			op = request.getParameter("op");
 			if (op == null) {
 				op = OP_LISTAR;
+				System.out.println("LISTARRRRRR");
 			}
 
 			switch (op) {
@@ -169,18 +170,22 @@ public class UsuarioCRUDController extends HttpServlet {
 				break;
 			default:
 				// listar
-				request.setAttribute("usuario", service.listar());
+				System.out.println("DEFAULTTTT");
+
+				request.setAttribute("listaUsuario", service.listar());
 				msj = null;
 				dispatcher = request.getRequestDispatcher(VIEW_LIST);
 				break;
 			}// end switch
 
 		} catch (Exception e) {
+			System.out.println("CATCCHHHHH");
 			dispatcher = request.getRequestDispatcher(VIEW_LIST);
 			msj.setDescripcion(e.getMessage());
 			e.printStackTrace();
 
 		} finally {
+			System.out.println("FINALLYYY");
 			request.setAttribute("msj", msj);
 			dispatcher.forward(request, response);
 		}
