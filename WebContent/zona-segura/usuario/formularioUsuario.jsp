@@ -1,4 +1,5 @@
 <%@page import="com.ipartek.formacion.recetas.controller.UsuarioCRUDController"%>
+<%@page import="com.ipartek.formacion.recetas.pojo.Usuario"%>
 <%@include file="../../includes/header.jsp" %>
 <%@include file="../../includes/nav.jsp" %>
     
@@ -7,7 +8,7 @@
        <div class="container header-content">
            <div class="row">
                <div class="col-lg-12">               
-               	<h1>Vehiculo</h1>               		
+               	<h1>Usuario</h1>               		
                </div>
              </div>             
  		</div> 
@@ -64,7 +65,7 @@
         	<br>
             
             
-            <input type="hidden" name="op" value="<%=%>">
+            <input type="hidden" name="op" value="<%=UsuarioCRUDController.OP_GUARDAR%>">
             
             <c:if test="${u.id == -1}">
         		<input type="submit" value="Crear">
@@ -82,7 +83,7 @@
         
         <c:if test="${u.id != -1}">
 	         <form action="usuario" method="post">	        
-	        	<input type="hidden" name="op" value="<%=%>">
+	        	<input type="hidden" name="op" value="<%=UsuarioCRUDController.OP_ELIMINAR%>">
 	        	<input type="hidden" name="id" value="${u.id}">	        	
         		<input type="submit" value="Eliminar">
         	</form>
