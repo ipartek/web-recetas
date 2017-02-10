@@ -163,8 +163,8 @@ public class UsuariosCRUDController extends HttpServlet {
 					msj.setClase(Mensaje.CLASE_SUCCESS);
 					msj.setDescripcion("Busqueda realizada con Exito");
 				} else {
-					msj.setClase(Mensaje.CLASE_DANGER);
-					msj.setDescripcion("Error al realizar la busqueda");
+					msj.setClase(Mensaje.CLASE_INFO);
+					msj.setDescripcion("No se han encontrado coincidencias");
 				}
 				
 				request.setAttribute("emailencontrado" , service.buscarPorEmail(uEmail));
@@ -182,8 +182,8 @@ public class UsuariosCRUDController extends HttpServlet {
 					msj.setClase(Mensaje.CLASE_SUCCESS);
 					msj.setDescripcion("Busqueda realizada con Exito");
 				} else {
-					msj.setClase(Mensaje.CLASE_DANGER);
-					msj.setDescripcion("Error al realizar la busqueda");
+					msj.setClase(Mensaje.CLASE_INFO);
+					msj.setDescripcion("No se han encontrado coincidencias");
 				}
 				
 				request.setAttribute("dniencontrado" , service.buscarPorDni(uDNI));
@@ -199,15 +199,16 @@ public class UsuariosCRUDController extends HttpServlet {
 				String uNombreApellido = request.getParameter("nombreapellidofiltro");
 				
 				
-				if (service.getNombreApellido(uNombreApellido) != null) {
+				if (service.getNombreApellido(uNombreApellido).size() != 0) {
 					msj.setClase(Mensaje.CLASE_SUCCESS);
 					msj.setDescripcion("Busqueda realizada con Exito");
+					request.setAttribute("nombreapellidoencontrado" , service.getNombreApellido(uNombreApellido));
 				} else {
-					msj.setClase(Mensaje.CLASE_DANGER);
-					msj.setDescripcion("Error al realizar la busqueda");
+					msj.setClase(Mensaje.CLASE_INFO);
+					msj.setDescripcion("No se han encontrado coincidencias");
 				}
 				
-				request.setAttribute("nombreapellidoencontrado" , service.getNombreApellido(uNombreApellido));
+				
 				request.setAttribute("msj", msj);
 				request.setAttribute("usuarios", service.listar());
 				dispatcher = request.getRequestDispatcher(VIEW_LIST);
@@ -219,15 +220,16 @@ public class UsuariosCRUDController extends HttpServlet {
 				String uRangoEdad = request.getParameter("edadfiltro");
 				String[] datos = uRangoEdad.split(",");
 				
-				if (service.getRangoEdad(Integer.valueOf(datos[0]), Integer.valueOf(datos[1])) != null) {
+				if (service.getRangoEdad(Integer.valueOf(datos[0]), Integer.valueOf(datos[1])).size() != 0) {
 					msj.setClase(Mensaje.CLASE_SUCCESS);
 					msj.setDescripcion("Busqueda realizada con Exito");
+					request.setAttribute("edadencontrado" , service.getRangoEdad(Integer.valueOf(datos[0]), Integer.valueOf(datos[1])));
 				} else {
-					msj.setClase(Mensaje.CLASE_DANGER);
-					msj.setDescripcion("Error al realizar la busqueda");
+					msj.setClase(Mensaje.CLASE_INFO);
+					msj.setDescripcion("No se han encontrado coincidencias");
 				}
 				
-				request.setAttribute("edadencontrado" , service.getRangoEdad(Integer.valueOf(datos[0]), Integer.valueOf(datos[1])));
+				
 				request.setAttribute("msj", msj);
 				request.setAttribute("usuarios", service.listar());
 				dispatcher = request.getRequestDispatcher(VIEW_LIST);

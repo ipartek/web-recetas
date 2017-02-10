@@ -29,7 +29,7 @@
        			<input type="submit" value="Filtrar">
        		</form>
        		<form method="post" action="usuarios">
-       			<label>Nombre y Apellido</label>
+       			<label>Nombre o Apellido</label>
        			<input type="text" name="nombreapellidofiltro">
        			<input type="hidden" name="op" value="<%=UsuariosCRUDController.OP_FILTRAR_NOMBRE_APELLIDO%>">
        			<input type="submit" value="Filtrar">

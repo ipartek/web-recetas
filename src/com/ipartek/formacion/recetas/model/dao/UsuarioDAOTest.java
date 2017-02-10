@@ -1,6 +1,10 @@
 package com.ipartek.formacion.recetas.model.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
@@ -34,7 +38,7 @@ public class UsuarioDAOTest {
 		assertTrue("minimo 0 usuarios", contador >= 0);
 
 		// crear usuario
-		dao.create(u);
+		assertTrue("No inserta usuario", dao.create(u));
 		contador = dao.count();
 		assertTrue("deberia haber un usuario nuevo", contador > contatorInicial);
 
