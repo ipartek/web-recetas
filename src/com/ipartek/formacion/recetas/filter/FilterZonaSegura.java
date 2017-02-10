@@ -43,6 +43,8 @@ public class FilterZonaSegura implements Filter {
 
 		HttpSession session = httpRequest.getSession(true);
 		Usuario user = (Usuario) session.getAttribute("usuario");
+		System.out.println("IP=" + request.getRemoteAddr());
+		System.out.println("User-Agent=" + ((HttpServletRequest)request).getHeader("User-Agent"));
 
 		// Usuario Logeado en Session
 		if (user != null) {
@@ -53,6 +55,12 @@ public class FilterZonaSegura implements Filter {
 			chain.doFilter(request, response);
 
 			// Usuario debe logearse antes de acceder
+		} else if ("192.168.0.29".equals(request.getRemoteAddr())|| "192.168.0.24".equals(request.getRemoteAddr())) {
+			StringBuffer url = httpRequest.getRequestURL();
+			String uri = httpRequest.getRequestURI();
+			String ctx = httpRequest.getContextPath();
+			String base = url.substring(0, url.length() - uri.length() + ctx.length()) + "/";
+			((HttpServletResponse) response).sendRedirect(base + "404.jsp");
 		} else {
 
 			StringBuffer url = httpRequest.getRequestURL();
@@ -61,7 +69,7 @@ public class FilterZonaSegura implements Filter {
 			String base = url.substring(0, url.length() - uri.length() + ctx.length()) + "/";
 
 			((HttpServletResponse) response).sendRedirect(base + "login.jsp");
-		}
+		} 
 
 	}
 
