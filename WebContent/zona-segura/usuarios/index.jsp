@@ -40,10 +40,12 @@
        			<input type="hidden" name="op" value="<%=UsuariosCRUDController.OP_FILTRAR_EDAD%>">
        			<input type="submit" value="Filtrar">
        		</form>
+       		<c:if test="${emailencontrado != null || dniencontrado != null || nombreapellidoencontrado != null || edadencontrado != null}">
        		<form method="post" action="usuarios">
        			<input type="hidden" name="op" value="">
        			<input type="submit" value="Vaciar filtro">
        		</form>
+       		</c:if>
        		<br><br>
        		<c:if test="${emailencontrado != null}">
        		<p> Se filtra por el email </p>
