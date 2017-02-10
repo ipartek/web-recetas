@@ -2,9 +2,10 @@ package com.ipartek.formacion.recetas.controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -35,13 +36,12 @@ public class UsuarioCRUDController extends HttpServlet {
 
 	private static ServiceUsuario service;
 
+	// Se ejecuta la primera vez que se realiza una peticion
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		// service = ServiceVehiculoArrayList.getInstance();
-		// service = VehiculoServiceObjectStream.getInstance();
 		service = ServiceUsuarioMysql.getInstance();
-
 	}
 
 	@Override
@@ -50,11 +50,12 @@ public class UsuarioCRUDController extends HttpServlet {
 		service = null;
 	}
 
+	// Se ejecuta despues del init si es la primera peticion
 	@Override
-	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// System.out.println("Antes de Realizar doGet o doPost");
-		super.service(req, resp);
-		// System.out.println("Tras realizar doGet o doPost");
+	public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
+		// Esto se hace antes de realizar doGet o doPost
+		super.service(req, res);
+		// Despues de realizar doGet o doPost
 	}
 
 	/**
@@ -63,132 +64,96 @@ public class UsuarioCRUDController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String op = "";
-		long id = -1;
-		Mensaje msj = null;
-		RequestDispatcher dispatcher = null;
+		// TODO Auto-generated method stub
+		// Operacion a realizar
+		String op = request.getParameter("op");
+		Mensaje msg = new Mensaje();
+		if (op == null) {
+			op = OP_LISTAR;
+		}
+		switch (op) {
 
-		try {
-			// incializar mensaje
-			msj = new Mensaje();
+		case OP_ELIMINAR:
 
-			// buscar operacion a realizar
-			op = request.getParameter("op");
-			if (op == null) {
-				op = OP_LISTAR;
+			if (service.darDeBaja(Long.parseLong(request.getParameter("id")))) {
+				msg.setClase(Mensaje.CLASE_SUCCESS);
+				msg.setDescripcion("Eliminado correctamente");
+				request.setAttribute("msj", msg);
 			}
 
-			switch (op) {
+			request.setAttribute("count", service.usuariosTotales());
+			request.setAttribute("usuarios", service.listar());
+			request.getRequestDispatcher(VIEW_LIST).forward(request, response);
+			break;
 
-			case OP_VER_NUEVO:
-				request.setAttribute("zona-segura/usuario", new Usuario());
-				dispatcher = request.getRequestDispatcher(VIEW_FORM);
-				msj = null;
-				break;
+		case OP_GUARDAR:
+			Usuario u = null;
+			try {
+				u = new Usuario();
 
-			case OP_VER_DETALLE:
-				id = Long.valueOf(request.getParameter("id"));
-				request.setAttribute("zona-segura/usuario", service.buscarPorId(id));
-				dispatcher = request.getRequestDispatcher(VIEW_FORM);
-				msj = null;
-				break;
+				u.setId(Integer.parseInt(request.getParameter("id")));
+				u.setNombre(request.getParameter("nombre"));
+				u.setApellido1(request.getParameter("apellido1"));
+				u.setApellido2(request.getParameter("apellido2"));
+				u.setEdad(Integer.parseInt(request.getParameter("edad")));
+				u.setEmail(request.getParameter("email"));
+				u.setDni(request.getParameter("dni"));
+				u.setPuesto(request.getParameter("puesto"));
+				u.setPassword(request.getParameter("password"));
+				u.setImagen(request.getParameter("imagen"));
 
-			case OP_GUARDAR:
-				try {
-					// recoger parametros
-					id = Long.valueOf(request.getParameter("id"));
-					String pNombre = request.getParameter("nombre");
-					String pApe1 = request.getParameter("ape1");
-					String pApe2 = request.getParameter("ape2");
-					int pEdad = Integer.valueOf(request.getParameter("edad"));
-					String pEmail = request.getParameter("email");
-					String pDni = request.getParameter("dni");
-					String pPuesto = request.getParameter("puesto");
-					String pPassword = request.getParameter("password");
-					// String pImagen = request.getParameter("imagen");
-
-					// crear Usuario
-					Usuario user = new Usuario();
-					user.setId(id);
-					user.setNombre(pNombre);
-					user.setApellido1(pApe1);
-					user.setApellido2(pApe2);
-					user.setEdad(pEdad);
-					user.setEmail(pEmail);
-					user.setDni(pDni);
-					user.setPassword(pPassword);
-					user.setPuesto(pPuesto);
-					// user.setImagen(pImagen);
-
-					// guardarlo o persistirlo en la bbdd
-					boolean guardado = false;
-					if (user.getId() == -1) {
-						guardado = service.darDeAlta(user);
-					} else {
-						guardado = service.modificar(user);
+				// Los vehiculos nuevos tienen id -1 al INSTANCIAR Vehiculo.
+				if (Integer.parseInt(request.getParameter("id")) == -1) {
+					if (service.darDeAlta(u)) {
+						msg.setClase(Mensaje.CLASE_SUCCESS);
+						msg.setDescripcion("Creado correctamente");
+						request.setAttribute("msj", msg);
 					}
-
-					// compobar guardado y gestion Mensaje
-					if (guardado) {
-						msj.setClase(Mensaje.CLASE_SUCCESS);
-						msj.setDescripcion("Usuario Guardado con Exito");
-					} else {
-						msj.setClase(Mensaje.CLASE_WARNING);
-						msj.setDescripcion("No se ha podido Guardar el Usuario");
-					}
-
-					// cargar dispatch
-					request.setAttribute("usuarios", service.listar());
-					request.setAttribute("totales", service.usuariosTotales());
-					dispatcher = request.getRequestDispatcher(VIEW_LIST);
-
-				} catch (Exception e) {
-
-					// si es Vehiculo creado, volver a recuperarlo para mostrar
-					// en formulario
-					if (id != -1) {
-						request.setAttribute("zona-segura/usuario", service.buscarPorId(id));
-					} else {
-						request.setAttribute("zona-segura/usuario", new Usuario());
-					}
-
-					msj.setDescripcion("Error:" + e.getMessage());
-					dispatcher = request.getRequestDispatcher(VIEW_FORM);
-				}
-				break;
-
-			case OP_ELIMINAR:
-				id = Long.valueOf(request.getParameter("id"));
-				if (service.darDeBaja(id)) {
-					msj.setClase(Mensaje.CLASE_SUCCESS);
-					msj.setDescripcion("Usuario Eliminado con Exito");
 				} else {
-					msj.setClase(Mensaje.CLASE_WARNING);
-					msj.setDescripcion("No se ha podido Eliminar el Usuario");
+					if (service.modificar(u)) {
+						msg.setClase(Mensaje.CLASE_SUCCESS);
+						msg.setDescripcion("Modificado correctamente");
+						request.setAttribute("msj", msg);
+					}
 				}
+
+				request.setAttribute("count", service.usuariosTotales());
 				request.setAttribute("usuarios", service.listar());
-				dispatcher = request.getRequestDispatcher(VIEW_LIST);
-				break;
+				request.getRequestDispatcher(VIEW_LIST).forward(request, response);
 
-			default:
-				// listar
-				request.setAttribute("usuarios", service.listar());
-				msj = null;
-				request.setAttribute("totales", service.usuariosTotales());
-				dispatcher = request.getRequestDispatcher(VIEW_LIST);
-				break;
-			}// end switch
+			} catch (NumberFormatException e) {
+				msg.setClase(Mensaje.CLASE_DANGER);
+				msg.setDescripcion(e.getMessage());
+				e.printStackTrace();
+				request.setAttribute("msj", msg);
+				request.setAttribute("op", OP_VER_DETALLE);
+				request.setAttribute("usuarios", u);
+				request.getRequestDispatcher(VIEW_FORM).forward(request, response);
+			}
 
-		} catch (Exception e) {
-			dispatcher = request.getRequestDispatcher(VIEW_LIST);
-			msj.setDescripcion(e.getMessage());
-			e.printStackTrace();
+			break;
 
-		} finally {
-			request.setAttribute("msj", msj);
-			dispatcher.forward(request, response);
+		case OP_VER_NUEVO:
+			request.setAttribute("usuarios", new Usuario());
+			request.setAttribute("op", OP_VER_NUEVO);
+			request.getRequestDispatcher(VIEW_FORM).forward(request, response);
+			break;
+
+		case OP_VER_DETALLE:
+			long id = Long.parseLong(request.getParameter("id"));
+			request.setAttribute("usuarios", service.buscarPorId(id));
+			request.setAttribute("op", OP_VER_DETALLE);
+			request.getRequestDispatcher(VIEW_FORM).forward(request, response);
+			break;
+
+		// Cuando OP no es definida, por ejemplo al clickar listar
+		// <a href="vehiculo">CRUD de Vehiculos</a>
+		default:
+			request.setAttribute("count", service.usuariosTotales());
+			request.setAttribute("usuarios", service.listar());
+			request.getRequestDispatcher(VIEW_LIST).forward(request, response);
+			break;
 		}
-
 	}
 
 	/**
@@ -197,6 +162,7 @@ public class UsuarioCRUDController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
