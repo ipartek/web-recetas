@@ -75,11 +75,11 @@
 				</tr>
 			</c:forEach>
 		</tbody>
-	</table>
-
-
+	</table><br/><br/>
+<a href="index.jsp"><i class="fa fa-chevron-circle-left fa-5x"
+				title="Atras" aria-hidden="true"></i> </a>
 </div>
-</div>
+
 
 
 <%@include file="../../includes/footer.jsp"%>
