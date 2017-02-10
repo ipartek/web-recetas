@@ -19,7 +19,7 @@
       
     <p><a href="zona-segura/usuario">Volver</a></p><br>
     
- 	<form action="zona-segura/usuario" method="post" class="borde">
+ 	<form action="zona-segura/usuario" method="post">
         
 			<label for="dni">DNI :</label>
 			<input type="text" name="dni" class="form-control" placeholder="Escribe un DNI"/>
@@ -37,10 +37,10 @@
 			<input type="text" name="apellido2" class="form-control" placeholder="Escribe el segundo apellido"/>
 			<br>
 			<label>Rango mínimo edad:</label>
-			<input type="range" name="edad" min="1" max="130">
+			<input type="range" name="edad" min="0" max="130" value="0">
 			<br>
 			<label>Rango máximo edad:</label>
-			<input type="range" name="edad" min="1" max="130">
+			<input type="range" name="edad" min="1" max="130" value="130">
 			<br>
 			<input type="submit" value="Filtrar">
 			</form>
