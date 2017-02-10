@@ -28,8 +28,8 @@ public class UsuarioDAO implements Persistable<Usuario> {
 	static final private String SQL_DELETE = "DELETE FROM `usuario` WHERE `id` = ?;";
 	
 	static final private String SQL_GET_BY_DNI = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `dni` = ?;";
-	static final private String SQL_GET_NOMBREAPELLIDO = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `nombre` LIKE ? OR `apellido1` LIKE ? OR `apellido2` LIKE ?";
-	static final private String SQL_GET_RANGO_EDAD = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `edad` BETWEEN ? AND ?";
+	static final private String SQL_GET_NOMBREAPELLIDO = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `nombre` LIKE ? OR `apellido1` LIKE ? OR `apellido2` LIKE ? LIMIT 500;";
+	static final private String SQL_GET_RANGO_EDAD = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `edad` BETWEEN ? AND ? LIMIT 500;";
 	
 	private UsuarioDAO() {
 		db = DataBaseConnectionImpl.getInstance();

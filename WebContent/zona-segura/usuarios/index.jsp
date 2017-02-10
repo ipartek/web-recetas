@@ -40,6 +40,10 @@
        			<input type="hidden" name="op" value="<%=UsuariosCRUDController.OP_FILTRAR_EDAD%>">
        			<input type="submit" value="Filtrar">
        		</form>
+       		<form method="post" action="usuarios">
+       			<input type="hidden" name="op" value="">
+       			<input type="submit" value="Vaciar filtro">
+       		</form>
        		<br><br>
        		<c:if test="${emailencontrado != null}">
        			<table class="display data-table-mio" cellspacing="0" width="100%">
