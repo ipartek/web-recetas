@@ -15,7 +15,7 @@
   <div class="container">
   	<div class="row">
   	<p> Mostrando 500 de  ${count} <p>
-  	<a href="zona-segura\usuario\filtro.jsp"><img src="../../img/filtro.jpg"></img></a>
+  	<a href="zona-segura\usuario\filtro.jsp"><img alt="imagen filtro" src="/web-recetas/img/filtro.jpg"></a>
   	
   	
   	

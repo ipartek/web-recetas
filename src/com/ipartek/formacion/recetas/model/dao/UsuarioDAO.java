@@ -20,7 +20,7 @@ public class UsuarioDAO implements Persistable<Usuario> {
 
 	static final private String SQL_GET_ALL = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` ORDER BY `id` DESC LIMIT 500;";
 	static final private String SQL_GET_EDAD = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `edad` BETWEEN ? AND ? ORDER BY `id` DESC LIMIT 500;";
-	static final private String SQL_GET_LIKE = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE ";
+	static final private String SQL_GET_LIKE = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `nombre` LIKE ? OR `apellido1` LIKE ? OR `apellido2` LIKE ? ORDER BY `id` DESC LIMIT 500;";
 	
 	static final private String SQL_GET_BY_ID = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `id` = ?;";
 	static final private String SQL_GET_BY_EMAIL = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `email` = ?;";
@@ -275,13 +275,16 @@ public class UsuarioDAO implements Persistable<Usuario> {
 	
 	public List<Usuario> buscarPorNombreOApellido(String busqueda) {
 		ArrayList<Usuario> list = null;
-
 		PreparedStatement pst = null;
 		ResultSet rs = null;
+		busqueda= "%" + busqueda + "%";
 		try {
 			list = new ArrayList<Usuario>();
 			conn = db.getConexion();
-			pst = conn.prepareStatement(SQL_GET_LIKE +"`nombre` LIKE '%"+busqueda+"%' OR `apellido1` LIKE '%"+busqueda+"%' OR `apellido2` LIKE '%"+busqueda+"%' ORDER BY `id` DESC LIMIT 500;");
+			pst = conn.prepareStatement(SQL_GET_LIKE);
+			pst.setString(1, busqueda);
+			pst.setString(2, busqueda);
+			pst.setString(3, busqueda);
 			
 			rs = pst.executeQuery();
 			while (rs.next()) {
