@@ -46,6 +46,7 @@
        		</form>
        		<br><br>
        		<c:if test="${emailencontrado != null}">
+       		<p> Se filtra por el email </p>
        			<table class="display data-table-mio" cellspacing="0" width="100%">
 		        <thead>
 		            <tr>
@@ -76,6 +77,7 @@
 		     </table>
        		</c:if>
        		<c:if test="${dniencontrado != null}">
+       		<p> Se filtra por el dni</p>
        		<table class="display data-table-mio" cellspacing="0" width="100%">
 		        <thead>
 		            <tr>
@@ -106,6 +108,7 @@
 		     </table>
 		    </c:if>
 		    <c:if test="${nombreapellidoencontrado != null}">
+		    <p> Se filtra buscando en nombre y apellidos </p>
 			 <table class="display data-table-mio" cellspacing="0" width="100%">
 		        <thead>
 		            <tr>
@@ -138,6 +141,7 @@
 		     </table>
 		    </c:if>
 		    <c:if test="${edadencontrado != null}">
+		    <p> Se Filtra por edad</p>
 			 <table class="display data-table-mio" cellspacing="0" width="100%">
 		        <thead>
 		            <tr>
@@ -170,6 +174,7 @@
 		     </table>
 		    </c:if>
        		<c:if test="${emailencontrado == null && dniencontrado == null && nombreapellidoencontrado == null && edadencontrado == null}">
+			 <p> Se muestran los ultimos 500 usuarios de un total de: ${total} usuarios </p>
 			 <table class="display data-table-mio" cellspacing="0" width="100%">
 		        <thead>
 		            <tr>
@@ -202,7 +207,6 @@
 		     </table>
 		     </c:if>
 		</div>
-		<p> Se muestran los ultimos 500 usuarios de un total de: ${total} usuarios </p>
 	</div>	
 	
 	
