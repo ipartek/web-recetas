@@ -22,7 +22,7 @@ public class UsuarioDAO implements Persistable<Usuario> {
 	static final private String SQL_GET_ALL = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` ORDER BY `id` DESC LIMIT 500;";
 	static final private String SQL_GET_BY_ID = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `id` = ?;";
 	static final private String SQL_GET_BY_EMAIL = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `email` = ?;";
-	static final private String SQL_COUNT = "SELECT COUNT(`id`) FROM `usuario`;";
+	static final private String SQL_COUNT = "SELECT COUNT(`id`) as `total` FROM `usuario`;";
 	static final private String SQL_CREATE = "INSERT INTO `usuario`(`nombre`, `apellido1`, `apellido2`, `edad`, `email`, `dni`, `puesto`, `password`, `imagen`) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 	static final private String SQL_DELETE = "DELETE FROM `usuario` WHERE `id` = ?;";
 	static final private String SQL_UPDATE = "UPDATE `usuario` SET `nombre`= ?,`apellido1`= ?,`apellido2`= ?,`edad`= ?,`email`= ?,`dni`= ?,`puesto`= ?,`password`= ?,`imagen`= ? WHERE `id` = ?;";
@@ -299,8 +299,8 @@ public class UsuarioDAO implements Persistable<Usuario> {
 			pst = conn.prepareStatement(SQL_COUNT);
 			rs = pst.executeQuery();
 
-			while (rs.next()) {
-				resul = rs.getInt(1);
+			if (rs.next()) {
+				resul = rs.getInt("total");
 			}
 
 		} catch (Exception e) {
