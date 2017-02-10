@@ -1,5 +1,6 @@
 package com.ipartek.formacion.recetas.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.ipartek.formacion.recetas.model.dao.UsuarioDAO;
@@ -72,6 +73,24 @@ public class ServiceUsuarioMysql implements ServiceUsuario {
 	public int usuarioTotales() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public ArrayList<Usuario> filtrarPorNombre(String opcion) {
+		// TODO Auto-generated method stub
+		return daoUsuario.getAllByName(opcion);
+	}
+
+	@Override
+	public ArrayList<Usuario> filtrarPorDni(String opcion) {
+		// TODO Auto-generated method stub
+		return daoUsuario.getAllByDNI(opcion);
+	}
+
+	@Override
+	public ArrayList<Usuario> filtrarPorEmail(String opcion) {
+		// TODO Auto-generated method stub
+		return daoUsuario.getAllByEmail(opcion);
 	}
 
 }

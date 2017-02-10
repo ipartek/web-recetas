@@ -1,6 +1,7 @@
 package com.ipartek.formacion.recetas.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -32,6 +33,7 @@ public class UsuarioCRUDController extends HttpServlet {
 	public static final String OP_VER_NUEVO = "3";
 	public static final String OP_GUARDAR = "4";
 	public static final String OP_ELIMINAR = "5";
+	public static final String OP_FILTRAR = "9";
 
 	private static ServiceUsuario service;
 
@@ -63,7 +65,6 @@ public class UsuarioCRUDController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		String op = "";
 		long id = -1;
 		Mensaje msj = null;
@@ -167,9 +168,26 @@ public class UsuarioCRUDController extends HttpServlet {
 				request.setAttribute("listaUsuario", service.listar());
 				dispatcher = request.getRequestDispatcher(VIEW_LIST);
 				break;
+			case OP_FILTRAR:
+				String[] opcion=request.getParameterValues("optradio");
+					if(opcion[0].equalsIgnoreCase("Nombre")){
+						request.setAttribute("listaUsuario",service.filtrarPorNombre(request.getParameter("filtro")));
+					}
+					else if(opcion[0].equalsIgnoreCase("Dni")){
+						request.setAttribute("listaUsuario",service.filtrarPorDni(request.getParameter("filtro")));
+
+					}
+					else if(opcion[0].equalsIgnoreCase("Email")){
+						request.setAttribute("listaUsuario",service.filtrarPorEmail(request.getParameter("filtro")));
+
+					}
+					msj.setClase(Mensaje.CLASE_SUCCESS);
+					msj.setDescripcion("Filtrado realizado con exito:<br/>"
+							+ "<b>Filtrar por:</b> "+opcion[0]
+							+ "<br/><b>Texto introducido:</b> "+request.getParameter("filtro"));
+					dispatcher = request.getRequestDispatcher(VIEW_LIST);
+					break;
 			default:
-
-
 				request.setAttribute("listaUsuario", service.listar());
 				msj = null;
 				dispatcher = request.getRequestDispatcher(VIEW_LIST);
@@ -177,13 +195,10 @@ public class UsuarioCRUDController extends HttpServlet {
 			}// end switch
 
 		} catch (Exception e) {
-			System.out.println("CATCCHHHHH");
 			dispatcher = request.getRequestDispatcher(VIEW_LIST);
 			msj.setDescripcion(e.getMessage());
 			e.printStackTrace();
-
 		} finally {
-			System.out.println("FINALLYYY");
 			request.setAttribute("msj", msj);
 			dispatcher.forward(request, response);
 		}

@@ -27,7 +27,11 @@ public class UsuarioDAO implements Persistable<Usuario> {
 	static final String SQL_UPDATE = "UPDATE `usuario` SET `nombre` = ?, `apellido1` = ?, `apellido2` = ? , `edad` = ?, `email` = ?, `dni` = ?, `puesto` = ?,`password` = ?, `imagen` = ? WHERE `id` = ?;";
 	static final private String SQL_COUNT = "SELECT COUNT(`id`) FROM `usuario`";
 	static final private String SQL_EXIST_USUARIO = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `email` = ? AND `password` = ?;";
+	static final private String SQL_GET_ALL_BY_NOMBRE = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE nombre LIKE ? ORDER BY `id` DESC LIMIT 500;";
+	private static final String SQL_GET_ALL_BY_DNI = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE dni LIKE ? ORDER BY `id` DESC LIMIT 500;";;
+	private static final String SQL_GET_ALL_BY_EMAIL = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE email LIKE ? ORDER BY `id` DESC LIMIT 500;";;
 
+	
 	private UsuarioDAO() {
 		db = DataBaseConnectionImpl.getInstance();
 	}
@@ -234,6 +238,85 @@ public class UsuarioDAO implements Persistable<Usuario> {
 	public int count() {
 		return 0;
 	}
+	
+	public ArrayList<Usuario> getAllByName(String opcion) {
+		// TODO Auto-generated method stub
+		ArrayList<Usuario> list = null;
+
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		try {
+			list = new ArrayList<Usuario>();
+			conn = db.getConexion();
+			pst = conn.prepareStatement(SQL_GET_ALL_BY_NOMBRE); // Mirar SQL
+			String rsText="%" + opcion + "%";
+			pst.setString(1, rsText); 
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				list.add(mapear(rs));
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} finally {
+			db.desconectar();
+		}
+		return list;
+	}
+	
+	public ArrayList<Usuario> getAllByDNI(String opcion) {
+		// TODO Auto-generated method stub
+		ArrayList<Usuario> list = null;
+
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		try {
+			list = new ArrayList<Usuario>();
+			conn = db.getConexion();
+			pst = conn.prepareStatement(SQL_GET_ALL_BY_DNI); // Mirar SQL
+			String rsText="%" + opcion + "%";
+			pst.setString(1, rsText); 
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				list.add(mapear(rs));
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} finally {
+			db.desconectar();
+		}
+		return list;
+	}
+	
+
+	public ArrayList<Usuario> getAllByEmail(String opcion) {
+		// TODO Auto-generated method stub
+		ArrayList<Usuario> list = null;
+
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		try {
+			list = new ArrayList<Usuario>();
+			conn = db.getConexion();
+			pst = conn.prepareStatement(SQL_GET_ALL_BY_EMAIL); // Mirar SQL
+			String rsText="%" + opcion + "%";
+			pst.setString(1, rsText); 
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				list.add(mapear(rs));
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} finally {
+			db.desconectar();
+		}
+		return list;
+	}
 
 	private Usuario mapear(ResultSet rs) throws SQLException, VehiculoException {
 		Usuario u = new Usuario();
@@ -249,5 +332,10 @@ public class UsuarioDAO implements Persistable<Usuario> {
 		u.setImagen(rs.getString("imagen"));
 		return u;
 	}
+
+
+
+
+
 
 }

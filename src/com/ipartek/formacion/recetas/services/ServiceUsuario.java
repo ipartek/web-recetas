@@ -1,5 +1,6 @@
 package com.ipartek.formacion.recetas.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.ipartek.formacion.recetas.pojo.Usuario;
@@ -21,5 +22,11 @@ public interface ServiceUsuario {
 	Usuario existe(String email, String password);
 
 	int usuarioTotales();
+
+	ArrayList<Usuario> filtrarPorNombre(String opcion);
+
+	ArrayList<Usuario> filtrarPorDni(String parameter);
+
+	ArrayList<Usuario> filtrarPorEmail(String parameter);
 
 }
