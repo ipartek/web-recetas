@@ -14,15 +14,17 @@
  	<div class="container">
       <div class="row">
 
-        
-
-      
+     
+     <%@include file="../../includes/mensaje.jsp" %>
+     
     <p><a href="zona-segura/usuario">Volver</a></p><br>
     
  	<form action="zona-segura/usuario" method="post">
         
+        	<input type="hidden" name="op" class="form-control" value="6"/>
+        
 			<label for="dni">DNI :</label>
-			<input type="text" name="dni" class="form-control" placeholder="Escribe un DNI"/>
+			<input type="text" name="dni" class="form-control" placeholder="Escribe un DNI" autofocus/>
 			<br>
 			<label for="email">E-Mail :</label>
 			<input type="text" name="email" class="form-control" placeholder="Escribe un e-mail"/>
@@ -36,11 +38,11 @@
 			<label for="apellido2">Segundo Apellido </label>
 			<input type="text" name="apellido2" class="form-control" placeholder="Escribe el segundo apellido"/>
 			<br>
-			<label>Rango mínimo edad:</label>
-			<input type="range" name="edad" min="0" max="130" value="0">
+			<label>Rango mínimo edad: <%=UsuarioController.EDAD_MIN %></label>
+			<input type="range" name="edad" min="<%=UsuarioController.EDAD_MIN %>" max="<%=UsuarioController.EDAD_MAX %>" value="<%=UsuarioController.EDAD_MIN %>" >
 			<br>
-			<label>Rango máximo edad:</label>
-			<input type="range" name="edad" min="1" max="130" value="130">
+			<label>Rango máximo edad: <%=UsuarioController.EDAD_MAX %></label>
+			<input type="range" name="edad" min="<%=UsuarioController.EDAD_MIN %>" max="<%=UsuarioController.EDAD_MAX %>" value="<%=UsuarioController.EDAD_MAX %>">
 			<br>
 			<input type="submit" value="Filtrar">
 			</form>

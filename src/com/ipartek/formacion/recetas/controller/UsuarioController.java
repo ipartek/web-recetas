@@ -27,6 +27,7 @@ public class UsuarioController extends HttpServlet {
 	// vistas
 	private static final String VIEW_LIST = "usuario/index.jsp";
 	private static final String VIEW_FORM = "usuario/form.jsp";
+	private static final String VIEW_FORM_FILTER = "usuario/form-filtro.jsp";
 
 	// Operaciones que puede realizar
 	public static final String OP_LISTAR = "1";
@@ -35,6 +36,9 @@ public class UsuarioController extends HttpServlet {
 	public static final String OP_GUARDAR = "4";
 	public static final String OP_ELIMINAR = "5";
 	public static final String OP_FILTRAR = "6";
+
+	public static final int EDAD_MIN = 0;
+	public static final int EDAD_MAX = 130;
 
 	private static ServiceUsuario service;
 
@@ -179,15 +183,17 @@ public class UsuarioController extends HttpServlet {
 					String pAp2 = request.getParameter("apellido2");
 					String pMail = request.getParameter("email");
 					String pDni = request.getParameter("dni");
-					int pMin = Integer.parseInt(request.getParameter("min"));
-					int pMax = Integer.parseInt(request.getParameter("max"));
+					String pStringMin = request.getParameter("min");
+					String pStringMax = request.getParameter("max");
 					// init parametros null a %
 
-					pNombre = (pNombre != null) ? pNombre : "%";
-					pAp1 = (pAp1 != null) ? pAp1 : "%";
-					pAp2 = (pAp2 != null) ? pAp2 : "%";
-					pMail = (pMail != null) ? pMail : "%";
-					pDni = (pDni != null) ? pDni : "%";
+					pNombre = (pNombre != "") ? ("%" + pNombre + "%") : "%";
+					pAp1 = (pAp1 != "") ? ("%" + pAp1 + "%") : "%";
+					pAp2 = (pAp2 != "") ? ("%" + pAp2 + "%") : "%";
+					pMail = (pMail != "") ? ("%" + pMail + "%") : "%";
+					pDni = (pDni != "") ? ("%" + pDni + "%") : "%";
+					int pMin = (pStringMin != null) ? Integer.parseInt(pStringMin) : EDAD_MIN;
+					int pMax = (pStringMax != null) ? Integer.parseInt(pStringMax) : EDAD_MAX;
 
 					// Buscar Usuario
 					ArrayList<Usuario> aUser = (ArrayList<Usuario>) service.fiterPersona(pNombre, pAp1, pAp2, pMail,
@@ -211,16 +217,8 @@ public class UsuarioController extends HttpServlet {
 
 				} catch (Exception e) {
 
-					// si es Vehiculo creado, volver a recuperarlo para mostrar
-					// en formulario
-					if (id != -1) {
-						request.setAttribute("usuarios", service.buscarPorId(id));
-					} else {
-						request.setAttribute("usuarios", new Usuario());
-					}
-
 					msj.setDescripcion("Error:" + e.getMessage());
-					dispatcher = request.getRequestDispatcher(VIEW_FORM);
+					dispatcher = request.getRequestDispatcher(VIEW_FORM_FILTER);
 				}
 				break;
 
