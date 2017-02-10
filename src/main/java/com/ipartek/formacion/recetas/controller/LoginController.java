@@ -12,6 +12,8 @@ import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.recetas.pojo.Mensaje;
 import com.ipartek.formacion.recetas.pojo.Usuario;
+import com.ipartek.formacion.recetas.services.ServiceUsuario;
+import com.ipartek.formacion.recetas.services.ServiceUsuarioMysql;
 
 /**
  * Servlet implementation class LoginController
@@ -24,6 +26,7 @@ public class LoginController extends HttpServlet {
 
 	private Mensaje msj;
 	private HttpSession session;
+	private ServiceUsuario serviceUsuario = null;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -34,18 +37,17 @@ public class LoginController extends HttpServlet {
 
 		try {
 
+			serviceUsuario = ServiceUsuarioMysql.getInstance();
+
 			msj = new Mensaje();
 
 			// recoger parametros
-			String pNombre = request.getParameter("userName");
+			String pEmail = request.getParameter("userEmail");
 			String pPassword = request.getParameter("userPass");
 
-			// crear usuario con parametros
-			Usuario user = new Usuario();
-			user.setNombre(pNombre);
-			user.setPassword(pPassword);
+			Usuario user = serviceUsuario.existe(pEmail, pPassword);
 
-			if (validarUsuario(user)) {
+			if (user != null) {
 
 				// guardar en sessison
 				session = request.getSession(true);
@@ -82,21 +84,21 @@ public class LoginController extends HttpServlet {
 		doGet(request, response);
 	}
 
-	private boolean validarUsuario(Usuario user) {
-		boolean resul = false;
-		// TODO implementar con BBDD algun dia
-
-		// contexto para los parametros de inicio
-		final String userNameCredential = getInitParameter("userNameCredential");
-		final String userPassCredential = getInitParameter("userPassCredential");
-
-		// comprobar que coincidan
-		if (userNameCredential.equalsIgnoreCase(user.getNombre())
-				&& userPassCredential.equalsIgnoreCase(user.getPassword())) {
-			resul = true;
-		}
-
-		return resul;
-	}
+	/*
+	 * private boolean validarUsuario(Usuario user) { boolean resul = false; //
+	 * TODO implementar con BBDD algun dia
+	 * 
+	 * // contexto para los parametros de inicio final String userNameCredential
+	 * = getInitParameter("userNameCredential"); final String userPassCredential
+	 * = getInitParameter("userPassCredential");
+	 * 
+	 * // comprobar que coincidan if
+	 * (userNameCredential.equalsIgnoreCase(user.getNombre()) &&
+	 * userPassCredential.equalsIgnoreCase(user.getPassword())) { resul = true;
+	 * }
+	 * 
+	 * return resul; }
+	 * 
+	 */
 
 }

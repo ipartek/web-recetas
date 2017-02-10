@@ -1,6 +1,10 @@
 package com.ipartek.formacion.recetas.model.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
@@ -16,7 +20,7 @@ public class UsuarioDAOTest {
 	static int contador = -1;
 	static int contatorInicial = -1;
 	static Usuario u = null;
-	
+
 	static final int LIMITE_SELECT = 500;
 
 	@BeforeClass
@@ -34,7 +38,7 @@ public class UsuarioDAOTest {
 		assertTrue("minimo 0 usuarios", contador >= 0);
 
 		// crear usuario
-		dao.create(u);
+		assertTrue("No inserta usuario", dao.create(u));
 		contador = dao.count();
 		assertTrue("deberia haber un usuario nuevo", contador > contatorInicial);
 
@@ -52,7 +56,7 @@ public class UsuarioDAOTest {
 	public void testCountYgetAll() {
 
 		ArrayList<Usuario> listado = (ArrayList<Usuario>) dao.getAll();
-		assertEquals("getAll no funciona", LIMITE_SELECT , listado.size());
+		assertEquals("getAll no funciona", LIMITE_SELECT, listado.size());
 
 		assertEquals("count no funciona", contador, dao.count());
 
@@ -70,25 +74,24 @@ public class UsuarioDAOTest {
 		// getById
 		Usuario uById = dao.getById(u.getId());
 		assertNotNull("Debe poder recuperar por ID el usuario insertado", uById);
-		assertTrue("No son iguales",u.equals(uById));
+		assertTrue("No son iguales", u.equals(uById));
 	}
 
 	@Test
 	public void testGetByEmail() {
 		Usuario uByEmail = dao.getByEmail(u.getEmail());
 		assertNotNull("Debe poder recuperar por Email el usuario insertado", uByEmail);
-		assertTrue("No son iguales",u.equals(uByEmail));
+		assertTrue("No son iguales", u.equals(uByEmail));
 	}
 
 	@Test
 	public void testUpdate() {
 		// Modificar usuario
 		Usuario uModificado = new Usuario();
-		assertFalse("No deberia modificar usuario sin ID", dao.update(uModificado));			
-		
+		assertFalse("No deberia modificar usuario sin ID", dao.update(uModificado));
+
 		uModificado.setId(u.getId());
 		assertTrue("deberia modificar usuario", dao.update(uModificado));
-				
 
 	}
 
