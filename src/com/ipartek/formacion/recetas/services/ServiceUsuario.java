@@ -12,6 +12,8 @@ public interface ServiceUsuario {
 
 	Usuario buscarPorEmail(String email);
 
+	Usuario buscarPorDni(String dni);
+
 	boolean darDeBaja(long id);
 
 	boolean darDeAlta(Usuario u);

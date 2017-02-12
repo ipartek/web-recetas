@@ -31,15 +31,15 @@
         	<input autofocus type="text" name="nombre" required value="${usuario.nombre}">
         	<br>
         	
-        	<label for="nombre">Primer Apellido:</label>
+        	<label for="apellido1">Primer Apellido:</label>
         	<input autofocus type="text" name="apellido1" required value="${usuario.apellido1}">
         	<br>
         	
-        	<label for="nombre">Segundo Apellido:</label>
+        	<label for="apellido2">Segundo Apellido:</label>
         	<input autofocus type="text" name="apellido2" required value="${usuario.apellido2}">
         	<br>
         	
-        	<label for="nombre">Edad:</label>
+        	<label for="edad">Edad:</label>
         	<input autofocus type="number" name="edad" required value="${usuario.edad}">
         	<br>
         	
@@ -47,19 +47,19 @@
         	<input type="text" name="email" required value="${usuario.email}">
         	<br>
         	
-        	<label for="email">DNI:</label>
+        	<label for="dni">DNI:</label>
         	<input type="text" name="dni" required value="${usuario.dni}">
         	<br>
         	
-        	<label for="email">Puesto:</label>
+        	<label for="puesto">Puesto:</label>
         	<input type="text" name="puesto" required value="${usuario.puesto}">
         	<br>
         	
-        	<label for="email">Password:</label>
+        	<label for="password">Password:</label>
         	<input type="text" name="password" required value="${usuario.password}">
         	<br>
         	
-        	<label for="email">Imagen:</label>
+        	<label for="imagen">Imagen:</label>
         	<input type="text" name="imagen" required value="${usuario.imagen}">
         	<br>
             

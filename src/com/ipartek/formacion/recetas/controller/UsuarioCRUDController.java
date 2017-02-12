@@ -33,6 +33,8 @@ public class UsuarioCRUDController extends HttpServlet {
 	public static final String OP_VER_NUEVO = "3";
 	public static final String OP_GUARDAR = "4";
 	public static final String OP_ELIMINAR = "5";
+	public static final String OP_FILTRAR_EMAIL = "6";
+	public static final String OP_FILTRAR_DNI = "7";
 
 	private static ServiceUsuario service;
 
@@ -65,6 +67,7 @@ public class UsuarioCRUDController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String op = "";
+
 		long id = -1;
 		Mensaje msj = null;
 		RequestDispatcher dispatcher = null;
@@ -108,7 +111,7 @@ public class UsuarioCRUDController extends HttpServlet {
 					String pPassword = request.getParameter("password");
 					String pImagen = request.getParameter("imagen");
 
-					// crear Vehiculo
+					// crear Usuario
 					Usuario u = new Usuario();
 					u.setId(id);
 					u.setNombre(pNombre);
@@ -167,6 +170,59 @@ public class UsuarioCRUDController extends HttpServlet {
 					msj.setDescripcion("No se ha podido Eliminar el Usuario");
 				}
 				request.setAttribute("usuarios", service.listar());
+				dispatcher = request.getRequestDispatcher(VIEW_LIST);
+				break;
+
+			case OP_FILTRAR_EMAIL:
+				// inicializamos variables
+				String email = "";
+				Usuario usuarioFiltradoEmail = null;
+
+				// recogemos el mail y lo buscamos en la base de datos. devuelve
+				// usuario o null
+				email = request.getParameter("email");
+				usuarioFiltradoEmail = service.buscarPorEmail(email);
+
+				if (usuarioFiltradoEmail != null) {
+					msj.setClase(Mensaje.CLASE_SUCCESS);
+					msj.setDescripcion("Email encontrado en BBDD");
+				} else {
+					msj.setClase(Mensaje.CLASE_WARNING);
+					msj.setDescripcion("No se ha podido encontrar el email. Usuario no registrado");
+					request.setAttribute("usuarios", service.listar());
+				}
+				request.setAttribute("usuarioFiltrado", usuarioFiltradoEmail);
+				request.setAttribute("totalUsuarios", service.usuariosTotales());
+
+				dispatcher = request.getRequestDispatcher(VIEW_LIST);
+				break;
+
+			case OP_FILTRAR_DNI:
+				// inicializamos variables
+				String dni = "";
+				Usuario usuarioFiltradoDNI = null;
+
+				// recogemos el mail y lo buscamos en la base de datos. devuelve
+				// usuario o null
+				dni = request.getParameter("dni");
+				if (dni.length() == 9) {
+					usuarioFiltradoDNI = service.buscarPorDni(dni);
+
+					if (usuarioFiltradoDNI != null) {
+						msj.setClase(Mensaje.CLASE_SUCCESS);
+						msj.setDescripcion("Número de identificación encontrado en BBDD");
+					} else {
+						msj.setClase(Mensaje.CLASE_WARNING);
+						msj.setDescripcion("No se ha podido encontrar el dni. Usuario no registrado");
+					}
+				} else {
+					msj.setClase(Mensaje.CLASE_DANGER);
+					msj.setDescripcion("Formato de DNI incorrecto. introduzca 8 números más letra");
+				}
+				request.setAttribute("usuarioFiltrado", usuarioFiltradoDNI);
+				request.setAttribute("usuarios", service.listar());
+				request.setAttribute("totalUsuarios", service.usuariosTotales());
+
 				dispatcher = request.getRequestDispatcher(VIEW_LIST);
 				break;
 

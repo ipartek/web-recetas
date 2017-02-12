@@ -122,4 +122,10 @@ public class ServiceUsuarioArrayList implements ServiceUsuario {
 		return usuarios.size();
 	}
 
+	@Override
+	public Usuario buscarPorDni(String dni) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

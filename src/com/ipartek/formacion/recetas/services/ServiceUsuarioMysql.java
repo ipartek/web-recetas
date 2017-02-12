@@ -58,6 +58,11 @@ public class ServiceUsuarioMysql implements ServiceUsuario {
 	}
 
 	@Override
+	public Usuario buscarPorDni(String dni) {
+		return daoUsuario.getByDni(dni);
+	}
+
+	@Override
 	public Usuario existe(String email, String password) {
 		return daoUsuario.existe(email, password);
 	}
