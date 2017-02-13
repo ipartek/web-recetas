@@ -6,7 +6,7 @@
 <html lang="es">
 <head>
 
-<base href="/web-recetas/">
+<base href="/recetas/">
 
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">

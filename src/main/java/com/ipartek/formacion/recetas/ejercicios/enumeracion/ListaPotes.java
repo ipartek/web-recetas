@@ -13,7 +13,6 @@ public class ListaPotes {
 		bebidas.add(new Bebida(TipoBebida.VINO, Vaso.QUINTO));
 		bebidas.add(new Bebida(TipoBebida.VINO, Vaso.JARRA));
 		bebidas.add(new Bebida(TipoBebida.CERVEZA, Vaso.JARRA));
-		bebidas.add(new Bebida(TipoBebida.CERVEZA, Vaso.CAÑA));
 
 		for (Bebida bebida : bebidas) {
 			bebida.servir();
