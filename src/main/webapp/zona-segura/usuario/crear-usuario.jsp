@@ -70,13 +70,20 @@
 				placeholder="Introduzca Puesto"   required pattern=".{2-255}">
 		</div>
 		<div class="form-group">
-			<label for="password">Password</label> <input type="text"
+			<label for="password">Password</label> <input type="password"
 				class="form-control" name="password" id="password"
 				placeholder="Min 6 characters" min="6"  required >
+		</div>
+		<div class="form-group">
+			<label for="imagen">Imagen </label> <input type="text"
+				class="form-control" name="imagen" id="imagen"
+				placeholder="Introduzca imagen"   required pattern=".{2-255}">
 		</div>
 		
 		
 		<input type="hidden" value="<%=UsuarioCRUDController.OP_GUARDAR %>" name="op"> 
+		<input type="hidden" value="crear" name="crearModificar"> 
+		
 		<button type="submit" class="btn btn-primary" value="Crear">Enviar</button>
 	</form>  	
   

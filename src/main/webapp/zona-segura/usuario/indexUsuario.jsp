@@ -69,7 +69,7 @@
 			class="btn btn-success" href="zona-segura/usuario?op=3">Crear
 			Nuevo Usuario</a>
 	</p>
-
+	<p>Usuarios: ${count}<br/> Mostrados:500</p>
 	<table class="display data-table-mio" cellspacing="0" width="100%">
 		<thead>
 			<tr>

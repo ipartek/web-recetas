@@ -1,5 +1,7 @@
 package com.ipartek.formacion.recetas.services;
 
+import java.sql.CallableStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,7 +74,7 @@ public class ServiceUsuarioMysql implements ServiceUsuario {
 	@Override
 	public int usuarioTotales() {
 		// TODO Auto-generated method stub
-		return 0;
+		return daoUsuario.count();
 	}
 
 	@Override

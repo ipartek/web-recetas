@@ -65,16 +65,12 @@
         	<input type="text" name="imagen" required value="${usuario.imagen}">
         	<br>
             
-            
             <input type="hidden" name="op" value="<%=UsuarioCRUDController.OP_GUARDAR%>">
-            
-            <c:if test="${usuario.id == -1}">
-        		<input type="submit" value="Crear">
-        	</c:if>		
+                    	
+        	<input type="submit" value="Modificar">
+	
+        	<input type="hidden" value="modificar" name="crearModificar"> 
         	
-        	 <c:if test="${usuario.id != -1}">
-        		<input type="submit" value="Modificar">
-        	</c:if>		
         	
         	
         </form>

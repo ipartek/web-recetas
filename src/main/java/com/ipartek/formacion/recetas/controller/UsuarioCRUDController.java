@@ -87,7 +87,6 @@ public class UsuarioCRUDController extends HttpServlet {
 				dispatcher = request.getRequestDispatcher(VIEW_ADD);
 				msj = null;
 				break;
-
 			case OP_VER_DETALLE:
 				id = Long.valueOf(request.getParameter("id"));
 				request.setAttribute("usuario", service.buscarPorId(id));
@@ -97,7 +96,6 @@ public class UsuarioCRUDController extends HttpServlet {
 			case OP_GUARDAR:
 				try {
 					// recoger parametros
-
 					String pNombre = request.getParameter("nombre");
 					String pApellido1 = request.getParameter("apellido1");
 					String pApellido2 = request.getParameter("apellido2");
@@ -110,7 +108,6 @@ public class UsuarioCRUDController extends HttpServlet {
 
 					// crear Usuario
 					Usuario u = new Usuario();
-
 					u.setNombre(pNombre);
 					u.setApellido1(pApellido1);
 					u.setApellido2(pApellido2);
@@ -120,15 +117,14 @@ public class UsuarioCRUDController extends HttpServlet {
 					u.setPuesto(pPuesto);
 					u.setPassword(pPassword);
 					u.setImagen(pImagen);
-
 					// guardarlo o persistirlo en la bbdd
 					boolean guardado = false;
-					if (u.getId() == -1) {
+					if (request.getParameter("crearModificar").equalsIgnoreCase("crear")) {
 						guardado = service.darDeAlta(u);
-					} else {
+					}else if (request.getParameter("crearModificar").equalsIgnoreCase("modificar")){
+						u.setId(Long.parseLong(request.getParameter("id")));
 						guardado = service.modificar(u);
 					}
-
 					// compobar guardado y gestion Mensaje
 					if (guardado) {
 						msj.setClase(Mensaje.CLASE_SUCCESS);
@@ -141,7 +137,6 @@ public class UsuarioCRUDController extends HttpServlet {
 					// cargar dispatch
 					request.setAttribute("listaUsuario", service.listar());
 					dispatcher = request.getRequestDispatcher(VIEW_LIST);
-
 				} catch (Exception e) {
 
 					// si es Usuario creado, volver a recuperarlo para mostrar
@@ -169,25 +164,50 @@ public class UsuarioCRUDController extends HttpServlet {
 				dispatcher = request.getRequestDispatcher(VIEW_LIST);
 				break;
 			case OP_FILTRAR:
-				String[] opcion=request.getParameterValues("optradio");
-					if(opcion[0].equalsIgnoreCase("Nombre")){
-						request.setAttribute("listaUsuario",service.filtrarPorNombre(request.getParameter("filtro")));
+				ArrayList<Usuario> listaUsuario = new ArrayList<Usuario>();
+				String[] opcion = request.getParameterValues("optradio");
+				String textoIntroducido = request.getParameter("filtro");
+				
+				if (opcion[0].equalsIgnoreCase("Nombre")) {
+					listaUsuario=service.filtrarPorNombre(textoIntroducido);
+					if (!listaUsuario.isEmpty())
+						request.setAttribute("listaUsuario",listaUsuario );
+					else {
+						msj.setClase(Mensaje.CLASE_WARNING);
+						msj.setDescripcion("Personas con el nombre "+textoIntroducido+" no encontrada.");
 					}
-					else if(opcion[0].equalsIgnoreCase("Dni")){
-						request.setAttribute("listaUsuario",service.filtrarPorDni(request.getParameter("filtro")));
-
+				} else if (opcion[0].equalsIgnoreCase("Dni")) {
+					if (textoIntroducido != null && textoIntroducido.length() == 9) {
+						listaUsuario = service.filtrarPorDni(textoIntroducido);
+						if (!listaUsuario.isEmpty())
+							request.setAttribute("listaUsuario", listaUsuario);
+						else {
+							msj.setClase(Mensaje.CLASE_WARNING);
+							msj.setDescripcion("Persona con el dni "+textoIntroducido+" no encontrada.");
+						}
+					} else {
+						msj.setClase(Mensaje.CLASE_WARNING);
+						msj.setDescripcion("Estructura DNI incorrecto: " + textoIntroducido);
 					}
-					else if(opcion[0].equalsIgnoreCase("Email")){
-						request.setAttribute("listaUsuario",service.filtrarPorEmail(request.getParameter("filtro")));
-
+				} else if (opcion[0].equalsIgnoreCase("Email")) {
+					listaUsuario=service.filtrarPorEmail(textoIntroducido);
+					if (!listaUsuario.isEmpty())
+						request.setAttribute("listaUsuario",listaUsuario );
+					else {
+						msj.setClase(Mensaje.CLASE_WARNING);
+						msj.setDescripcion("Personas con el email "+textoIntroducido+" no encontrada.");
 					}
+				}
+				if(!listaUsuario.isEmpty())
+				{
 					msj.setClase(Mensaje.CLASE_SUCCESS);
-					msj.setDescripcion("Filtrado realizado con exito:<br/>"
-							+ "<b>Filtrar por:</b> "+opcion[0]
-							+ "<br/><b>Texto introducido:</b> "+request.getParameter("filtro"));
-					dispatcher = request.getRequestDispatcher(VIEW_LIST);
-					break;
+					msj.setDescripcion("Filtrado realizado con exito:<br/>" + "<b>Filtrar por:</b> " + opcion[0]
+							+ "<br/><b>Texto introducido:</b> " + request.getParameter("filtro"));
+				}
+				dispatcher = request.getRequestDispatcher(VIEW_LIST);
+				break;
 			default:
+				request.setAttribute("count", service.usuarioTotales());
 				request.setAttribute("listaUsuario", service.listar());
 				msj = null;
 				dispatcher = request.getRequestDispatcher(VIEW_LIST);

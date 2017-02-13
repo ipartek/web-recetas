@@ -1,5 +1,6 @@
 package com.ipartek.formacion.recetas.model.dao;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,10 +26,9 @@ public class UsuarioDAO implements Persistable<Usuario> {
 	static final private String SQL_GET_BY_EMAIL = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `email` = ?;";
 	private final static String SQL_DELETE = "DELETE FROM `usuario` WHERE `id` = ?";
 	static final String SQL_UPDATE = "UPDATE `usuario` SET `nombre` = ?, `apellido1` = ?, `apellido2` = ? , `edad` = ?, `email` = ?, `dni` = ?, `puesto` = ?,`password` = ?, `imagen` = ? WHERE `id` = ?;";
-	static final private String SQL_COUNT = "SELECT COUNT(`id`) FROM `usuario`";
+	static final private String SQL_COUNT = "SELECT COUNT(`id`) AS total FROM `usuario`";
 	static final private String SQL_EXIST_USUARIO = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `email` = ? AND `password` = ?;";
 	static final private String SQL_GET_ALL_BY_NOMBRE = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE nombre LIKE ? ORDER BY `id` DESC LIMIT 500;";
-	private static final String SQL_GET_ALL_BY_DNI = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE dni LIKE ? ORDER BY `id` DESC LIMIT 500;";;
 	private static final String SQL_GET_ALL_BY_EMAIL = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE email LIKE ? ORDER BY `id` DESC LIMIT 500;";;
 
 	
@@ -76,7 +76,8 @@ public class UsuarioDAO implements Persistable<Usuario> {
 
 	@Override
 	public Usuario getById(long id) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stu
+		
 		Usuario u = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
@@ -125,7 +126,6 @@ public class UsuarioDAO implements Persistable<Usuario> {
 					resul = true;
 				}
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -152,7 +152,6 @@ public class UsuarioDAO implements Persistable<Usuario> {
 			pst.setString(8, u.getPassword());
 			pst.setString(9, u.getImagen());
 			pst.setLong(10, u.getId());
-
 			if (pst.executeUpdate() == 1) {
 				resul = true;
 			}
@@ -236,7 +235,26 @@ public class UsuarioDAO implements Persistable<Usuario> {
 	 * @return <code>int </code>numero entero de registros
 	 */
 	public int count() {
-		return 0;
+		int resul = -1;
+
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		try {
+
+			conn = db.getConexion();
+			pst = conn.prepareStatement(SQL_COUNT);
+			rs = pst.executeQuery();
+			if (rs.next()) {
+				resul = rs.getInt("total");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} finally {
+			db.desconectar();
+		}
+		return resul;
 	}
 	
 	public ArrayList<Usuario> getAllByName(String opcion) {
@@ -268,27 +286,25 @@ public class UsuarioDAO implements Persistable<Usuario> {
 	public ArrayList<Usuario> getAllByDNI(String opcion) {
 		// TODO Auto-generated method stub
 		ArrayList<Usuario> list = null;
-
-		PreparedStatement pst = null;
+		CallableStatement cst = null;
+		String sql= "{call usuarioBuscarByDni(?)}";
 		ResultSet rs = null;
 		try {
 			list = new ArrayList<Usuario>();
 			conn = db.getConexion();
-			pst = conn.prepareStatement(SQL_GET_ALL_BY_DNI); // Mirar SQL
-			String rsText="%" + opcion + "%";
-			pst.setString(1, rsText); 
-			rs = pst.executeQuery();
+			cst = conn.prepareCall(sql);
+			cst.setString(1, opcion);
+			rs=cst.executeQuery();
 			while (rs.next()) {
 				list.add(mapear(rs));
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
-
 		} finally {
 			db.desconectar();
 		}
 		return list;
+
 	}
 	
 
