@@ -66,4 +66,9 @@ public class ServiceUsuarioMysql implements ServiceUsuario {
 		return daoUsuario.count();
 	}
 
+	@Override
+	public Usuario buscarPorDni(String dni) {
+		return daoUsuario.filterByDni(dni);
+	}
+
 }

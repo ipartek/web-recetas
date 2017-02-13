@@ -1,6 +1,7 @@
 package com.ipartek.formacion.recetas.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -31,6 +32,7 @@ public class UsuarioController extends HttpServlet {
 	public static final String OP_VER_NUEVO = "3";
 	public static final String OP_GUARDAR = "4";
 	public static final String OP_ELIMINAR = "5";
+	public static final String OP_FILTRAR = "6";
 
 	private static ServiceUsuario service;
 
@@ -77,6 +79,34 @@ public class UsuarioController extends HttpServlet {
 			}
 
 			switch (op) {
+
+			case OP_FILTRAR:
+				String pDniFiltro = request.getParameter("dni");
+				ArrayList<Usuario> listaFiltrada = new ArrayList<Usuario>();
+
+				if (pDniFiltro != null && pDniFiltro.length() == 9) {
+					// TODO llamar servicio
+					Usuario uFiltrado = service.buscarPorDni(pDniFiltro);
+					if (uFiltrado != null) {
+						msj.setClase(Mensaje.CLASE_SUCCESS);
+						msj.setDescripcion("Encontrado usuario: <b>" + pDniFiltro + "</b>");
+						listaFiltrada.add(new Usuario(pDniFiltro));
+					} else {
+						msj.setClase(Mensaje.CLASE_WARNING);
+						msj.setDescripcion("Busqueda sin exito para: <b>" + pDniFiltro + "</b>");
+						listaFiltrada = (ArrayList<Usuario>) service.listar();
+					}
+
+				} else {
+					msj.setClase(Mensaje.CLASE_DANGER);
+					msj.setDescripcion("Termino filtro no correcto <b>" + pDniFiltro
+							+ "</b>, por favor filtra con el siguiente formato 12345678L, 8 numeros y una letra en mayusculas, no uses guiones ni espacios en blanco");
+					listaFiltrada = (ArrayList<Usuario>) service.listar();
+				}
+
+				request.setAttribute("listaUsuario", listaFiltrada);
+				dispatcher = request.getRequestDispatcher(VIEW_LIST);
+				break;
 
 			case OP_VER_NUEVO:
 				request.setAttribute("usuario", new Usuario());

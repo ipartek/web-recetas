@@ -30,6 +30,7 @@ public class UsuarioDAOTest {
 		u = new Usuario();
 		u.setEmail("dummy@dummy.com");
 		u.setNombre("dummy");
+		u.setDni("12345678L");
 		u.setPassword("123456");
 
 		// contar usuarios iniciales
@@ -92,6 +93,19 @@ public class UsuarioDAOTest {
 
 		uModificado.setId(u.getId());
 		assertTrue("deberia modificar usuario", dao.update(uModificado));
+
+	}
+
+	@Test
+	public void testFilterByDni() {
+
+		Usuario uExito = dao.filterByDni("12345678L");
+		Usuario uFracaso = dao.filterByDni("1");
+		Usuario uNull = dao.filterByDni(null);
+
+		assertEquals("Deberia haberlo encontrado ", u, uExito);
+		assertNull("No deberia existir", uFracaso);
+		assertNull("Cuidadin con los null", uNull);
 
 	}
 

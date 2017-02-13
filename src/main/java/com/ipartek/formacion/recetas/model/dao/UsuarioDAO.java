@@ -1,5 +1,6 @@
 package com.ipartek.formacion.recetas.model.dao;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -250,6 +251,34 @@ public class UsuarioDAO implements Persistable<Usuario> {
 
 		} finally {
 			db.desconectar();
+		}
+		return resul;
+	}
+
+	public Usuario filterByDni(String dni) {
+		Usuario resul = null;
+		CallableStatement cst = null;
+		ResultSet rs = null;
+		String sql = "{call usuarioBuscarByDni(?)}";
+		try {
+			conn = db.getConexion();
+			cst = conn.prepareCall(sql);
+			cst.setString(1, dni);
+
+			rs = cst.executeQuery();
+			if (rs.next()) {
+				resul = mapear(rs);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				db.desconectar();
+				rs.close();
+				cst.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		return resul;
 	}

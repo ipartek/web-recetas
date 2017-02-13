@@ -12,6 +12,16 @@ public interface ServiceUsuario {
 
 	Usuario buscarPorEmail(String email);
 
+	/**
+	 * Buscamos un Usuario por su DNI
+	 * 
+	 * @param dni
+	 *            String con 8 numeros y 1 letra ( sin guiones sin espacios, ej:
+	 *            12345678L )
+	 * @return Usuario si lo encuentra, null si no encuentra
+	 */
+	Usuario buscarPorDni(String dni);
+
 	boolean darDeBaja(long id);
 
 	boolean darDeAlta(Usuario u);

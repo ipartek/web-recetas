@@ -21,7 +21,41 @@
         
        
        <a href="zona-segura/usuario?op=3">Crear Nuevo Usuario</a>
-       		<p>Mostrando 500 de <b>${total}</b></p>
+       		<p>Mostrando 500 de <b>${total}</b>
+       		
+	       		<!-- Button trigger modal -->
+				<button type="button" 
+				        class="btn btn-default btn-lg" 
+				        data-toggle="modal" 
+				        data-target="#modalFiltro">
+	  				Filtrar
+				</button>
+			</p>
+			
+			<div id="modalFiltro" class="modal fade" tabindex="-1" role="dialog">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h4 class="modal-title">Filtro</h4>
+			      </div>
+			      <div class="modal-body">
+			        
+			        <form action="zona-segura/usuario" method="post">
+			        	<label for="dni">DNI:</label>
+			        	<input type="text" name="dni">
+			        	
+			        	<input type="hidden" name="op" value="<%=UsuarioController.OP_FILTRAR%>">
+			        	<button type="submit">Buscar</button>
+			        </form>
+			        
+			        
+			      </div>			     
+			    </div><!-- /.modal-content -->
+			  </div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
+			
+       		
 			
 			<table class="display data-table-mio" cellspacing="0" width="100%">
 	        <thead>
