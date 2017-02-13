@@ -2,7 +2,6 @@ package com.ipartek.formacion.recetas.model.dao;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -12,7 +11,6 @@ import com.ipartek.formacion.recetas.model.DataBaseConnectionImpl;
 import com.ipartek.formacion.recetas.model.Persistable;
 import com.ipartek.formacion.recetas.pojo.Usuario;
 import com.ipartek.formacion.recetas.pojo.VehiculoException;
-import com.mysql.jdbc.Statement;
 
 public class UsuarioDAO implements Persistable<Usuario> {
 
@@ -20,18 +18,7 @@ public class UsuarioDAO implements Persistable<Usuario> {
 	private static DataBaseConnectionImpl db;
 	private Connection conn;
 
-	static final private String SQL_GET_ALL = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` ORDER BY `id` DESC LIMIT 500;";
-	static final private String SQL_GET_BY_ID = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `id` = ?;";
-	static final String SQL_CREATE = "INSERT INTO `usuario` (`nombre`, `apellido1`, `apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen`) VALUES ( ? , ? , ?,?,?,?,?,?,? );";
-	static final private String SQL_GET_BY_EMAIL = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `email` = ?;";
-	private final static String SQL_DELETE = "DELETE FROM `usuario` WHERE `id` = ?";
-	static final String SQL_UPDATE = "UPDATE `usuario` SET `nombre` = ?, `apellido1` = ?, `apellido2` = ? , `edad` = ?, `email` = ?, `dni` = ?, `puesto` = ?,`password` = ?, `imagen` = ? WHERE `id` = ?;";
-	static final private String SQL_COUNT = "SELECT COUNT(`id`) AS total FROM `usuario`";
-	static final private String SQL_EXIST_USUARIO = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE `email` = ? AND `password` = ?;";
-	static final private String SQL_GET_ALL_BY_NOMBRE = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE nombre LIKE ? ORDER BY `id` DESC LIMIT 500;";
-	private static final String SQL_GET_ALL_BY_EMAIL = "SELECT `id`,`nombre`,`apellido1`,`apellido2`,`edad`,`email`,`dni`,`puesto`,`password`,`imagen` FROM `usuario` WHERE email LIKE ? ORDER BY `id` DESC LIMIT 500;";;
 
-	
 	private UsuarioDAO() {
 		db = DataBaseConnectionImpl.getInstance();
 	}
@@ -53,14 +40,14 @@ public class UsuarioDAO implements Persistable<Usuario> {
 	public List<Usuario> getAll() {
 		// TODO Auto-generated method stub
 		ArrayList<Usuario> list = null;
-
-		PreparedStatement pst = null;
+		CallableStatement cst = null;
+		String sql= "{call getAll()}";
 		ResultSet rs = null;
 		try {
 			list = new ArrayList<Usuario>();
 			conn = db.getConexion();
-			pst = conn.prepareStatement(SQL_GET_ALL); // Mirar SQL
-			rs = pst.executeQuery();
+			cst = conn.prepareCall(sql);
+			rs=cst.executeQuery();
 			while (rs.next()) {
 				list.add(mapear(rs));
 			}
@@ -77,16 +64,15 @@ public class UsuarioDAO implements Persistable<Usuario> {
 	@Override
 	public Usuario getById(long id) {
 		// TODO Auto-generated method stu
-		
 		Usuario u = null;
-		PreparedStatement pst = null;
+		CallableStatement cst = null;
+		String sql= "{call usuarioBuscarById(?)}";
 		ResultSet rs = null;
 		try {
 			conn = db.getConexion();
-			pst = conn.prepareStatement(SQL_GET_BY_ID);
-			pst.setLong(1, id);
-
-			rs = pst.executeQuery();
+			cst = conn.prepareCall(sql);
+			cst.setLong(1, id);
+			rs=cst.executeQuery();
 			while (rs.next()) {
 				u = mapear(rs);
 			}
@@ -102,25 +88,26 @@ public class UsuarioDAO implements Persistable<Usuario> {
 	public boolean create(Usuario u) {
 		// TODO Auto-generated method stub
 		boolean resul = false;
-		PreparedStatement pst = null;
+		CallableStatement cst = null;
+		String sql= "{call createUsuario(?,?,?,?,?,?,?,?,?)}";
 		try {
 			conn = db.getConexion();
-			pst = conn.prepareStatement(SQL_CREATE, Statement.RETURN_GENERATED_KEYS);
-			pst.setString(1, u.getNombre());
-			pst.setString(2, u.getApellido1());
-			pst.setString(3, u.getApellido2());
-			pst.setInt(4, u.getEdad());
-			pst.setString(5, u.getEmail());
-			pst.setString(6, u.getDni());
-			pst.setString(7, u.getPuesto());
-			pst.setString(8, u.getPassword());
-			pst.setString(9, u.getImagen());
+			cst = conn.prepareCall(sql);
+			cst.setString(1, u.getNombre());
+			cst.setString(2, u.getApellido1());
+			cst.setString(3, u.getApellido2());
+			cst.setInt(4, u.getEdad());
+			cst.setString(5, u.getEmail());
+			cst.setString(6, u.getDni());
+			cst.setString(7, u.getPuesto());
+			cst.setString(8, u.getPassword());
+			cst.setString(9, u.getImagen());
 			// insertamos Usuario
-			int affectedRows = pst.executeUpdate();
-
+			int affectedRows =cst.executeUpdate();
+			resul = true;
 			if (affectedRows == 1) {
 				// buscamos el ID generado
-				ResultSet generatedKeys = pst.getGeneratedKeys();
+				ResultSet generatedKeys = cst.getGeneratedKeys();
 				if (generatedKeys.next()) {
 					u.setId(generatedKeys.getLong(1));
 					resul = true;
@@ -138,21 +125,23 @@ public class UsuarioDAO implements Persistable<Usuario> {
 	public boolean update(Usuario u) {
 		// TODO Auto-generated method stub
 		boolean resul = false;
-		PreparedStatement pst = null;
+		CallableStatement cst = null;
+		String sql= "{call updateUsuarioById(?,?,?,?,?,?,?,?,?,?)}";
 		try {
 			conn = db.getConexion();
-			pst = conn.prepareStatement(SQL_UPDATE);
-			pst.setString(1, u.getNombre());
-			pst.setString(2, u.getApellido1());
-			pst.setString(3, u.getApellido2());
-			pst.setInt(4, u.getEdad());
-			pst.setString(5, u.getEmail());
-			pst.setString(6, u.getDni());
-			pst.setString(7, u.getPuesto());
-			pst.setString(8, u.getPassword());
-			pst.setString(9, u.getImagen());
-			pst.setLong(10, u.getId());
-			if (pst.executeUpdate() == 1) {
+			cst = conn.prepareCall(sql);
+			cst.setString(1, u.getNombre());
+			cst.setString(2, u.getApellido1());
+			cst.setString(3, u.getApellido2());
+			cst.setInt(4, u.getEdad());
+			cst.setString(5, u.getEmail());
+			cst.setString(6, u.getDni());
+			cst.setString(7, u.getPuesto());
+			cst.setString(8, u.getPassword());
+			cst.setString(9, u.getImagen());
+			cst.setLong(10, u.getId());
+			// insertamos Usuario
+			if (cst.executeUpdate() == 1) {
 				resul = true;
 			}
 		} catch (Exception e) {
@@ -161,23 +150,24 @@ public class UsuarioDAO implements Persistable<Usuario> {
 			db.desconectar();
 		}
 		return resul;
+		
 	}
 
 	@Override
 	public boolean delete(long id) {
 		// TODO Auto-generated method stub
 		boolean resul = false;
-		PreparedStatement pst = null;
+		CallableStatement cst = null;
+		String sql= "{call deleteUsuarioById(?)}";
 		try {
 			conn = db.getConexion();
-			pst = conn.prepareStatement(SQL_DELETE);
-			pst.setLong(1, id);
+			cst = conn.prepareCall(sql);
+			cst.setLong(1, id);
 
-			if (pst.executeUpdate() == 1) {
+			if (cst.executeUpdate() == 1) {
 				resul = true;
 			}
-			pst.close();
-
+			cst.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -189,14 +179,14 @@ public class UsuarioDAO implements Persistable<Usuario> {
 	public Usuario getByEmail(String email) {
 		// TODO Auto-generated method stub
 		Usuario u = null;
-		PreparedStatement pst = null;
+		CallableStatement cst = null;
+		String sql= "{call getUsuarioByEmail(?)}";
 		ResultSet rs = null;
 		try {
 			conn = db.getConexion();
-			pst = conn.prepareStatement(SQL_GET_BY_EMAIL);
-			pst.setString(1, email);
-
-			rs = pst.executeQuery();
+			cst = conn.prepareCall(sql);
+			cst.setString(1, email);
+			rs=cst.executeQuery();
 			while (rs.next()) {
 				u = mapear(rs);
 			}
@@ -210,14 +200,15 @@ public class UsuarioDAO implements Persistable<Usuario> {
 
 	public Usuario existe(String email, String password) {
 		Usuario u = null;
-		PreparedStatement pst = null;
+		CallableStatement cst = null;
+		String sql= "{call existUsuario(?,?)}";
 		ResultSet rs = null;
 		try {
 			conn = db.getConexion();
-			pst = conn.prepareStatement(SQL_EXIST_USUARIO);
-			pst.setString(1, email);
-			pst.setString(2, password);
-			rs = pst.executeQuery();
+			cst = conn.prepareCall(sql);
+			cst.setString(1, email);
+			cst.setString(2, password);
+			rs = cst.executeQuery();
 			while (rs.next()) {
 				u = mapear(rs);
 			}
@@ -236,14 +227,13 @@ public class UsuarioDAO implements Persistable<Usuario> {
 	 */
 	public int count() {
 		int resul = -1;
-
-		PreparedStatement pst = null;
+		CallableStatement cst = null;
+		String sql= "{call existUsuario()}";
 		ResultSet rs = null;
 		try {
-
 			conn = db.getConexion();
-			pst = conn.prepareStatement(SQL_COUNT);
-			rs = pst.executeQuery();
+			cst = conn.prepareCall(sql);
+			rs = cst.executeQuery();
 			if (rs.next()) {
 				resul = rs.getInt("total");
 			}
@@ -260,16 +250,16 @@ public class UsuarioDAO implements Persistable<Usuario> {
 	public ArrayList<Usuario> getAllByName(String opcion) {
 		// TODO Auto-generated method stub
 		ArrayList<Usuario> list = null;
-
-		PreparedStatement pst = null;
+		CallableStatement cst = null;
+		String sql= "{call usuarioBuscarAllByNombre(?)}";
 		ResultSet rs = null;
 		try {
 			list = new ArrayList<Usuario>();
 			conn = db.getConexion();
-			pst = conn.prepareStatement(SQL_GET_ALL_BY_NOMBRE); // Mirar SQL
+			cst = conn.prepareCall(sql);
 			String rsText="%" + opcion + "%";
-			pst.setString(1, rsText); 
-			rs = pst.executeQuery();
+			cst.setString(1, rsText); 
+			rs = cst.executeQuery();
 			while (rs.next()) {
 				list.add(mapear(rs));
 			}
@@ -311,16 +301,16 @@ public class UsuarioDAO implements Persistable<Usuario> {
 	public ArrayList<Usuario> getAllByEmail(String opcion) {
 		// TODO Auto-generated method stub
 		ArrayList<Usuario> list = null;
-
-		PreparedStatement pst = null;
+		CallableStatement cst = null;
+		String sql= "{call usuarioBuscarAllByEmail(?)}";
 		ResultSet rs = null;
 		try {
 			list = new ArrayList<Usuario>();
 			conn = db.getConexion();
-			pst = conn.prepareStatement(SQL_GET_ALL_BY_EMAIL); // Mirar SQL
+			cst = conn.prepareCall(sql);
 			String rsText="%" + opcion + "%";
-			pst.setString(1, rsText); 
-			rs = pst.executeQuery();
+			cst.setString(1, rsText); 
+			rs = cst.executeQuery();
 			while (rs.next()) {
 				list.add(mapear(rs));
 			}
@@ -332,6 +322,11 @@ public class UsuarioDAO implements Persistable<Usuario> {
 			db.desconectar();
 		}
 		return list;
+	}
+	
+	public boolean comprobarIntegridad(String dni,String email)
+	{
+		return false;
 	}
 
 	private Usuario mapear(ResultSet rs) throws SQLException, VehiculoException {
