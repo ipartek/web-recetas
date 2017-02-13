@@ -41,7 +41,7 @@
         	
         	<label for="edad">Edad:</label>
         	<input type="number" name="edad" required 
-        		    value="${usuario.edad}"/>"	   
+        		    value="${usuario.edad}"/>	   
         	<br>
         	
         	<label for="email">Email:</label>

@@ -8,7 +8,7 @@
        <div class="container header-content">
            <div class="row">
                <div class="col-lg-12">
-               	<h1>Usuarios </h1>
+               	<h1>Listado Usuarios</h1>
                </div>
              </div>             
  		</div> 
@@ -21,7 +21,7 @@
         
        
        <a href="zona-segura/usuario?op=3">Crear Nuevo Usuario</a>
-       		<p>LISTADO DE USUARIOS:</p>
+       		<p>Mostrando 500 de <b>${total}</b></p>
 			
 			<table class="display data-table-mio" cellspacing="0" width="100%">
 	        <thead>

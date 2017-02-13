@@ -94,6 +94,7 @@ public class UsuarioController extends HttpServlet {
 				try {
 					// recoger parametros
 
+					id = Long.valueOf(request.getParameter("id"));
 					String pNombre = request.getParameter("nombre");
 					String pApellido1 = request.getParameter("apellido1");
 					String pApellido2 = request.getParameter("apellido2");
@@ -106,7 +107,7 @@ public class UsuarioController extends HttpServlet {
 
 					// crear Usuario
 					Usuario u = new Usuario();
-
+					u.setId(id);
 					u.setNombre(pNombre);
 					u.setApellido1(pApellido1);
 					u.setApellido2(pApellido2);
@@ -164,6 +165,8 @@ public class UsuarioController extends HttpServlet {
 				request.setAttribute("listaUsuario", service.listar());
 				dispatcher = request.getRequestDispatcher(VIEW_LIST);
 				break;
+
+			// OPERACION LISTAR por defecto
 			default:
 
 				request.setAttribute("listaUsuario", service.listar());
@@ -180,6 +183,7 @@ public class UsuarioController extends HttpServlet {
 
 		} finally {
 			System.out.println("FINALLYYY");
+			request.setAttribute("total", service.usuarioTotales());
 			request.setAttribute("msj", msj);
 			dispatcher.forward(request, response);
 		}
