@@ -148,26 +148,37 @@ public class UsuarioController extends HttpServlet {
 					u.setPassword(pPassword);
 					u.setImagen(pImagen);
 
-					// guardarlo o persistirlo en la bbdd
-					boolean guardado = false;
-					if (u.getId() == -1) {
-						guardado = service.darDeAlta(u);
-					} else {
-						guardado = service.modificar(u);
-					}
+					// comprobar que no exista el DNI o EMAIL que son UNICOS
+					if (service.comprobarIntegridad(u.getDni(), u.getEmail())) {
+						// guardarlo o persistirlo en la bbdd
+						boolean guardado = false;
+						if (u.getId() == -1) {
+							guardado = service.darDeAlta(u);
+						} else {
+							guardado = service.modificar(u);
+						}
 
-					// compobar guardado y gestion Mensaje
-					if (guardado) {
-						msj.setClase(Mensaje.CLASE_SUCCESS);
-						msj.setDescripcion("Usuario Guardado con Exito");
+						// compobar guardado y gestion Mensaje
+						if (guardado) {
+							msj.setClase(Mensaje.CLASE_SUCCESS);
+							msj.setDescripcion("Usuario Guardado con Exito");
+						} else {
+							msj.setClase(Mensaje.CLASE_WARNING);
+							msj.setDescripcion("No se ha podido Guardar el Usuario");
+						}
+
+						// cargar dispatch
+						request.setAttribute("listaUsuario", service.listar());
+						dispatcher = request.getRequestDispatcher(VIEW_LIST);
+
+						// DNI o EMAIL existen
 					} else {
 						msj.setClase(Mensaje.CLASE_WARNING);
-						msj.setDescripcion("No se ha podido Guardar el Usuario");
-					}
+						msj.setDescripcion("El DNI o el EMAIL deben ser únicos, por favor usa otro.");
 
-					// cargar dispatch
-					request.setAttribute("listaUsuario", service.listar());
-					dispatcher = request.getRequestDispatcher(VIEW_LIST);
+						request.setAttribute("usuario", u);
+						dispatcher = request.getRequestDispatcher(VIEW_FORM);
+					}
 
 				} catch (Exception e) {
 

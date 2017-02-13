@@ -23,14 +23,19 @@ public class UsuarioDAOTest {
 
 	static final int LIMITE_SELECT = 500;
 
+	static final String EMAIL_EXISTE = "dummy@dummy.com";
+	static final String EMAIL_NO_EXISTE = "a@a.aa";
+	static final String DNI_EXISTE = "12345678L";
+	static final String DNI_NO_EXISTE = "111";
+
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 
 		dao = UsuarioDAO.getInstance();
 		u = new Usuario();
-		u.setEmail("dummy@dummy.com");
+		u.setEmail(EMAIL_EXISTE);
 		u.setNombre("dummy");
-		u.setDni("12345678L");
+		u.setDni(DNI_EXISTE);
 		u.setPassword("123456");
 
 		// contar usuarios iniciales
@@ -57,7 +62,7 @@ public class UsuarioDAOTest {
 	public void testCountYgetAll() {
 
 		ArrayList<Usuario> listado = (ArrayList<Usuario>) dao.getAll();
-		assertEquals("getAll no funciona", LIMITE_SELECT, listado.size());
+		assertTrue("getAll no funciona", LIMITE_SELECT >= listado.size());
 
 		assertEquals("count no funciona", contador, dao.count());
 
@@ -107,6 +112,21 @@ public class UsuarioDAOTest {
 		assertNull("No deberia existir", uFracaso);
 		assertNull("Cuidadin con los null", uNull);
 
+	}
+
+	@Test
+	public void testComprobarIntegridad() {
+
+		assertFalse(dao.comprobarIntegridad(DNI_EXISTE, EMAIL_EXISTE));
+		assertFalse(dao.comprobarIntegridad(DNI_EXISTE, EMAIL_NO_EXISTE));
+		assertFalse(dao.comprobarIntegridad(DNI_NO_EXISTE, EMAIL_EXISTE));
+		assertFalse(dao.comprobarIntegridad(null, null));
+		assertFalse(dao.comprobarIntegridad(null, EMAIL_EXISTE));
+		assertFalse(dao.comprobarIntegridad(null, EMAIL_NO_EXISTE));
+		assertFalse(dao.comprobarIntegridad(DNI_NO_EXISTE, null));
+		assertFalse(dao.comprobarIntegridad(DNI_EXISTE, null));
+
+		assertTrue(dao.comprobarIntegridad(DNI_NO_EXISTE, EMAIL_NO_EXISTE));
 	}
 
 }

@@ -133,7 +133,6 @@ public class UsuarioDAO implements Persistable<Usuario> {
 
 	@Override
 	public boolean update(Usuario u) {
-		// TODO Auto-generated method stub
 		boolean resul = false;
 		PreparedStatement pst = null;
 		try {
@@ -252,6 +251,19 @@ public class UsuarioDAO implements Persistable<Usuario> {
 		} finally {
 			db.desconectar();
 		}
+		return resul;
+	}
+
+	/**
+	 * Comprobamos que no se repitan los valores de los campos 'unicos'.<br>
+	 * Las columnas DNI y EMAIL deben ser únicos.<br>
+	 * 
+	 * @param dni
+	 * @param email
+	 * @return true si no se repiten, false en caso de existir
+	 */
+	public boolean comprobarIntegridad(String dni, String email) {
+		boolean resul = false;
 		return resul;
 	}
 

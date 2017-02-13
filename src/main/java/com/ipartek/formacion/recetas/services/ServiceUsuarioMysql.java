@@ -71,4 +71,9 @@ public class ServiceUsuarioMysql implements ServiceUsuario {
 		return daoUsuario.filterByDni(dni);
 	}
 
+	@Override
+	public boolean comprobarIntegridad(String dni, String email) {
+		return daoUsuario.comprobarIntegridad(dni, email);
+	}
+
 }
