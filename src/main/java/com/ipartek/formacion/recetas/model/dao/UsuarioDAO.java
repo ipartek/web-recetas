@@ -228,16 +228,15 @@ public class UsuarioDAO implements Persistable<Usuario> {
 	public int count() {
 		int resul = -1;
 		CallableStatement cst = null;
-		String sql= "{call existUsuario()}";
+		String sql= "{call countUsuarios()}";
 		ResultSet rs = null;
 		try {
 			conn = db.getConexion();
 			cst = conn.prepareCall(sql);
 			rs = cst.executeQuery();
 			if (rs.next()) {
-				resul = rs.getInt("total");
+				resul = rs.getInt(1);
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -273,27 +272,26 @@ public class UsuarioDAO implements Persistable<Usuario> {
 		return list;
 	}
 	
-	public ArrayList<Usuario> getAllByDNI(String opcion) {
+	public Usuario getByDNI(String opcion) {
 		// TODO Auto-generated method stub
-		ArrayList<Usuario> list = null;
+		Usuario u = null;
 		CallableStatement cst = null;
 		String sql= "{call usuarioBuscarByDni(?)}";
 		ResultSet rs = null;
 		try {
-			list = new ArrayList<Usuario>();
 			conn = db.getConexion();
 			cst = conn.prepareCall(sql);
 			cst.setString(1, opcion);
 			rs=cst.executeQuery();
 			while (rs.next()) {
-				list.add(mapear(rs));
+				u=mapear(rs);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			db.desconectar();
 		}
-		return list;
+		return u;
 
 	}
 	
@@ -324,9 +322,29 @@ public class UsuarioDAO implements Persistable<Usuario> {
 		return list;
 	}
 	
-	public boolean comprobarIntegridad(String dni,String email)
+	public boolean comprobarIntegridad(String dni,String email,long id)
 	{
-		return false;
+		boolean existe=true;
+		CallableStatement cst = null;
+		String sql= "{call comprobarIntegridad(?,?,?)}";
+		ResultSet rs = null;
+		try {
+			conn = db.getConexion();
+			cst = conn.prepareCall(sql);
+			cst.setLong(1, id); 
+			cst.setString(2, dni); 
+			cst.setString(3, email); 
+			rs = cst.executeQuery();
+			if (rs.next()) {
+				existe=false;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} finally {
+			db.desconectar();
+		}
+		return existe;
 	}
 
 	private Usuario mapear(ResultSet rs) throws SQLException, VehiculoException {

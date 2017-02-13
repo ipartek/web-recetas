@@ -82,15 +82,21 @@ public class ServiceUsuarioMysql implements ServiceUsuario {
 	}
 
 	@Override
-	public ArrayList<Usuario> filtrarPorDni(String opcion) {
+	public Usuario filtrarPorDni(String opcion) {
 		// TODO Auto-generated method stub
-		return daoUsuario.getAllByDNI(opcion);
+		return daoUsuario.getByDNI(opcion);
 	}
 
 	@Override
 	public ArrayList<Usuario> filtrarPorEmail(String opcion) {
 		// TODO Auto-generated method stub
 		return daoUsuario.getAllByEmail(opcion);
+	}
+
+	@Override
+	public boolean comprobarIntegridad(String dni, String email,long id) {
+		// TODO Auto-generated method stub
+		return daoUsuario.comprobarIntegridad(dni, email,id);
 	}
 
 }

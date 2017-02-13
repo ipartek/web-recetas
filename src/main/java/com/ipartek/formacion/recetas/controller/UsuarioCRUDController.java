@@ -108,6 +108,9 @@ public class UsuarioCRUDController extends HttpServlet {
 
 					// crear Usuario
 					Usuario u = new Usuario();
+					if(request.getParameter("id")!=null){
+						u.setId(Long.parseLong(request.getParameter("id")));
+					}
 					u.setNombre(pNombre);
 					u.setApellido1(pApellido1);
 					u.setApellido2(pApellido2);
@@ -117,26 +120,35 @@ public class UsuarioCRUDController extends HttpServlet {
 					u.setPuesto(pPuesto);
 					u.setPassword(pPassword);
 					u.setImagen(pImagen);
-					// guardarlo o persistirlo en la bbdd
-					boolean guardado = false;
-					if (request.getParameter("crearModificar").equalsIgnoreCase("crear")) {
-						guardado = service.darDeAlta(u);
-					}else if (request.getParameter("crearModificar").equalsIgnoreCase("modificar")){
-						u.setId(Long.parseLong(request.getParameter("id")));
-						guardado = service.modificar(u);
-					}
-					// compobar guardado y gestion Mensaje
-					if (guardado) {
-						msj.setClase(Mensaje.CLASE_SUCCESS);
-						msj.setDescripcion("Usuario Guardado con Exito");
+					// comprobar que no exista el DNI o EMAIL que son UNICOS
+					if (service.comprobarIntegridad(u.getDni(), u.getEmail(),u.getId())) {
+						// guardarlo o persistirlo en la bbdd
+						boolean guardado = false;
+						if (request.getParameter("crearModificar").equalsIgnoreCase("crear")) {
+							guardado = service.darDeAlta(u);
+						} else if (request.getParameter("crearModificar").equalsIgnoreCase("modificar")) {
+							guardado = service.modificar(u);
+						}
+
+						// compobar guardado y gestion Mensaje
+						if (guardado) {
+							msj.setClase(Mensaje.CLASE_SUCCESS);
+							msj.setDescripcion("Usuario Guardado con Exito");
+						} else {
+							msj.setClase(Mensaje.CLASE_WARNING);
+							msj.setDescripcion("No se ha podido Guardar el Usuario");
+						}
+						// cargar dispatch
+						request.setAttribute("listaUsuario", service.listar());
+						dispatcher = request.getRequestDispatcher(VIEW_LIST);
+						// DNI o EMAIL EXISTEN
 					} else {
 						msj.setClase(Mensaje.CLASE_WARNING);
-						msj.setDescripcion("No se ha podido Guardar el Usuario");
-					}
+						msj.setDescripcion("El DNI o el EMAIL deben ser únicos, por favor usa otro.");
 
-					// cargar dispatch
-					request.setAttribute("listaUsuario", service.listar());
-					dispatcher = request.getRequestDispatcher(VIEW_LIST);
+						request.setAttribute("usuario", u);
+						dispatcher = request.getRequestDispatcher(VIEW_FORM);
+					}
 				} catch (Exception e) {
 
 					// si es Usuario creado, volver a recuperarlo para mostrar
@@ -167,39 +179,40 @@ public class UsuarioCRUDController extends HttpServlet {
 				ArrayList<Usuario> listaUsuario = new ArrayList<Usuario>();
 				String[] opcion = request.getParameterValues("optradio");
 				String textoIntroducido = request.getParameter("filtro");
-				
+
 				if (opcion[0].equalsIgnoreCase("Nombre")) {
-					listaUsuario=service.filtrarPorNombre(textoIntroducido);
+					listaUsuario = service.filtrarPorNombre(textoIntroducido);
 					if (!listaUsuario.isEmpty())
-						request.setAttribute("listaUsuario",listaUsuario );
+						request.setAttribute("listaUsuario", listaUsuario);
 					else {
 						msj.setClase(Mensaje.CLASE_WARNING);
-						msj.setDescripcion("Personas con el nombre "+textoIntroducido+" no encontrada.");
+						msj.setDescripcion("Personas con el nombre " + textoIntroducido + " no encontrada.");
 					}
 				} else if (opcion[0].equalsIgnoreCase("Dni")) {
 					if (textoIntroducido != null && textoIntroducido.length() == 9) {
-						listaUsuario = service.filtrarPorDni(textoIntroducido);
-						if (!listaUsuario.isEmpty())
+						Usuario u = service.filtrarPorDni(textoIntroducido);
+						if (u!=null){
+							listaUsuario.add(u);
 							request.setAttribute("listaUsuario", listaUsuario);
+						}
 						else {
 							msj.setClase(Mensaje.CLASE_WARNING);
-							msj.setDescripcion("Persona con el dni "+textoIntroducido+" no encontrada.");
+							msj.setDescripcion("Persona con el dni " + textoIntroducido + " no encontrada.");
 						}
 					} else {
 						msj.setClase(Mensaje.CLASE_WARNING);
 						msj.setDescripcion("Estructura DNI incorrecto: " + textoIntroducido);
 					}
 				} else if (opcion[0].equalsIgnoreCase("Email")) {
-					listaUsuario=service.filtrarPorEmail(textoIntroducido);
+					listaUsuario = service.filtrarPorEmail(textoIntroducido);
 					if (!listaUsuario.isEmpty())
-						request.setAttribute("listaUsuario",listaUsuario );
+						request.setAttribute("listaUsuario", listaUsuario);
 					else {
 						msj.setClase(Mensaje.CLASE_WARNING);
-						msj.setDescripcion("Personas con el email "+textoIntroducido+" no encontrada.");
+						msj.setDescripcion("Personas con el email " + textoIntroducido + " no encontrada.");
 					}
 				}
-				if(!listaUsuario.isEmpty())
-				{
+				if (!listaUsuario.isEmpty()) {
 					msj.setClase(Mensaje.CLASE_SUCCESS);
 					msj.setDescripcion("Filtrado realizado con exito:<br/>" + "<b>Filtrar por:</b> " + opcion[0]
 							+ "<br/><b>Texto introducido:</b> " + request.getParameter("filtro"));

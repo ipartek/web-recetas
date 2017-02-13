@@ -86,6 +86,10 @@
 		
 		<button type="submit" class="btn btn-primary" value="Crear">Enviar</button>
 	</form>  	
+	
+	 <a href="/zona-segura/usuario"><i
+		class="fa fa-chevron-circle-left fa-5x" title="Atras"
+		aria-hidden="true"></i> </a>
   
     </div> 
     <!--  <div class="row"> -->

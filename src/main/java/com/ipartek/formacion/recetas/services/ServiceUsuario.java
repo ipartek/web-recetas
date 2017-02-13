@@ -25,8 +25,10 @@ public interface ServiceUsuario {
 
 	ArrayList<Usuario> filtrarPorNombre(String opcion);
 
-	ArrayList<Usuario> filtrarPorDni(String parameter);
+	Usuario filtrarPorDni(String parameter);
 
 	ArrayList<Usuario> filtrarPorEmail(String parameter);
+
+	boolean comprobarIntegridad(String dni, String email, long id);
 
 }
