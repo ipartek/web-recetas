@@ -18,7 +18,6 @@ public class UsuarioDAO implements Persistable<Usuario> {
 	private static DataBaseConnectionImpl db;
 	private Connection conn;
 
-
 	private UsuarioDAO() {
 		db = DataBaseConnectionImpl.getInstance();
 	}
@@ -41,13 +40,13 @@ public class UsuarioDAO implements Persistable<Usuario> {
 		// TODO Auto-generated method stub
 		ArrayList<Usuario> list = null;
 		CallableStatement cst = null;
-		String sql= "{call getAll()}";
+		String sql = "{call getAll()}";
 		ResultSet rs = null;
 		try {
 			list = new ArrayList<Usuario>();
 			conn = db.getConexion();
 			cst = conn.prepareCall(sql);
-			rs=cst.executeQuery();
+			rs = cst.executeQuery();
 			while (rs.next()) {
 				list.add(mapear(rs));
 			}
@@ -66,13 +65,13 @@ public class UsuarioDAO implements Persistable<Usuario> {
 		// TODO Auto-generated method stu
 		Usuario u = null;
 		CallableStatement cst = null;
-		String sql= "{call usuarioBuscarById(?)}";
+		String sql = "{call usuarioBuscarById(?)}";
 		ResultSet rs = null;
 		try {
 			conn = db.getConexion();
 			cst = conn.prepareCall(sql);
 			cst.setLong(1, id);
-			rs=cst.executeQuery();
+			rs = cst.executeQuery();
 			while (rs.next()) {
 				u = mapear(rs);
 			}
@@ -89,7 +88,7 @@ public class UsuarioDAO implements Persistable<Usuario> {
 		// TODO Auto-generated method stub
 		boolean resul = false;
 		CallableStatement cst = null;
-		String sql= "{call createUsuario(?,?,?,?,?,?,?,?,?)}";
+		String sql = "{call createUsuario(?,?,?,?,?,?,?,?,?)}";
 		try {
 			conn = db.getConexion();
 			cst = conn.prepareCall(sql);
@@ -103,7 +102,7 @@ public class UsuarioDAO implements Persistable<Usuario> {
 			cst.setString(8, u.getPassword());
 			cst.setString(9, u.getImagen());
 			// insertamos Usuario
-			int affectedRows =cst.executeUpdate();
+			int affectedRows = cst.executeUpdate();
 			resul = true;
 			if (affectedRows == 1) {
 				// buscamos el ID generado
@@ -126,7 +125,7 @@ public class UsuarioDAO implements Persistable<Usuario> {
 		// TODO Auto-generated method stub
 		boolean resul = false;
 		CallableStatement cst = null;
-		String sql= "{call updateUsuarioById(?,?,?,?,?,?,?,?,?,?)}";
+		String sql = "{call updateUsuarioById(?,?,?,?,?,?,?,?,?,?)}";
 		try {
 			conn = db.getConexion();
 			cst = conn.prepareCall(sql);
@@ -150,7 +149,7 @@ public class UsuarioDAO implements Persistable<Usuario> {
 			db.desconectar();
 		}
 		return resul;
-		
+
 	}
 
 	@Override
@@ -158,7 +157,7 @@ public class UsuarioDAO implements Persistable<Usuario> {
 		// TODO Auto-generated method stub
 		boolean resul = false;
 		CallableStatement cst = null;
-		String sql= "{call deleteUsuarioById(?)}";
+		String sql = "{call deleteUsuarioById(?)}";
 		try {
 			conn = db.getConexion();
 			cst = conn.prepareCall(sql);
@@ -180,13 +179,13 @@ public class UsuarioDAO implements Persistable<Usuario> {
 		// TODO Auto-generated method stub
 		Usuario u = null;
 		CallableStatement cst = null;
-		String sql= "{call getUsuarioByEmail(?)}";
+		String sql = "{call getUsuarioByEmail(?)}";
 		ResultSet rs = null;
 		try {
 			conn = db.getConexion();
 			cst = conn.prepareCall(sql);
 			cst.setString(1, email);
-			rs=cst.executeQuery();
+			rs = cst.executeQuery();
 			while (rs.next()) {
 				u = mapear(rs);
 			}
@@ -201,7 +200,7 @@ public class UsuarioDAO implements Persistable<Usuario> {
 	public Usuario existe(String email, String password) {
 		Usuario u = null;
 		CallableStatement cst = null;
-		String sql= "{call existUsuario(?,?)}";
+		String sql = "{call existUsuario(?,?)}";
 		ResultSet rs = null;
 		try {
 			conn = db.getConexion();
@@ -228,12 +227,12 @@ public class UsuarioDAO implements Persistable<Usuario> {
 	public int count() {
 		int resul = -1;
 		CallableStatement cst = null;
-		String sql= "{call countUsuarios(?)}";
+		String sql = "{call countUsuarios(?)}";
 		ResultSet rs = null;
 		try {
 			conn = db.getConexion();
 			cst = conn.prepareCall(sql);
-			cst.registerOutParameter("total",java.sql.Types.INTEGER);
+			cst.registerOutParameter("total", java.sql.Types.INTEGER);
 			rs = cst.executeQuery();
 			if (rs.next()) {
 				resul = rs.getInt("total");
@@ -246,19 +245,19 @@ public class UsuarioDAO implements Persistable<Usuario> {
 		}
 		return resul;
 	}
-	
+
 	public ArrayList<Usuario> getAllByName(String opcion) {
 		// TODO Auto-generated method stub
 		ArrayList<Usuario> list = null;
 		CallableStatement cst = null;
-		String sql= "{call usuarioBuscarAllByNombre(?)}";
+		String sql = "{call usuarioBuscarAllByNombre(?)}";
 		ResultSet rs = null;
 		try {
 			list = new ArrayList<Usuario>();
 			conn = db.getConexion();
 			cst = conn.prepareCall(sql);
-			String rsText="%" + opcion + "%";
-			cst.setString(1, rsText); 
+			String rsText = "%" + opcion + "%";
+			cst.setString(1, rsText);
 			rs = cst.executeQuery();
 			while (rs.next()) {
 				list.add(mapear(rs));
@@ -272,20 +271,20 @@ public class UsuarioDAO implements Persistable<Usuario> {
 		}
 		return list;
 	}
-	
+
 	public Usuario getByDNI(String opcion) {
 		// TODO Auto-generated method stub
 		Usuario u = null;
 		CallableStatement cst = null;
-		String sql= "{call usuarioBuscarByDni(?)}";
+		String sql = "{call usuarioBuscarByDni(?)}";
 		ResultSet rs = null;
 		try {
 			conn = db.getConexion();
 			cst = conn.prepareCall(sql);
 			cst.setString(1, opcion);
-			rs=cst.executeQuery();
+			rs = cst.executeQuery();
 			while (rs.next()) {
-				u=mapear(rs);
+				u = mapear(rs);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -295,20 +294,19 @@ public class UsuarioDAO implements Persistable<Usuario> {
 		return u;
 
 	}
-	
 
 	public ArrayList<Usuario> getAllByEmail(String opcion) {
 		// TODO Auto-generated method stub
 		ArrayList<Usuario> list = null;
 		CallableStatement cst = null;
-		String sql= "{call usuarioBuscarAllByEmail(?)}";
+		String sql = "{call usuarioBuscarAllByEmail(?)}";
 		ResultSet rs = null;
 		try {
 			list = new ArrayList<Usuario>();
 			conn = db.getConexion();
 			cst = conn.prepareCall(sql);
-			String rsText="%" + opcion + "%";
-			cst.setString(1, rsText); 
+			String rsText = "%" + opcion + "%";
+			cst.setString(1, rsText);
 			rs = cst.executeQuery();
 			while (rs.next()) {
 				list.add(mapear(rs));
@@ -322,28 +320,29 @@ public class UsuarioDAO implements Persistable<Usuario> {
 		}
 		return list;
 	}
-	
-	public boolean comprobarIntegridad(String dni,String email,long id)
-	{
-		boolean existe=true;
-		CallableStatement cst = null;
-		String sql= "{call comprobarIntegridad(?,?,?)}";
-		ResultSet rs = null;
-		try {
-			conn = db.getConexion();
-			cst = conn.prepareCall(sql);
-			cst.setLong(1, id); 
-			cst.setString(2, dni); 
-			cst.setString(3, email); 
-			rs = cst.executeQuery();
-			if (rs.next()) {
-				existe=false;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
 
-		} finally {
-			db.desconectar();
+	public boolean comprobarIntegridad(String dni, String email, long id) {
+		boolean existe = true;
+		if (email != null && dni != null) {
+			CallableStatement cst = null;
+			ResultSet rs = null;
+			try {
+				String sql = "{call comprobarIntegridad(?,?,?)}";
+				conn = db.getConexion();
+				cst = conn.prepareCall(sql);
+				cst.setLong(1, id);
+				cst.setString(2, dni);
+				cst.setString(3, email.trim());
+				rs = cst.executeQuery();
+				if (rs.next()) {
+					existe = false;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+
+			} finally {
+				db.desconectar();
+			}
 		}
 		return existe;
 	}
@@ -362,10 +361,5 @@ public class UsuarioDAO implements Persistable<Usuario> {
 		u.setImagen(rs.getString("imagen"));
 		return u;
 	}
-
-
-
-
-
 
 }
