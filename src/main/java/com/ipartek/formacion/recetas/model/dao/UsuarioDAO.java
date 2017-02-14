@@ -228,14 +228,15 @@ public class UsuarioDAO implements Persistable<Usuario> {
 	public int count() {
 		int resul = -1;
 		CallableStatement cst = null;
-		String sql= "{call countUsuarios()}";
+		String sql= "{call countUsuarios(?)}";
 		ResultSet rs = null;
 		try {
 			conn = db.getConexion();
 			cst = conn.prepareCall(sql);
+			cst.registerOutParameter("total",java.sql.Types.INTEGER);
 			rs = cst.executeQuery();
 			if (rs.next()) {
-				resul = rs.getInt(1);
+				resul = rs.getInt("total");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
