@@ -32,6 +32,6 @@ public interface ServiceUsuario {
 
 	int usuarioTotales();
 
-	boolean comprobarIntegridad(String dni, String email);
+	boolean comprobarIntegridad(String email, String dni, long id);
 
 }

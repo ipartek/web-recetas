@@ -61,7 +61,7 @@
         	<br>
         	
         	<label for="imagen">Imagen:</label>
-        	<img alt="imagenUsu" src="${usuario.imagen}"><br/>
+        	<img alt="imagenUsu" class="imagen-peque" src="${usuario.imagen}"><br/>
         	<input type="text" name="imagen" required value="${usuario.imagen}">
         	<br>
             

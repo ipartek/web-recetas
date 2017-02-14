@@ -5,6 +5,11 @@
 	height: 256px;
 }
 
+.imagen-peque{
+	width: 150px;
+	height: 150px;
+}
+
 #about ul a{
 	color: #FFF;
 	font-size: 1.5em;

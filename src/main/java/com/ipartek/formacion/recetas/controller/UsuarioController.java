@@ -149,7 +149,7 @@ public class UsuarioController extends HttpServlet {
 					u.setImagen(pImagen);
 
 					// comprobar que no exista el DNI o EMAIL que son UNICOS
-					if (service.comprobarIntegridad(u.getDni(), u.getEmail())) {
+					if (service.comprobarIntegridad(u.getEmail(), u.getDni(), u.getId())) {
 						// guardarlo o persistirlo en la bbdd
 						boolean guardado = false;
 						if (u.getId() == -1) {

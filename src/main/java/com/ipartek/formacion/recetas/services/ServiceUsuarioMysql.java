@@ -72,8 +72,8 @@ public class ServiceUsuarioMysql implements ServiceUsuario {
 	}
 
 	@Override
-	public boolean comprobarIntegridad(String dni, String email) {
-		return daoUsuario.comprobarIntegridad(dni, email);
+	public boolean comprobarIntegridad(String email, String dni, long id) {
+		return daoUsuario.comprobarIntegridad(email, dni, id);
 	}
 
 }

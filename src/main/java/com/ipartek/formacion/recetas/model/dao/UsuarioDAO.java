@@ -255,15 +255,50 @@ public class UsuarioDAO implements Persistable<Usuario> {
 	}
 
 	/**
-	 * Comprobamos que no se repitan los valores de los campos 'unicos'.<br>
+	 * Comprobamos que no se repitan los valores de los campos 'unicos' en todos
+	 * los registros menos en el usuario a modificar.<br>
 	 * Las columnas DNI y EMAIL deben ser únicos.<br>
+	 * 
+	 * comprobarIntegridad
 	 * 
 	 * @param dni
 	 * @param email
+	 * @param id
+	 *            identificador usuario en base datos
 	 * @return true si no se repiten, false en caso de existir
 	 */
-	public boolean comprobarIntegridad(String dni, String email) {
+	public boolean comprobarIntegridad(String email, String dni, long id) {
 		boolean resul = false;
+		if (null != email && null != dni) {
+
+			CallableStatement cst = null;
+			ResultSet rs = null;
+			String sql = "{call comprobarIntegridad(?,?,?)}";
+			try {
+
+				conn = db.getConexion();
+				cst = conn.prepareCall(sql);
+				cst.setString(1, email.trim());
+				cst.setString(2, dni.trim());
+				cst.setLong(3, id);
+
+				rs = cst.executeQuery();
+				if (!rs.next()) {
+					resul = true;
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					db.desconectar();
+					rs.close();
+					cst.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
 		return resul;
 	}
 

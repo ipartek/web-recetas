@@ -30,7 +30,7 @@
 	rel="stylesheet">
 
 <!-- Custom -->
-<link href="css/custom.css" rel="stylesheet">
+<link href="css/custom.css?20170214V1" rel="stylesheet">
 
 <!-- Custom Fonts -->
 <link href="vendor/font-awesome/css/font-awesome.min.css"

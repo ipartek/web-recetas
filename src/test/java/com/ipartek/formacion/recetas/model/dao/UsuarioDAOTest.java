@@ -63,7 +63,6 @@ public class UsuarioDAOTest {
 
 		ArrayList<Usuario> listado = (ArrayList<Usuario>) dao.getAll();
 		assertTrue("getAll no funciona", LIMITE_SELECT >= listado.size());
-
 		assertEquals("count no funciona", contador, dao.count());
 
 	}
@@ -117,16 +116,31 @@ public class UsuarioDAOTest {
 	@Test
 	public void testComprobarIntegridad() {
 
-		assertFalse(dao.comprobarIntegridad(DNI_EXISTE, EMAIL_EXISTE));
-		assertFalse(dao.comprobarIntegridad(DNI_EXISTE, EMAIL_NO_EXISTE));
-		assertFalse(dao.comprobarIntegridad(DNI_NO_EXISTE, EMAIL_EXISTE));
-		assertFalse(dao.comprobarIntegridad(null, null));
-		assertFalse(dao.comprobarIntegridad(null, EMAIL_EXISTE));
-		assertFalse(dao.comprobarIntegridad(null, EMAIL_NO_EXISTE));
-		assertFalse(dao.comprobarIntegridad(DNI_NO_EXISTE, null));
-		assertFalse(dao.comprobarIntegridad(DNI_EXISTE, null));
+		final long ID_EXISTENTE = u.getId();
+		final long ID_NO_EXISTE = -1;
 
-		assertTrue(dao.comprobarIntegridad(DNI_NO_EXISTE, EMAIL_NO_EXISTE));
+		// comprobar usuario existente == update
+		assertTrue(dao.comprobarIntegridad(EMAIL_EXISTE, DNI_EXISTE, ID_EXISTENTE));
+		assertTrue(dao.comprobarIntegridad(EMAIL_NO_EXISTE, DNI_EXISTE, ID_EXISTENTE));
+		assertTrue(dao.comprobarIntegridad(EMAIL_EXISTE, DNI_NO_EXISTE, ID_EXISTENTE));
+		assertFalse(dao.comprobarIntegridad(null, null, ID_EXISTENTE));
+		assertFalse(dao.comprobarIntegridad(EMAIL_EXISTE, null, ID_EXISTENTE));
+		assertFalse(dao.comprobarIntegridad(EMAIL_NO_EXISTE, null, ID_EXISTENTE));
+		assertFalse(dao.comprobarIntegridad(null, DNI_NO_EXISTE, ID_EXISTENTE));
+		assertFalse(dao.comprobarIntegridad(null, DNI_EXISTE, ID_EXISTENTE));
+		assertTrue(dao.comprobarIntegridad(EMAIL_NO_EXISTE, DNI_NO_EXISTE, ID_EXISTENTE));
+
+		// comprobar usuario no existente == insert
+		assertFalse(dao.comprobarIntegridad(EMAIL_EXISTE, DNI_EXISTE, ID_NO_EXISTE));
+		assertFalse(dao.comprobarIntegridad(EMAIL_NO_EXISTE, DNI_EXISTE, ID_NO_EXISTE));
+		assertFalse(dao.comprobarIntegridad(EMAIL_EXISTE, DNI_NO_EXISTE, ID_NO_EXISTE));
+		assertFalse(dao.comprobarIntegridad(null, null, ID_NO_EXISTE));
+		assertFalse(dao.comprobarIntegridad(EMAIL_EXISTE, null, ID_NO_EXISTE));
+		assertFalse(dao.comprobarIntegridad(EMAIL_NO_EXISTE, null, ID_NO_EXISTE));
+		assertFalse(dao.comprobarIntegridad(null, DNI_NO_EXISTE, ID_NO_EXISTE));
+		assertFalse(dao.comprobarIntegridad(null, DNI_EXISTE, ID_NO_EXISTE));
+		assertTrue(dao.comprobarIntegridad(EMAIL_NO_EXISTE, DNI_NO_EXISTE, ID_NO_EXISTE));
+
 	}
 
 }
