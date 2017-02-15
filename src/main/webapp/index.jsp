@@ -9,11 +9,25 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <img class="img-responsive logo-home" src="img/profile.png" alt="logotipo de Web Recetas">
+                    
+                    	<% if ( user == null ){ %>              
+	                    	<img class="img-responsive logo-home" src="img/profile.png" alt="logotipo de Web Recetas">
+						<% }else{ %>
+	                    	<img class="img-responsive logo-home" src="${sessionScope.usuario.imagen}" alt="logotipo de Web Recetas">
+                   		<% } %>
+                    
                     <div class="intro-text">
-                        <span class="name">Komilones App</span>
-                        <hr class="star-light">
-                        <span class="skills">Sencillo, fácil y para toda la familia</span>
+                        
+                        <% if ( user == null ){ %>
+                           	<span class="name">Komilones APP</span>
+                        	<hr class="star-light">
+                        	<span class="skills">Recetas ricas ricas</span>
+	                    <% }else{ %>
+                    		<span class="name">${sessionScope.usuario.nombre}</span>
+                        	<hr class="star-light">
+                        	<span class="skills">Bienvenida/o de nuevo</span>
+                   		<% } %>
+                         
                     </div>
                 </div>
             </div>

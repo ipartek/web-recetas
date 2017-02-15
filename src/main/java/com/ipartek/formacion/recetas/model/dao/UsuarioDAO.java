@@ -278,8 +278,8 @@ public class UsuarioDAO implements Persistable<Usuario> {
 
 				conn = db.getConexion();
 				cst = conn.prepareCall(sql);
-				cst.setString(1, email.trim());
-				cst.setString(2, dni.trim());
+				cst.setString(1, dni.trim());
+				cst.setString(2, email.trim());
 				cst.setLong(3, id);
 
 				rs = cst.executeQuery();

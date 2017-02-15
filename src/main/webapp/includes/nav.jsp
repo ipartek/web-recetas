@@ -40,7 +40,7 @@
                     <% }else{ %>
                     
                     	<li class="page-scroll">
-                   		   <a href="logout">(${sessionScope.usuario.nombre})Cerrar[X]</a>
+                   		   <a href="logout">Cerrar sesi&oacute;n</a>
                    		<li class="page-scroll"> 
                    		
                     <% } %>
